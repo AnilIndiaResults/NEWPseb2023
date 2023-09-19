@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="firmdata_onlineDataSet">
@@ -807,7 +807,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>                            ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø (§ÆÅ Ó¨ÞÐ)) ÓèÖÓÅ 2023-24              </Value>
+                        <Value>                            ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø (§ÆÅ Ó¨ÞÐ)) ÌØÏ° 2021                    </Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>18pt</FontSize>
@@ -889,8 +889,8 @@
                     <TextRuns>
                       <TextRun>
                         <Value>¼ÓÂÛ¨ ¨Û¼Ø ²ÙÂØ Õè Ú¨: -
-1. Ú¥Õ ¤ÚÄ¤èÅ ¨ã×ÂÏ ÉëÏ¸ ÒóÐë× ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÓÖèÓÅ 2023-24 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
-2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÛ ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÓÖèÓÅ 2023-24 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã §ÆÅ Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, Ó¨ÞÐ Âã ÂØªÐØ ªØÏ² ÏÚ²Ó¶Ï ¤¼ã ¤ó∙ÒÛ× Âã ÓÏ¶ÛÚÇ¨ã¶ ²Ù Íë¬¼Ø ÓÖÏ¶ÛÚÇ¨ã¶ ¤ÅÞÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¤¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
+1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÌØÏ° 2021 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
+2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÛ ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÌØÏ° 2021 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã §ÆÅ Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, Ó¨ÞÐ Âã ÂØªÐØ ªØÏ² ÏÚ²Ó¶Ï ¤¼ã ¤ó∙ÒÛ× Âã ÓÏ¶ÛÚÇ¨ã¶ ²Ù Íë¬¼Ø ÓÖÏ¶ÛÚÇ¨ã¶ ¤ÅÞÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¤¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
 3. ÓØÏã ÆÏÛÚª¤ØÏÁÛ PCP ÂïÏØÅ 75% ÕØ²ÖÏÛ¤Ù ÆÞÏÛ¤Ù ¨ÏÂã ÕÅ ¤¼ã °â¬ã ¤Ø°Ï» ÒØÐã ÕÅ¢
 4. Ú¥Õ ÆÏÛÚª¤ØÏÁÛ ¨Âã ÒÛ Ú¨Óã ÉëÏ¸ ÒóÐë× ¤»¦ÝÚ°ó¼ ºâ¬ ÒÏ¼» ¨ØÏÅ ¤Íë¬ ¨ÏØÏ ÅÕÛ× ÚÂó¼ã ¬¥ã</Value>
                         <Style>
@@ -910,8 +910,10 @@
 7. Õã∙ ÚÐªÛ¤Ù Íë¬¼ØÒÙ ÓÉâÄÛ ÓÖÏ¼Ù  ÚÒó°ë× ÕÏ Ú¥ó¨ ¦ÝÌÛÂÒØÏ ®ó¶ë ®ó¶ Ú¥ó¨ ÓÖÏ¼ ÆÞÏÛ ¨ÏÂØ Õè¢
    ¦. Ú¥Õ ÉëÏ¸ ÂÛ ¤ó∙ÒÛ× ÆÏÛÚª¤Ø ²Ù Ú¥Ó Âã ÉÏØÉÏ ÂÛ ÆÏÛÚª¤Ø Âë ÓØÐ ÆÚÕÐÙ ÆØÓ ¨Ï °óÝ¨ã ÕÅ ¤¼ã ÅëÒÛ× ÂÛ ÆÏÛÚª¤Ø ÓÏ¨ØÏÛ/ÌØÅ¼Ø ÆñØÆ¼ / ¤èÓëÓÛ¥ã¶¸ Ó¨ÞÐ ¼ë×              Ïè¬ÝÐÏ ¼ïÏ ¼ã ÆØÓ ¨Û¼Û Õè¢
    ¤. Ú¥Õ ÉëÏ¸ ÂÛ ÌèÚ¶ñ¨ÝÐãÔÅ / Óè¨â¸ÏÛ Ó¨ÞÐ ÆÏÛÚª¤Ø ÚÒó°ë× ÆÚÕÐÙ ÇãÐ Õë °Ýó¨ã ÕÅ¢                          
-   Ó . ÆñÛÚª¤ÏÁÛ ÂØªÐØ Ðè» ÒØÐã ÓØÐ 31 ÌØÏ° ÅÞâ 15 ÓØÐ ÂÛ ¦ÝÌÏ ÆÞÏÛ ¨ÏÂØ Õè¢ 
-</Value>
+   Ó . ÆñÛÚª¤ÏÁÛ ÂØªÐØ ÐèÂ ÒØÐã ÓØÐ 31 ÌØÏ° ÅÞâ 15 ÓØÐ ÂÛ ¦ÝÌÏ ÆÞÏÛ ¨ÏÂØ Õè¢ 
+8. ÆÏÛÚª¤Ø ¨ã×ÂÏ : (¼Ï²ÛÕ ¤ÅÝÓØÏ)
+   1. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 2................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ
+   3. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 4.................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1639,7 +1641,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>¤ÚÄ¤èÅ ¨ã×ÂÏ ÌÝªÛ Âã ÕÓ¼ØªÏ ¤¼ã ÌëÕÏ</Value>
+                        <Value>Ó¨ÞÐ ÌÝªÛ Âã ÕÓ¼ØªÏ ¤¼ã ÌëÕÏ</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontWeight>Bold</FontWeight>
@@ -2344,38 +2346,6 @@ Late Fee
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Textbox Name="Textbox5">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                        <Style>
-                          <Color>DarkGreen</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox5</rd:DefaultName>
-                <Top>9.91528in</Top>
-                <Left>0.18625in</Left>
-                <Height>0.25in</Height>
-                <Width>2.02351in</Width>
-                <ZIndex>13</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>8.52097in</Top>
@@ -2721,7 +2691,7 @@ Punjab-160062</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Matriculation Examination (Open School) Session 2023-24 Exam Form Details:</Value>
+                    <Value>Matriculation Examination (Open School) March 2023 Exam Form Details:</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -3678,7 +3648,7 @@ The Head Master / Head Mistress / Principal</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Matriculation Examination (Open School) Session 2023-24</Value>
+                    <Value>Matriculation Examination (Open School) March-2021</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -5136,7 +5106,7 @@ The Head Master / Head Mistress / Principal</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Signature of Study Center Head (With Stamp)</Value>
+                    <Value>Signature of School Head (With Stamp)</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>arial</FontFamily>
@@ -5197,7 +5167,7 @@ The Head Master / Head Mistress / Principal</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Matriculation Examination (Open School) Session 2023-24         Set : </Value>
+                    <Value>Matriculation Examination (Open School) March-2021          Set : </Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -6372,12 +6342,6 @@ The Head Master / Head Mistress / Principal</Value>
                                         <FontFamily>Tahoma</FontFamily>
                                       </Style>
                                     </TextRun>
-                                    <TextRun>
-                                      <Value> Show % age</Value>
-                                      <Style>
-                                        <FontFamily>Tahoma</FontFamily>
-                                      </Style>
-                                    </TextRun>
                                   </TextRuns>
                                   <Style />
                                 </Paragraph>
@@ -7276,7 +7240,7 @@ The Head Master / Head Mistress / Principal</Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Matriculation Examination Form (Open School) Session 2023-24</Value>
+                                      <Value>Matriculation Examination Form (Open School) March 2023</Value>
                                       <Style>
                                         <FontFamily>arial</FontFamily>
                                         <FontSize>14pt</FontSize>
@@ -7395,7 +7359,7 @@ The Head Master / Head Mistress / Principal</Value>
                               <Top>15.01485cm</Top>
                               <Left>0.12895cm</Left>
                               <Height>0.20574in</Height>
-                              <Width>3.80523in</Width>
+                              <Width>7.61179in</Width>
                               <ZIndex>53</ZIndex>
                               <Style>
                                 <Border>
@@ -8281,37 +8245,6 @@ The Head Master / Head Mistress / Principal</Value>
                                 </Border>
                               </Style>
                             </Textbox>
-                            <Textbox Name="Textbox70">
-                              <CanGrow>true</CanGrow>
-                              <KeepTogether>true</KeepTogether>
-                              <Paragraphs>
-                                <Paragraph>
-                                  <TextRuns>
-                                    <TextRun>
-                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                  </TextRuns>
-                                  <Style>
-                                    <TextAlign>Left</TextAlign>
-                                  </Style>
-                                </Paragraph>
-                              </Paragraphs>
-                              <rd:DefaultName>Textbox14</rd:DefaultName>
-                              <Top>15.01839cm</Top>
-                              <Left>9.79762cm</Left>
-                              <Height>0.20574in</Height>
-                              <Width>3.80523in</Width>
-                              <ZIndex>69</ZIndex>
-                              <Style>
-                                <Border>
-                                  <Style>None</Style>
-                                </Border>
-                                <BackgroundColor>LightGrey</BackgroundColor>
-                              </Style>
-                            </Textbox>
                           </ReportItems>
                           <KeepTogether>true</KeepTogether>
                           <ZIndex>18</ZIndex>
@@ -8592,7 +8525,7 @@ The Head Master / Head Mistress / Principal</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Signature of Study Center Head (With Stamp)</Value>
+                    <Value>Signature of School Head (With Stamp)</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>arial</FontFamily>
@@ -9139,70 +9072,6 @@ Total Candidates </Value>
                 <Color>Black</Color>
                 <Width>1pt</Width>
               </RightBorder>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox7">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                    <Style>
-                      <Color>DarkGreen</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>23.37527in</Top>
-            <Left>0.16923in</Left>
-            <Height>0.25in</Height>
-            <Width>2.02351in</Width>
-            <ZIndex>32</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox13">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                    <Style>
-                      <Color>DarkGreen</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>27.88436in</Top>
-            <Left>0.08305in</Left>
-            <Height>0.25in</Height>
-            <Width>2.02351in</Width>
-            <ZIndex>33</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>

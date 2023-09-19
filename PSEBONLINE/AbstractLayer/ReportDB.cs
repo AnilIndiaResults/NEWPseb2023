@@ -952,8 +952,7 @@ namespace PSEBONLINE.AbstractLayer
 
         #endregion ClassSubjectWiseExaminationReport
 
-
-        #region ClassSubjectWiseRegistrationReport
+        #region ClassSubjectWiseExaminationReport
         public DataSet ClassSubjectWiseRegistrationReportSP(int type, string RP, string DIST, int cls)
         {
             DataSet result = new DataSet();
@@ -981,8 +980,7 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
-        #endregion ClassSubjectWiseRegistrationReport
-
+        #endregion ClassSubjectWiseExaminationReport
 
         #region EAffiliationApplicationsReceivedReport
         public DataSet EAffiliationApplicationsReceivedReport(int type,string DIST, int cls, string Search)

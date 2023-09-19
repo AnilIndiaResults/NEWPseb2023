@@ -371,9 +371,7 @@
                     <thead>
                         <tr>
                             <td width="10%"></td>
-                            
                             <td width="10%">8th</td>
-                             
                             <td width="10%">9th</td>
                             <td width="10%">10th</td>
                             <td width="10%">11th</td>
@@ -382,11 +380,38 @@
                     </thead>
                     <tr>
                         <td width="20%">Count of Students</td>
-                        <td width="6%">@Html.DisplayFor(a => a.ipf.Count8th, new { })</td>
-                        <td width="6%">@Html.DisplayFor(a => a.ipf.Count9th, new { })</td>
-                        <td width="6%">@Html.DisplayFor(a => a.ipf.Count10th, new { })</td>
-                        <td width="6%">@Html.DisplayFor(a => a.ipf.Count11th, new { })</td>
-                        <td width="6%">@Html.DisplayFor(a => a.ipf.Count12th, new { })</td>
+                        
+                        <td width="6%">
+                            @if (!string.IsNullOrEmpty(Model.ipf.Count8th) && Model.ipf.Count8th != "NULL" && Model.ipf.Count8th != null)
+                            {
+                                @Html.DisplayFor(a => a.ipf.Count8th, new { })
+                            }
+
+                           </td>
+                        <td width="6%">
+                            @if (!string.IsNullOrEmpty(Model.ipf.Count9th) && Model.ipf.Count9th != "NULL" && Model.ipf.Count9th != null)
+                            {
+                                @Html.DisplayFor(a => a.ipf.Count9th, new { })
+                            }
+                            </td>
+                        <td width="6%">
+                            @if (!string.IsNullOrEmpty(Model.ipf.Count10th) && Model.ipf.Count10th != "NULL" && Model.ipf.Count10th != null)
+                            {
+                                @Html.DisplayFor(a => a.ipf.Count10th, new { })
+                            }
+                            </td>
+                        <td width="6%">
+                            @if (!string.IsNullOrEmpty(Model.ipf.Count11th) && Model.ipf.Count11th != "NULL" && Model.ipf.Count11th != null)
+                            {
+                                @Html.DisplayFor(a => a.ipf.Count11th, new { })
+                            }
+                            </td>
+                        <td width="6%">
+                            @if (!string.IsNullOrEmpty(Model.ipf.Count12th) && Model.ipf.Count12th != "NULL" && Model.ipf.Count12th != null)
+                            {
+                                @Html.DisplayFor(a => a.ipf.Count12th, new { })
+                            }
+                            </td>
                     </tr>
                 </table>
             </td>
@@ -514,7 +539,12 @@
         <tr>
 
             <th>No. of A4 and Legal Paper Rim in stock for printing purpose</th>
-            <td>@Html.DisplayFor(a => a.ipf.Col41, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.Col41) && Model.ipf.Col41 != "NULL" && Model.ipf.Col41 != null)
+                {
+                    @Html.DisplayFor(a => a.ipf.Col41, new { })
+                }
+                </td>
             <th> </th>
             <td></td>
             <th>Invertor</th>
@@ -589,13 +619,13 @@
                                 <tr>
                                     <td width="10%">8th</td>
                                     <td width="10%">@item.CENT,@item.schlnme </td>
-                                    <td>@if (!string.IsNullOrEmpty( Model.ipf.Statisfied8th))
-                                    {
-                                        @Html.DisplayFor(a => a.ipf.Statisfied8th, new { })
-                                    }
-                                    
-                                   
-                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(Model.ipf.Statisfied8th) && Model.ipf.Statisfied8th != "NULL" && Model.ipf.Statisfied8th != null)
+                                        {
+                                            @Html.DisplayFor(a => a.ipf.Statisfied8th, new { })
+                                        }
+
+                                        </td>
                                     <td>@if(!string.IsNullOrEmpty(Model.ipf.SchoolCenterNewFor8th) && Model.ipf.SchoolCenterNewFor8th!="NULL" && Model.ipf.SchoolCenterNewFor8th!=null)
                                     {
                                         @Html.DisplayFor(a => a.ipf.SchoolCenterNewFor8th, new { })
@@ -720,27 +750,56 @@
         </tr>
         <tr>
             <td>School Name1</td>
-            <td>@Html.DisplayFor(a => a.ipf.SchoolName1, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.SchoolName1) && Model.ipf.SchoolName1 != "NULL" && Model.ipf.SchoolName1 != null) {
+                    @Html.DisplayFor(a => a.ipf.SchoolName1, new { })
+                   }
+                </td>
             <td></td>
             <td></td>
             <td>Distance From The School 1</td>
-            <td>@Html.DisplayFor(a => a.ipf.DistanceFromTheSchool1, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.DistanceFromTheSchool1) && Model.ipf.DistanceFromTheSchool1 != "NULL" && Model.ipf.DistanceFromTheSchool1 != null)
+                {
+                    @Html.DisplayFor(a => a.ipf.DistanceFromTheSchool1, new { })
+                }
+                </td>
         </tr>
         <tr>
             <td>School Name2</td>
-            <td>@Html.DisplayFor(a => a.ipf.SchoolName2, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.SchoolName2) && Model.ipf.SchoolName2 != "NULL" && Model.ipf.SchoolName2 != null)
+                { 
+                    @Html.DisplayFor(a => a.ipf.SchoolName2, new { })
+                 }
+                </td>
             <td></td>
             <td></td>
             <td>Distance From The School 2</td>
-            <td>@Html.DisplayFor(a => a.ipf.DistanceFromTheSchool2, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.DistanceFromTheSchool2) && Model.ipf.DistanceFromTheSchool2 != "NULL" && Model.ipf.DistanceFromTheSchool2 != null)
+                {
+                    @Html.DisplayFor(a => a.ipf.DistanceFromTheSchool2, new { })
+                }
+                </td>
         </tr>
         <tr>
             <td>School Name3</td>
-            <td>@Html.DisplayFor(a => a.ipf.SchoolName3, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.SchoolName3) && Model.ipf.SchoolName3 != "NULL" && Model.ipf.SchoolName3 != null)
+                {
+                    @Html.DisplayFor(a => a.ipf.SchoolName3, new { })
+                }
+                </td>
             <td></td>
             <td></td>
             <td>Distance From The School 3</td>
-            <td>@Html.DisplayFor(a => a.ipf.DistanceFromTheSchool3, new { })</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.ipf.DistanceFromTheSchool3) && Model.ipf.DistanceFromTheSchool3 != "NULL" && Model.ipf.DistanceFromTheSchool3 != null)
+                {
+                    @Html.DisplayFor(a => a.ipf.DistanceFromTheSchool3, new { })
+                }
+                </td>
         </tr>
 
     </table>
