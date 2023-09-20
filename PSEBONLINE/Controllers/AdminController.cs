@@ -7524,7 +7524,7 @@ namespace PSEBONLINE.Controllers
                             Directory.CreateDirectory(FilepathExist);
                         }
                         //Photo.SaveAs(path);
-                        imgPhoto = "Upload2023/Open2022/Photo/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_P.jpg";
+                        imgPhoto = "allfiles/Upload2023/Open2022/Photo/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_P.jpg";
 
                         string Orgfile = openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_P.jpg";
 
@@ -7560,7 +7560,7 @@ namespace PSEBONLINE.Controllers
                             Directory.CreateDirectory(FilepathExist);
                         }
                         //Sign.SaveAs(path);
-                        imgSign = "Upload2023/Open2022/Sign/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_S.jpg";
+                        imgSign = "allfiles/Upload2023/Open2022/Sign/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_S.jpg";
                         string Orgfile = openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_S.jpg";
                         using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                         {
@@ -7568,7 +7568,7 @@ namespace PSEBONLINE.Controllers
                             {
                                 var uploadRequest = new TransferUtilityUploadRequest
                                 {
-                                    InputStream = Photo.InputStream,
+                                    InputStream = Sign.InputStream,
                                     Key = string.Format("allfiles/Upload2023/Open2022/Sign/{0}", Orgfile),
 
                                     BucketName = BUCKET_NAME,
