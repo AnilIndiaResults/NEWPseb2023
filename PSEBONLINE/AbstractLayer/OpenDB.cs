@@ -1206,6 +1206,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@HOMEDISTNM", _openUserLogin.HOMEDISTNM.ToUpper());
                 cmd.Parameters.AddWithValue("@correctionid", _openUserLogin.correctionid.ToUpper());
                 cmd.Parameters.AddWithValue("@correction_dt", _openUserLogin.correction_dt);
+                
                 try
                 {
                     con.Open();
@@ -3702,6 +3703,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@PMNAME", _openUserRegistration.PMNAME);
                 cmd.Parameters.AddWithValue("@DOB", _openUserRegistration.DOB.ToUpper());
                 cmd.Parameters.AddWithValue("@PHY_CHAL", _openUserRegistration.PHY_CHAL.ToUpper());
+                cmd.Parameters.AddWithValue("@DisabilityPercent", _openUserRegistration.DisabilityPercent);
                 cmd.Parameters.AddWithValue("@SEX", _openUserRegistration.SEX.ToUpper());
                 cmd.Parameters.AddWithValue("@CASTE", _openUserRegistration.CASTE.ToUpper());
                 cmd.Parameters.AddWithValue("@RELIGION", _openUserRegistration.RELIGION.ToUpper());
