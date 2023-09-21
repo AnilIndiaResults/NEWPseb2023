@@ -1323,5 +1323,53 @@ namespace PSEBONLINE.Controllers
             response.returncode = outError;
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ValidateRequestID(string requestID, string CandName)
+        {
+
+
+            string schoolName = "";
+            string formName = "";
+            string cls = "";
+            string candName = "";
+            string status = "";
+            string ApprovalUp = "";
+            string DateForMax = "";
+            try
+            {
+                DataSet result = RegistrationDB.ValidateRequestId(requestID, CandName);
+                schoolName = result.Tables[0].Rows[0]["Schl"].ToString();
+                formName = result.Tables[0].Rows[0]["Form"].ToString();
+                candName = result.Tables[0].Rows[0]["candName"].ToString();
+                cls = result.Tables[0].Rows[0]["Class"].ToString();
+                status = result.Tables[0].Rows[0]["status"].ToString();
+                ApprovalUp = result.Tables[0].Rows[0]["ApprovalUpto"].ToString();
+                DateTime currDate = DateTime.Now;
+                //string Data = result.Tables[0].Rows[0]["status"].ToString();
+                DateTime date1 = Convert.ToDateTime(ApprovalUp);
+                if (date1 > currDate)
+                {
+                    DateForMax = currDate.ToString();
+                }
+                else
+                {
+                    DateForMax = date1.ToString();
+                }
+
+
+                return Json(new { schoolName = schoolName, formName = formName, candName = candName, status = status, cls = cls, ApprovalUp = DateForMax }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { schoolName = schoolName, formName = formName, candName = candName, status = status, cls = cls, ApprovalUp = ApprovalUp }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
     }
 }

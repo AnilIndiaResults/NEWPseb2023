@@ -16,24 +16,24 @@ else { Response.Redirect("~/Admin"); }
     <div class="row">
         @using (Html.BeginForm("Admin_School_Infrastructure", "School", FormMethod.Post, new { id = "searchform" }))
         {
-            if (ViewBag.MyDist != null)
-            {
-                @*required = "required"*@
-                <div class="col-md-2">@Html.DropDownList("Dist1", new SelectList(ViewBag.MyDist, "Value", "Text", ViewBag.SelectedDist), "--All District---", new { @class = "" })</div>
-                <div class="col-md-2">
-                    <select id="SearchBy">
-                        <option>All</option>
-                        <option>School Code</option>
-                    </select>
-                </div>
-                <div class="col-md-2"><input type="text" id="SearchString" name="SearchString" value="@Request["SearchString"]" /></div>
-                <div class="col-md-2">
-                    <input type="submit" value="Search" /> <input type="submit" name="btn" value="Reset" formaction="CancelForm" formmethod="post" />
-                </div>
-                <div class="col-md-2">
-                  <input type="submit" name="Unlock" value="Unlock" formmethod="post" />
-                </div>
-            }
+        if (ViewBag.MyDist != null)
+        {
+        @*required = "required"*@
+        <div class="col-md-2">@Html.DropDownList("Dist1", new SelectList(ViewBag.MyDist, "Value", "Text", ViewBag.SelectedDist), "--All District---", new { @class = "" })</div>
+        <div class="col-md-2">
+            <select id="SearchBy">
+                <option>All</option>
+                <option>School Code</option>
+            </select>
+        </div>
+        <div class="col-md-2"><input type="text" id="SearchString" name="SearchString" value="@Request[" SearchString"]" /></div>
+        <div class="col-md-2">
+            <input type="submit" value="Search" /> <input type="submit" name="btn" value="Reset" formaction="CancelForm" formmethod="post" />
+        </div>
+        <div class="col-md-2">
+            <input type="submit" name="Unlock" value="Unlock" formmethod="post" />
+        </div>
+        }
         }
     </div>
     <div class="clearfix"></div>
@@ -52,52 +52,52 @@ else { Response.Redirect("~/Admin"); }
                     </tr>
                     @{
 
-                        if (ViewBag.TotalCount > 0)
-                        {
-                            int d = 0;
-                            int Count = 0;
+                    if (ViewBag.TotalCount > 0)
+                    {
+                    int d = 0;
+                    int Count = 0;
 
-                            for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
-                            {
-                                d = d + 1;
-                                var SCHL = Model.StoreAllData.Tables[0].Rows[i]["SCHL"].ToString();
-                                //var SCHLE = Model.StoreAllData.Tables[0].Rows[i]["SCHLE"].ToString();
-                                //var DISTE = Model.StoreAllData.Tables[0].Rows[i]["DISTE"].ToString();
-                                //var EstablishmentYear = Model.StoreAllData.Tables[0].Rows[i]["EstablishmentYear"].ToString();
-                                Count = Count + 1;
-                                <tr>
-                                    <td>
-                                        @SCHL
+                    for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
+                    {
+                    d = d + 1;
+                    var SCHL = Model.StoreAllData.Tables[0].Rows[i]["SCHL"].ToString();
+                    //var SCHLE = Model.StoreAllData.Tables[0].Rows[i]["SCHLE"].ToString();
+                    //var DISTE = Model.StoreAllData.Tables[0].Rows[i]["DISTE"].ToString();
+                    //var EstablishmentYear = Model.StoreAllData.Tables[0].Rows[i]["EstablishmentYear"].ToString();
+                    Count = Count + 1;
+                    <tr>
+                        <td>
+                            @SCHL
 
-                                    </td>
-                                    <td>
-                                        @*@SCHLE*@
-                                    </td>
-                                    <td>
-                                        @*@EstablishmentYear*@
-                                    </td>
-                                    <td>
-                                        @*@DISTE*@
-                                    </td>
-                                    <td>
-                                        <div class="cart">
-                                            <a href='/School/ViewInfrasturePerformaAdminView?SCHL=@SCHL'>View</a>
-                                        </div>
-                                    </td>
-                                </tr>
+                        </td>
+                        <td>
+                            @*@SCHLE*@
+                        </td>
+                        <td>
+                            @*@EstablishmentYear*@
+                        </td>
+                        <td>
+                            @*@DISTE*@
+                        </td>
+                        <td>
+                            <div class="cart">
+                                <a href='/School/ViewInfrasturePerformaAdminView?SCHL=@SCHL'>View</a>
+                            </div>
+                        </td>
+                    </tr>
 
-                            }
-                        }
-                        else
-                        {
-                            <tr>
-                                <td colspan="5">
-                                    No Record found
-                                </td>
+                    }
+                    }
+                    else
+                    {
+                    <tr>
+                        <td colspan="5">
+                            No Record found
+                        </td>
 
 
-                            </tr>
-                        }
+                    </tr>
+                    }
                     }
 
                 </table>
@@ -275,27 +275,28 @@ else { Response.Redirect("~/Admin"); }
     });
 </script>
 
-@*<script type='text/javascript'>
-        var isCtrl = false;
-        document.onkeyup = function (e) {
-            if (e.which == 17)
-                isCtrl = false;
-        }
-        document.onkeydown = function (e) {
-            if (e.which == 17)
-                isCtrl = true;
-        }
-        var isNS = (navigator.appName == "Netscape") ? 1 : 0;
-        if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
-        function mischandler() {
-            return false;
-        }
-        function mousehandler(e) {
-            var myevent = (isNS) ? e : event;
-            var eventbutton = (isNS) ? myevent.which : myevent.button;
-            if ((eventbutton == 2) || (eventbutton == 3)) return false;
-        }
-        document.oncontextmenu = mischandler;
-        document.onmousedown = mousehandler;
-        document.onmouseup = mousehandler;
-    </script>*@
+@*
+<script type='text/javascript'>
+    var isCtrl = false;
+    document.onkeyup = function (e) {
+        if (e.which == 17)
+            isCtrl = false;
+    }
+    document.onkeydown = function (e) {
+        if (e.which == 17)
+            isCtrl = true;
+    }
+    var isNS = (navigator.appName == "Netscape") ? 1 : 0;
+    if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
+    function mischandler() {
+        return false;
+    }
+    function mousehandler(e) {
+        var myevent = (isNS) ? e : event;
+        var eventbutton = (isNS) ? myevent.which : myevent.button;
+        if ((eventbutton == 2) || (eventbutton == 3)) return false;
+    }
+    document.oncontextmenu = mischandler;
+    document.onmousedown = mousehandler;
+    document.onmouseup = mousehandler;
+</script>*@

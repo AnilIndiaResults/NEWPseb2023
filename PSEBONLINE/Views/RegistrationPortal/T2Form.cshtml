@@ -57,14 +57,14 @@
         </div>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.Board_Roll_Num, new
-                             {
-                                 id = "txtboardroll",
-                                 @maxlength = "15",
-                                 onpaste = "return false;",
-                                 oncopy = "return false;",
-                                 oncut = "return false;",
-                                 onkeypress = "return isNumberKey(event);"
-                             })
+            {
+                id = "txtboardroll",
+                @maxlength = "15",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;",
+                onkeypress = "return isNumberKey(event);"
+            })
         </div>
 
 
@@ -130,15 +130,15 @@
         <div class="col-md-2"><span id="Roll"> Matric Roll No.<span class="rqf">*</span></span></div>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.Metric_Roll_Num, new
-       {
-           id = "txtMetricroll",
-           @maxlength = "10",
-           onpaste = "return false;",
-           oncopy = "return false;",
-           oncut = "return false;",
-           //onkeypress = "return isMetricRollNum(event);"
-           onkeypress = "return isNumberOnly(event);"
-       })
+            {
+                id = "txtMetricroll",
+                @maxlength = "10",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;",
+                //onkeypress = "return isMetricRollNum(event);"
+                onkeypress = "return isNumberOnly(event);"
+            })
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
@@ -169,25 +169,25 @@
         <div class="clearfix"></div>
         <div class="col-md-2">
             Admission Date <span class="rqf">*</span><br />
-            <span style="display:none"> @Html.CheckBoxFor(m => m.IsLateAdm, new { id = "IsLAdm" })Is Late Admission </span>
+            <span style="display:block"> @Html.CheckBoxFor(m => m.IsLateAdm, new { id = "IsLAdm" })Is Late Admission </span>
         </div>
         <div class="col-md-2" id="LadmSpn" style="visibility:hidden">
-            @Html.TextBoxFor(m => m.requestID, new { id = "requestID", @maxlength = "10", placeholder = "Enter Request ID" })
+            @Html.TextBoxFor(m => m.requestID, new { id = "requestID", @maxlength = "8", placeholder = "Enter Request ID" })
         </div>
         <div id="divadmdate" class="col-md-2">
             @Html.TextBoxFor(m => m.Admission_Date, "{0:dd/MM/yyyy}", new
-   {
-       id = "txtadmisndate",
+            {
+                id = "txtadmisndate",
                 @placeholder = "Select Admission Date",
-       @readonly = "readonly",
-       @maxlength = "10",
-       //onkeypress = "javascript: return false;",
-       onpaste = "return false;",
-       oncopy = "return false;",
-       oncut = "return false;"
+                @readonly = "readonly",
+                @maxlength = "10",
+                //onkeypress = "javascript: return false;",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;"
 
-       //onkeydown = "return false;"
-   })
+                //onkeydown = "return false;"
+            })
         </div>
 
 
@@ -199,14 +199,14 @@
             <div class="row">
                 <div class="col-md-9">
                     @Html.TextBoxFor(m => m.Class_Roll_Num_Section, new
-               {
-                   id = "txt_CurrentClassRollNumber",
-                   @maxlength = "3",
-                   onpaste = "return false;",
-                   oncopy = "return false;",
-                   oncut = "return false;",
-                   onkeypress = "return isNumberOnly(event);"
-               })
+                    {
+                        id = "txt_CurrentClassRollNumber",
+                        @maxlength = "3",
+                        onpaste = "return false;",
+                        oncopy = "return false;",
+                        oncut = "return false;",
+                        onkeypress = "return isNumberOnly(event);"
+                    })
                 </div>
 
                 <div class="col-md-3">
@@ -231,17 +231,17 @@
         </div>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.Candi_Name_P, new
-   {
-       id = "Candi_Name_P",
-       @maxlength = "50",
-       @class = "keyboardInput",
-       onKeyPress = "javascript:convertThis(event)",
-       onpaste = "return false;",
-       oncopy = "return false;",
-       oncut = "return false;",
-       onclick = "toggleKBMode1(event)",
-       lang = "pa"
-   })
+            {
+                id = "Candi_Name_P",
+                @maxlength = "50",
+                @class = "keyboardInput",
+                onKeyPress = "javascript:convertThis(event)",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;",
+                onclick = "toggleKBMode1(event)",
+                lang = "pa"
+            })
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
@@ -254,17 +254,17 @@
         </div>
         <div class="col-md-4 kdsfont">
             @Html.TextBoxFor(m => m.Father_Name_P, new
-{
-   id = "Father_Name_P",
-   @maxlength = "50",
-   @class = "keyboardInput",
-   onKeyPress = "javascript:convertThis(event)",
-   onpaste = "return false;",
-   oncopy = "return false;",
-   oncut = "return false;",
-   onclick = "toggleKBMode1(event)",
-   lang = "pa"
-})
+            {
+                id = "Father_Name_P",
+                @maxlength = "50",
+                @class = "keyboardInput",
+                onKeyPress = "javascript:convertThis(event)",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;",
+                onclick = "toggleKBMode1(event)",
+                lang = "pa"
+            })
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
@@ -276,16 +276,16 @@
         </div>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.Mother_Name_P, new
-                 {
-                     id = "Mother_Name_P",
-                     @class = "keyboardInput",
-                     onKeyPress = "javascript:convertThis(event)",
-                     onpaste = "return false;",
-                     oncopy = "return false;",
-                     oncut = "return false;",
-                     onclick = "toggleKBMode1(event)",
-                     lang = "pa"
-                 })
+            {
+                id = "Mother_Name_P",
+                @class = "keyboardInput",
+                onKeyPress = "javascript:convertThis(event)",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;",
+                onclick = "toggleKBMode1(event)",
+                lang = "pa"
+            })
         </div>
         <div class="clearfix"></div>
         <div class="col-md-2">
@@ -421,16 +421,16 @@
         </div>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.DOB, new
-                {
-                    id = "DOB",
-                    @readonly = "readonly",
-                    @maxlength = "10",
-                    onkeypress = "javascript: return false;",
-                    onpaste = "return false;",
-                    oncopy = "return false;",
-                    oncut = "return false;"
+            {
+                id = "DOB",
+                @readonly = "readonly",
+                @maxlength = "10",
+                onkeypress = "javascript: return false;",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;"
 
-                })
+            })
             @Html.HiddenFor(m => m.DOB)
         </div>
         <div class="col-md-2">
@@ -438,15 +438,15 @@
         </div>
         <div class="col-md-4">
             @Html.TextBoxFor(m => m.Mobile, new
-           {
-               id = "txt_mobileno",
-               @maxlength = "10",
-               onpaste = "return false;",
-               oncopy = "return false;",
-               oncut = "return false;",
-               onkeypress = "return isNumberOnly(event);",
-               onkeyup = "check(); return false;"
-           })
+            {
+                id = "txt_mobileno",
+                @maxlength = "10",
+                onpaste = "return false;",
+                oncopy = "return false;",
+                oncut = "return false;",
+                onkeypress = "return isNumberOnly(event);",
+                onkeyup = "check(); return false;"
+            })
 
         </div>
         <div class="clearfix"></div>
@@ -574,14 +574,14 @@
                 </div>
                 <div class="col-md-4">
                     @Html.TextBoxFor(m => m.PinCode, new
-                                 {
-                                     id = "txt_pincode",
-                                     @maxlength = "6",
-                                     onpaste = "return false;",
-                                     oncopy = "return false;",
-                                     oncut = "return false;",
-                                     onkeypress = "return isNumberKey(event);"
-                                 })
+                    {
+                        id = "txt_pincode",
+                        @maxlength = "6",
+                        onpaste = "return false;",
+                        oncopy = "return false;",
+                        oncut = "return false;",
+                        onkeypress = "return isNumberKey(event);"
+                    })
                 </div>
             </div>
         </div>
@@ -812,16 +812,16 @@
                             </td>
                         </tr>
                         @*<tr>
-                            <td>
-                                <span>5.</span>
-                            </td>
-                            <td>
-                                @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
-                            </td>
-                            <td style="display:none">
-                                @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
-                            </td>
-                        </tr>*@
+                                <td>
+                                    <span>5.</span>
+                                </td>
+                                <td>
+                                    @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
+                                </td>
+                                <td style="display:none">
+                                    @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
+                                </td>
+                            </tr>*@
 
 
 
@@ -1113,16 +1113,16 @@
                             </td>
                         </tr>
                         @*<tr>
-                            <td>
-                                <span>5.</span>
-                            </td>
-                            <td>
-                                @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
-                            </td>
-                            <td style="display:none">
-                                @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
-                            </td>
-                        </tr>*@
+                                <td>
+                                    <span>5.</span>
+                                </td>
+                                <td>
+                                    @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
+                                </td>
+                                <td style="display:none">
+                                    @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
+                                </td>
+                            </tr>*@
 
 
                         <tr>
@@ -1429,16 +1429,16 @@
                         </tr>
 
                         @*<tr>
-                            <td>
-                                <span>5.</span>
-                            </td>
-                            <td>
-                                @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
-                            </td>
-                            <td style="display:none">
-                                @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
-                            </td>
-                        </tr>*@
+                                <td>
+                                    <span>5.</span>
+                                </td>
+                                <td>
+                                    @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
+                                </td>
+                                <td style="display:none">
+                                    @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
+                                </td>
+                            </tr>*@
                         <tr>
                             <td>
                                 <span>5.</span>
@@ -1587,14 +1587,14 @@
                             </td>
                             <td style="display:none">
                                 @*@{
-                    List<SelectListItem> voccm2 = new List<SelectListItem>();
+                                        List<SelectListItem> voccm2 = new List<SelectListItem>();
 
-                    voccm2.Add(new SelectListItem { Text = "Medium", Value = "Medium" });
-                    voccm2.Add(new SelectListItem { Text = "ENGLISH", Value = "ENGLISH" });
-                    voccm2.Add(new SelectListItem { Text = "HINDI", Value = "HINDI" });
-                }
+                                        voccm2.Add(new SelectListItem { Text = "Medium", Value = "Medium" });
+                                        voccm2.Add(new SelectListItem { Text = "ENGLISH", Value = "ENGLISH" });
+                                        voccm2.Add(new SelectListItem { Text = "HINDI", Value = "HINDI" });
+                                    }
 
-                @Html.DropDownList("vocm2", voccm2, new { })*@
+                                    @Html.DropDownList("vocm2", voccm2, new { })*@
                                 @Html.DropDownList("vocm2", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
 
                             </td>
@@ -1655,14 +1655,14 @@
                         </tr>
                         <tr>
                             @*<td>
-                                <span>5.</span>
-                            </td>
-                            <td>
-                                @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
-                            </td>
-                            <td style="display:none">
-                                @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
-                            </td>*@
+                                    <span>5.</span>
+                                </td>
+                                <td>
+                                    @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
+                                </td>
+                                <td style="display:none">
+                                    @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
+                                </td>*@
 
                             <td>
                                 <span>5.</span>
@@ -1919,16 +1919,16 @@
                             </td>
                         </tr>
                         @*<tr>
-                            <td>
-                                <span>5.</span>
-                            </td>
-                            <td>
-                                @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
-                            </td>
-                            <td style="display:none">
-                                @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
-                            </td>
-                        </tr>*@
+                                <td>
+                                    <span>5.</span>
+                                </td>
+                                <td>
+                                    @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
+                                </td>
+                                <td style="display:none">
+                                    @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
+                                </td>
+                            </tr>*@
 
                         <tr>
                             <td>
@@ -2133,16 +2133,16 @@
                         </tr>
 
                         @*<tr>
-                            <td>
-                                <span>5.</span>
-                            </td>
-                            <td>
-                                @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
-                            </td>
-                            <td style="display:none">
-                                @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
-                            </td>
-                        </tr>*@
+                                <td>
+                                    <span>5.</span>
+                                </td>
+                                <td>
+                                    @Html.DropDownList("ssWEL", new SelectList(ViewBag.SubWEL, "Value", "Text"), new { @class = "" })
+                                </td>
+                                <td style="display:none">
+                                    @Html.DropDownList("smWEL", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
+                                </td>
+                            </tr>*@
 
                         <tr>
                             <td>
@@ -2338,7 +2338,7 @@
                 alert('NSQF Subject Missing in Subject List');
             </script>
         }
-       
+
         else if (ViewData["result"].ToString() == "20")
         {
             <script type="text/javascript" language="javascript">
@@ -2410,7 +2410,7 @@
              $("#MetricYear").empty();
              var selectedVal = $("#ddlcategory").val();
              var selectedddlyearVal = $("#ddlyear").val();
-        
+
              var selectedCat = { SelCat: selectedVal, SelYear: selectedddlyearVal};
          $.ajax({
             url: '@Url.Action("BindMatricYearByCategory", "RegistrationPortal")',
@@ -2886,17 +2886,26 @@
             if ($(this).prop("checked") == true) {
                 //alert("test");
                 $('#LadmSpn').css("visibility", "visible");
+                $('#txtadmisndate').val();
+                $('#txtadmisndate').prop("disabled", true);
+
+
                 //$('#divadmdate').css("class","col-md-2");
             }
             else {
                 $('#LadmSpn').css("visibility", "hidden");
+
+                $('#txtadmisndate').prop("disabled", false);
+                $('#txtadmisndate').css("background-color", "white");
+
                 //$('#divadmdate').css("class","col-md-4");
+                 $("#txtadmisndate").datepicker('option', 'maxDate', '@ViewBag.LateAdmDate');
                 $("#requestID").val('');
-                $("#txtadmisndate").datepicker('option', 'maxDate', '@ViewBag.LateAdmDate');
+                $('#txtadmisndate').val("");
             }
         });
 
-        $('#requestID').change(function () {
+        @*$('#requestID').change(function () {
             var selectedText = { RID: $("#requestID").val() };
             //var maxd='01/01/2020'; alert(maxd);
             //$("#txtadmisndate").datepicker('option', 'maxDate', new Date(maxd) );
@@ -2911,7 +2920,7 @@
                     $("#txtadmisndate").datepicker('option', 'maxDate', result);
                 }
             });
-        });
+        });*@
     });
 </script>
 <script type="text/javascript">
@@ -3981,7 +3990,7 @@
                 }
                 else {
                     document.getElementById("Registrationnum").style.visibility = 'hidden';
-                    
+
                 }
             }
 
@@ -4328,6 +4337,14 @@
 
 
 <script type="text/javascript">
+
+    var candidateName = "";
+    var Schoolcode = "";
+    var cls = "";
+    var formname = "";
+    var ApprovalUp;
+
+
             $(document).ready(function () {
 
                 $("#MyDist").change(function () {
@@ -4363,7 +4380,118 @@
                         }
                     });
                 });
+
+                $("#requestID").on("focusout", function () {
+
+                var requestId = $("#requestID").val();
+                var CandName = $("#Candi_Name").val();
+
+    // Get input value using jQuery
+
+                    if (requestId.length === 8) {
+
+                        $("#requestID").prop("disabled", true);
+
+                        var Data = "";
+
+                        var requestData = { requestID: requestId, CandName: CandName }; // Use the correct variable
+                        $.ajax({
+                            url: '@Url.Action("ValidateRequestID", "Master")',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            dataType: 'json',
+                            data: JSON.stringify(requestData),
+                            success: function (Data) { // Use 'data' as the parameter
+
+                                if (Data.status != "OK") {
+                                    $("#requestID").prop("disabled", false);
+                                    $("#txtadmisndate").prop("disabled", true);
+                                    
+                                    document.getElementById("txtadmisndate").value = "";
+                                    document.getElementById("requestID").value = "";
+                                    $("#txtadmisndate").css("background-color", "#555");
+                                    alert(Data.status);
+
+                                }
+                                else {
+                                    $("#txtadmisndate").css("background-color", "white");
+                                    $("#requestID").prop("disabled", false);
+
+                                    candidateName = Data.candName;
+                                    Schoolcode = Data.schoolName;
+                                    cls = Data.cls;
+                                    formname = Data.formName;
+                                    ApprovalUp = Data.ApprovalUp;
+
+                                    $("#txtadmisndate").prop("disabled", false);
+                                    $("#txtadmisndate").datepicker('option', 'maxDate', ApprovalUp);
+                                    if (CandName != "" && CandName != null) {
+                                        checkCandidateName();
+                                    }
+
+                                }
+
+                            },
+                            error: function (error) {
+
+                                console.error('API Error:', error);
+                                $("#requestID").prop("disabled", false);
+                            }
+                        });
+                    }
+                    else {
+                        alert("Please Enter 8 digit RequestId");
+                        $("#requestID").val('');
+                    }
+                
+        });
+
             });
+
+
+    function checkCandidateName() {
+        if ($("#IsLAdm").prop("checked") == true && $("#requestID").val()!="" ) {
+            cndName = $("#Candi_Name").val();
+            if ($("#requestID").val().length != 8) {
+                alert("Please Enter Valid RequestId");
+                document.getElementById("txtadmisndate").value = "";
+                document.getElementById("requestID").value = "";
+                document.getElementById("Candi_Name").value = "";
+                document.getElementById("Candi_Name_P").value = "";
+                $("#txtadmisndate").prop("disabled", true);
+                $("#txtadmisndate").css("background-color", "#555");
+                $("#requestID").focus();
+
+            }
+            else {
+                if (formname != "T2") {
+                    alert("Invalid Form !!..")
+                    document.getElementById("txtadmisndate").value = "";
+                    document.getElementById("requestID").value = "";
+                    document.getElementById("Candi_Name").value = "";
+                    document.getElementById("Candi_Name_P").value = "";
+                    $("#txtadmisndate").prop("disabled", true);
+                    $("#txtadmisndate").css("background-color", "#555");
+
+                }
+                if (cndName != candidateName) {
+                    alert("Particular Name Not Matched !!..")
+                    document.getElementById("txtadmisndate").value = "";
+                    document.getElementById("requestID").value = "";
+                    document.getElementById("Candi_Name").value = "";
+                    document.getElementById("Candi_Name_P").value = "";
+                    $("#txtadmisndate").prop("disabled", true);
+                    $("#txtadmisndate").css("background-color", "#555");
+
+
+
+                }
+            }
+
+
+        }
+    }
+
 </script>
 <script type="text/javascript">
             function valForm() {
@@ -4388,6 +4516,9 @@
                         if (result.sn == 0) {
                             //alert("Late Admission Data verified Successfully.");
                             alert("Late Admission Data Not Matched, Please try again!!.");
+                            document.getElementById("requestID").focus();
+                            return false;
+                          
                             //document.getElementById("requestID").focus();
                         }
                     }
@@ -4459,7 +4590,7 @@
 
 
 
-                
+
                 var chkPsebreg = document.getElementById("IsPSEBRegNum");
 
                 if (chkPsebreg.checked == true) {
@@ -4769,7 +4900,7 @@
                         document.getElementById("aadharnum").checked = true
                         return false;
                     }
-                } 
+                }
                 var ddlCandiMedium = document.getElementById("CandiMedium");
                 if (ddlCandiMedium.value == "0" || ddlCandiMedium.value == "") {
                     alert("Select Candidate Medium");
@@ -4946,7 +5077,7 @@
                     //    coms9.focus();
                     //    return false;
                     //}
-                    
+
                 }
                 //----------------------------End COMMERCE------------//
 
@@ -5248,7 +5379,7 @@ if (hs5.value != "" && hs6.value != "" && hs7.value != "" || hs8.value != "") {
                     //    vs8.focus();
                     //    return false;
                     //}
-                    
+
 
                     if (vs5.value != "" && vs6.value != "" && vs7.value != "" && vs8.value != "") {
 

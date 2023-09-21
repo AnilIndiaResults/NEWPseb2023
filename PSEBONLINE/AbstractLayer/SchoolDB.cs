@@ -6447,8 +6447,6 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
         #endregion REGOPENPracticalExamCentre
-
-
         #region unlockperformaa
         public static DataSet UnloackPerforma(string SchlCode)
         {
@@ -6473,6 +6471,5 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
         #endregion
-
     }
 }

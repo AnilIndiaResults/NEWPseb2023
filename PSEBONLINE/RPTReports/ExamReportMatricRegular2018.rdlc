@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="firmdata_onlineDataSet">
@@ -441,10 +441,6 @@
           <DataField>MobileStd</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IsWantselfcenter">
-          <DataField>IsWantselfcenter</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="c1">
           <DataField>c1</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -609,7 +605,7 @@
           <DataField>totalstudent</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="StudyMediumEngligh">
+		    <Field Name="StudyMediumEngligh">
           <DataField>StudyMediumEngligh</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
@@ -837,7 +833,7 @@
                       </TextRun>
                       <TextRun>
                         <Value>
- ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø (Ïè¬ÞÐÏ) ÓèÓÖÅ 2023-24
+ ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø (Ïè¬ÞÐÏ) ÓèÓÖÅ 2022-23
      ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇØÏÌÙ ÅØÐ Êã²» Ð¥Û ÓÞ°ÅÙ Æó¼Ï ¤¼ã ÓÏ¶ÛÚÇ¨ã¶</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
@@ -891,8 +887,8 @@
                     <TextRuns>
                       <TextRun>
                         <Value>¼ÓÂÛ¨ ¨Û¼Ø ²ÙÂØ Õè Ú¨: -
-1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÓèÓÖÅ 2023-24 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
-2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÛ ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÓèÓÖÅ 2023-24 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã Ïè¬ÞÐÏ Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, Ó¨ÞÐ Âã ÂØªÐØ ªØÏ² ÏÚ²Ó¶Ï ¤¼ã ¤ó∙ÒÛ× Âã ÓÏ¶ÛÚÇ¨ã¶ ¤ÅÝÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¤¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
+1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÌØÏ° 2021 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
+2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÛ ÌèÚ¶ñ¨ ÆÏÛÚª¤Ø ÌØÏ° 2021 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã Ïè¬ÞÐÏ Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, Ó¨ÞÐ Âã ÂØªÐØ ªØÏ² ÏÚ²Ó¶Ï ¤¼ã ¤ó∙ÒÛ× Âã ÓÏ¶ÛÚÇ¨ã¶ ¤ÅÝÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¤¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
 3. ÓØÏã ÆÏÛÚª¤ØÏÁÛ PCP ÂïÏØÅ 75% ÕØ²ÖÏÛ¤Ù ÆÞÏÛ¤Ù ¨ÏÂã ÕÅ ¤¼ã °â¬ã ¤Ø°Ï» ÒØÐã ÕÅ¢</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
@@ -912,7 +908,9 @@
 7. Õã∙ ÚÐªÛ¤Ù Íë¬¼ØÒÙ ÓÉâÄÛ ÓÖÏ¼Ù  ÚÒó°ë× ÕÏ Ú¥ó¨ ¦ÝÌÛÂÒØÏ ®ó¶ë ®ó¶ Ú¥ó¨ ÓÖÏ¼ ÆÞÏÛ ¨ÏÂØ Õè¢
    ¦. Ú¥Õ ¤ó∙ÒÛ× ÆÏÛÚª¤Ø ²Ù Ú¥Ó Âã ÉÏØÉÏ ÂÛ ÆÏÛÚª¤Ø Âë ÓØÐ ÆÚÕÐÙ ÆØÓ ¨Ï °óÝ¨ã ÕÅ ¤¼ã ÅëÒÛ× ÂÛ ÆÏÛÚª¤Ø ÓÏ¨ØÏÛ/ÌØÅ¼Ø ÆñØÆ¼ / ¤èÓëÓÛ¥ã¶¸ Ó¨ÞÐ ¼ë× Ïè¬ÝÐÏ                ¼ïÏ ¼ã ÆØÓ ¨Û¼Û Õè¢
    ¤. Ú¥Õ ÉëÏ¸ ÂÛ ÌèÚ¶ñ¨ÝÐãÔÅ / Óè¨â¸ÏÛ Ó¨ÞÐ ÆÏÛÚª¤Ø ÚÒó°ë× ÆÚÕÐÙ ÇãÐ Õë °Ýó¨ã ÕÅ¢    
-        </Value>
+8. ÆÏÛÚª¤Ø ¨ã×ÂÏ : (¼Ï²ÛÕ ¤ÅÝÓØÏ)
+        1. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 2................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ
+        3. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 4.................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -925,7 +923,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>8. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
+                        <Value>9. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -2281,40 +2279,6 @@ Late Fee  </Value>
                   <PaddingBottom>1pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Textbox Name="Textbox1">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
-                        <Style>
-                          <FontFamily>PNB-TTAmarEN</FontFamily>
-                          <FontSize>14pt</FontSize>
-                          <FontWeight>Bold</FontWeight>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox1</rd:DefaultName>
-                <Top>9.94028in</Top>
-                <Left>3.73833in</Left>
-                <Height>0.25in</Height>
-                <Width>3.94789in</Width>
-                <ZIndex>13</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>8.78139in</Top>
@@ -2660,7 +2624,7 @@ Punjab-160062</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Matriculation Examination (Regular) Session 2023-24 Exam Form Details:</Value>
+                    <Value>Matriculation Examination (Regular) Session 2022-23 Exam Form Details:</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -3463,7 +3427,7 @@ The Head Master / Head Mistress / Principal</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Matriculation Examination (Regular) Session 2023-24</Value>
+                    <Value>Matriculation Examination (Regular) Session 2022-23</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -4348,7 +4312,7 @@ The Head Master / Head Mistress / Principal</Value>
             <Top>25.80945in</Top>
             <Left>0.11599in</Left>
             <Height>0.60416in</Height>
-            <Width>7.59764in</Width>
+            <Width>7.59765in</Width>
             <ZIndex>16</ZIndex>
             <Style>
               <Border>
@@ -4845,7 +4809,7 @@ The Head Master / Head Mistress / Principal</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Signature of Study Center Head (With Stamp)</Value>
+                    <Value>Signature of School Head (With Stamp)</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>arial</FontFamily>
@@ -4910,7 +4874,7 @@ The Head Master / Head Mistress / Principal</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Matriculation Examination (Regular) Session 2023-24</Value>
+                    <Value>Matriculation Examination (Regular) Session 2022-23</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>14pt</FontSize>
@@ -6886,7 +6850,7 @@ Set : </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Matriculation Examination Form (Regular) Session 2023-24</Value>
+                                      <Value>Matriculation Examination Form (Regular) Session 2022-23</Value>
                                       <Style>
                                         <FontFamily>arial</FontFamily>
                                         <FontSize>16pt</FontSize>
@@ -7029,13 +6993,14 @@ Set : </Value>
                             </Textbox>
                             <Image Name="Image1">
                               <Source>External</Source>
-                              <Value>=Fields!std_photo.Value</Value>
+                              <Value>=Parameters!ImgPath.Value + Fields!std_photo.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>2.64135in</Top>
                               <Left>5.70305in</Left>
                               <Height>1.95833in</Height>
                               <Width>1.85155in</Width>
                               <ZIndex>53</ZIndex>
+                              <ToolTip>Photo</ToolTip>
                               <Style>
                                 <Border>
                                   <Style>Solid</Style>
@@ -7044,7 +7009,7 @@ Set : </Value>
                             </Image>
                             <Image Name="Image2">
                               <Source>External</Source>
-                              <Value>=Fields!std_sign.Value</Value>
+                              <Value>= Parameters!ImgPath.Value + Fields!std_sign.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>7.53051in</Top>
                               <Left>2.39722in</Left>
@@ -7867,7 +7832,20 @@ Roll No. </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value EvaluationMode="Constant" />
+                                      <Value>Issue Hard Copy of Certificate : </Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!IsHardCopyCertificate.Value</Value>
+                                      <Style>
+                                        <FontFamily>Tahoma</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value xml:space="preserve">  </Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
@@ -7880,9 +7858,9 @@ Roll No. </Value>
                               </Paragraphs>
                               <rd:DefaultName>Textbox14</rd:DefaultName>
                               <Top>14.41817cm</Top>
-                              <Left>9.65669cm</Left>
+                              <Left>9.87814cm</Left>
                               <Height>0.20574in</Height>
-                              <Width>3.87821in</Width>
+                              <Width>3.78394in</Width>
                               <ZIndex>69</ZIndex>
                               <Style>
                                 <Border>
@@ -8044,7 +8022,7 @@ Roll No. </Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox611</rd:DefaultName>
-            <Top>56.00577cm</Top>
+            <Top>56.06927cm</Top>
             <Left>0.15901in</Left>
             <Height>1.5195in</Height>
             <Width>3.50242in</Width>
@@ -8171,7 +8149,7 @@ Roll No. </Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Signature of Study Center Head (With Stamp)</Value>
+                    <Value>Signature of School Head (With Stamp)</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>arial</FontFamily>
@@ -8185,7 +8163,7 @@ Roll No. </Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox610</rd:DefaultName>
-            <Top>22.04952in</Top>
+            <Top>22.07452in</Top>
             <Left>4.55677in</Left>
             <Height>1.63408in</Height>
             <Width>3.14619in</Width>
@@ -9202,74 +9180,6 @@ Total Candidates </Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox16">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
-                    <Style>
-                      <FontFamily>PNB-TTAmarEN</FontFamily>
-                      <FontSize>14pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>29.27159in</Top>
-            <Left>3.01465in</Left>
-            <Height>0.25in</Height>
-            <Width>1.73858in</Width>
-            <ZIndex>37</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox21">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
-                    <Style>
-                      <FontFamily>PNB-TTAmarEN</FontFamily>
-                      <FontSize>14pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>23.59402in</Top>
-            <Left>0.22476in</Left>
-            <Height>0.25in</Height>
-            <Width>1.73858in</Width>
-            <ZIndex>38</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
         </ReportItems>
         <Height>39.70985in</Height>
         <Style />
@@ -9288,7 +9198,7 @@ Total Candidates </Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>="Page " &amp; Globals!PageNumber &amp;" Of " &amp;Globals!TotalPages</Value>
+						<Value>="Page " &amp; Globals!PageNumber &amp;" Of " &amp;Globals!TotalPages</Value>
                       <Style />
                     </TextRun>
                     <TextRun>
@@ -9325,7 +9235,7 @@ Total Candidates </Value>
                       <Style />
                     </TextRun>
                     <TextRun>
-                      <Value>=Cdate(FormatDateTime(Today(),2)).ToString("dd/MM/yyyy")</Value>
+						<Value>=Cdate(FormatDateTime(Today(),2)).ToString("dd/MM/yyyy")</Value>
                       <Style />
                     </TextRun>
                     <TextRun>

@@ -7918,7 +7918,33 @@ namespace PSEBONLINE.AbstractLayer
 
         }
 
+        public static DataSet ValidateRequestId(string RequestId, string CandName)
+        {
+            DataSet ds = new DataSet();
+            ds = null;
 
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "ValidateRequestId_sp";
+                cmd.Parameters.AddWithValue("@RequestId", RequestId);
+                cmd.Parameters.AddWithValue("@CandName", CandName);
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
 
 
     }

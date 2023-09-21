@@ -121,7 +121,7 @@
             <span style="display:block"> @Html.CheckBoxFor(m => m.IsLateAdm, new { id = "IsLAdm" })Is Late Admission </span>
         </div>
         <div class="col-md-2" id="LadmSpn" style="visibility:hidden">
-            @Html.TextBoxFor(m => m.requestID, new { id = "requestID", @maxlength = "10", placeholder = "Enter Request ID" })
+            @Html.TextBoxFor(m => m.requestID, new { id = "requestID", @maxlength = "8", placeholder = "Enter Request ID" })
         </div>
         <div id="divadmdate" class="col-md-2">
             @Html.TextBoxFor(m => m.Admission_Date, "{0:dd/MM/yyyy}", new
@@ -174,7 +174,7 @@
         <div class="col-md-2">
             Candidate's Name <span class="rqf">*</span>
         </div>
-        <div class="col-md-4">  @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50", onkeypress = "return ValidateAlpha(event);" })</div> @*onblur = "PnbCandidateName(this);"*@
+        <div class="col-md-4">  @Html.TextBoxFor(m => m.Candi_Name, new { id = "Candi_Name", @maxlength = "50" , onkeypress = "return ValidateAlpha(event);" })</div> @*onblur = "PnbCandidateName(this);"*@
         <div class="col-md-2 kdsfont">
             ÚÒÚÂ¤ØÏÁÛ ÂØ ÅØÌ <span class="rqf">*</span>
         </div>
@@ -1287,6 +1287,12 @@
 </script>
 
 <script type="text/javascript">
+    var candidateName = "";
+    var Schoolcode = "";
+    var cls = "";
+    var formname = "";
+    var ApprovalUp = "";
+
     $(document).ready(function () {
 
         $("#MyDist").change(function () {
@@ -1321,23 +1327,137 @@
                 }
             });
         });
-    });
+    $("#requestID").on("focusout", function () {
+
+                var requestId = $("#requestID").val();
+                var CandName = $("#Candi_Name").val();
+
+    // Get input value using jQuery
+
+                    if (requestId.length === 8) {
+
+                        $("#requestID").prop("disabled", true);
+
+                        var Data = "";
+
+                        var requestData = { requestID: requestId, CandName: CandName }; // Use the correct variable
+                        $.ajax({
+                            url: '@Url.Action("ValidateRequestID", "Master")',
+                            type: 'POST',
+                            contentType: 'application/json',
+                            dataType: 'json',
+                            data: JSON.stringify(requestData),
+                            success: function (Data) { // Use 'data' as the parameter
+
+                                if (Data.status != "OK") {
+                                    $("#requestID").prop("disabled", false);
+                                    $("#txtadmisndate").prop("disabled", true);
+
+                                    document.getElementById("txtadmisndate").value = "";
+                                    document.getElementById("requestID").value = "";
+                                    $("#txtadmisndate").css("background-color", "#555");
+                                    alert(Data.status);
+
+                                }
+                                else {
+                                    $("#txtadmisndate").css("background-color", "white");
+                                    $("#requestID").prop("disabled", false);
+
+                                    candidateName = Data.candName;
+                                    Schoolcode = Data.schoolName;
+                                    cls = Data.cls;
+                                    formname = Data.formName;
+                                    ApprovalUp = Data.ApprovalUp;
+
+                                    $("#txtadmisndate").prop("disabled", false);
+                                    $("#txtadmisndate").datepicker('option', 'maxDate', ApprovalUp);
+                                    if (CandName != "" && CandName != null) {
+                                        checkCandidateName();
+                                    }
+
+                                }
+
+                            },
+                            error: function (error) {
+
+                                console.error('API Error:', error);
+                                $("#requestID").prop("disabled", false);
+                            }
+                        });
+                    }
+                    else {
+                        alert("Please Enter 8 digit RequestId");
+                        $("#requestID").val('');
+                    }
+
+        });
+
+            });
+
+
+    function checkCandidateName() {
+        if ($("#IsLAdm").prop("checked") == true && $("#requestID").val()!="" ) {
+            cndName = $("#Candi_Name").val();
+            if ($("#requestID").val().length != 8) {
+                alert("Please Enter Valid RequestId");
+                document.getElementById("txtadmisndate").value = "";
+                document.getElementById("requestID").value = "";
+                document.getElementById("Candi_Name").value = "";
+                document.getElementById("Candi_Name_P").value = "";
+                $("#txtadmisndate").prop("disabled", true);
+                $("#txtadmisndate").css("background-color", "#555");
+                $("#requestID").focus();
+
+            }
+            else {
+                if (formname != "N2") {
+                    alert("Invalid Form !!..")
+                    document.getElementById("txtadmisndate").value = "";
+                    document.getElementById("requestID").value = "";
+                    document.getElementById("Candi_Name").value = "";
+                    document.getElementById("Candi_Name_P").value = "";
+                    $("#txtadmisndate").prop("disabled", true);
+                    $("#txtadmisndate").css("background-color", "#555");
+
+                }
+                if (cndName != candidateName) {
+                    alert("Particular Name Not Matched !!..")
+                    document.getElementById("txtadmisndate").value = "";
+                    document.getElementById("requestID").value = "";
+                    document.getElementById("Candi_Name").value = "";
+                    document.getElementById("Candi_Name_P").value = "";
+                    $("#txtadmisndate").prop("disabled", true);
+                    $("#txtadmisndate").css("background-color", "#555");
+
+
+
+                }
+            }
+
+
+        }
+    }
+
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#IsLAdm').click(function () {
             if ($(this).prop("checked") == true) {
                 $('#LadmSpn').css("visibility", "visible");
+                $('#txtadmisndate').prop("disabled", true);
+              
             }
             else {
                 $('#LadmSpn').css("visibility", "hidden");
+                $('#txtadmisndate').prop("disabled", false);
+                $("#txtadmisndate").css("background-color", "white");
 
                 $("#requestID").val('');
                 $("#txtadmisndate").datepicker('option', 'maxDate', '@ViewBag.LateAdmDate');
             }
         });
 
-        $('#requestID').change(function () {
+        @*$('#requestID').change(function () {
 
             var selectedText = { RID: $("#requestID").val() };
             //var maxd='01/01/2020'; alert(maxd);
@@ -1353,7 +1473,7 @@
                     $("#txtadmisndate").datepicker('option', 'maxDate', result);
                 }
             });
-        });
+        });*@
     });
 </script>
 
@@ -1381,7 +1501,9 @@
                     if (result.sn == 0) {
                         //alert("Late Admission Data verified Successfully.");
                         alert("Late Admission Data Not Matched, Please try again!!.");
-                        //document.getElementById("requestID").focus();
+                        document.getElementById("requestID").focus();
+                        return false;
+                        
                     }
                 }
 

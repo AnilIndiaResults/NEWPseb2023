@@ -19,7 +19,12 @@
                 <div class="col-md-2">@Html.DropDownList("Sch1", new SelectList(ViewBag.MySch, "Value", "Text", ViewBag.SelectedItem), "--All---", new { @class = "", id = "SelectItem" })</div>
                 <div class="col-md-2">@Html.DropDownList("SchoolStatus", new SelectList(ViewBag.MyStatus, "Value", "Text", ViewBag.SelectedStatusType), "--All School Status---", new { @class = "" })</div>
                 <div class="col-md-2"><input type="text" id="SearchString" name="SearchString" value="@Request["SearchString"]" /></div>
-                <div class="col-md-2"><input type="submit" value="Search" /> <input type="submit" name="Reset" value="Reset" formaction="CancelForm" formmethod="post" /></div>
+                <div class="col-md-4">
+                    <input type="submit" value="Search" />
+                    <input type="submit" value="Download Excel" formaction="RegSchoolListForExcel" formmethod="Post" />
+                    <input type="submit" name="Reset" value="Reset" formaction="CancelForm" formmethod="post" />
+                </div>
+                
             }
         }
     </div>
@@ -34,6 +39,7 @@
                         <th>SCHL</th>
                         @*<th>ID NO.</th>*@
                         <th>School Name</th>
+                        <th>Class</th>
                         <th>Principal Name</th>
                         <th>Mobile</th>
                         <th>
@@ -69,6 +75,7 @@
                                 d = d + 1;
                                 var schid = Model.StoreAllData.Tables[0].Rows[i]["id"].ToString();
                                 var SCHL = Model.StoreAllData.Tables[0].Rows[i]["SCHL"].ToString();
+                                var Classs = Model.StoreAllData.Tables[0].Rows[i]["class"].ToString();
                                 var IDNO = Model.StoreAllData.Tables[0].Rows[i]["IDNO"].ToString();
                                 var principalname = Model.StoreAllData.Tables[0].Rows[i]["principalname"].ToString();
                                 var mobilenumber = Model.StoreAllData.Tables[0].Rows[i]["mobilenumber"].ToString();
@@ -82,85 +89,89 @@
                                 var vfalg = Model.StoreAllData.Tables[0].Rows[i]["vflag"].ToString();
                                 var Approved = Model.StoreAllData.Tables[0].Rows[i]["Approved"].ToString();
 
-                                <tr>
-                                    <td>
-                                        @SCHL
-                                    </td>
-                                    @*<td>
-                                            @IDNO
-                                        </td>*@
-                                    <td>
-                                        @SCHLE,@StationE
-                                    </td>
-                                    <td>
-                                        @principalname
-                                    </td>
-                                    <td>
-                                        @mobilenumber
-                                    </td>
-                                    <td>
-                                        @(FinalSubmitStatus=="1"?"Submitted":"Pending")
-                                    </td>
-                                    @if (geolocation != "")
-                                    {
+                                        <tr>
+                                            <td>
+                                                @SCHL
+                                            </td>
+                                            @*<td>
+            @IDNO
+        </td>*@
+                                            <td>
+                                                @SCHLE,@StationE
+                                            </td>
+                                            
+                                            <td>
+                                                @Classs
+                                            </td>
+                                            <td>
+                                                @principalname
+                                            </td>
+                                            <td>
+                                                @mobilenumber
+                                            </td>
+                                            <td>
+                                                @(FinalSubmitStatus=="1"?"Submitted":"Pending")
+                                            </td>
+                                            @if (geolocation != "")
+                                            {
 
-                                        <td>
+                                                <td>
 
-                                            <iframe name="frame1" src="https://maps.google.com/maps?q=@geolocation&hl=es;z=14&amp;output=embed" width="150" height="50"
-                                                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                            </iframe>
+                                                    <iframe name="frame1" src="https://maps.google.com/maps?q=@geolocation&hl=es;z=14&amp;output=embed" width="150" height="50"
+                                                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                                    </iframe>
 
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                        </td>
-                                    }
-                                    @if (imgpath != "")
-                                    {
-                                        <td>
-                                            <a href="@(AWS_URL+imgpath)" target="_blank">
-                                                <img src="@(AWS_URL+imgpath)" class="img-responsive" alt="Photo" id="imgPhoto" style="width: 79px;height: 70px;" />
-                                            </a>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                        </td>
-                                    }
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                </td>
+                                            }
+                                            @if (imgpath != "")
+                                            {
+                                                <td>
+                                                    <a href="@(AWS_URL+imgpath)" target="_blank">
+                                                        <img src="@(AWS_URL+imgpath)" class="img-responsive" alt="Photo" id="imgPhoto" style="width: 79px;height: 70px;" />
+                                                    </a>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                </td>
+                                            }
 
-                                    <td>
-                                        @DISTE
-                                    </td>
-                                    @*<td>
-                                            @status
-                                        </td>*@
-                                    @*<td>
-                                            @vfalg
-                                        </td>*@
-                                    @*<td>
-                                            @Approved
-                                        </td>*@
-                                    <td>
-                                        <div class="cart">
-                                            Choose Action <span class="caret"></span>
-                                            <div id="sidebar">
-                                                <ul>
-                                                    <li style="@(ViewBag.IsView == 1 ? "display:block" : "display:none")">
-                                                        @Html.ActionLink("View", "School_View_Form", new { id = SCHL })
-                                                    </li>
-                                                    <li>
-                                                        @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
-                                                        @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
-                                                        @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                            <td>
+                                                @DISTE
+                                            </td>
+                                            @*<td>
+            @status
+        </td>*@
+                                            @*<td>
+            @vfalg
+        </td>*@
+                                            @*<td>
+            @Approved
+        </td>*@
+                                            <td>
+                                                <div class="cart">
+                                                    Choose Action <span class="caret"></span>
+                                                    <div id="sidebar">
+                                                        <ul>
+                                                            <li style="@(ViewBag.IsView == 1 ? "display:block" : "display:none")">
+                                                                @Html.ActionLink("View", "School_View_Form", new { id = SCHL })
+                                                            </li>
+                                                            <li>
+                                                                @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
+                                                                @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
+                                                                @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
 
                                 if (d == ViewBag.TotalCount)
                                 {
