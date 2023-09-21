@@ -112,7 +112,7 @@ else { Response.Redirect("~/Login"); }
                                         <tr>
                                             <td width="10%"></td>
 
-                                            @if (ViewBag.Eighth == "1" && ViewBag.Fifth == "0")
+                                            @if (ViewBag.Matric == "1")
                                             {
                                                 <td width="10%">8th</td>
                                             }
@@ -136,7 +136,7 @@ else { Response.Redirect("~/Login"); }
                                     </thead>
                                     <tr>
                                         <td width="20%">Count of Students</td>
-                                        @if (ViewBag.Eighth == "1" && ViewBag.Fifth == "0")
+                                        @if (ViewBag.Matric == "1")
                                         {
                                             <td width="15%">@Html.TextBoxFor(a => a.Count8th, new { id = "Count8th", @maxlength = "20", @type = "number", @required = "required" })</td>
                                         }
