@@ -183,13 +183,16 @@
 
 
                                                 @*@if (Session["IsInfrastructureAllowed"] != null && Session["IsInfrastructureAllowed"].ToString() == "Y")
-                                                    {
-                                                         <li>@Html.ActionLink("School Infrastructure/Exam Centre etc. Details", "SchoolPremisesInformation", "SchoolProfile")</li>
-                                                    }*@
+        {
+             <li>@Html.ActionLink("School Infrastructure/Exam Centre etc. Details", "SchoolPremisesInformation", "SchoolProfile")</li>
+        }*@
+                                                <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
                                                 <li>@Html.ActionLink("Update School Information", "Update_School_Information", "SchoolProfile")</li>
                                                 <li>@Html.ActionLink("School Staff Details", "DisplaySchoolStaffDetails", "SchoolProfile")</li>
                                                 @*<li>@Html.ActionLink("Update UDISE Code", "School_UDISE_Code", "School")</li>*@
                                                 <li>@Html.ActionLink("Change Password", "Change_Password", "SchoolProfile")</li>
+
+
                                             </ul>
                                         </li>
                                         <li class="dropdown">
