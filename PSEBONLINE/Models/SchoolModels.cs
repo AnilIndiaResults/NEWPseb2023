@@ -6,7 +6,6 @@ using System.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
-
 namespace PSEBONLINE.Models
 {
 
@@ -2029,5 +2028,19 @@ namespace PSEBONLINE.Models
         
     }
 
+
+    public class ExamCenterDetail
+    {
     
+        public int ID { get; set; }
+
+        public string schl { get; set; }
+        public string choiceschlcode { get; set; }
+        public string distance { get; set; }
+        public string insertdate { get; set; }
+
+
+    }
+
+
 }
