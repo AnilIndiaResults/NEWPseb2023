@@ -131,7 +131,7 @@
         <div class="row">
             <div class="col-md-2">
                 CHOICE CENTER:
-                @Html.TextBox("CenterChoice", "", new { id = "CenterChoice", @maxlength = "20", @type = "text", @required = "required" })
+                @Html.TextBox("CenterChoice", "", new { id = "CenterChoice", @maxlength = "20", @type = "text", onkeypress = "return isNumberKey(event);", @required = "required" })
 
             </div>
 
@@ -215,7 +215,7 @@
 
 
         function SavendGetData() {
-            
+
             var rowCount = $('#t01 tbody tr').length;
             console.log("lenght", rowCount);
 
@@ -267,7 +267,7 @@
 
                         }
 
-                        
+
 
                     }
 
@@ -312,7 +312,7 @@
                     alert("Row Deleted Successfully");
                     $('#t01 tbody tr').empty();
                     $('#table-body').append(rows);
-                  
+
 
 
                 }
@@ -330,7 +330,7 @@
                     url: '@Url.Action("Get_School_Center_Choice", "Master")',
                     type: 'POST',
                     contentType: 'application/json',
-                    dataType: 'json',                    
+                    dataType: 'json',
                     success: function (data) {
 
 
@@ -359,7 +359,7 @@
 
                         }
 
-                       
+
 
                     }
 
@@ -374,6 +374,22 @@
 
 
     </script>
+
+
+    <script type="text/javascript">
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+                return true;
+            }
+            else {
+                alert("Invalid character...Enter Only Number!!");
+                return false;
+            }
+        }
+
+    </script>
+
     @{
 
         if (ViewData["Status"] != null)
