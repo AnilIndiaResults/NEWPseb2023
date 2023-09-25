@@ -183,13 +183,16 @@
 
 
                                                 @*@if (Session["IsInfrastructureAllowed"] != null && Session["IsInfrastructureAllowed"].ToString() == "Y")
-                                                    {
-                                                         <li>@Html.ActionLink("School Infrastructure/Exam Centre etc. Details", "SchoolPremisesInformation", "SchoolProfile")</li>
-                                                    }*@
+        {
+             <li>@Html.ActionLink("School Infrastructure/Exam Centre etc. Details", "SchoolPremisesInformation", "SchoolProfile")</li>
+        }*@
+                                                <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
                                                 <li>@Html.ActionLink("Update School Information", "Update_School_Information", "SchoolProfile")</li>
                                                 <li>@Html.ActionLink("School Staff Details", "DisplaySchoolStaffDetails", "SchoolProfile")</li>
                                                 @*<li>@Html.ActionLink("Update UDISE Code", "School_UDISE_Code", "School")</li>*@
                                                 <li>@Html.ActionLink("Change Password", "Change_Password", "SchoolProfile")</li>
+
+
                                             </ul>
                                         </li>
                                         <li class="dropdown">
@@ -239,55 +242,55 @@
                                             </li>*@
 
                                         @if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear())
-                                            {
-                                                <li class="dropdown" style="display:block">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown">
-                                                        Examination Portal
-                                                        <span class="caret"></span>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>@Html.ActionLink("Examination Portal", "ExaminationPortal", "RegistrationPortal")</li>
-                                                        <li>@Html.ActionLink("Cut List", "SchoolCutlist", "School")</li>
-                                                        <li>@Html.ActionLink("Admit Card", "SchoolAdmitCardList", "RegistrationPortal")</li>
+                                        {
+                                            <li class="dropdown" style="display:block">
+                                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                                    Examination Portal
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li>@Html.ActionLink("Examination Portal", "ExaminationPortal", "RegistrationPortal")</li>
+                                                    <li>@Html.ActionLink("Cut List", "SchoolCutlist", "School")</li>
+                                                    <li>@Html.ActionLink("Admit Card", "SchoolAdmitCardList", "RegistrationPortal")</li>
 
-                                                        @if (Session["cent"].ToString() != "" && Session["cent"].ToString() != null)
-                                                        {
+                                                    @if (Session["cent"].ToString() != "" && Session["cent"].ToString() != null)
+                                                    {
 
-                                                        }
+                                                    }
 
-                                                        <li>@Html.ActionLink("On Demand Certificate", "OnDemandCertificate", "RegistrationPortal")</li>
-                                                        <li>@Html.ActionLink("Marks Entry Of School Based Exams", "SchoolBasedExamsPortal", "School")</li>
-                                                        <li>@Html.ActionLink("INA (Internal Assessment)", "CCE_Grading_Portal", "School")</li>
-                                                        <li><a href="/School/grading/S">Elective Subject Marks Entry For Sr. Secondary</a></li>
-                                                        <li><a href="/School/grading/M">Elective Subject Marks Entry For Matric</a></li>
-                                                        <li>@Html.ActionLink("Result 2023-24", "SchoolResultDeclare", "School")</li>
+                                                    <li>@Html.ActionLink("On Demand Certificate", "OnDemandCertificate", "RegistrationPortal")</li>
+                                                    <li>@Html.ActionLink("Marks Entry Of School Based Exams", "SchoolBasedExamsPortal", "School")</li>
+                                                    <li>@Html.ActionLink("INA (Internal Assessment)", "CCE_Grading_Portal", "School")</li>
+                                                    <li><a href="/School/grading/S">Elective Subject Marks Entry For Sr. Secondary</a></li>
+                                                    <li><a href="/School/grading/M">Elective Subject Marks Entry For Matric</a></li>
+                                                    <li>@Html.ActionLink("Result 2023-24", "SchoolResultDeclare", "School")</li>
 
 
-                                                    </ul>
-                                                </li>
-                                            }
+                                                </ul>
+                                            </li>
+                                        }
+                                        @if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear())
+                                        {
+                                            <li class="dropdown">
+                                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                                    Correction Performa
+                                                    <span class="caret"></span>
+                                                </a>
+                                                <ul class="dropdown-menu">
+                                                    <li><a href="/CorrectionSubjects/Instructions">Instructions</a></li>
+                                                    <li>@Html.ActionLink("Particular Correction Performa", "SchoolCorrection", "RegistrationPortal")</li>
+                                                    <li>@Html.ActionLink("Photo/Signature Correction Performa", "ImageCorrectionPerforma", "CorrectionSubjects")</li>
+                                                    <li>@Html.ActionLink("Subject Correction Performa", "SubjectCorrectionPerformaLink", "CorrectionSubjects")</li>
+                                                    <li>@Html.ActionLink("Subject Correction Performa only for Open Matric/Senior Secondary", "OpenSubjectCorrectionPerforma", "CorrectionSubjects")</li>
+                                                    <li>@Html.ActionLink("Print Correction Performa", "SchoolCorrectionFinalPrintLst", "RegistrationPortal")</li>
+                                                    <li>@Html.ActionLink("Status Of Correction", "SchoolCorrectionAllRecord", "RegistrationPortal")</li>
+                                                    <li><a href="/School/SchoolCorrection">Verify Corrections</a></li>
+                                                </ul>
+                                            </li>
+                                        }
+
+
                                         @*@if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear())
-                                            {
-                                                <li class="dropdown">
-                                                    <a class="dropdown-toggle" data-toggle="dropdown">
-                                                        Correction Performa
-                                                        <span class="caret"></span>
-                                                    </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="/CorrectionSubjects/Instructions">Instructions</a></li>
-                                                        <li>@Html.ActionLink("Particular Correction Performa", "SchoolCorrection", "RegistrationPortal")</li>
-                                                        <li>@Html.ActionLink("Photo/Signature Correction Performa", "ImageCorrectionPerforma", "CorrectionSubjects")</li>
-                                                        <li>@Html.ActionLink("Subject Correction Performa", "SubjectCorrectionPerformaLink", "CorrectionSubjects")</li>
-                                                        <li>@Html.ActionLink("Subject Correction Performa only for Open Matric/Senior Secondary", "OpenSubjectCorrectionPerforma", "CorrectionSubjects")</li>
-                                                        <li>@Html.ActionLink("Print Correction Performa", "SchoolCorrectionFinalPrintLst", "RegistrationPortal")</li>
-                                                        <li>@Html.ActionLink("Status Of Correction", "SchoolCorrectionAllRecord", "RegistrationPortal")</li>
-                                                        <li><a href="/School/SchoolCorrection">Verify Corrections</a></li>
-                                                    </ul>
-                                                </li>
-                                            }
-
-
-                                            @if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear())
                                             {
                                                 if (Session["cent"].ToString() != "" && Session["cent"].ToString() != null)
                                                 {

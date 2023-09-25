@@ -227,7 +227,7 @@
             <h4>
                 Personal Information
             </h4>
-            
+
             <div class="clearfix"></div>
             <div class="col-md-2"> Candidate's Name</div>
             <div class="col-md-4">@Html.EditorFor(model => model.openUserRegistration.NAME, new { htmlAttributes = new { @class = "form-control", required = "required", id = "NAME", @maxlength = "50", onkeypress = "return ValidateAlpha(event);" } }) @Html.HiddenFor(model => model.openUserRegistration.NAME, new { htmlAttributes = new { } })</div>
@@ -236,17 +236,17 @@
             </div>
             <div class="col-md-4">
                 @Html.TextBoxFor(model => model.openUserRegistration.PNAME, new
-           {
-               required = "required",
-               id = "PNAME",
-               @class = "keyboardInput",
-               onKeyPress = "javascript:convertThis(event)",
-               onpaste = "return false;",
-               oncopy = "return false;",
-               oncut = "return false;",
-               onclick = "toggleKBMode1(event)",
-               lang = "pa"
-           })
+                {
+                    required = "required",
+                    id = "PNAME",
+                    @class = "keyboardInput",
+                    onKeyPress = "javascript:convertThis(event)",
+                    onpaste = "return false;",
+                    oncopy = "return false;",
+                    oncut = "return false;",
+                    onclick = "toggleKBMode1(event)",
+                    lang = "pa"
+                })
             </div>
             <div class="clearfix"></div>
             <div class="col-md-2">Father's Name</div>
@@ -256,17 +256,17 @@
             </div>
             <div class="col-md-4 kdsfont">
                 @Html.TextBoxFor(model => model.openUserRegistration.PFNAME, new
-           {
+                {
 
-               id = "PFNAME",
-               @class = "keyboardInput",
-               onKeyPress = "javascript:convertThis(event)",
-               onpaste = "return false;",
-               oncopy = "return false;",
-               oncut = "return false;",
-               onclick = "toggleKBMode1(event)",
-               lang = "pa"
-           })
+                    id = "PFNAME",
+                    @class = "keyboardInput",
+                    onKeyPress = "javascript:convertThis(event)",
+                    onpaste = "return false;",
+                    oncopy = "return false;",
+                    oncut = "return false;",
+                    onclick = "toggleKBMode1(event)",
+                    lang = "pa"
+                })
             </div>
             <div class="clearfix"></div>
             <div class="col-md-2">Mother's Name</div>
@@ -276,17 +276,17 @@
             </div>
             <div class="col-md-4 kdsfont">
                 @Html.TextBoxFor(model => model.openUserRegistration.PMNAME, new
-           {
+                {
 
-               id = "PMNAME",
-               @class = "keyboardInput",
-               onKeyPress = "javascript:convertThis(event)",
-               onpaste = "return false;",
-               oncopy = "return false;",
-               oncut = "return false;",
-               onclick = "toggleKBMode1(event)",
-               lang = "pa"
-           })
+                    id = "PMNAME",
+                    @class = "keyboardInput",
+                    onKeyPress = "javascript:convertThis(event)",
+                    onpaste = "return false;",
+                    oncopy = "return false;",
+                    oncut = "return false;",
+                    onclick = "toggleKBMode1(event)",
+                    lang = "pa"
+                })
             </div>
             <div class="clearfix"></div>
             <div class="col-md-2"> Gender</div>
@@ -298,6 +298,8 @@
             <div class="col-md-4">@Html.DropDownListFor(model => model.openUserRegistration.PHY_CHAL, (List<SelectListItem>)ViewBag.PhyChal, "--Select--", new { htmlAttributes = new { required = "required", } })@Html.HiddenFor(model => model.openUserRegistration.PHY_CHAL, new { htmlAttributes = new { } })</div>
             <div class="col-md-2">Nationality</div>
             <div class="col-md-4">@Html.TextBoxFor(model => model.openUserRegistration.NATION, new { @class = "form-control", @disabled = "disabled" })@Html.HiddenFor(model => model.openUserRegistration.NATION, new { htmlAttributes = new { } })</div>
+            <div class="col-md-2" id="DisabilityPercentdiv1">Disability Percentage</div>
+            <div class="col-md-4" id="DisabilityPercentdiv2">@Html.TextBoxFor(model => model.openUserRegistration.DisabilityPercent)@Html.HiddenFor(model => model.openUserRegistration.DisabilityPercent, new { htmlAttributes = new { } })</div>
             <div class="clearfix"></div>
             <div class="col-md-2">Study Medium</div>
             <div class="col-md-4">@Html.DropDownListFor(model => model.openUserRegistration.CandStudyMedium, (List<SelectListItem>)ViewBag.StudyMedium, "--Select--", new { })</div>
@@ -415,14 +417,14 @@
         </div>
         <div class="clearfix"></div>
         <br /><br />
-              <div class="col-md-12 text-center">
-                  @Html.HiddenFor(model => model.openUserLogin.ID)
-                  @Html.HiddenFor(model => model.openUserLogin.APPNO)
-                  @Html.HiddenFor(model => model.openUserRegistration.APPNO)
-                  <input type="submit" value="Update Details and District/Centre" onclick="return valForm();" style="text-align:center" /> <a href="/Admin/ApplicationDetails" class="btn">Back</a><br />
+        <div class="col-md-12 text-center">
+            @Html.HiddenFor(model => model.openUserLogin.ID)
+            @Html.HiddenFor(model => model.openUserLogin.APPNO)
+            @Html.HiddenFor(model => model.openUserRegistration.APPNO)
+            <input type="submit" value="Update Details and District/Centre" onclick="return valForm();" style="text-align:center" /> <a href="/Admin/ApplicationDetails" class="btn">Back</a><br />
 
 
-              </div>
+        </div>
         <br /><br />
 
         @*Subject Details*@
@@ -547,7 +549,7 @@
 </div>
 
 
-                <script>
+    <script>
     function assign() {
         var dist, school, school2, school3;
         dist = document.getElementById("hdnDist").value;
@@ -572,7 +574,15 @@
     }
 
 
-    $(document).ready(function () {
+        $(document).ready(function () {
+
+             var disab = '@Model.openUserRegistration.PHY_CHAL';
+             if (disab == "N.A.") {
+              $('#DisabilityPercentdiv1').css('display', 'none');
+               $('#DisabilityPercentdiv2').css('display', 'none');
+               }
+                      
+
 
         $("#StudyCenter_11").change(function () {
             var selectedCenter = { center1: $("#StudyCenter_1").val() };
@@ -696,7 +706,7 @@
         });
 
     });
-                </script>
+    </script>
 
                 <script type="text/javascript">
         $(function () {
@@ -887,7 +897,26 @@
 
                 <script>
 
-    $(document).ready(function () {
+                    $(document).ready(function () {
+
+                        $("#openUserRegistration_PHY_CHAL").change(function () {
+
+                            var selectedVal = $("#openUserRegistration_PHY_CHAL").val();//document.getElementById("#MyDist");
+
+                            if (selectedVal == "N.A.") {
+                                $('#DisabilityPercentdiv1').css("display", "none");
+                                $('#DisabilityPercentdiv2').css("display", "none");
+                                $('#openUserRegistration_DisabilityPercent').val(0);
+                               
+                            }
+                            else{
+                                $('#DisabilityPercentdiv1').css("display", "block");
+                                $('#DisabilityPercentdiv2').css("display", "block");
+                            }
+                            
+
+                        });
+
 
         $("#btnRemovesubjects").click(function () {
             $.ajax({
@@ -1048,7 +1077,10 @@
 
 
                 <script>
-                            function valForm() {
+                    function valForm() {
+
+
+                           
 
                                 if ('@ViewBag.disableBoard' == "false") {
                                     var month = document.getElementById("Month");
@@ -1183,6 +1215,14 @@
                                     return false;
                                 }
 
+                                    var selectedVal = $("#openUserRegistration_PHY_CHAL").val();
+                                    var disabilityPerc = $("#DisabilityPercentage").val();
+                                         
+                                     if (selectedVal!= "N.A") {
+                                        alert("Select Disability Percentage");
+                                       disabilityPerc.focus();
+                                        return false;
+                                    }
 
 
 

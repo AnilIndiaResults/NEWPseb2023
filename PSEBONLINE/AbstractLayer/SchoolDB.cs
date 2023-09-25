@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Office.Word;
 
 namespace PSEBONLINE.AbstractLayer
 {
@@ -79,6 +80,10 @@ namespace PSEBONLINE.AbstractLayer
                     if (reader.Read())
                     {
                         loginSession.PRINCIPAL = DBNull.Value != reader["PRINCIPAL"] ? (string)reader["PRINCIPAL"] : default(string);
+                        loginSession.PHONE = DBNull.Value != reader["PHONE"] ? (string)reader["PHONE"] : default(string);
+                        loginSession.STDCODE = DBNull.Value != reader["STDCODE"] ? (string)reader["STDCODE"] : default(string);
+                        loginSession.PrincipalName2 = DBNull.Value != reader["PrincipalName2"] ? (string)reader["PrincipalName2"] : default(string);
+                        loginSession.PrincipalMobile2 = DBNull.Value != reader["PrincipalMobile2"] ? (string)reader["PrincipalMobile2"] : default(string);
                         loginSession.STATUS = DBNull.Value != reader["STATUS"] ? (string)reader["STATUS"] : default(string);
                         loginSession.DIST = DBNull.Value != reader["DIST"] ? (string)reader["DIST"] : default(string);
                         loginSession.SCHL = DBNull.Value != reader["SCHL"] ? (string)reader["SCHL"] : default(string);
@@ -4998,7 +5003,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 300;
                 cmd.CommandText = "CheckMigrationStatus"; //InsertOnlinePaymentMISSP // InsertOnlinePaymentMISSPNEW
-              
+
                 cmd.Parameters.AddWithValue("@StdId", stdId);
                 ds = db.ExecuteDataSet(cmd);
                 //result = db.ExecuteNonQuery(cmd);                
@@ -5012,7 +5017,7 @@ namespace PSEBONLINE.AbstractLayer
             }
 
 
-            
+
         }
         #endregion
 
@@ -6447,8 +6452,6 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
         #endregion REGOPENPracticalExamCentre
-
-
         #region unlockperformaa
         public static DataSet UnloackPerforma(string SchlCode)
         {
@@ -6474,5 +6477,50 @@ namespace PSEBONLINE.AbstractLayer
         }
         #endregion
 
+
+        public static int sp_Update_school_center_choice(FormCollection frm) 
+        {
+            SqlConnection con = null;
+            string PricipleName = frm["PricipleName"].ToString();
+            string stdCode = frm["stdCode"].ToString();
+            string phone = frm["phone"].ToString();
+            string Mobile = frm["Mobile"].ToString();
+            string Priciple2Name = frm["Priciple2Name"].ToString();
+            string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+            int OutStatus = 0;
+            string result = "";
+            try
+            {
+                con = new SqlConnection(ConfigurationManager.ConnectionStrings["myDBConnection"].ToString());
+                SqlCommand cmd = new SqlCommand("sp_Update_school_center_choice", con);  //AllotCCESenior
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@SCHL", schl);
+                cmd.Parameters.AddWithValue("@PRINCIPAL", PricipleName);
+                cmd.Parameters.AddWithValue("@STDCODE", stdCode);
+                cmd.Parameters.AddWithValue("@PHONE", phone);
+                cmd.Parameters.AddWithValue("@Mobile", Mobile);
+                cmd.Parameters.AddWithValue("@PrincipalName2", Priciple2Name);
+                cmd.Parameters.AddWithValue("@PrincipalMobile2", Priciple2Mobile);
+                cmd.Parameters.Add("@OutStatus", SqlDbType.Int).Direction = ParameterDirection.Output;
+                con.Open();
+                result = cmd.ExecuteNonQuery().ToString();
+                OutStatus = (int)cmd.Parameters["@OutStatus"].Value;
+                return OutStatus;
+
+            }
+            catch (Exception ex)
+            {
+                OutStatus = -1;
+                //mbox(ex);
+                return OutStatus;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+
+        }
     }
-}
+    }

@@ -13,7 +13,7 @@ else { Response.Redirect("~/Login"); }
 
 <p style="float:right; padding-top:10px;">
     @*Last Date : @ViewData["lastDate"].ToString()*@
-    Last Date : 15-09-2023
+    Last Date : 25-09-2023
 </p>
 <a href="~/PDF/Instructions_regarding_how_to_fill_infrastructure_form.pdf" style="float: right; padding-top: 10px; color: red; font-size: 14px; font-weight: bold;margin-right:14px;">
     Instructions regarding how to fill infrastructure form
@@ -729,15 +729,16 @@ else { Response.Redirect("~/Login"); }
 
                         <tr>
                             <td colspan="6" style="text-align:center">
+
                                 @if (Model.FinalSubmitStatus == 0)
                                 {
                                     <input id="btnSubmit" type="submit" name="cmd" value="Save" class="btn" />
                                     <input id="btnFinal" type="submit" name="cmd" value="Final Submit" class="btn" />
-                                    <a class="btn" href='@Url.Action("ViewInfrasturePerformas", "School")'>Rough Print</a>
+                                    <a class="btn" href='@Url.Action("ViewInfrasturePerforma", "School")'>Rough Print</a>
                                 }
                                 else
                                 {
-                                    <a class="btn" href='@Url.Action("ViewInfrasturePerformas", "School")'>Final Print</a>
+                                    <a class="btn" href='@Url.Action("ViewInfrasturePerforma", "School")'>Final Print</a>
                                 }
                                 @*<input id="btnPrint" type="submit" name="btnPrint" value="Print" class="btn" />*@
 
@@ -833,6 +834,7 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor8th').css('display', 'none')
+            $("#SchoolCenterNewFor8th").prop('selectedIndex', 0);
         }
         else {
             $('#SchoolCenterNewFor8th').css("display", "block");
@@ -846,6 +848,7 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor10th').css('display', 'none')
+            $("#SchoolCenterNewFor10th").prop('selectedIndex', 0);
         }
         else {
             $('#SchoolCenterNewFor10th').css("display", "block");
@@ -859,6 +862,7 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor10th1').css('display', 'none')
+            $("#SchoolCenterNewFor10th1").prop('selectedIndex', 0);
         }
         else {
             $('#SchoolCenterNewFor10th1').css("display", "block");
@@ -872,7 +876,9 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor10th2').css('display', 'none')
+            $("#SchoolCenterNewFor10th2").prop('selectedIndex', 0);
         }
+
         else {
             $('#SchoolCenterNewFor10th2').css("display", "block");
         }
@@ -885,6 +891,7 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor12th').css('display', 'none')
+            $("#SchoolCenterNewFor12th").prop('selectedIndex', 0);
         }
         else {
             $('#SchoolCenterNewFor12th').css("display", "block");
@@ -898,6 +905,7 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor12th1').css('display', 'none')
+            $("#SchoolCenterNewFor12th1").prop('selectedIndex', 0);
         }
         else {
             $('#SchoolCenterNewFor12th1').css("display", "block");
@@ -911,6 +919,7 @@ else { Response.Redirect("~/Login"); }
         if (selectedText == "Yes") {
 
             $('#SchoolCenterNewFor12th2').css('display', 'none')
+            $("#SchoolCenterNewFor12th2").prop('selectedIndex', 0);
         }
         else {
             $('#SchoolCenterNewFor12th2').css("display", "block");

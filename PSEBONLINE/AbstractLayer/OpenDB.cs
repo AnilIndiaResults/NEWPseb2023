@@ -1206,6 +1206,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@HOMEDISTNM", _openUserLogin.HOMEDISTNM.ToUpper());
                 cmd.Parameters.AddWithValue("@correctionid", _openUserLogin.correctionid.ToUpper());
                 cmd.Parameters.AddWithValue("@correction_dt", _openUserLogin.correction_dt);
+                
                 try
                 {
                     con.Open();
@@ -3614,7 +3615,7 @@ namespace PSEBONLINE.AbstractLayer
         //#endregion ChangePassword
 
 
-        public int UpdateOpenRegistrationByAdmin(string adminid, OpenUserRegistration _openUserRegistration, string imgPhoto, string imgSign, OpenUserLogin _openUserLogin,string EmpUserId)
+        public int UpdateOpenRegistrationByAdmin(string adminid, OpenUserRegistration _openUserRegistration, string imgSign, string imgPhoto, OpenUserLogin _openUserLogin,string EmpUserId)
         {
             if (_openUserRegistration.APPNO == null) { return 0; }         
             try
@@ -3702,6 +3703,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@PMNAME", _openUserRegistration.PMNAME);
                 cmd.Parameters.AddWithValue("@DOB", _openUserRegistration.DOB.ToUpper());
                 cmd.Parameters.AddWithValue("@PHY_CHAL", _openUserRegistration.PHY_CHAL.ToUpper());
+                cmd.Parameters.AddWithValue("@DisabilityPercent", _openUserRegistration.DisabilityPercent);
                 cmd.Parameters.AddWithValue("@SEX", _openUserRegistration.SEX.ToUpper());
                 cmd.Parameters.AddWithValue("@CASTE", _openUserRegistration.CASTE.ToUpper());
                 cmd.Parameters.AddWithValue("@RELIGION", _openUserRegistration.RELIGION.ToUpper());
@@ -3732,8 +3734,8 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@CandStudyMedium", _openUserRegistration.CandStudyMedium.ToUpper());
                 cmd.Parameters.AddWithValue("@correctionid", _openUserRegistration.correctionid.ToUpper());
                 cmd.Parameters.AddWithValue("@correction_dt", _openUserRegistration.correction_dt);
-                cmd.Parameters.AddWithValue("@IMG_RAND", imgPhoto.ToUpper());
-                cmd.Parameters.AddWithValue("@IMGSIGN_RA", imgSign.ToUpper());               
+                cmd.Parameters.AddWithValue("@IMG_RAND", imgPhoto);
+                cmd.Parameters.AddWithValue("@IMGSIGN_RA", imgSign);               
                 cmd.Parameters.AddWithValue("@AppearingYear", _openUserRegistration.AppearingYear);
                 // user login
                 cmd.Parameters.AddWithValue("@STREAM", _openUserLogin.STREAM);

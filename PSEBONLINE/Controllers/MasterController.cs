@@ -30,7 +30,7 @@ namespace PSEBONLINE.Controllers
         //AbstractLayer.ErrorLog oErrorLog = new AbstractLayer.ErrorLog();        
         string sp1 = System.Configuration.ConfigurationManager.AppSettings["ImagePathCor"];
 
-        public JsonResult SchoolPrincipalMobileOTP(string schl, string ePrincipalName, string eMOBILENO, string mobileOTP,  string confirmOTP,string Type)
+        public JsonResult SchoolPrincipalMobileOTP(string schl, string ePrincipalName, string eMOBILENO, string mobileOTP, string confirmOTP, string Type)
         {
             LoginSession loginSession = (LoginSession)Session["LoginSession"];
             try
@@ -45,14 +45,14 @@ namespace PSEBONLINE.Controllers
                     if (!string.IsNullOrEmpty(eMOBILENO) && eMOBILENO.Length == 10)
                     {
                         OTP = AbstractLayer.DBClass.GenerateOTP();
-                       // string Sms = "Please enter your OTP : " + OTP + " to Verify Mobile for Exam Centre. Regards PSEB";
+                        // string Sms = "Please enter your OTP : " + OTP + " to Verify Mobile for Exam Centre. Regards PSEB";
 
                         string Sms = String.Format("Use {0} as Your OTP to access your Login {1} . Never Share your OTP with Any unauthorized Person. \nRegards\nPSEB Mohali", OTP.ToString(), schl);
                         // string getSms = new AbstractLayer.DBClass().gosmsPSEB("97xxx8xxxx", Sms);
                         string getSms = new AbstractLayer.DBClass().gosms(eMOBILENO, Sms);
                         if (getSms.ToLower().Contains("success"))
-                        {                            
-                            ExamCentreConfidentialResources examCentreConfidentialResources = _context.ExamCentreConfidentialResources.Where(s=>s.schl == schl && !s.isdeleted).FirstOrDefault();
+                        {
+                            ExamCentreConfidentialResources examCentreConfidentialResources = _context.ExamCentreConfidentialResources.Where(s => s.schl == schl && !s.isdeleted).FirstOrDefault();
                             if (examCentreConfidentialResources != null)
                             {
                                 examCentreConfidentialResources.deletedBy = schl;
@@ -61,7 +61,7 @@ namespace PSEBONLINE.Controllers
                                 _context.Entry(examCentreConfidentialResources).State = EntityState.Modified;
                                 _context.SaveChanges();
                             }
-                            Session["ExamCentreConfidentialOTP"] = OTP; 
+                            Session["ExamCentreConfidentialOTP"] = OTP;
                             dee = "1";
                         }
                         dee = "1";
@@ -90,9 +90,9 @@ namespace PSEBONLINE.Controllers
                                     isdeleted = false,
                                     downloadCount = 1,
                                     downloadOn = DateTime.Now,
-                            };
+                                };
                                 _context.ExamCentreConfidentialResources.Add(_model);
-                                int result =  _context.SaveChanges();                                
+                                int result = _context.SaveChanges();
                                 if (result > 0)
                                 {
                                     dee = "1";
@@ -125,11 +125,11 @@ namespace PSEBONLINE.Controllers
 
 
         public void ExportDataFromDataTable(DataTable dt, string FileNAME)
-        {           
+        {
             using (XLWorkbook wb = new XLWorkbook())
             {
 
-              string  fileName1 = FileNAME + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";
+                string fileName1 = FileNAME + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";
 
                 wb.Worksheets.Add(dt);
                 wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
@@ -139,7 +139,7 @@ namespace PSEBONLINE.Controllers
                 Response.Buffer = true;
                 Response.Charset = "";
                 Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + "");               
+                Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + "");
                 using (MemoryStream MyMemoryStream = new MemoryStream())
                 {
                     wb.SaveAs(MyMemoryStream);
@@ -148,7 +148,7 @@ namespace PSEBONLINE.Controllers
                     Response.End();
                 }
             }
-           
+
         }
 
         public ActionResult RegnoErrorSummaryDownloadData()
@@ -159,7 +159,7 @@ namespace PSEBONLINE.Controllers
                 if (Request.QueryString["FormName"] == null)
                 {
                     return RedirectToAction("Welcome", "Admin");
-                }               
+                }
                 else
                 {
                     string FormName = Request.QueryString["FormName"].ToString();
@@ -175,7 +175,7 @@ namespace PSEBONLINE.Controllers
                         DataTable dataTable = StaticDB.ConvertListToDataTable(regnoErrorSummaryDownloadDataViews);
 
                         DataSet objDs = new DataSet();
-                         objDs.Tables.Add(dataTable);
+                        objDs.Tables.Add(dataTable);
                         objDs.AcceptChanges();
 
                         if (dataTable.Rows.Count > 0)
@@ -222,7 +222,7 @@ namespace PSEBONLINE.Controllers
         }
 
 
-      
+
 
         //#region exporttoDBF
         //public string CrateTableSchema(DataTable dt, string tablename)
@@ -331,8 +331,8 @@ namespace PSEBONLINE.Controllers
                 if (Session["AdminType"] != null)
                 {
                     UpdatedBy = "ADMIN-" + Session["AdminId"].ToString();
-                }                
-                
+                }
+
                 string result = SchoolDB.CancelStudentSchoolMigration(cancelremarks, stdid, migid, out outstatus, UpdatedBy, Type);//ChallanDetailsCancelSP                
                 dee = outstatus;
                 return Json(new { sn = dee, chid = outstatus }, JsonRequestBehavior.AllowGet);
@@ -352,7 +352,7 @@ namespace PSEBONLINE.Controllers
             string EmpUserId = "";
             try
             {
-              
+
                 if (Session["AdminType"] == null && Session["SCHL"] == null)
                 {
                     return Json(new { sn = dee, chid = outstatus }, JsonRequestBehavior.AllowGet);
@@ -371,10 +371,10 @@ namespace PSEBONLINE.Controllers
                     EmpUserId = adminLoginSession.AdminEmployeeUserId;
                 }
                 StudentSchoolMigrationViewModel studentSchoolMigrationViewModel = new StudentSchoolMigrationViewModel();
-                string result = SchoolDB.UpdateStatusStudentSchoolMigration(EmpUserId,remarks, stdid, migid, status, AppLevel, out outstatus, UpdatedBy, Type);//ChallanDetailsCancelSP                
+                string result = SchoolDB.UpdateStatusStudentSchoolMigration(EmpUserId, remarks, stdid, migid, status, AppLevel, out outstatus, UpdatedBy, Type);//ChallanDetailsCancelSP                
                 dee = outstatus;
                 if (outstatus == "1")
-                {                    
+                {
                     string upStautus = status == "A" ? "Approved" : status == "R" ? "Rejected" : "Updated";
                     string SchoolMobile = "";
                     string Search = "MigrationId =" + migid;
@@ -400,7 +400,7 @@ namespace PSEBONLINE.Controllers
                             }
                             try
                             {
-                                 string getSms = new AbstractLayer.DBClass().gosms(SchoolMobile, Sms);
+                                string getSms = new AbstractLayer.DBClass().gosms(SchoolMobile, Sms);
                             }
                             catch (Exception) { }
                         }
@@ -422,7 +422,7 @@ namespace PSEBONLINE.Controllers
 
         #region UpdateAadharEnrollNo
         public JsonResult UpdateAadharEnrollNo(string std_id, string aadhar_num, string SCHL, string Caste, string gender, string BPL, string Rel, string Epunid)
-        {           
+        {
             RegistrationModels rm = new RegistrationModels();
             try
             {
@@ -430,7 +430,7 @@ namespace PSEBONLINE.Controllers
                 string dee = "";
                 string outstatus = "";
                 string Search = string.Empty;
-                DataSet res1 =  new AbstractLayer.RegistrationDB().UpdaadharEnrollmentNo(std_id, aadhar_num, SCHL, Caste, gender, BPL, Rel, Epunid);
+                DataSet res1 = new AbstractLayer.RegistrationDB().UpdaadharEnrollmentNo(std_id, aadhar_num, SCHL, Caste, gender, BPL, Rel, Epunid);
                 string res = res1.Tables[0].Rows[0]["res"].ToString();
                 if (res != "0")
                 {
@@ -443,8 +443,8 @@ namespace PSEBONLINE.Controllers
                 return Json(new { sn = dee, chid = res }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
-            {                
-                 return null;
+            {
+                return null;
             }
         }
         #endregion UpdateAadharEnrollNo
@@ -459,7 +459,7 @@ namespace PSEBONLINE.Controllers
             {
                 string dee = "";
                 string res = null;
-                DataSet result = objDB.CancelStdRegNo(Remarks, stdid,adminLoginSession.AdminEmployeeUserId);
+                DataSet result = objDB.CancelStdRegNo(Remarks, stdid, adminLoginSession.AdminEmployeeUserId);
                 res = result.Tables[0].Rows.Count.ToString();
                 if (result.Tables[0].Rows.Count.ToString() != "0")
                 {
@@ -472,7 +472,7 @@ namespace PSEBONLINE.Controllers
                 return Json(new { sn = dee, chid = res }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
-            {               
+            {
                 return null;
             }
         }
@@ -500,7 +500,7 @@ namespace PSEBONLINE.Controllers
 
                 if (Session["AdminType"] != null)
                 {
-                    UpdatedBy = "ADMIN-" +Session["AdminId"].ToString();
+                    UpdatedBy = "ADMIN-" + Session["AdminId"].ToString();
                 }
 
                 int result = RegistrationDB.SwitchForm(Remarks, stdid, OldRegNo, UpdatedBy, out OutStatus);
@@ -525,7 +525,7 @@ namespace PSEBONLINE.Controllers
 
 
         [HttpPost]
-        public JsonResult ShiftAllFormAdmin(string Remarks, string OldRegNo, string stdid,string OtherBoard, string ShiftFormNM,string VerifiedEmp)
+        public JsonResult ShiftAllFormAdmin(string Remarks, string OldRegNo, string stdid, string OtherBoard, string ShiftFormNM, string VerifiedEmp)
         {
             try
             {
@@ -550,7 +550,7 @@ namespace PSEBONLINE.Controllers
                     UpdatedBy = "ADMIN-" + Session["AdminId"].ToString();
                 }
 
-                int result = RegistrationDB.ShiftAllFormAdmin(Remarks, stdid, OldRegNo, UpdatedBy, out OutStatus,OtherBoard, ShiftFormNM, VerifiedEmp,adminLoginSession.AdminEmployeeUserId);
+                int result = RegistrationDB.ShiftAllFormAdmin(Remarks, stdid, OldRegNo, UpdatedBy, out OutStatus, OtherBoard, ShiftFormNM, VerifiedEmp, adminLoginSession.AdminEmployeeUserId);
                 if (OutStatus == 1)
                 {
                     dee = "Yes";
@@ -581,19 +581,19 @@ namespace PSEBONLINE.Controllers
             RegistrationModels rm = new RegistrationModels();
 
             try
-            {               
+            {
                 int outstatus = 0;
                 string Search = string.Empty;
-                 int result = AbstractLayer.RegistrationDB.ModifyRegistrationData(std_id, RegNo.Trim(), Remarks, GroupName,adminLoginSession.AdminEmployeeUserId, out outstatus);              
+                int result = AbstractLayer.RegistrationDB.ModifyRegistrationData(std_id, RegNo.Trim(), Remarks, GroupName, adminLoginSession.AdminEmployeeUserId, out outstatus);
 
                 return Json(new { sn = result }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
-            {                
+            {
                 return null;
             }
         }
-      
+
 
         #endregion
 
@@ -623,7 +623,7 @@ namespace PSEBONLINE.Controllers
                         {
 
                             HttpPostedFileBase file = files[i];
-                            string fname;                           
+                            string fname;
                             string fileKey = i == 0 ? "DocProofCertificate" : i == 1 ? "DocProofNRICandidates" : "";
                             string result = Request.Form["StudentUniqueId"].ToString();
                             string formName = Request.Form["formName"].ToString();
@@ -671,11 +671,11 @@ namespace PSEBONLINE.Controllers
 
                         if (flag == 0)
                         {
-                            return Json(new { oid = flag, msg = "failure" }, JsonRequestBehavior.AllowGet);                            
+                            return Json(new { oid = flag, msg = "failure" }, JsonRequestBehavior.AllowGet);
                         }
                         else
                         {
-                            return Json(new {  oid = flag,msg="success" }, JsonRequestBehavior.AllowGet);
+                            return Json(new { oid = flag, msg = "success" }, JsonRequestBehavior.AllowGet);
                         }
                     }
                     catch (Exception ex)
@@ -686,7 +686,7 @@ namespace PSEBONLINE.Controllers
                 else
                 {
                     return Json(new { oid = 2, msg = "No files Selected" }, JsonRequestBehavior.AllowGet);
-           
+
                 }
             }
             catch (Exception ex)
@@ -731,8 +731,8 @@ namespace PSEBONLINE.Controllers
                             if (file != null && fileKey == "DocAddDocument")
                             {
                                 string fileExt = Path.GetExtension(file.FileName);
-                                var path = Path.Combine(Server.MapPath("~/Upload/" + "Upload2023/"  + "OtherBoardDocumentsByAdminUser"), myUniqueFileName + fileExt);
-                                string FilepathExist = Path.Combine(Server.MapPath("~/Upload/" + "Upload2023/"  + "OtherBoardDocumentsByAdminUser"));
+                                var path = Path.Combine(Server.MapPath("~/Upload/" + "Upload2023/" + "OtherBoardDocumentsByAdminUser"), myUniqueFileName + fileExt);
+                                string FilepathExist = Path.Combine(Server.MapPath("~/Upload/" + "Upload2023/" + "OtherBoardDocumentsByAdminUser"));
                                 if (!Directory.Exists(FilepathExist))
                                 {
                                     Directory.CreateDirectory(FilepathExist);
@@ -746,7 +746,7 @@ namespace PSEBONLINE.Controllers
                                 {
                                     Stdid = long.Parse(stdid),
                                     Filepath = rm.ProofCertificate,
-                                    Remarks= addDocumentRemarks,
+                                    Remarks = addDocumentRemarks,
                                     IsActive = true,
                                     SubmitOn = DateTime.Now,
                                     SubmitBy = AdminUser,
@@ -765,7 +765,7 @@ namespace PSEBONLINE.Controllers
                                 }
                             }
 
-                           
+
                         }
                         // Returns message that successfully uploaded  
 
@@ -797,11 +797,11 @@ namespace PSEBONLINE.Controllers
 
 
         [SessionCheckFilter]
-        [HttpPost]        
+        [HttpPost]
         public ActionResult JqUpdateOtherBoardDocumentsBySchool()
         {
 
-            string Schl = Session["Schl"].ToString();          
+            string Schl = Session["Schl"].ToString();
             try
             {
                 RegistrationModels rm = new RegistrationModels();
@@ -841,7 +841,7 @@ namespace PSEBONLINE.Controllers
                                 file.SaveAs(path);
                                 rm.ProofCertificate = "OtherBoardDocumentsBySchool" + "/" + myUniqueFileName + fileExt;
                                 string type = "AD";
-                                
+
                                 tblOtherBoardDocumentsBySchool tblOtherBoardDocuments = new tblOtherBoardDocumentsBySchool()
                                 {
                                     Stdid = long.Parse(stdid),
@@ -897,7 +897,7 @@ namespace PSEBONLINE.Controllers
 
         [HttpPost]
         public ActionResult JqSendEaffObjectionResponse(AffObjectionLettersResponseModel affObjectionLettersResponseModel)
-        {           
+        {
             try
             {
                 RegistrationModels rm = new RegistrationModels();
@@ -955,7 +955,7 @@ namespace PSEBONLINE.Controllers
                                                 Directory.CreateDirectory(FilepathExist);
                                             }
                                             file.SaveAs(path);
-                                        }                                        
+                                        }
                                     }
                                     else
                                     {
@@ -1005,7 +1005,7 @@ namespace PSEBONLINE.Controllers
 
             string dee = "";
             string outstatus = "";
-           // string UpdatedBy = "";
+            // string UpdatedBy = "";
             try
             {
 
@@ -1013,7 +1013,7 @@ namespace PSEBONLINE.Controllers
                 {
                     return Json(new { sn = dee, chid = outstatus }, JsonRequestBehavior.AllowGet);
                 }
-               
+
                 //if (Session["AdminType"] != null)
                 //{
                 //    UpdatedBy = "ADMIN-" + Session["AdminId"].ToString();
@@ -1021,7 +1021,7 @@ namespace PSEBONLINE.Controllers
                 string AdminUser = Session["AdminUser"].ToString().ToUpper();
 
                 int olid = Convert.ToInt32(OLID);
-                string approvedStatus = AbstractLayer.DBClass.GetAcceptRejectDDL().Where(s=>s.Value == status).Select(s=>s.Text).FirstOrDefault();
+                string approvedStatus = AbstractLayer.DBClass.GetAcceptRejectDDL().Where(s => s.Value == status).Select(s => s.Text).FirstOrDefault();
 
 
 
@@ -1049,7 +1049,7 @@ namespace PSEBONLINE.Controllers
         }
 
 
-    
+
         #endregion
 
 
@@ -1074,8 +1074,8 @@ namespace PSEBONLINE.Controllers
 
                             HttpPostedFileBase file = files[i];
                             string fileKey = i == 0 ? "ReceiptUpdate" : "";
-                           // string result = receiptUpdateManualModel.appno + "_" + receiptUpdateManualModel.ObjCode + "_" + affObjectionLettersResponseModel.OLID;
-                           // string myUniqueFileName = StaticDB.GenerateFileName(result);
+                            // string result = receiptUpdateManualModel.appno + "_" + receiptUpdateManualModel.ObjCode + "_" + affObjectionLettersResponseModel.OLID;
+                            // string myUniqueFileName = StaticDB.GenerateFileName(result);
                             string attachmentName = "";
                             string FilepathExist = "";
                             string filename = "", path = "";
@@ -1092,18 +1092,18 @@ namespace PSEBONLINE.Controllers
                                     receiptUpdateManualModel.ReceiptScannedCopy = attachmentName;
                                 }
                                 else if (feecode == "45")
-                                {                                    
+                                {
                                     filename = receiptUpdateManualModel.Schl + "_" + receiptUpdateManualModel.challancategory + "_ReceiptScannedCopy" + fileExt;
                                     path = Path.Combine(Server.MapPath("~/Upload/Upload2023/Affiliation/ReceiptScannedCopy"), filename);
                                     FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/Affiliation/ReceiptScannedCopy"));
                                     attachmentName = "Upload2023/Affiliation/ReceiptScannedCopy/" + filename;
                                     receiptUpdateManualModel.ReceiptScannedCopy = attachmentName;
-                                }      
+                                }
                             }
 
                             string OutError = "";
                             string result = AbstractLayer.BankDB.UpdateReceiptAttachmentManualSP(receiptUpdateManualModel, out OutError);
-                            if (OutError =="1")
+                            if (OutError == "1")
                             {
                                 flag = 1;
                                 if (file != null && attachmentName != "")
@@ -1315,7 +1315,7 @@ namespace PSEBONLINE.Controllers
         public JsonResult UnlockApplication(AttendenceSummaryDetail obj)
         {
             AdminLoginSession adminLoginSession = (AdminLoginSession)Session["AdminLoginSession"];
-            string sRemark = obj.remarks+ " [ "+ adminLoginSession.AdminEmployeeUserId + " - "+ adminLoginSession.AdminEmployeeName + " ]";
+            string sRemark = obj.remarks + " [ " + adminLoginSession.AdminEmployeeUserId + " - " + adminLoginSession.AdminEmployeeName + " ]";
 
             AttendanceResponse response = new AttendanceResponse();
             string outError = "0";
@@ -1323,5 +1323,186 @@ namespace PSEBONLINE.Controllers
             response.returncode = outError;
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ValidateRequestID(string requestID, string CandName)
+        {
+
+
+            string schoolName = "";
+            string formName = "";
+            string cls = "";
+            string candName = "";
+            string status = "";
+            string ApprovalUp = "";
+            string DateForMax = "";
+            try
+            {
+                DataSet result = RegistrationDB.ValidateRequestId(requestID, CandName);
+                schoolName = result.Tables[0].Rows[0]["Schl"].ToString();
+                formName = result.Tables[0].Rows[0]["Form"].ToString();
+                candName = result.Tables[0].Rows[0]["candName"].ToString();
+                cls = result.Tables[0].Rows[0]["Class"].ToString();
+                status = result.Tables[0].Rows[0]["status"].ToString();
+                ApprovalUp = result.Tables[0].Rows[0]["ApprovalUpto"].ToString();
+                DateTime currDate = DateTime.Now;
+                //string Data = result.Tables[0].Rows[0]["status"].ToString();
+                DateTime date1 = Convert.ToDateTime(ApprovalUp);
+                if (date1 > currDate)
+                {
+                    DateForMax = currDate.ToString();
+                }
+                else
+                {
+                    DateForMax = date1.ToString();
+                }
+
+
+                return Json(new { schoolName = schoolName, formName = formName, candName = candName, status = status, cls = cls, ApprovalUp = DateForMax }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { schoolName = schoolName, formName = formName, candName = candName, status = status, cls = cls, ApprovalUp = ApprovalUp }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+        public JsonResult Ins_School_Center_Choice(string CenterChoice, string CenterDisTance)
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance);
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+
+        public JsonResult Delete_School_Center_Choice(int Id)
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                DataSet result = RegistrationDB.Delete_School_Center_Choice(Id);
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+
+
+        public JsonResult Get_School_Center_Choice()
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                DataSet result = RegistrationDB.Get_School_Center_Choice();
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
+
+
     }
 }

@@ -1652,6 +1652,12 @@ namespace PSEBONLINE.Controllers
                                 objGroupList.Add(new SelectListItem { Text = "COMMERCE", Value = "COMMERCE" });
                              
                         }
+                        if (!dschk.Tables[1].AsEnumerable().Any(row => "Y".ToUpper() == row.Field<string>("voc").ToUpper()))
+                        {
+
+                            objGroupList.Add(new SelectListItem { Text = "VOCATIONAL", Value = "VOCATIONAL" });
+
+                        }
                         //if (dschk.Tables[0].AsEnumerable().Any(row => "HUMANITIES".ToUpper() == row.Field<string>("exam").ToUpper()))
                         //{
                         //    objGroupList.Add(new SelectListItem { Text = "HUMANITIES", Value = "HUMANITIES" });
@@ -1671,6 +1677,7 @@ namespace PSEBONLINE.Controllers
                         objGroupList.Add(new SelectListItem { Text = "HUMANITIES", Value = "HUMANITIES" });
                         objGroupList.Add(new SelectListItem { Text = "SCIENCE", Value = "SCIENCE" });
                         objGroupList.Add(new SelectListItem { Text = "COMMERCE", Value = "COMMERCE" });
+                        objGroupList.Add(new SelectListItem { Text = "VOCATIONAL", Value = "VOCATIONAL" });
                     }
                 }
 
@@ -1679,6 +1686,7 @@ namespace PSEBONLINE.Controllers
                     objGroupList.Add(new SelectListItem { Text = "HUMANITIES", Value = "HUMANITIES" });
                     objGroupList.Add(new SelectListItem { Text = "SCIENCE", Value = "SCIENCE" });
                     objGroupList.Add(new SelectListItem { Text = "COMMERCE", Value = "COMMERCE" });
+                    objGroupList.Add(new SelectListItem { Text = "VOCATIONAL", Value = "VOCATIONAL" });
                 }
             }
             else
@@ -2022,7 +2030,7 @@ namespace PSEBONLINE.Controllers
                         ViewBag.TotalLateFee = Convert.ToInt32(ds.Tables[0].AsEnumerable().Sum(x => x.Field<int>("latefee")));
                         ViewBag.extrafee = Convert.ToInt32(ds.Tables[0].Rows[0]["extraFee"]);
                         ViewBag.TotalTotfee = Convert.ToInt32(ds.Tables[0].AsEnumerable().Sum(x => x.Field<int>("Totfee")));
-                        if ((ds.Tables[0].Rows[0]["srflag"].ToString()!="1" || ds.Tables[0].Rows[0]["srflag1"].ToString() != "1" ) &&  classCheck=="12")
+                        if ((ds.Tables[0].Rows[0]["srflag"].ToString()!="1" && ds.Tables[0].Rows[0]["srflag1"].ToString() != "1" ) &&  classCheck=="12")
                         {
                             Int64 fees = Convert.ToInt64(_EAffiliationFee.PaymentFormData.Tables[0].Rows[0]["fee"]);
                             Int64 addRxtraFee = Convert.ToInt64(_EAffiliationFee.PaymentFormData.Tables[0].Rows[0]["Totfee"]);
@@ -2034,7 +2042,7 @@ namespace PSEBONLINE.Controllers
                         }
                        
 
-                       else if ((ds.Tables[0].Rows[0]["matflag"].ToString() != "1" || ds.Tables[0].Rows[0]["matflag1"].ToString() != "1") && classCheck == "10")
+                       else if ((ds.Tables[0].Rows[0]["matflag"].ToString() != "1" && ds.Tables[0].Rows[0]["matflag1"].ToString() != "1") && classCheck == "10")
                         {
                             Int64 fees = Convert.ToInt64(_EAffiliationFee.PaymentFormData.Tables[0].Rows[0]["fee"]);
                             Int64 addRxtraFee = Convert.ToInt64(_EAffiliationFee.PaymentFormData.Tables[0].Rows[0]["Totfee"]);

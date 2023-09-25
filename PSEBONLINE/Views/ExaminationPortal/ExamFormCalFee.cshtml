@@ -28,8 +28,8 @@
             {
                 if (Model.StoreAllData.Tables[1].Rows.Count > 0 && Model.StoreAllData.Tables[1].Rows[0]["PendingExamForm"].ToString() != "0")
                 {
-                    <a style="text-align:center;font-size:18px;"
-                       href="/MergerdlcSchool.aspx?Schl=@encrypt.QueryStringModule.Encrypt(schl1)" target="_blank" class="btn">Click Here to Generate Examination Form</a>
+                    @*<a style="text-align:center;font-size:18px;"
+                       href="/MergerdlcSchool.aspx?Schl=@encrypt.QueryStringModule.Encrypt(schl1)" target="_blank" class="btn">Click Here to Generate Examination Form</a>*@
                 }
             }
         }

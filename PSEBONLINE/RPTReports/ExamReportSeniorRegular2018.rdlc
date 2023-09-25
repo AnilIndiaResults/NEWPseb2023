@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="https://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="https://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="firmdata_onlineDataSet">
@@ -25,6 +25,7 @@
           <DataField>IsHardCopyCertificate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+      
         <Field Name="MatricBoard">
           <DataField>MatricBoard</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -621,18 +622,18 @@
           <DataField>totalstudent</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="StudyMediumEngligh">
-          <DataField>StudyMediumEngligh</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StudyMediumHindi">
-          <DataField>StudyMediumHindi</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="StudyMediumPunjabi">
-          <DataField>StudyMediumPunjabi</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
+		  <Field Name="StudyMediumEngligh">
+			  <DataField>StudyMediumEngligh</DataField>
+			  <rd:TypeName>System.String</rd:TypeName>
+		  </Field>
+		  <Field Name="StudyMediumHindi">
+			  <DataField>StudyMediumHindi</DataField>
+			  <rd:TypeName>System.String</rd:TypeName>
+		  </Field>
+		  <Field Name="StudyMediumPunjabi">
+			  <DataField>StudyMediumPunjabi</DataField>
+			  <rd:TypeName>System.String</rd:TypeName>
+		  </Field>
         <Field Name="StartFormNo">
           <DataField>StartFormNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -859,7 +860,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>                              ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (Ïè¬ÞÐÏ) ÓèÓÖÅ 2023-24                  </Value>
+                        <Value>                              ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (Ïè¬ÞÐÏ) ÓèÓÖÅ 2022-23                  </Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>18pt</FontSize>
@@ -921,8 +922,8 @@
                     <TextRuns>
                       <TextRun>
                         <Value>¼ÓÂÛ¨ ¨Û¼Ø ²ÙÂØ Õè Ú¨: -
-1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÓÖèÓÅ 2023-24 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
-2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÖÛ ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÓÖèÓÅ 2023-24 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã Ïè¬ÞÐÏ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇÖØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇÖØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¤¼ã °èó¨ ¨Ï Ð¥ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇÖØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, ÌèÚ¶ñ¨ Âã ÓÏ¶ÛÚÇÖ¨ã¶ ¤¼ã ÚÏ¨ØÏ¸ ¤ÅÝÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
+1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÌØÏ° 2021 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
+2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÖÛ ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÌØÏ° 2021 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã Ïè¬ÞÐÏ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇÖØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇÖØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¤¼ã °èó¨ ¨Ï Ð¥ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇÖØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, ÌèÚ¶ñ¨ Âã ÓÏ¶ÛÚÇÖ¨ã¶ ¤¼ã ÚÏ¨ØÏ¸ ¤ÅÝÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
 3. ÓØÏã ÆÏÛÚª¤ØÏÁÛ PCP ÂïÏØÅ 75% ÕØ²ÖÏÛ¤Ù ÆÞÏÛ¤Ù ¨ÏÂã ÕÅ¢
 4. Ú¥Õ ÆÏÛÚª¤ØÏÁÛ ¨Âã ÒÛ Ú¨Óã ÉëÏ¸ ÒóÐë× ¤»¦ÝÚ°ó¼ ºâ¬ ÒÏ¼» ¨ØÏÅ ¤Íë¬ ¨ÏØÏ ÅÕÛ× ÚÂó¼ã ¬¥ã¢</Value>
                         <Style>
@@ -939,7 +940,9 @@
                       <TextRun>
                         <Value>5. Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ ÒóÐë× Ú¨Óã ÒÛ Ú¨ÓÌ Âã ´¬¾ã ÂÛ ÓÞÏ¼ ÚÒó° ¨ÅâÞÅÛ ¨ØÏÒØ¥Û ¨ãÒÐ ¤èóÓ Ö¥ã Ö¤èóÓ ÖÅ¬Ï ÚÒªã ÓÚÁ¼ ¤ÂØÐ¼ ÚÒó° ÕÛ ¨Û¼Û ²Ø Ó¨ÂÛ Õè¢
 6. Ú¥ÕÅÙ ÆÏÛÚª¤ØÏÁÛ¤Ù ÚÒó°ë× Ú¨Óã ÒÛ ÆÏÛÚª¤ØÏÁÛ ÂØ ÇÖØÏÌ §ÆÅ Ó¨ÞÐ Ó¨ÛÌ ¤ÄÛÅ ÆÏÛÚª¤ØÏÁÛ Âã ¼ïÏ ¼ã ¼ÓÂÛ¨ ¨Ï¨ã ÅÕÛ× ÊãÚ²¤Ø Ú¬¤Ø¢
-     </Value>
+7. ÆÏÛÚª¤Ø ¨ã×ÂÏ : (¼Ï²ÛÕ ¤ÅÝÓØÏ)
+     1. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 2................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ
+     3. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 4.................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -952,7 +955,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>7. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
+                        <Value>9. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -2236,42 +2239,10 @@ Total  </Value>
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Textbox Name="Textbox16">
-                <CanGrow>true</CanGrow>
-                <KeepTogether>true</KeepTogether>
-                <Paragraphs>
-                  <Paragraph>
-                    <TextRuns>
-                      <TextRun>
-                        <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                        <Style>
-                          <Color>DarkGreen</Color>
-                        </Style>
-                      </TextRun>
-                    </TextRuns>
-                    <Style />
-                  </Paragraph>
-                </Paragraphs>
-                <rd:DefaultName>Textbox5</rd:DefaultName>
-                <Top>9.02948in</Top>
-                <Left>0.10847in</Left>
-                <Height>0.25in</Height>
-                <Width>2.02351in</Width>
-                <ZIndex>12</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                  <PaddingLeft>2pt</PaddingLeft>
-                  <PaddingRight>2pt</PaddingRight>
-                  <PaddingTop>2pt</PaddingTop>
-                  <PaddingBottom>2pt</PaddingBottom>
-                </Style>
-              </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Top>8.51334in</Top>
-            <Left>0.03015cm</Left>
+            <Left>0.00714cm</Left>
             <Height>9.43396in</Height>
             <Width>7.86547in</Width>
             <Style>
@@ -2286,7 +2257,7 @@ Total  </Value>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
             <Top>8.45153in</Top>
-            <Left>0.23663in</Left>
+            <Left>0.22757in</Left>
             <Height>0.01042in</Height>
             <Width>7.30384in</Width>
             <ZIndex>1</ZIndex>
@@ -2370,7 +2341,7 @@ Total  </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox29</rd:DefaultName>
             <Top>3.00894in</Top>
-            <Left>4.71864in</Left>
+            <Left>4.70958in</Left>
             <Height>0.54514in</Height>
             <Width>2.99926in</Width>
             <ZIndex>2</ZIndex>
@@ -2404,7 +2375,7 @@ Total  </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
             <Top>5.42549in</Top>
-            <Left>0.12786in</Left>
+            <Left>0.1188in</Left>
             <Height>0.27083in</Height>
             <Width>4.22065in</Width>
             <ZIndex>3</ZIndex>
@@ -2493,7 +2464,7 @@ Total  </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox29</rd:DefaultName>
             <Top>6.05234in</Top>
-            <Left>4.71864in</Left>
+            <Left>4.70958in</Left>
             <Height>0.51241in</Height>
             <Width>3.01176in</Width>
             <ZIndex>4</ZIndex>
@@ -2526,7 +2497,7 @@ Total  </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
             <Top>7.76889in</Top>
-            <Left>0.11552in</Left>
+            <Left>0.10646in</Left>
             <Height>0.27083in</Height>
             <Width>4.52736in</Width>
             <ZIndex>5</ZIndex>
@@ -2610,7 +2581,7 @@ Punjab-160062</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Senior Secondary Examination (Regular) Session 2023-24 Exam Form Details:</Value>
+                    <Value>Senior Secondary Examination (Regular) Session 2022-23 Exam Form Details:</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -2671,7 +2642,7 @@ Starting Form No: </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
             <Top>3.30755in</Top>
-            <Left>0.10596in</Left>
+            <Left>0.0969in</Left>
             <Height>2.0485in</Height>
             <Width>6.66322in</Width>
             <ZIndex>6</ZIndex>
@@ -2840,7 +2811,7 @@ The Principal</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
             <Top>6.05234in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>1.66666in</Height>
             <Width>4.225in</Width>
             <ZIndex>7</ZIndex>
@@ -2893,7 +2864,7 @@ The Principal</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
             <Top>3.00894in</Top>
-            <Left>0.09925in</Left>
+            <Left>0.09019in</Left>
             <Height>0.27083in</Height>
             <Width>4.23676in</Width>
             <ZIndex>8</ZIndex>
@@ -2914,7 +2885,7 @@ The Principal</Value>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
             <Top>18.01188in</Top>
-            <Left>0.03015cm</Left>
+            <Left>0.00714cm</Left>
             <Height>0.01042in</Height>
             <Width>7.86547in</Width>
             <ZIndex>9</ZIndex>
@@ -3051,7 +3022,7 @@ The Principal</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>19.10963in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.66667in</Height>
             <Width>7.75383in</Width>
             <ZIndex>10</ZIndex>
@@ -3071,7 +3042,7 @@ The Principal</Value>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
             <Top>24.2586in</Top>
-            <Left>0.34493cm</Left>
+            <Left>0.32192cm</Left>
             <Height>0.01042in</Height>
             <Width>7.74154in</Width>
             <ZIndex>11</ZIndex>
@@ -3368,7 +3339,7 @@ The Principal</Value>
             </TablixRowHierarchy>
             <DataSetName>SubjectwiseCountMatricExam</DataSetName>
             <Top>19.80895in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.5in</Height>
             <Width>7.74196in</Width>
             <ZIndex>12</ZIndex>
@@ -3383,7 +3354,7 @@ The Principal</Value>
             <Value>pseblogo</Value>
             <Sizing>FitProportional</Sizing>
             <Top>18.16519in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.43055in</Height>
             <Width>0.75484in</Width>
             <ZIndex>13</ZIndex>
@@ -3410,7 +3381,7 @@ The Principal</Value>
                   </TextRun>
                   <TextRun>
                     <Value>
-Senior Secondary Examination (Regular) Session 2023-24
+Senior Secondary Examination (Regular) Session 2022-23
 Subject-Wise Count of Students (Centre Statement)</Value>
                     <Style>
                       <FontFamily>PNB-TTAmarEN</FontFamily>
@@ -3426,7 +3397,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>46.03374cm</Top>
-            <Left>1.03723in</Left>
+            <Left>1.02817in</Left>
             <Height>0.92361in</Height>
             <Width>6.84011in</Width>
             <ZIndex>14</ZIndex>
@@ -3446,7 +3417,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
             <Value>pseblogo</Value>
             <Sizing>FitProportional</Sizing>
             <Top>24.33019in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.43055in</Height>
             <Width>0.7227in</Width>
             <ZIndex>15</ZIndex>
@@ -4334,7 +4305,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
             </TablixRowHierarchy>
             <DataSetName>ExamReportDataSet</DataSetName>
             <Top>25.91153in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.64583in</Height>
             <Width>7.74196in</Width>
             <ZIndex>16</ZIndex>
@@ -4803,7 +4774,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
             </TablixRowHierarchy>
             <DataSetName>SubjectwiseCountOfStudent</DataSetName>
             <Top>27.36101in</Top>
-            <Left>2.22165in</Left>
+            <Left>2.21259in</Left>
             <Height>0.52848in</Height>
             <Width>5.6438in</Width>
             <ZIndex>17</ZIndex>
@@ -4835,7 +4806,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox378</rd:DefaultName>
             <Top>28.14607in</Top>
-            <Left>4.69933in</Left>
+            <Left>4.69027in</Left>
             <Height>0.20092in</Height>
             <Width>3.10445in</Width>
             <ZIndex>18</ZIndex>
@@ -4851,7 +4822,8 @@ Subject-Wise Count of Students (Centre Statement)</Value>
           </Textbox>
           <Rectangle Name="Rectangle8">
             <KeepTogether>true</KeepTogether>
-            <Top>28.77812in</Top>
+            <Top>28.3927in</Top>
+            <Left>0.00714cm</Left>
             <Height>0.01042in</Height>
             <Width>7.86547in</Width>
             <ZIndex>19</ZIndex>
@@ -4889,7 +4861,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> Senior Secondary Examination (Regular) Session 2023-24 </Value>
+                    <Value> Senior Secondary Examination (Regular) Session 2022-23 </Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -4953,7 +4925,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
             </Paragraphs>
             <rd:DefaultName>Textbox123</rd:DefaultName>
             <Top>24.33019in</Top>
-            <Left>0.90674in</Left>
+            <Left>0.89768in</Left>
             <Height>0.89585in</Height>
             <Width>6.9706in</Width>
             <ZIndex>20</ZIndex>
@@ -6866,7 +6838,7 @@ Set :  </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Senior Secondary Examination Form (Regular) Session 2023-24</Value>
+                                      <Value>Senior Secondary Examination Form (Regular) Session 2022-23</Value>
                                       <Style>
                                         <FontFamily>arial</FontFamily>
                                         <FontSize>14pt</FontSize>
@@ -8136,14 +8108,27 @@ Roll No. </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
+                                      <Value>Issue Hard Copy of Certificate : </Value>
+                                      <Style>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Fields!IsHardCopyCertificate.Value</Value>
+                                      <Style>
+                                        <FontFamily>arial</FontFamily>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value xml:space="preserve"> </Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
-                                    <TextAlign>Left</TextAlign>
+                                    <TextAlign>Right</TextAlign>
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
@@ -8194,7 +8179,7 @@ Roll No. </Value>
             </TablixRowHierarchy>
             <DataSetName>ExamReportDataSet</DataSetName>
             <Top>83.9338cm</Top>
-            <Left>0.03015cm</Left>
+            <Left>0.00714cm</Left>
             <Height>24.8686cm</Height>
             <Width>19.86387cm</Width>
             <ZIndex>21</ZIndex>
@@ -8299,7 +8284,7 @@ Roll No. </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox611</rd:DefaultName>
             <Top>53.14827cm</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>1.5195in</Height>
             <Width>3.54979in</Width>
             <ZIndex>22</ZIndex>
@@ -8444,7 +8429,7 @@ Roll No. </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox610</rd:DefaultName>
             <Top>20.92452in</Top>
-            <Left>4.59364in</Left>
+            <Left>4.58458in</Left>
             <Height>1.62714in</Height>
             <Width>3.2837in</Width>
             <ZIndex>23</ZIndex>
@@ -8480,7 +8465,7 @@ Roll No. </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox33</rd:DefaultName>
             <Top>5.89956in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.02083in</Height>
             <Width>7.59439in</Width>
             <ZIndex>24</ZIndex>
@@ -8584,7 +8569,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>27.36101in</Top>
-            <Left>0.12351in</Left>
+            <Left>0.11445in</Left>
             <Height>0.94848in</Height>
             <Width>1.39197in</Width>
             <ZIndex>25</ZIndex>
@@ -8640,7 +8625,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>25.64903in</Top>
-            <Left>0.33126cm</Left>
+            <Left>0.30825cm</Left>
             <Height>0.25in</Height>
             <Width>3.14939in</Width>
             <ZIndex>26</ZIndex>
@@ -8698,7 +8683,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>25.27958in</Top>
-            <Left>0.12538in</Left>
+            <Left>0.11632in</Left>
             <Height>0.375in</Height>
             <Width>7.73946in</Width>
             <ZIndex>27</ZIndex>
@@ -8754,7 +8739,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>25.64903in</Top>
-            <Left>3.27981in</Left>
+            <Left>3.27075in</Left>
             <Height>0.25in</Height>
             <Width>2.35301in</Width>
             <ZIndex>28</ZIndex>
@@ -8802,7 +8787,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>25.64903in</Top>
-            <Left>5.63486in</Left>
+            <Left>5.6258in</Left>
             <Height>0.25in</Height>
             <Width>2.23061in</Width>
             <ZIndex>29</ZIndex>
@@ -9248,7 +9233,7 @@ Total ST Candidates        </Value>
             </TablixRowHierarchy>
             <DataSetName>ChallanDetails</DataSetName>
             <Top>26.61101in</Top>
-            <Left>0.10873in</Left>
+            <Left>0.09967in</Left>
             <Height>0.71875in</Height>
             <Width>7.75674in</Width>
             <ZIndex>30</ZIndex>
@@ -9350,7 +9335,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox3543</rd:DefaultName>
             <Top>27.36101in</Top>
-            <Left>1.50946in</Left>
+            <Left>1.5004in</Left>
             <Height>0.94848in</Height>
             <Width>0.62275in</Width>
             <ZIndex>31</ZIndex>
@@ -9438,7 +9423,7 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox50</rd:DefaultName>
             <Top>20.46988in</Top>
-            <Left>0.1358in</Left>
+            <Left>0.12674in</Left>
             <Height>0.25in</Height>
             <Width>7.72967in</Width>
             <ZIndex>32</ZIndex>
@@ -9474,74 +9459,10 @@ Total ST Candidates        </Value>
             </Paragraphs>
             <rd:DefaultName>Textbox378</rd:DefaultName>
             <Top>28.10893in</Top>
-            <Left>2.22165in</Left>
+            <Left>2.21259in</Left>
             <Height>0.22719in</Height>
             <Width>2.23951in</Width>
             <ZIndex>33</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox20">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                    <Style>
-                      <Color>DarkGreen</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>23.80321in</Top>
-            <Left>0.1358in</Left>
-            <Height>0.25in</Height>
-            <Width>2.02351in</Width>
-            <ZIndex>34</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox21">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                    <Style>
-                      <Color>DarkGreen</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>28.45867in</Top>
-            <Left>0.13042in</Left>
-            <Height>0.25in</Height>
-            <Width>2.02351in</Width>
-            <ZIndex>35</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -9556,7 +9477,7 @@ Total ST Candidates        </Value>
         <Height>42.83559in</Height>
         <Style />
       </Body>
-      <Width>7.87734in</Width>
+      <Width>7.86828in</Width>
       <Page>
         <PageFooter>
           <Height>0.21042in</Height>
@@ -9583,7 +9504,7 @@ Total ST Candidates        </Value>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
               <Top>0.0125in</Top>
-              <Left>6.40642in</Left>
+              <Left>6.39736in</Left>
               <Height>0.19792in</Height>
               <Width>1.29167in</Width>
               <Style>
@@ -9620,7 +9541,7 @@ Total ST Candidates        </Value>
               </Paragraphs>
               <rd:DefaultName>PageNumber</rd:DefaultName>
               <Top>0.00625in</Top>
-              <Left>0.13406in</Left>
+              <Left>0.125in</Left>
               <Height>0.19792in</Height>
               <Width>3.14575in</Width>
               <ZIndex>1</ZIndex>

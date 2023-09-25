@@ -1031,7 +1031,8 @@ namespace PSEBONLINE.Controllers
                     ViewBag.MySch = objCommon.SearchSchoolItems();
                     ViewBag.MyStatus = objCommon.SearchSchoolStatus();
                     ViewBag.MySchoolType = objCommon.GetSchool();
-                    ViewBag.MyClassType = objCommon.GetClass().Where(s => s.Value != "1").ToList();
+                    //ViewBag.MyClassType = objCommon.GetClass().Where(s => s.Value != "1").ToList();
+                    ViewBag.MyClassType = objCommon.GetClass().ToList();
 
                     int pageIndex = 1;
                     pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
@@ -1084,7 +1085,8 @@ namespace PSEBONLINE.Controllers
                         }
                         else
                         {
-                            Search = "sm.Id like '%' and sm.status='Done' and sm.Class!='1' ";
+                            //Search = "sm.Id like '%' and sm.status='Done' and sm.Class!='1' ";
+                            Search = "sm.Id like '%' and sm.status='Done' ";
                             if (DistAllow != "")
                             {
                                 Search += " and sm.DIST in (" + DistAllow + ")";
@@ -1126,6 +1128,153 @@ namespace PSEBONLINE.Controllers
                 return View();
             }
         }
+
+
+        [HttpPost]
+        public ActionResult RegSchoolListForExcel(FormCollection frm, int? page)
+        {
+            try
+            {
+
+                // Dist Allowed
+                string DistAllow = "";
+                if (ViewBag.DistAllow == null)
+                { return RedirectToAction("Index", "Admin"); }
+                else
+                { DistAllow = ViewBag.DistAllow; }
+                if (ViewBag.DistUser == null)
+                { ViewBag.MyDist = null; }
+                else
+                {
+                    ViewBag.MyDist = ViewBag.DistUser;
+                }
+                // End Dist Allowed
+
+                #region Action Assign Method
+                if (Session["AdminType"].ToString().ToUpper() == "ADMIN")
+                { ViewBag.IsView = 1; }
+                else
+                {
+
+                    string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                    string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                    int AdminId = Convert.ToInt32(Session["AdminId"]);
+                    //string AdminType = Session["AdminType"].ToString();
+                    //GetActionOfSubMenu(string cont, string act)
+                    DataSet aAct = objCommon.GetActionOfSubMenu(AdminId, controllerName, actionName);
+                    if (aAct.Tables[0].Rows.Count > 0)
+                    {
+                        ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/SCHOOL_VIEW_FORM")).Count();
+                    }
+                }
+                #endregion Action Assign Method
+
+                int pageIndex = 1;
+                pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+                ViewBag.pagesize = pageIndex;
+
+                AbstractLayer.SchoolDB objDB = new AbstractLayer.SchoolDB();
+                SchoolModels ASM = new SchoolModels();
+                if (ModelState.IsValid)
+                {
+                    ViewBag.MyStatus = objCommon.SearchSchoolStatus();
+                    ViewBag.MySchoolType = objCommon.GetSchool();
+                    ViewBag.MyClassType = objCommon.GetClass().ToList();
+                    // bind Dist 
+                    ////  ViewBag.MyDist = objCommon.GetDistE();
+                    ViewBag.MySch = objCommon.SearchSchoolItems();
+                    string Search = string.Empty;
+                    //Search = "sm.Id like '%' and sm.status='Done' and sm.Class!='1' ";
+                    Search = "sm.Id like '%' and sm.status='Done' ";
+                    if (frm["Dist1"] != "")
+                    {
+                        ViewBag.SelectedDist = frm["Dist1"];
+                        TempData["SelectedDist"] = frm["Dist1"];
+                        Search += " and sm.dist=" + frm["Dist1"].ToString();
+                    }
+
+                    if (frm["SchoolType"] != "")
+                    {
+                        ViewBag.SelectedSchoolType = frm["SchoolType"];
+                        TempData["SelectedSchoolType"] = frm["SchoolType"];
+                        Search += " and st.schooltype='" + frm["SchoolType"].ToString() + "'";
+                    }
+
+                    if (frm["ClassType"] != "")
+                    {
+                        ViewBag.SelectedClassType = frm["ClassType"];
+                        TempData["SelectedClassType"] = frm["ClassType"];
+                        Search += " and sm.class=" + frm["ClassType"].ToString();
+                    }
+                    if (frm["SchoolStatus"] != "")
+                    {
+                        //if (frm["SchoolStatus"].ToString() == "0")
+                        //{
+                        //    ViewBag.SelectedStatusType ="Pending";
+                        //    TempData["SelectedStatusType"] = "Pending";
+                        //}
+                        //else if (frm["SchoolStatus"].ToString() == "1")
+                        //{
+                        //    ViewBag.SelectedStatusType = "Submitted";
+                        //    TempData["SelectedStatusType"] = "Submitted";
+                        //}
+                        ViewBag.SelectedStatusType = frm["SchoolStatus"].ToString();
+                        TempData["SelectedStatusType"] = frm["SchoolStatus"].ToString();
+                        Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
+                    }
+
+                    if (frm["Sch1"] != "")
+                    {
+                        ViewBag.SelectedItem = frm["Sch1"];
+                        TempData["SelectedItem"] = frm["Sch1"];
+                        int SelValueSch = Convert.ToInt32(frm["Sch1"].ToString());
+
+                        if (frm["SearchString"] != "")
+                        {
+                            if (SelValueSch == 1)
+                            { Search += " and sm.SCHL=" + frm["SearchString"].ToString(); }
+                            else if (SelValueSch == 2)
+                            { Search += " and  sm.SCHLE like '%" + frm["SearchString"].ToString() + "%'"; }
+                            else if (SelValueSch == 3)
+                            { Search += " and sm.IDNO='" + frm["SearchString"].ToString() + "'"; }
+                            else if (SelValueSch == 4)
+                            { Search += " and sm.STATIONE like '%" + frm["SearchString"].ToString() + "%'"; }
+                            else if (SelValueSch == 5)
+                            { Search += " and sm.SCHLE=" + frm["SearchString"].ToString(); }
+                        }
+
+                    }
+                    ViewBag.PreviousPageIndex = 0;
+                    ViewBag.CurrentPageIndex = FirstPageIndex;
+                    TempData["SearchRegSchoolList"] = Search;
+                    TempData.Keep(); // to store search value for view
+                    if (DistAllow != "")
+                    {
+                        Search += " and sm.DIST in (" + DistAllow + ")";
+                    }
+                    ASM.StoreAllData = objDB.RegSchoolList(Search, pageIndex, 2500);//RegSchoolListSP
+
+                    if (ASM.StoreAllData != null)
+                    {
+                        ExportDataFromDataTable(ASM.StoreAllData.Tables[0], Session["UserName"].ToString().ToUpper() + "_SchoolListDistwise".ToUpper());
+
+                        return RedirectToAction("RegSchoolList");
+
+
+                    }
+
+
+                }
+                return RedirectToAction("RegSchoolList");
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                //return RedirectToAction("Logout", "Login");
+                return RedirectToAction("RegSchoolList");
+            }
+        }
+
 
         [HttpPost]
         public ActionResult RegSchoolList(FormCollection frm, int? page)
@@ -1176,12 +1325,13 @@ namespace PSEBONLINE.Controllers
                 {
                     ViewBag.MyStatus = objCommon.SearchSchoolStatus();
                     ViewBag.MySchoolType = objCommon.GetSchool();
-                    ViewBag.MyClassType = objCommon.GetClass().Where(s => s.Value != "1").ToList();
+                    ViewBag.MyClassType = objCommon.GetClass().ToList();
                     // bind Dist 
                     ////  ViewBag.MyDist = objCommon.GetDistE();
                     ViewBag.MySch = objCommon.SearchSchoolItems();
                     string Search = string.Empty;
-                    Search = "sm.Id like '%' and sm.status='Done' and sm.Class!='1' ";
+                    //Search = "sm.Id like '%' and sm.status='Done' and sm.Class!='1' ";
+                    Search = "sm.Id like '%' and sm.status='Done' ";
                     if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
@@ -14811,7 +14961,7 @@ namespace PSEBONLINE.Controllers
                 ViewBag.MigrationId = MS.StoreAllData.Tables[0].Rows[0]["MigrationId"].ToString();
                 ViewBag.MigStatus = MS.StoreAllData.Tables[0].Rows[0]["IsSchoolMigrationApplied"].ToString();
                 ViewBag.Std_id = MS.StoreAllData.Tables[0].Rows[0]["Std_id"].ToString();
-                
+
                 ViewBag.TotalCount = MS.StoreAllData.Tables[0].Rows.Count;
                 if (MS.StoreAllData.Tables[0].Rows[0]["form_Name"].ToString() == "T1" || MS.StoreAllData.Tables[0].Rows[0]["form_Name"].ToString() == "T2")
                 {
@@ -20704,7 +20854,6 @@ namespace PSEBONLINE.Controllers
         {
             try
             {
-                
                 if (Session["AdminId"] == null)
                 {
                     return RedirectToAction("Index", "Admin");
@@ -20741,13 +20890,18 @@ namespace PSEBONLINE.Controllers
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
                     }
-                    if (frm.AllKeys[2] == "Unlock")
+                    if (frm.AllKeys.Length > 2)
                     {
-                        DataSet newDs = new DataSet();
-                        newDs = AbstractLayer.SchoolDB.UnloackPerforma(sSCHL);
-                        return Admin_School_Infrastructure();
+                        if (frm.AllKeys[2] == "Unlock")
+                        {
+                            DataSet newDs = new DataSet();
+                            newDs = AbstractLayer.SchoolDB.UnloackPerforma(sSCHL);
+                            return Admin_School_Infrastructure();
 
+                        }
+                        return Admin_School_Infrastructure();
                     }
+
                     else
                     {
                         DataTable dt = new DataTable();
@@ -20773,8 +20927,8 @@ namespace PSEBONLINE.Controllers
                         return View(asm);
                     }
 
-                   
-                    
+
+
                 }
             }
             catch (Exception ex)
@@ -20790,17 +20944,35 @@ namespace PSEBONLINE.Controllers
             InfrasturePerformasviewModel ipm = new InfrasturePerformasviewModel();
             try
             {
+                ViewBag.SchoolCenterName = "";
                 if (Session["AdminId"] == null)
                 {
                     return RedirectToAction("Index", "Admin");
                 }
                 if (SCHL != "")
                 {
+
+
                     LoginSession loginSession = new LoginSession();
                     loginSession.SCHL = SCHL;
+
+                    DataSet dss = new DataSet();
+                    dss = new AbstractLayer.SchoolDB().SchoolCenterName(loginSession.SCHL);
+                    if (dss.Tables[0].Rows.Count > 0)
+                    {
+                        var schoolCenterNames = dss.Tables[0].AsEnumerable().Select(dataRow => new SchoolCenterName
+                        {
+                            cschl = dataRow.Field<string>("cschl").ToString(),
+                            CENT = dataRow.Field<string>("CENT").ToString(),
+                            CLASS = dataRow.Field<string>("CLASS").ToString(),
+                            schlnme = dataRow.Field<string>("schlnme").ToString()
+                        }).ToList();
+                        ViewBag.SchoolCenterName = schoolCenterNames;
+                    }
                     InfrasturePerformasList oInfrasturePerformas = new InfrasturePerformasList();
                     oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLList(loginSession);
                     ipm.ipf = oInfrasturePerformas;
+
                     DataSet ds = new DataSet();
                     SchoolModels sm = objDB.GetSchoolDataBySchl(SCHL, out ds);
                     ipm.schlmodel = sm;
@@ -20973,6 +21145,12 @@ namespace PSEBONLINE.Controllers
             return View(ipm);
         }
 
+        public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL)
+        {
+            InfrasturePerformas ipm = new InfrasturePerformas();
+            Session["SCHL"] = SCHL;
+            return await InfrasturePerforma(ipm);
+        }
 
         [SessionCheckFilter]
         public async Task<ActionResult> InfrasturePerforma(InfrasturePerformas ipm)
@@ -21328,7 +21506,7 @@ namespace PSEBONLINE.Controllers
             {
 
             }
-            return View(ipm);
+            return RedirectToAction("InfrasturePerforma");
         }
 
 
@@ -21758,6 +21936,9 @@ namespace PSEBONLINE.Controllers
 
                 if (SCHL != "")
                 {
+                    LoginSession loginSession = new LoginSession();
+                    loginSession.SCHL = SCHL;
+
                     DataSet dss = new DataSet();
                     dss = new AbstractLayer.SchoolDB().SchoolCenterName(SCHL);
                     if (dss.Tables[0].Rows.Count > 0)
@@ -21771,7 +21952,7 @@ namespace PSEBONLINE.Controllers
                         }).ToList();
                         ViewBag.SchoolCenterName = schoolCenterNames;
                     }
-                    LoginSession loginSession = (LoginSession)Session["LoginSession"];
+
                     InfrasturePerformasList oInfrasturePerformas = new InfrasturePerformasList();
                     oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLList(loginSession);
                     ipm.ipf = oInfrasturePerformas;
@@ -21860,7 +22041,7 @@ namespace PSEBONLINE.Controllers
                 rslt = ds.Tables[0].Rows[0]["Status"].ToString();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return Json(rslt);
             }
@@ -21869,6 +22050,44 @@ namespace PSEBONLINE.Controllers
 
         }
 
+        #region ExamCentreDetails
 
+        public ActionResult ExamCentreDetails()
+        {
+            if (Session["SCHL"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            return View(loginSession);
+        }
+     
+        [HttpPost]
+        public ActionResult ExamCentreDetails(FormCollection frm,string id)
+        {
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+
+            int result = 0;
+            string PricipleName = frm["PricipleName"].ToString();
+            string stdCode = frm["stdCode"].ToString();
+            string phone = frm["phone"].ToString();
+            string Mobile = frm["Mobile"].ToString();
+            string Priciple2Name = frm["Priciple2Name"].ToString();
+            string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
+
+            result = AbstractLayer.SchoolDB.sp_Update_school_center_choice(frm);
+            if(result== 1 ) {
+                ViewData["Status"] = 1;
+            }
+            else
+            {
+                ViewData["Status"] = 0;
+            }
+
+
+            return View(loginSession);
+
+        }
+        #endregion
     }
 }

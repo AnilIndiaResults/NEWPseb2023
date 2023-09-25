@@ -1489,6 +1489,7 @@
     <Content Include="Views\Report\DistWiseSchoolReport.cshtml" />
     <Content Include="Views\Report\ClassSubjectWiseRegistrationReport.cshtml" />
     <Content Include="Views\School\Admin_School_Infrastructure.cshtml" />
+    <Content Include="Views\School\ExamCentreDetails.cshtml" />
     <None Include="Views\School\Welcome.cshtml_SITEMENU" />
     <Content Include="Views\RegistrationPortal\M1Formgrid.cshtml" />
     <Content Include="Views\RegistrationPortal\M1FormModify.cshtml" />
