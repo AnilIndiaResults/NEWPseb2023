@@ -52,7 +52,7 @@
             padding-bottom: 10px;
         }
     </style>
-    <h1>Examination Centre Details</h1>
+    <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
 
 
     @using (Html.BeginForm("ExamCentreDetails", "School", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -70,7 +70,7 @@
 
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         STD CODE
                         @Html.TextBox("stdCode", Model.STDCODE, new { id = "stdCode", @maxlength = "20", @type = "text", @required = "required" })
 
@@ -89,13 +89,13 @@
                     </div>
 
                     <div class="col-md-2">
-                        PRINCIPAL 2 NAME
+                        Second Head Of The School
                         @Html.TextBox("Priciple2Name", Model.PrincipalName2, new { id = "Priciple2Name", @maxlength = "20", @type = "text", @required = "required" })
 
                     </div>
 
-                    <div class="col-md-2">
-                        PRINCIPAL 2 MOBILE:
+                    <div class="col-md-3">
+                        Second Head Of The School Mobile No.
                         @Html.TextBox("Priciple2Mobile", Model.PrincipalMobile2, new { id = "Priciple2Mobile", @maxlength = "20", @type = "text", @required = "required" })
 
                     </div>

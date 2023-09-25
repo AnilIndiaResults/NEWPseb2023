@@ -1220,7 +1220,8 @@ namespace PSEBONLINE.Controllers
                         //}
                         ViewBag.SelectedStatusType = frm["SchoolStatus"].ToString();
                         TempData["SelectedStatusType"] = frm["SchoolStatus"].ToString();
-                        Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
+                        //Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
+                        Search += " and isnull(infra.finalsubmitstatus,'0')='" + frm["SchoolStatus"].ToString() + "'";
                     }
 
                     if (frm["Sch1"] != "")
@@ -1366,7 +1367,8 @@ namespace PSEBONLINE.Controllers
                         //}
                         ViewBag.SelectedStatusType = frm["SchoolStatus"].ToString();
                         TempData["SelectedStatusType"] = frm["SchoolStatus"].ToString();
-                        Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
+                        //Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
+                        Search += " and isnull(infra.finalsubmitstatus,'0')='" + frm["SchoolStatus"].ToString() + "'";
                     }
 
                     if (frm["Sch1"] != "")
