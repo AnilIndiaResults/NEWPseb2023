@@ -1597,6 +1597,29 @@ namespace PSEBONLINE.AbstractLayer
         }
 
         #endregion
+
+        public DataSet GetPendingChallanDetails()
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("GetPendingChallanDetails_SP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
     }
 
 }

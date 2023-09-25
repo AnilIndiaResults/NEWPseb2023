@@ -3,7 +3,9 @@
 @{
     Layout = "~/Views/Shared/_Headerui.cshtml";
 }
+
 <div class="container KDBG">
+
     <style type="text/css">
         #ac-wrapper {
             background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
@@ -42,6 +44,9 @@
                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efba09', endColorstr='#efba09',GradientType=0 ); /* IE6-9 */
             }
     </style>
+
+
+
     <style type="text/css">
         .ullist li {
             padding: 6px 4px;
@@ -52,13 +57,15 @@
             padding-bottom: 10px;
         }
     </style>
-    <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
 
+
+
+
+    <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
 
     @using (Html.BeginForm("ExamCentreDetails", "School", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-
-
+          
         <div class="row">
             <div class="col-md-12">
 
@@ -129,9 +136,10 @@
 
     <div class="conatiner">
         <div class="row">
-            <div class="col-md-2">
-                CHOICE CENTER:
-                @Html.TextBox("CenterChoice", "", new { id = "CenterChoice", @maxlength = "20", @type = "text", onkeypress = "return isNumberKey(event);", @required = "required" })
+            <div class="col-md-6">
+                Enter School Code For CHOICE CENTER:                
+                @Html.DropDownList("CenterChoice", new SelectList(ViewBag.SchoolCenterNameNearest, "Value", "Text"), "CenterChoice", new { @class = "",id = "CenterChoice" })
+                @*@Html.TextBox("CenterChoice", "", new { id = "CenterChoice", @maxlength = "20", @type = "text", onkeypress = "return isNumberKey(event);", @required = "required" })*@
 
             </div>
 
@@ -182,12 +190,13 @@
 
     </div>
 
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     @*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
-
+    
 
     <script type="text/javascript">
 
@@ -215,7 +224,7 @@
 
 
         function SavendGetData() {
-
+            $('#t01 tbody tr').empty();
             var rowCount = $('#t01 tbody tr').length;
             console.log("lenght", rowCount);
 
@@ -246,9 +255,9 @@
                         var count = 0;
                         $.each(data, function (index, item) {
                             rows += '<tr>';
-                            rows += '<td>' + count++ + '</td>';
                             rows += '<td>' + item.schl + '</td>';
                             rows += '<td>' + item.choiceschlcode + '</td>';
+                            rows += '<td>' + item.choiceschoolcode + '</td>';
                             rows += '<td>' + item.distance + '</td>';
                             rows += '<td>' + item.insertdate + '</td>';
                             rows += '<td><button  class="btn btn-primary" onclick="DeleteRow(' + item.ID + ')">Delete</button></td>';
@@ -257,6 +266,7 @@
                         });
                         alert("Row Added Successfully");
                         $('#table-body').append(rows);
+                        location.reload();
                         var rowCount = $('#t01 tbody tr').length;
                         if (rowCount == 5) {
                             $("#finalbtn").css("disabled", "true");
@@ -274,8 +284,48 @@
                 });
             }
             else {
-                alert("Can not Add more than 5 record");
+                alert("Can't Add more than 5 record");
                 $("#finalbtn").prop("disabled", true)
+
+                          $.ajax({
+             url: '@Url.Action("Get_School_Center_Choice", "Master")',
+             type: 'POST',
+             contentType: 'application/json',
+             dataType: 'json',
+             success: function (data) {
+
+
+                 var rows = '';
+                 var count = 0;
+                 $.each(data, function (index, item) {
+                     rows += '<tr>';
+                     rows += '<td>' + item.schl + '</td>';
+                     rows += '<td>' + item.choiceschlcode + '</td>';
+                     rows += '<td>' + item.choiceschoolcode + '</td>';
+                     rows += '<td>' + item.distance + '</td>';
+                     rows += '<td>' + item.insertdate + '</td>';
+                     rows += '<td><button  class="btn btn-primary" onclick="DeleteRow(' + item.ID + ')">Delete</button></td>';
+                     // rows += '<td onclick="DeleteRow(' + item.ID + ')">Delete</td>';
+                     rows += '</tr>';
+                 });
+                 location.reload();
+                 $('#table-body').append(rows);
+                 var rowCount = $('#t01 tbody tr').length;
+                 if (rowCount == 5) {
+                     $("#finalbtn").css("disabled", "true");
+                 }
+                 else {
+
+                     $("#finalbtn").css("disabled", "false");
+
+                 }
+
+
+
+    }
+
+});
+
             }
         }
 
@@ -285,7 +335,7 @@
             var dataList;
 
 
-
+            $('#t01 tbody tr').empty();
             var selectedCat = { id: id }
 
             $.ajax({
@@ -300,9 +350,9 @@
                     var count = 0;
                     $.each(data, function (index, item) {
                         rows += '<tr>';
-                        rows += '<td>' + count++ + '</td>';
                         rows += '<td>' + item.schl + '</td>';
                         rows += '<td>' + item.choiceschlcode + '</td>';
+                        rows += '<td>' + item.choiceschoolcode + '</td>';
                         rows += '<td>' + item.distance + '</td>';
                         rows += '<td>' + item.insertdate + '</td>';
                         rows += '<td><button  class="btn btn-primary" onclick="DeleteRow(' + item.ID + ')">Delete</button></td>';
@@ -312,6 +362,7 @@
                     alert("Row Deleted Successfully");
                     $('#t01 tbody tr').empty();
                     $('#table-body').append(rows);
+                    location.reload();
 
 
 
@@ -338,9 +389,9 @@
                         var count = 0;
                         $.each(data, function (index, item) {
                             rows += '<tr>';
-                            rows += '<td>' + count++ + '</td>';
                             rows += '<td>' + item.schl + '</td>';
                             rows += '<td>' + item.choiceschlcode + '</td>';
+                            rows += '<td>' + item.choiceschoolcode + '</td>';
                             rows += '<td>' + item.distance + '</td>';
                             rows += '<td>' + item.insertdate + '</td>';
                             rows += '<td><button  class="btn btn-primary" onclick="DeleteRow(' + item.ID + ')">Delete</button></td>';
@@ -414,7 +465,12 @@
 
         }
 
+
     }
 
-
+<script type="text/javascript">
+    $(function () {
+        $("#CenterChoice").chosen();
+    });
+</script>
 

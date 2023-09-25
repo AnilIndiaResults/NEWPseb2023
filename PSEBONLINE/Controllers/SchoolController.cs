@@ -22,6 +22,7 @@ using PSEBONLINE.Repository;
 using Amazon.S3.Transfer;
 using Amazon.S3;
 using Amazon;
+using PSEBONLINE.AbstractLayer;
 
 namespace PSEBONLINE.Controllers
 {
@@ -1220,8 +1221,8 @@ namespace PSEBONLINE.Controllers
                         //}
                         ViewBag.SelectedStatusType = frm["SchoolStatus"].ToString();
                         TempData["SelectedStatusType"] = frm["SchoolStatus"].ToString();
-                        //Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
                         Search += " and isnull(infra.finalsubmitstatus,'0')='" + frm["SchoolStatus"].ToString() + "'";
+                        //Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
                     }
 
                     if (frm["Sch1"] != "")
@@ -1367,7 +1368,6 @@ namespace PSEBONLINE.Controllers
                         //}
                         ViewBag.SelectedStatusType = frm["SchoolStatus"].ToString();
                         TempData["SelectedStatusType"] = frm["SchoolStatus"].ToString();
-                        //Search += " and infra.finalsubmitstatus='" + frm["SchoolStatus"].ToString() + "'";
                         Search += " and isnull(infra.finalsubmitstatus,'0')='" + frm["SchoolStatus"].ToString() + "'";
                     }
 
@@ -21147,6 +21147,45 @@ namespace PSEBONLINE.Controllers
             return View(ipm);
         }
 
+
+        [SessionCheckFilter]
+        public async Task<ActionResult> ExamCentreDetailsPerforma(InfrasturePerformasviewModel ipm)
+        {
+            try
+            {
+                string SCHL = Convert.ToString(Session["SCHL"]);
+                if (SCHL != "")
+                {
+                    DataSet dss = new DataSet();
+                    dss = new AbstractLayer.SchoolDB().SchoolCenterName(Session["SCHL"].ToString());
+                    if (dss.Tables[0].Rows.Count > 0)
+                    {
+                        var schoolCenterNames = dss.Tables[0].AsEnumerable().Select(dataRow => new SchoolCenterName
+                        {
+                            cschl = dataRow.Field<string>("cschl").ToString(),
+                            CENT = dataRow.Field<string>("CENT").ToString(),
+                            CLASS = dataRow.Field<string>("CLASS").ToString(),
+                            schlnme = dataRow.Field<string>("schlnme").ToString()
+                        }).ToList();
+                        ViewBag.SchoolCenterName = schoolCenterNames;
+                    }
+                    LoginSession loginSession = (LoginSession)Session["LoginSession"];
+                    InfrasturePerformasList oInfrasturePerformas = new InfrasturePerformasList();
+                    oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLList(loginSession);
+                    ipm.ipf = oInfrasturePerformas;
+                    DataSet ds = new DataSet();
+                    SchoolModels sm = objDB.GetSchoolDataBySchl(SCHL, out ds);
+                    ipm.schlmodel = sm;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return View(ipm);
+        }
+
         public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL)
         {
             InfrasturePerformas ipm = new InfrasturePerformas();
@@ -22056,16 +22095,68 @@ namespace PSEBONLINE.Controllers
 
         public ActionResult ExamCentreDetails()
         {
+
             if (Session["SCHL"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
+
+            DataSet result = RegistrationDB.Get_School_Center_Choice();
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            if (result.Tables.Count > 0)
+            {
+                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                {
+                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                    objGroupLists.schl = dr["schl"].ToString();
+                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                    objGroupLists.distance = dr["distance"].ToString();
+                    objGroupLists.insertdate = dr["insertdate"].ToString();
+                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                    objGroupList.Add(objGroupLists);
+                }
+            }
+
+            DataSet dsss = new DataSet();
+            dsss = new AbstractLayer.SchoolDB().SchoolCenterNameNearestWithSchool(Session["DIST"].ToString());
+            if (dsss.Tables[0].Rows.Count > 0)
+            {
+                List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
+                {
+                    if (objGroupList.Count() > 0)
+                    {
+                        string schoolcode = @dr["SCHL"].ToString();
+                        var counts = objGroupList.Any(x => x.choiceschoolcode == schoolcode);
+                        if (counts)
+                        {
+
+                        }
+                        else
+                        {
+                            itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                        }
+
+                    }
+                    else
+                    {
+                        itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                    }
+
+                }
+                ViewBag.SchoolCenterNameNearest = new SelectList(itemsTeh, "Value", "Text");
+            }
+
             LoginSession loginSession = (LoginSession)Session["LoginSession"];
             return View(loginSession);
         }
-     
+
         [HttpPost]
-        public ActionResult ExamCentreDetails(FormCollection frm,string id)
+        public ActionResult ExamCentreDetails(FormCollection frm, string id)
         {
             LoginSession loginSession = (LoginSession)Session["LoginSession"];
 
@@ -22078,7 +22169,8 @@ namespace PSEBONLINE.Controllers
             string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
 
             result = AbstractLayer.SchoolDB.sp_Update_school_center_choice(frm);
-            if(result== 1 ) {
+            if (result == 1)
+            {
                 ViewData["Status"] = 1;
             }
             else

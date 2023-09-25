@@ -689,6 +689,7 @@
     <Content Include="bin\zh-CHT\Microsoft.ReportViewer.Design.resources.dll" />
     <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WebDesign.resources.dll" />
     <Content Include="bin\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -699,6 +700,8 @@
     <Content Include="Content\cardprintc.css" />
     <Content Include="Content\cardprintp.css" />
     <Content Include="Content\cardprintr.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\css\RJMin.min.css" />
     <Content Include="Content\ffc.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -797,6 +800,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ChallanDepositDetails.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\dataTables.bootstrap4.min.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -814,6 +819,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -1490,6 +1497,8 @@
     <Content Include="Views\Report\ClassSubjectWiseRegistrationReport.cshtml" />
     <Content Include="Views\School\Admin_School_Infrastructure.cshtml" />
     <Content Include="Views\School\ExamCentreDetails.cshtml" />
+    <Content Include="Views\Challan\MisUpdate.cshtml" />
+    <Content Include="Views\School\ExamCentreDetailsPerforma.cshtml" />
     <None Include="Views\School\Welcome.cshtml_SITEMENU" />
     <Content Include="Views\RegistrationPortal\M1Formgrid.cshtml" />
     <Content Include="Views\RegistrationPortal\M1FormModify.cshtml" />
