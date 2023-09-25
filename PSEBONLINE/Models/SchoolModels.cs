@@ -2039,6 +2039,8 @@ namespace PSEBONLINE.Models
         public string distance { get; set; }
         public string insertdate { get; set; }
 
+        public string choiceschoolcode { get; set; }
+
 
     }
 

@@ -1286,7 +1286,7 @@ namespace PSEBONLINE.AbstractLayer
                 con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString());
                 // con = new SqlConnection(ConfigurationManager.ConnectionStrings["myConn"].ToString());
                 SqlCommand cmd = new SqlCommand("Update_N1_N2_N3Forms_Sp", con);
-                cmd.CommandType = CommandType.StoredProcedure;  
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@IsCorrectionInParticular", RM.IsCorrectionInParticular);
                 cmd.Parameters.AddWithValue("@IsNRICandidate", RM.IsNRICandidate);
                 cmd.Parameters.AddWithValue("@Std_id", sid);
@@ -7948,12 +7948,12 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
-        public static DataSet Ins_School_Center_Choice(string CenterChoice, string CenterDistance)
+        public static DataSet Ins_School_Center_Choice(string CenterChoice, string CenterDistance,string choiceschoolcode)
         {
             DataSet ds = new DataSet();
             ds = null;
             string schl = HttpContext.Current.Session["SCHL"].ToString();
-           
+
 
 
             try
@@ -7964,6 +7964,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.CommandText = "Ins_School_Center_Choice";
                 cmd.Parameters.AddWithValue("@schl", schl);
                 cmd.Parameters.AddWithValue("@choiceschlcode", CenterChoice);
+                cmd.Parameters.AddWithValue("@choiceschoolcode", choiceschoolcode);
                 cmd.Parameters.AddWithValue("@distance", CenterDistance);
                 ds = db.ExecuteDataSet(cmd);
                 if (ds != null)
