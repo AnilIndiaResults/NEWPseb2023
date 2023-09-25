@@ -1381,7 +1381,8 @@ namespace PSEBONLINE.Controllers
 
             try
             {
-                DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance);
+                string code = CenterChoice.Split(',')[0];
+                DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance, code);
 
 
                 if (result.Tables.Count > 0)
@@ -1395,6 +1396,7 @@ namespace PSEBONLINE.Controllers
                         objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
                         objGroupLists.distance = dr["distance"].ToString();
                         objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
                         objGroupList.Add(objGroupLists);
                     }
                 }
@@ -1439,6 +1441,7 @@ namespace PSEBONLINE.Controllers
                         objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
                         objGroupLists.distance = dr["distance"].ToString();
                         objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
                         objGroupList.Add(objGroupLists);
                     }
                 }
@@ -1484,6 +1487,8 @@ namespace PSEBONLINE.Controllers
                         objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
                         objGroupLists.distance = dr["distance"].ToString();
                         objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
                         objGroupList.Add(objGroupLists);
                     }
                 }

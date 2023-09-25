@@ -6024,6 +6024,29 @@ namespace PSEBONLINE.AbstractLayer
                 return result = null;
             }
         }
+
+        public DataSet SchoolCenterNameNearestWithSchool(string Dist)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("sp_SchoolCenterNameNearestWithSchool", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Dist", Dist);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
         public DataSet SchoolCenterAnswerSheetNearest(string Dist)
         {
             DataSet result = new DataSet();
