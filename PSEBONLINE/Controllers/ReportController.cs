@@ -2290,6 +2290,229 @@ namespace PSEBONLINE.Controllers
         }
         #endregion DateWiseFeeCollectionDetails
 
+        #region  AccountReport
+
+        public ActionResult AccountReportDetails()
+        {
+            ReportModel rp = new ReportModel();
+            try
+            {
+                if (Session["UserName"] == null)
+                {
+                    return RedirectToAction("Logout", "Admin");
+                }
+                // By Rohit  -- select bank from database
+                DataSet dsBank = objCommon.Fll_FeeCat_Details();
+                if (dsBank != null)
+                {
+                    if (dsBank.Tables[0].Rows.Count > 0)
+                    {
+                        List<SelectListItem> itemBank = new List<SelectListItem>();
+                        foreach (System.Data.DataRow dr in dsBank.Tables[0].Rows)
+                        {
+                            itemBank.Add(new SelectListItem { Text = @dr["FEECAT"].ToString().Trim(), Value = @dr["FEECODE"].ToString().Trim() });
+                        }
+                        ViewBag.MySch = itemBank.ToList();
+                    }
+
+                    if (dsBank.Tables[1].Rows.Count > 0)
+                    {
+                        List<SelectListItem> itemBank1 = new List<SelectListItem>();
+                        foreach (System.Data.DataRow dr in dsBank.Tables[1].Rows)
+                        {
+                            itemBank1.Add(new SelectListItem { Text = @dr["Bank"].ToString().Trim(), Value = @dr["Bcode"].ToString().Trim() });
+                        }
+                        ViewBag.MyBank = itemBank1.ToList();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Logout", "Admin");
+                }
+
+                var itemcls = new SelectList(new[] { new { ID = "1", Name = "Date Fee Head and Bank Wise " }, new { ID = "2", Name = "Date and Fee Head Wise " },
+                    new { ID = "3", Name = "Date Wise" }, new { ID = "4", Name = "Fee Head and Bank Wise" }, }, "ID", "Name", 1);
+                ViewBag.Mycls = itemcls.ToList();
+                ViewBag.Selectedcls = "0";
+
+                var itemDateType = new SelectList(new[] { new { ID = "S", Name = "Settlement" },
+                    new { ID = "T", Name = "Transaction " },}, "ID", "Name", 1);
+                ViewBag.MyDateType = itemDateType.ToList();
+                ViewBag.SelectedDateType = "0";
+
+                ViewBag.Message = "Record Not Found";
+                ViewBag.TotalCount = 0;
+                ViewBag.Total = 0;
+                return View(rp);
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AccountReportDetails(FormCollection frm, string submit)
+        {
+            ReportModel rp = new ReportModel();
+            try
+            {
+                if (Session["UserName"] == null)
+                {
+                    return RedirectToAction("Logout", "Admin");
+                }
+                // By Rohit  -- select bank from database
+                DataSet dsBank = objCommon.Fll_FeeCat_Details();
+                if (dsBank != null)
+                {
+                    if (dsBank.Tables[0].Rows.Count > 0)
+                    {
+                        List<SelectListItem> itemBank = new List<SelectListItem>();
+                        foreach (System.Data.DataRow dr in dsBank.Tables[0].Rows)
+                        {
+                            itemBank.Add(new SelectListItem { Text = @dr["FEECAT"].ToString().Trim(), Value = @dr["FEECODE"].ToString().Trim() });
+                        }
+                        ViewBag.MySch = itemBank.ToList();
+                    }
+
+                    if (dsBank.Tables[1].Rows.Count > 0)
+                    {
+                        List<SelectListItem> itemBank1 = new List<SelectListItem>();
+                        foreach (System.Data.DataRow dr in dsBank.Tables[1].Rows)
+                        {
+                            itemBank1.Add(new SelectListItem { Text = @dr["Bank"].ToString().Trim(), Value = @dr["Bcode"].ToString().Trim() });
+                        }
+                        ViewBag.MyBank = itemBank1.ToList();
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Logout", "Admin");
+                }
+                var itemcls = new SelectList(new[] { new { ID = "1", Name = "Date Fee Head and Bank Wise " }, new { ID = "2", Name = "Date and Fee Head Wise " },
+                    new { ID = "3", Name = "Date Wise" }, new { ID = "4", Name = "Fee Head and Bank Wise" }, }, "ID", "Name", 1);
+                ViewBag.Mycls = itemcls.ToList();
+                ViewBag.Selectedcls = "0";
+
+                var itemDateType = new SelectList(new[] { new { ID = "S", Name = "Settlement" },
+                    new { ID = "T", Name = "Transaction " },}, "ID", "Name", 1);
+                ViewBag.MyDateType = itemDateType.ToList();
+                ViewBag.SelectedDateType = "0";
+                // End 
+                string Search = string.Empty;
+                Search = "a.FEECODE like '%' ";
+                string SelDateType = "T";
+
+                if (frm["SelClass"] != "")
+                {
+                    ViewBag.Selectedcls = frm["SelClass"];
+                    TempData["SelClass"] = frm["SelClass"];
+                }
+
+
+
+                if (!string.IsNullOrEmpty(frm["FEECAT"]))
+                {
+                    Search += " and a.FEECODE in (" + frm["FEECAT"].ToString().Trim() + ")";
+                    ViewBag.SelectedItem = frm["FEECAT"];
+                    TempData["FEECAT"] = frm["FEECAT"];
+                }
+                if (frm["Bank"] != "")
+                {
+                    Search += " and a.bcode='" + frm["Bank"].ToString().Trim() + "'";
+                    ViewBag.SelectedBank = frm["Bank"];
+                    TempData["Bank"] = frm["Bank"];
+                }
+
+
+                if (frm["DateType"] != "")
+                {
+                    SelDateType = frm["DateType"];
+                    ViewBag.SelectedDateType = SelDateType;
+                    if (SelDateType == "T")
+                    {
+                        if (frm["FromDate"] != "")
+                        {
+                            ViewBag.FromDate = frm["FromDate"];
+                            TempData["FromDate"] = frm["FromDate"];
+                            Search += " and CONVERT(DATETIME, CONVERT(varchar(10),DEPOSITDT,103), 103)>=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["FromDate"].ToString() + "',103), 103)";
+                        }
+                        if (frm["ToDate"] != "")
+                        {
+                            ViewBag.ToDate = frm["ToDate"];
+                            TempData["ToDate"] = frm["ToDate"];
+                            Search += " and CONVERT(DATETIME, CONVERT(varchar(10),DEPOSITDT,103), 103)<=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["ToDate"].ToString() + "',103), 103)";
+                        }
+                    }
+                    else if (SelDateType == "S")
+                    {
+                        if (frm["FromDate"] != "")
+                        {
+                            ViewBag.FromDate = frm["FromDate"];
+                            TempData["FromDate"] = frm["FromDate"];
+                            Search += " and CONVERT(DATETIME, CONVERT(varchar(10),SettlementDate,103), 103)>=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["FromDate"].ToString() + "',103), 103)";
+                        }
+                        if (frm["ToDate"] != "")
+                        {
+                            ViewBag.ToDate = frm["ToDate"];
+                            TempData["ToDate"] = frm["ToDate"];
+                            Search += " and CONVERT(DATETIME, CONVERT(varchar(10),SettlementDate,103), 103)<=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["ToDate"].ToString() + "',103), 103)";
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(submit))
+                {
+                    string bankcode = frm["Bank"];
+                    string feecat = frm["FEECAT"];
+                    string FromDate = frm["FromDate"];
+                    string ToDate = frm["ToDate"];
+                    if (submit.ToLower().Contains("download") || submit.ToLower().Contains("excel"))
+                    {
+                        string outError1 = "";
+                        rp.StoreAllData = objDB.BankWiseChallanMasterData(SelDateType, Search, bankcode, feecat, "0", out outError1);
+                        if (rp.StoreAllData == null || rp.StoreAllData.Tables[0].Rows.Count == 0)
+                        {
+                            ViewBag.Message = "Record Not Found";
+                            ViewBag.TotalCount = 0;
+                            return View(rp);
+                        }
+                        else
+                        {
+                            ViewBag.TotalCount = rp.StoreAllData.Tables[0].Rows.Count;
+                            string fileName1 = bankcode + "_" + FromDate + "_" + ToDate + "_ChallanMasterData";
+                            ExportDataFromDataTable(rp.StoreAllData.Tables[0], fileName1);
+                            return View(rp);
+                        }
+                    }
+                }
+
+                string outError = "";
+                DataSet ds = objDB.AccountReportDetails(SelDateType, Search, ViewBag.Selectedcls, out outError);  //1 for Total Registration by School Report
+                rp.StoreAllData = ds;
+                if (rp.StoreAllData == null || rp.StoreAllData.Tables[0].Rows.Count == 0)
+                {
+                    ViewBag.Message = "Record Not Found";
+                    ViewBag.TotalCount = 0;
+                    ViewBag.Total = 0;
+                    return View(rp);
+                }
+                else
+                {
+                    ViewBag.TotalCount = rp.StoreAllData.Tables[0].Rows.Count;
+                    string typeName = rp.StoreAllData.Tables[0].Columns["TOTFEE"].DataType.Name;
+                    ViewBag.Total = rp.StoreAllData.Tables[0].AsEnumerable().Sum(x => Convert.ToInt32(x.Field<Double>("TOTFEE")));
+                    ViewBag.AmountInWords = objCommon.GetAmountInWords(Convert.ToInt32(ViewBag.Total));
+                    return View(rp);
+                }
+            }
+            catch (Exception ex)
+            {
+                // oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return View();
+            }
+        }
+        #endregion AccountReport
 
         #region RegistrationReportAllSession
 
