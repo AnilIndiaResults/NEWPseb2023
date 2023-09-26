@@ -700,6 +700,34 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
         #endregion  DateWiseFeeCollectionDetails
+        public DataSet AccountReportDetails(string DateType, string search, string type, out string OutError)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("AccountReportDetailsSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@DateType", DateType);
+                    cmd.Parameters.AddWithValue("@type", type);
+                    cmd.Parameters.AddWithValue("@search", search);
+                    cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    OutError = (string)cmd.Parameters["@OutError"].Value;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                OutError = "";
+                return result = null;
+            }
+        }
 
         #region SchoolPremisesInformationReport
         public DataSet SchoolPremisesInformationReport()

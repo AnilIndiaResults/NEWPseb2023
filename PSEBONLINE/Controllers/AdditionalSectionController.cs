@@ -51,7 +51,9 @@ namespace PSEBONLINE.Controllers
             am = additionalSectionDB.AdditionalSectionBySchl(Session["SCHL"].ToString(), 1, out outDs);//ResultStatics
             if (am.ID > 0)
             {
-                            
+                ViewBag.AID = am.ID;
+                ViewBag.ChallanId = am.ChallanId;
+                ViewBag.challanVerify = am.challanVerify;
 
                 additionalSectionDashBoardModel = _context.AdditionalSectionDashBoardViews.Where(s => s.SCHL == schl).FirstOrDefault();
                 am.additionalSectionDashBoardViews = additionalSectionDashBoardModel;

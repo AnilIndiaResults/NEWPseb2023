@@ -121,7 +121,7 @@
                                                                                                         <span class="rqf">Objection On : @Model.affObjectionLettersViewList[h].ObjDate.Value.ToString("dd/MM/yyyy hh:mm tt")</span><br />
                                                                                                         @if (!string.IsNullOrEmpty(Model.affObjectionLettersViewList[h].ObjectionFile))
                                                                                                         {
-                                                                                                            <a class="btn" target="_blank" href="/Upload/Upload2021/@Model.affObjectionLettersViewList[h].ObjectionFile">View Objection File</a>
+                                                                                                            <a class="btn" target="_blank" href="https://psebdata.s3.ap-south-1.amazonaws.com/@Model.affObjectionLettersViewList[h].ObjectionFile">View Objection File</a>
                                                                                                         }
                                                                                                     </td>
                                                                                                     <td>@Model.affObjectionLettersViewList[h].ObjStatus</td>
@@ -133,7 +133,7 @@
                                                                                                         @Model.affObjectionLettersViewList[h].SchoolReply<br />
                                                                                                         <span class="rqf">Response On : @Model.affObjectionLettersViewList[h].SchoolReplyOn.Value.ToString("dd/MM/yyyy hh:mm tt")</span><br />
 
-                                                                                                        <a class="btn" target="_blank" href="/Upload/Upload2021/@Model.affObjectionLettersViewList[h].Attachment">View File</a>
+                                                                                                        <a class="btn" target="_blank" href="https://psebdata.s3.ap-south-1.amazonaws.com/@Model.affObjectionLettersViewList[h].Attachment">View File</a>
                                                                                                     }
                                                                                                     </td>
                                                                                                     @*approval*@

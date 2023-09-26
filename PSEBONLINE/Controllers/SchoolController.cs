@@ -21181,10 +21181,11 @@ namespace PSEBONLINE.Controllers
             return View(loginSession);
         }
 
-        public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL)
+        public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL,string DIST)
         {
             InfrasturePerformas ipm = new InfrasturePerformas();
             Session["SCHL"] = SCHL;
+            Session["DIST"] = DIST;
             return await InfrasturePerforma(ipm);
         }
 
@@ -22231,5 +22232,8 @@ namespace PSEBONLINE.Controllers
 
         }
         #endregion
+        
+
+      
     }
 }
