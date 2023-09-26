@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using PSEBONLINE.Repository;
 using PSEBONLINE.Filters;
 using System.Data.Entity;
+using DocumentFormat.OpenXml.EMMA;
 
 namespace PSEBONLINE.Controllers
 {
@@ -1381,7 +1382,7 @@ namespace PSEBONLINE.Controllers
 
             try
             {
-                string code = CenterChoice.Split(',')[0];
+                string code = CenterChoice.Split('-')[0].Replace(" ", "");
                 DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance, code);
 
 
@@ -1419,17 +1420,12 @@ namespace PSEBONLINE.Controllers
 
         public JsonResult Delete_School_Center_Choice(int Id)
         {
-            //List<SelectListItem> objGroupList = new List<SelectListItem>();
-
             List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
-
-            DataTable dt = null;
-
-            try
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            if (loginSession.Finalsubmittedforchoice == 0)
             {
+                DataTable dt = null;
                 DataSet result = RegistrationDB.Delete_School_Center_Choice(Id);
-
-
                 if (result.Tables.Count > 0)
                 {
                     foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
@@ -1445,17 +1441,29 @@ namespace PSEBONLINE.Controllers
                         objGroupList.Add(objGroupLists);
                     }
                 }
-
-
-                return Json(objGroupList);
             }
-            catch (Exception ex)
+            else
             {
-                return Json(objGroupList);
+                DataSet result = RegistrationDB.Get_School_Center_Choice();
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
 
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
             }
 
-            //return Json(result);
+            return Json(objGroupList);
 
 
 

@@ -84,6 +84,8 @@ namespace PSEBONLINE.AbstractLayer
                         loginSession.STDCODE = DBNull.Value != reader["STDCODE"] ? (string)reader["STDCODE"] : default(string);
                         loginSession.PrincipalName2 = DBNull.Value != reader["PrincipalName2"] ? (string)reader["PrincipalName2"] : default(string);
                         loginSession.PrincipalMobile2 = DBNull.Value != reader["PrincipalMobile2"] ? (string)reader["PrincipalMobile2"] : default(string);
+                        loginSession.Finalsubmittedforchoice = DBNull.Value != reader["Finalsubmittedforchoice"] ? (int)reader["Finalsubmittedforchoice"] : default(int);
+
                         loginSession.STATUS = DBNull.Value != reader["STATUS"] ? (string)reader["STATUS"] : default(string);
                         loginSession.DIST = DBNull.Value != reader["DIST"] ? (string)reader["DIST"] : default(string);
                         loginSession.SCHL = DBNull.Value != reader["SCHL"] ? (string)reader["SCHL"] : default(string);
@@ -6501,7 +6503,7 @@ namespace PSEBONLINE.AbstractLayer
         #endregion
 
 
-        public static int sp_Update_school_center_choice(FormCollection frm) 
+        public static int sp_Update_school_center_choice(FormCollection frm, int Finalsubmittedforchoice)
         {
             SqlConnection con = null;
             string PricipleName = frm["PricipleName"].ToString();
@@ -6511,6 +6513,7 @@ namespace PSEBONLINE.AbstractLayer
             string Priciple2Name = frm["Priciple2Name"].ToString();
             string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
             string schl = HttpContext.Current.Session["SCHL"].ToString();
+            int Finalsubmittedforchoiceval = Finalsubmittedforchoice;
             int OutStatus = 0;
             string result = "";
             try
@@ -6525,12 +6528,12 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@Mobile", Mobile);
                 cmd.Parameters.AddWithValue("@PrincipalName2", Priciple2Name);
                 cmd.Parameters.AddWithValue("@PrincipalMobile2", Priciple2Mobile);
+                cmd.Parameters.AddWithValue("@Finalsubmittedforchoice", Finalsubmittedforchoiceval);
                 cmd.Parameters.Add("@OutStatus", SqlDbType.Int).Direction = ParameterDirection.Output;
                 con.Open();
                 result = cmd.ExecuteNonQuery().ToString();
-                OutStatus = (int)cmd.Parameters["@OutStatus"].Value;
+                OutStatus = (int)cmd.Parameters["@OutStatus"].Value;                
                 return OutStatus;
-
             }
             catch (Exception ex)
             {
@@ -6546,4 +6549,4 @@ namespace PSEBONLINE.AbstractLayer
 
         }
     }
-    }
+}

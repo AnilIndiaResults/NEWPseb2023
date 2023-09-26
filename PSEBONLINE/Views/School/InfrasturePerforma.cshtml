@@ -13,7 +13,7 @@ else { Response.Redirect("~/Login"); }
 
 <p style="float:right; padding-top:10px;">
     @*Last Date : @ViewData["lastDate"].ToString()*@
-    Last Date : 25-09-2023
+    Last Date : 30-09-2023
 </p>
 <a href="~/PDF/Instructions_regarding_how_to_fill_infrastructure_form.pdf" style="float: right; padding-top: 10px; color: red; font-size: 14px; font-weight: bold;margin-right:14px;">
     Instructions regarding how to fill infrastructure form
@@ -410,19 +410,19 @@ else { Response.Redirect("~/Login"); }
                                         <td>Bank Name</td>
                                         <td>@Html.DropDownListFor(a => a.Bank2, banklist)</td>
                                         <td>IFSC Code 2</td>
-                                        <td>@Html.TextBoxFor(a => a.IFSC2, new { id = "IFSC2", @maxlength = "20", @onchange = "IFSCCodeAvailability('2')" })</td>
+                                        <td>@Html.TextBoxFor(a => a.IFSC2, new { id = "IFSC2", @maxlength = "20", @onchange = "IFSCCodeAvailability('2')", @required = "required" })</td>
 
                                         <td>Branch Name & Address</td>
-                                        <td>@Html.TextBoxFor(a => a.BankBranch2)</td>
+                                        <td>@Html.TextBoxFor(a => a.BankBranch2, new { @required = "required" })</td>
                                     </tr>
                                     <tr>
                                         <td>Bank Name</td>
                                         <td>@Html.DropDownListFor(a => a.Bank3, banklist)</td>
                                         <td>IFSC Code 3</td>
-                                        <td>@Html.TextBoxFor(a => a.IFSC3, new { id = "IFSC3", @maxlength = "20", @onchange = "IFSCCodeAvailability('3')" })</td>
+                                        <td>@Html.TextBoxFor(a => a.IFSC3, new { id = "IFSC3", @maxlength = "20", @onchange = "IFSCCodeAvailability('3')", @required = "required" } )</td>
 
                                         <td>Branch Name & Address</td>
-                                        <td>@Html.TextBoxFor(a => a.BankBranch3)</td>
+                                        <td>@Html.TextBoxFor(a => a.BankBranch3, new { @required = "required" })</td>
                                     </tr>
                                 </table>
                             </td>
@@ -718,7 +718,7 @@ else { Response.Redirect("~/Login"); }
                                             </iframe>
                                         </td>
                                         <td width="30%">
-                                            <a href="https://apps.pseb.ac.in/PSEB%20ExamInfraLocate.apk" target="_blank" style="font-size: 60px;color: darkred;">
+                                            <a href="https://play.google.com/store/apps/details?id=com.infra.main_pseb_examinfra_locate" target="_blank" style="font-size: 60px;color: darkred;">
                                                 App Link
                                             </a>
                                         </td>
