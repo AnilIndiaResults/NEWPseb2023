@@ -17,12 +17,18 @@ using System.Threading.Tasks;
 using PSEBONLINE.Repository;
 using PSEBONLINE.Filters;
 using System.Data.Entity;
+using Amazon.S3.Transfer;
+using Amazon.S3;
+using System.Configuration;
+using Amazon;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace PSEBONLINE.Controllers
 {
     [RoutePrefix("Master")]
     public class MasterController : Controller
     {
+        private const string BUCKET_NAME = "psebdata";
         private readonly DBContext _context = new DBContext();
         string sp = System.Configuration.ConfigurationManager.AppSettings["upload"];
         //AbstractLayer.DBClass objCommon = new AbstractLayer.DBClass();
@@ -918,10 +924,11 @@ namespace PSEBONLINE.Controllers
                             string myUniqueFileName = StaticDB.GenerateFileName(result);
                             string attachmentName = "";
                             string FilepathExist = "";
+                            string fileExt = "";
                             string path = "";
                             if (file != null)
                             {
-                                string fileExt = Path.GetExtension(file.FileName);
+                                fileExt = Path.GetExtension(file.FileName);
                                 path = Path.Combine(Server.MapPath("~/Upload/" + "Upload2023/" + "AFFObjectionLetter/" + affObjectionLettersResponseModel.AppType), myUniqueFileName + fileExt);
                                 FilepathExist = Path.Combine(Server.MapPath("~/Upload/" + "Upload2023/" + "AFFObjectionLetter/" + affObjectionLettersResponseModel.AppType));
                                 //if (!Directory.Exists(FilepathExist))
@@ -929,7 +936,7 @@ namespace PSEBONLINE.Controllers
                                 //    Directory.CreateDirectory(FilepathExist);
                                 //}
                                 //file.SaveAs(path);
-                                attachmentName = "AFFObjectionLetter/" + affObjectionLettersResponseModel.AppType + "/" + myUniqueFileName + fileExt;
+                                attachmentName = "allfiles/Upload2023/AFFObjectionLetter/" + affObjectionLettersResponseModel.AppType + "/" + myUniqueFileName + fileExt;
                             }
 
 
@@ -954,7 +961,30 @@ namespace PSEBONLINE.Controllers
                                             {
                                                 Directory.CreateDirectory(FilepathExist);
                                             }
-                                            file.SaveAs(path);
+
+                                            string Orgfile = myUniqueFileName + fileExt;
+
+                                            using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                                            {
+                                                using (var newMemoryStream = new MemoryStream())
+                                                {
+                                                    var uploadRequest = new TransferUtilityUploadRequest
+                                                    {
+                                                        InputStream = file.InputStream,
+                                                        Key = string.Format("allfiles/Upload2023/AFFObjectionLetter/" + affObjectionLettersResponseModel.AppType + "/{0}", Orgfile),
+
+                                                        BucketName = BUCKET_NAME,
+                                                        CannedACL = S3CannedACL.PublicRead
+                                                    };
+
+                                                    var fileTransferUtility = new TransferUtility(client);
+                                                    fileTransferUtility.Upload(uploadRequest);
+                                                }
+                                            }
+
+
+
+                                            //file.SaveAs(path);
                                         }
                                     }
                                     else
@@ -1381,7 +1411,8 @@ namespace PSEBONLINE.Controllers
 
             try
             {
-                DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance);
+                string code = CenterChoice.Split(',')[0];
+                DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance, code);
 
 
                 if (result.Tables.Count > 0)
@@ -1395,6 +1426,7 @@ namespace PSEBONLINE.Controllers
                         objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
                         objGroupLists.distance = dr["distance"].ToString();
                         objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
                         objGroupList.Add(objGroupLists);
                     }
                 }
@@ -1439,6 +1471,7 @@ namespace PSEBONLINE.Controllers
                         objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
                         objGroupLists.distance = dr["distance"].ToString();
                         objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
                         objGroupList.Add(objGroupLists);
                     }
                 }
@@ -1484,6 +1517,8 @@ namespace PSEBONLINE.Controllers
                         objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
                         objGroupLists.distance = dr["distance"].ToString();
                         objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
                         objGroupList.Add(objGroupLists);
                     }
                 }

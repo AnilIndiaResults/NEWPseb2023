@@ -24025,7 +24025,7 @@ namespace PSEBONLINE.Controllers
                                 filename = spi.AffObjectionLetters.AppNo + "_" + DocName.Replace(" ", "_") + ext;
                                 path = Path.Combine(Server.MapPath(exactPath), filename.ToUpper());
                                 FilepathExist = Path.Combine(Server.MapPath(exactPath));
-                                spi.AffObjectionLetters.ObjectionFile = "Upload2023/AffObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/" + filename.ToUpper();
+                                spi.AffObjectionLetters.ObjectionFile = "allfiles/Upload2023/AFFObjecttonLetter" + spi.AffObjectionLetters.AppType + "/" + filename.ToUpper();
                             }
 
                             if (cmd.ToLower() == "submit" || cmd.ToLower() == "save")
@@ -24060,7 +24060,30 @@ namespace PSEBONLINE.Controllers
                                         {
                                             Directory.CreateDirectory(FilepathExist);
                                         }
-                                        ObjectionFile.SaveAs(path);
+
+                                        string Orgfile = filename;
+
+                                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                                        {
+                                            using (var newMemoryStream = new MemoryStream())
+                                            {
+                                                var uploadRequest = new TransferUtilityUploadRequest
+                                                {
+                                                    InputStream = ObjectionFile.InputStream,
+                                                    Key = string.Format("allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/{0}" ,Orgfile),
+
+                                                    BucketName = BUCKET_NAME,
+                                                    CannedACL = S3CannedACL.PublicRead
+                                                };
+
+                                                var fileTransferUtility = new TransferUtility(client);
+                                                fileTransferUtility.Upload(uploadRequest);
+                                            }
+                                        }
+
+
+
+                                       //ObjectionFile.SaveAs(path);
                                     }
                                 }
                                 else
@@ -25628,7 +25651,7 @@ namespace PSEBONLINE.Controllers
                                 filename = spi.AffObjectionLetters.AppNo + "_" + DocName.Replace(" ", "_") + ext;
                                 path = Path.Combine(Server.MapPath(exactPath), filename.ToUpper());
                                 FilepathExist = Path.Combine(Server.MapPath(exactPath));
-                                spi.AffObjectionLetters.ObjectionFile = "Upload2023/AffObjecttonLetter/" + spi.AffObjectionLetters.AppType + filename.ToUpper();
+                                spi.AffObjectionLetters.ObjectionFile = "allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + filename.ToUpper();
                             }
 
                             if (cmd.ToLower() == "submit" || cmd.ToLower() == "save")
@@ -25663,7 +25686,28 @@ namespace PSEBONLINE.Controllers
                                         {
                                             Directory.CreateDirectory(FilepathExist);
                                         }
-                                        objectionFile.SaveAs(path);
+
+                                        string Orgfile = filename;
+
+                                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                                        {
+                                            using (var newMemoryStream = new MemoryStream())
+                                            {
+                                                var uploadRequest = new TransferUtilityUploadRequest
+                                                {
+                                                    InputStream = objectionFile.InputStream,
+                                                    Key = string.Format("allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/{0}", Orgfile),
+
+                                                    BucketName = BUCKET_NAME,
+                                                    CannedACL = S3CannedACL.PublicRead
+                                                };
+
+                                                var fileTransferUtility = new TransferUtility(client);
+                                                fileTransferUtility.Upload(uploadRequest);
+                                            }
+                                        }
+
+                                        //objectionFile.SaveAs(path);
                                     }
                                 }
                                 else
