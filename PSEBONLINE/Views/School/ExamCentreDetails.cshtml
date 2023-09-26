@@ -46,7 +46,6 @@
     </style>
 
 
-
     <style type="text/css">
         .ullist li {
             padding: 6px 4px;
@@ -60,50 +59,49 @@
 
 
 
-
     <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
 
     @using (Html.BeginForm("ExamCentreDetails", "School", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-          
+
         <div class="row">
             <div class="col-md-12">
 
                 <div class="row">
-                    <div class="col-md-2">
-                        PRINCIPAL
+                    <div class="col-md-4">
+                        PRINCIPAL NAME
                         @Html.TextBox("PricipleName", Model.PRINCIPAL, new { id = "PricipleName", @maxlength = "20", @type = "text", @required = "required" })
 
 
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="col-md-4">
                         STD CODE
                         @Html.TextBox("stdCode", Model.STDCODE, new { id = "stdCode", @maxlength = "20", @type = "text", @required = "required" })
 
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         PHONE
-                        @Html.TextBox("phone", Model.PHONE, new { id = "phone", @maxlength = "20", @type = "text", @required = "required" })
+                        @Html.TextBox("phone", Model.PHONE, new { id = "phone", @maxlength = "10", @type = "text", @required = "required" })
 
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         MOBILE
-                        @Html.TextBox("Mobile", Model.MOBILE, new { id = "Mobile", @maxlength = "20", @type = "text", @required = "required" })
+                        @Html.TextBox("Mobile", Model.MOBILE, new { id = "Mobile", @maxlength = "10", @type = "text", @required = "required", onkeypress = "return isNumberKey(event);" })
 
                     </div>
 
-                    <div class="col-md-2">
-                        Second Head Of The School
+                    <div class="col-md-4">
+                        Principal Name Of Second Head
                         @Html.TextBox("Priciple2Name", Model.PrincipalName2, new { id = "Priciple2Name", @maxlength = "20", @type = "text", @required = "required" })
 
                     </div>
 
-                    <div class="col-md-3">
-                        Second Head Of The School Mobile No.
-                        @Html.TextBox("Priciple2Mobile", Model.PrincipalMobile2, new { id = "Priciple2Mobile", @maxlength = "20", @type = "text", @required = "required" })
+                    <div class="col-md-4">
+                        Principal Mobile No. Of Second Head
+                        @Html.TextBox("Priciple2Mobile", Model.PrincipalMobile2, new { id = "Priciple2Mobile", @maxlength = "10", @type = "text", @required = "required", onkeypress = "return isNumberKey(event);" })
 
                     </div>
                 </div>
@@ -120,8 +118,19 @@
 
                 <br />
 
+                @if (Model.Finalsubmittedforchoice == 1)
+                {
+                    <input type="submit" value="Final Submit" id="finalbtn" name="cmd" />
+                    <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")'>Rough Print</a>                    
+                }
+                else
+                {
+                    <input type="submit" value="Save" name="cmd" />
+                    <input type="submit" value="Final Submit" id="finalbtn" name="cmd" />
+                    <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")'>Rough Print</a>
+                    @*<input type="submit" value="Rough Print" />*@
 
-                <input type="submit" value="Save" />  <input type="submit" value="Final Submit" id="finalbtn" /> <input type="submit" value="Rough Print" />
+                }
 
 
             </div>
@@ -137,8 +146,8 @@
     <div class="conatiner">
         <div class="row">
             <div class="col-md-6">
-                Enter School Code For CHOICE CENTER:                
-                @Html.DropDownList("CenterChoice", new SelectList(ViewBag.SchoolCenterNameNearest, "Value", "Text"), "CenterChoice", new { @class = "",id = "CenterChoice" })
+                Enter School Code For CHOICE CENTER:
+                @Html.DropDownList("CenterChoice", new SelectList(ViewBag.SchoolCenterNameNearest, "Value", "Text"), "CenterChoice", new { @class = "", id = "CenterChoice" })
                 @*@Html.TextBox("CenterChoice", "", new { id = "CenterChoice", @maxlength = "20", @type = "text", onkeypress = "return isNumberKey(event);", @required = "required" })*@
 
             </div>
@@ -147,30 +156,29 @@
                 DISTANCE:
                 @Html.TextBox("CenterDistance", "", new { id = "CenterDistance", @maxlength = "20", @type = "text", @required = "required" })
             </div>
+                
+            @if (Model.Finalsubmittedforchoice == 0)
+            {
+                <div class="col-md-2">
+                    <button class="btn btn-primary" style="margin-top:20px;" onclick="SavendGetData()">Add</button>
 
-            <div class="col-md-2">
-                <button class="btn btn-primary" style="margin-top:20px;" onclick="SavendGetData()">Add</button>
-
-            </div>
+                </div>
+            }
         </div>
         <div class="row">
             <div class="table-responsive">
                 <table id="t01" class="table table-bordered">
                     <tr>
                         <th>
-                            Id
-                        </th>
-                        <th>
-                            Schl
-                        </th>
-                        <th>
-                            Choice Center
+                            Choice Center Name
                         </th>
 
+                        <th>
+                            Choice Center School Code
+                        </th>
                         <th>
                             Distance
                         </th>
-
                         <th>
                             Insert Date
                         </th>
@@ -196,7 +204,7 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="~/Scripts/jquery-1.10.2.js"></script>
-    
+
 
     <script type="text/javascript">
 
@@ -220,6 +228,17 @@
 
 
 
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+                return true;
+            }
+            else {
+                alert("Invalid character...Enter Only Number!!");
+                return false;
+            }
         }
 
 
@@ -255,7 +274,7 @@
                         var count = 0;
                         $.each(data, function (index, item) {
                             rows += '<tr>';
-                            rows += '<td>' + item.schl + '</td>';
+                            /*rows += '<td>' + item.schl + '</td>';*/
                             rows += '<td>' + item.choiceschlcode + '</td>';
                             rows += '<td>' + item.choiceschoolcode + '</td>';
                             rows += '<td>' + item.distance + '</td>';
@@ -268,12 +287,12 @@
                         $('#table-body').append(rows);
                         location.reload();
                         var rowCount = $('#t01 tbody tr').length;
-                        if (rowCount == 5) {
-                            $("#finalbtn").css("disabled", "true");
+                        if ((rowCount - 1) < 5) {
+                            $("#finalbtn").attr('disabled', 'disabled');
                         }
                         else {
 
-                            $("#finalbtn").css("disabled", "false");
+                            $("#finalbtn").removeAttr('disabled');
 
                         }
 
@@ -285,7 +304,7 @@
             }
             else {
                 alert("Can't Add more than 5 record");
-                $("#finalbtn").prop("disabled", true)
+                $("#finalbtn").removeAttr('disabled');
 
                           $.ajax({
              url: '@Url.Action("Get_School_Center_Choice", "Master")',
@@ -299,7 +318,7 @@
                  var count = 0;
                  $.each(data, function (index, item) {
                      rows += '<tr>';
-                     rows += '<td>' + item.schl + '</td>';
+                     /*rows += '<td>' + item.schl + '</td>';*/
                      rows += '<td>' + item.choiceschlcode + '</td>';
                      rows += '<td>' + item.choiceschoolcode + '</td>';
                      rows += '<td>' + item.distance + '</td>';
@@ -311,12 +330,12 @@
                  location.reload();
                  $('#table-body').append(rows);
                  var rowCount = $('#t01 tbody tr').length;
-                 if (rowCount == 5) {
-                     $("#finalbtn").css("disabled", "true");
+                 if ((rowCount - 1) < 5) {
+                     $("#finalbtn").attr('disabled', 'disabled');
                  }
                  else {
 
-                     $("#finalbtn").css("disabled", "false");
+                     $("#finalbtn").removeAttr('disabled');
 
                  }
 
@@ -350,7 +369,7 @@
                     var count = 0;
                     $.each(data, function (index, item) {
                         rows += '<tr>';
-                        rows += '<td>' + item.schl + '</td>';
+                        /*rows += '<td>' + item.schl + '</td>';*/
                         rows += '<td>' + item.choiceschlcode + '</td>';
                         rows += '<td>' + item.choiceschoolcode + '</td>';
                         rows += '<td>' + item.distance + '</td>';
@@ -374,7 +393,7 @@
         }
 
         $(document).ready(function () {
-                $('#t01 tbody tr').empty();
+            $('#table-body').empty();
 
 
                 $.ajax({
@@ -389,7 +408,7 @@
                         var count = 0;
                         $.each(data, function (index, item) {
                             rows += '<tr>';
-                            rows += '<td>' + item.schl + '</td>';
+                            /*rows += '<td>' + item.schl + '</td>';*/
                             rows += '<td>' + item.choiceschlcode + '</td>';
                             rows += '<td>' + item.choiceschoolcode + '</td>';
                             rows += '<td>' + item.distance + '</td>';
@@ -401,12 +420,12 @@
 
                         $('#table-body').append(rows);
                         var rowCount = $('#t01 tbody tr').length;
-                        if (rowCount == 5) {
-                            $("#finalbtn").css("disabled", "true");
+                        if ((rowCount-1) < 5) {
+                            $("#finalbtn").attr('disabled', 'disabled');
                         }
                         else {
 
-                            $("#finalbtn").css("disabled", "false");
+                            $("#finalbtn").removeAttr('disabled');
 
                         }
 
@@ -468,9 +487,9 @@
 
     }
 
-<script type="text/javascript">
-    $(function () {
-        $("#CenterChoice").chosen();
-    });
-</script>
+    <script type="text/javascript">
+        $(function () {
+            $("#CenterChoice").chosen();
+        });
+    </script>
 
