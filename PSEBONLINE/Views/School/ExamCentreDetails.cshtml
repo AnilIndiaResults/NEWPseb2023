@@ -94,13 +94,13 @@
                     </div>
 
                     <div class="col-md-4">
-                        Principal Name Of Second Head
+                        Name Of Second Head of School
                         @Html.TextBox("Priciple2Name", Model.PrincipalName2, new { id = "Priciple2Name", @maxlength = "20", @type = "text", @required = "required" })
 
                     </div>
 
                     <div class="col-md-4">
-                        Principal Mobile No. Of Second Head
+                        Mobile No. of the Second head
                         @Html.TextBox("Priciple2Mobile", Model.PrincipalMobile2, new { id = "Priciple2Mobile", @maxlength = "10", @type = "text", @required = "required", onkeypress = "return isNumberKey(event);" })
 
                     </div>
@@ -119,8 +119,7 @@
                 <br />
 
                 @if (Model.Finalsubmittedforchoice == 1)
-                {
-                    <input type="submit" value="Final Submit" id="finalbtn" name="cmd" />
+                {                    
                     <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")'>Rough Print</a>                    
                 }
                 else
