@@ -21174,14 +21174,15 @@ namespace PSEBONLINE.Controllers
                     objGroupList.Add(objGroupLists);
                 }
             }
-
-            ViewBag.objGroupList = objGroupList;
-
             LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            DataSet ds = new DataSet();
+            SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
+            ViewBag.SchoolModel = sm;
+            ViewBag.objGroupList = objGroupList;
             return View(loginSession);
         }
 
-        public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL,string DIST)
+        public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL, string DIST)
         {
             InfrasturePerformas ipm = new InfrasturePerformas();
             Session["SCHL"] = SCHL;
@@ -21291,6 +21292,7 @@ namespace PSEBONLINE.Controllers
         [HttpPost]
         public async Task<ActionResult> InfrasturePerforma(InfrasturePerformas ipm, string cmd)
         {
+            bool bCheck = true;
             try
             {
                 string geolocation = "";
@@ -21341,7 +21343,7 @@ namespace PSEBONLINE.Controllers
                     ViewData["lastDateOver"] = 0;
                 }
 
-                bool bCheck = true;
+                
                 if (ipm.IFSC1 == "")
                 {
                     ViewData["result"] = "IFSC 1 is required";
@@ -21543,7 +21545,10 @@ namespace PSEBONLINE.Controllers
             {
 
             }
-            return RedirectToAction("InfrasturePerforma");
+            if(!bCheck)
+            { return View(ipm); }
+            else { return RedirectToAction("InfrasturePerforma"); }
+            
         }
 
 
@@ -22232,8 +22237,8 @@ namespace PSEBONLINE.Controllers
 
         }
         #endregion
-        
 
-      
+
+
     }
 }
