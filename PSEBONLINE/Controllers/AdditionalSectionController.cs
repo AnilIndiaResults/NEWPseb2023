@@ -28,9 +28,14 @@ namespace PSEBONLINE.Controllers
         public AbstractLayer.AdditionalSectionDB additionalSectionDB = new AbstractLayer.AdditionalSectionDB();
         public AbstractLayer.SchoolDB ObjSchoolDB = new AbstractLayer.SchoolDB();
 
+               
+
         // GET: AdditionalSection
         public ActionResult Index(AdditionalSectionModel am)
         {
+            ViewBag.AID = null;
+            ViewBag.ChallanId = null;
+            ViewBag.challanVerify = null;
             if (Request.UrlReferrer != null)
             {
                 if (Request.UrlReferrer.ToString().Contains("AdditionalSection/CalculateFee"))
