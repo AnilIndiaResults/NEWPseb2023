@@ -253,3 +253,5 @@ ModelManifest.xml
 *.txt
 *.gitattributes
 /PSEBONLINEbkp
+/PSEBONLINE/PSEBONLINE.csproj
+/PSEBONLINE/PSEBONLINE.csproj
