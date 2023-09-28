@@ -21149,14 +21149,15 @@ namespace PSEBONLINE.Controllers
 
 
 
-       
-       
+
+
         public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL, string DIST)
         {
             InfrasturePerformas ipm = new InfrasturePerformas();
             Session["SCHL"] = SCHL;
             Session["DIST"] = DIST;
             Session["SCHOOLDIST"] = DIST;
+            Session["SchoolLogin"] = SCHL;
             LoginSession loginSession = new LoginSession();
             loginSession.SCHL = SCHL;
             try
@@ -21179,8 +21180,8 @@ namespace PSEBONLINE.Controllers
                 ipm = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHL(loginSession);
                 DataSet dschool = new DataSet();
                 //var lst = await new AbstractLayer.SchoolDB().GetInfrastureTblSchUserPerformaBySCHL(loginSession);
-          
-               
+
+
                 dschool = new AbstractLayer.SchoolDB().GetSchoolUserTableData(SCHL);
 
                 if (dschool.Tables[0].Rows.Count > 0)
@@ -21249,9 +21250,275 @@ namespace PSEBONLINE.Controllers
             {
 
             }
-            return  View("InfrasturePerforma",ipm);
+            //return  View("InfrasturePerforma",ipm);
+            return View(ipm);
 
         }
+
+        [SessionCheckFilter]
+        [HttpPost]
+        public async Task<ActionResult> InfrasturePerformaModifyForAdmin(InfrasturePerformas ipm, string cmd)
+        {
+            bool bCheck = true;
+            try
+            {
+                string geolocation = "";
+                string imgpath = "";
+                DataSet dschool = new DataSet();
+                dschool = new AbstractLayer.SchoolDB().GetSchoolUserTableData(Session["SCHL"].ToString());
+                if (dschool.Tables[0].Rows.Count > 0)
+                {
+                    ViewData["geolocation"] = dschool.Tables[0].Rows[0]["geolocation"].ToString();
+                    ViewData["imgpath"] = ConfigurationManager.AppSettings["AWSURL"] + dschool.Tables[0].Rows[0]["imgpath"].ToString();
+                    geolocation = dschool.Tables[0].Rows[0]["geolocation"].ToString();
+                    imgpath = dschool.Tables[0].Rows[0]["imgpath"].ToString();
+                }
+
+                AbstractLayer.RegistrationDB objDB = new AbstractLayer.RegistrationDB();
+                DataSet result = objDB.schooltypes(Session["SCHL"].ToString()); // passing Value to DBClass from model
+                if (result == null)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                if (result.Tables[1].Rows.Count > 0)
+                {
+                    ViewBag.Fifth = result.Tables[1].Rows[0]["Fifth"].ToString();
+                    ViewBag.Eighth = result.Tables[1].Rows[0]["Eighth"].ToString();
+                    ViewBag.Senior = result.Tables[1].Rows[0]["Senior"].ToString();
+                    ViewBag.Matric = result.Tables[1].Rows[0]["Matric"].ToString();
+                    ViewBag.N3M1threclock = result.Tables[2].Rows[0]["reclock9th"].ToString();
+                    ViewBag.E1T1threclock = result.Tables[3].Rows[0]["reclock11th"].ToString();
+                }
+
+                DataSet ds = new DataSet();
+                ds = new AbstractLayer.SchoolDB().PanelEntryLastDate("InfrasturePerformas");
+                if (ds.Tables[1].Rows.Count > 0)
+                {
+                    ViewData["lastDate"] = ds.Tables[1].Rows[0]["LastDate"].ToString();
+                }
+                else
+                {
+                    ViewData["lastDate"] = "";
+                }
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    ViewData["lastDateOver"] = 1;
+                }
+                else
+                {
+                    ViewData["lastDateOver"] = 0;
+                }
+
+
+                if (ipm.IFSC1 == "")
+                {
+                    ViewData["result"] = "IFSC 1 is required";
+                    bCheck = false;
+                }
+                else if (ipm.BankBranch1 == "")
+                {
+                    ViewData["result"] = "Bank Branch 1 is required";
+                    bCheck = false;
+                }
+
+                if (new AbstractLayer.SchoolDB().IFSCCheck(ipm.IFSC1, ipm.Bank1) == false)
+                {
+                    ViewData["result"] = "IFSC 1 is not correct.";
+                    bCheck = false;
+                }
+                if (ipm.IFSC2 != null)
+                {
+                    if (ipm.IFSC1.ToLower() == ipm.IFSC2.ToLower())
+                    {
+                        ViewData["result"] = "IFSC 1 and IFSC 2 should be diffrent.";
+                        bCheck = false;
+                    }
+                    else if (new AbstractLayer.SchoolDB().IFSCCheck(ipm.IFSC2, ipm.Bank2) == false)
+                    {
+                        ViewData["result"] = "IFSC 2 is not correct.";
+                        bCheck = false;
+                    }
+                }
+                if (ipm.IFSC3 != null)
+                {
+                    if (ipm.IFSC3.ToLower() == ipm.IFSC2.ToLower())
+                    {
+                        ViewData["result"] = "IFSC 2 and IFSC 3 should be diffrent.";
+                        bCheck = false;
+                    }
+                    else if (new AbstractLayer.SchoolDB().IFSCCheck(ipm.IFSC3, ipm.Bank3) == false)
+                    {
+                        ViewData["result"] = "IFSC 3 is not correct.";
+                        bCheck = false;
+                    }
+                }
+
+                //if (ipm.SchoolName1 == "Select School Name" && ipm.SchoolName2 == "Select School Name" && ipm.SchoolName3 == "Select School Name")
+                //{
+
+                //    ViewData["result"] = "Please Select Atleast One School for Answer Sheet Collection Centre";
+                //    bCheck = false;
+
+                //}
+                //if (ipm.SchoolName1 == null && ipm.SchoolName2 == null && ipm.SchoolName3 == null)
+                //{
+
+                //    ViewData["result"] = "Please Select Atleast One School for Answer Sheet Collection Centre";
+                //    bCheck = false;
+
+                //}
+                //if (ipm.Statisfied8th == "No" && ipm.SchoolCenterNewFor8th == null)
+                //{
+
+                //    ViewData["result"] = "Please Select School Name for New Exam Centre";
+                //    bCheck = false;
+
+                //}
+                //if (ipm.Statisfied10th == "No" && ipm.SchoolCenterNewFor10th == null)
+                //{
+
+                //    ViewData["result"] = "Please Select School Name for New Exam Centre";
+                //    bCheck = false;
+
+                //}
+                //if (ipm.Statisfied12th == "No" && ipm.SchoolCenterNewFor12th == null)
+                //{
+
+                //    ViewData["result"] = "Please Select School Name for New Exam Centre";
+                //    bCheck = false;
+
+                //}
+
+
+                if (ipm.Statisfied8th == "Yes")
+                {
+                    ipm.SchoolCenterNewFor8th = null;
+
+                }
+                if (ipm.Statisfied10th == "Yes")
+                {
+                    ipm.SchoolCenterNewFor10th = null;
+
+                }
+                if (ipm.Statisfied10th1 == "Yes")
+                {
+                    ipm.SchoolCenterNewFor10th1 = null;
+
+                }
+                if (ipm.Statisfied10th2 == "Yes")
+                {
+                    ipm.SchoolCenterNewFor10th2 = null;
+
+                }
+                if (ipm.Statisfied12th == "Yes")
+                {
+                    ipm.SchoolCenterNewFor12th = null;
+
+                }
+                if (ipm.Statisfied12th1 == "Yes")
+                {
+                    ipm.SchoolCenterNewFor12th1 = null;
+
+                }
+                if (ipm.Statisfied12th2 == "Yes")
+                {
+                    ipm.SchoolCenterNewFor12th2 = null;
+
+                }
+
+
+
+                DataSet dss = new DataSet();
+                dss = new AbstractLayer.SchoolDB().SchoolCenterName(Session["SCHL"].ToString());
+                if (dss.Tables[0].Rows.Count > 0)
+                {
+                    var schoolCenterNames = dss.Tables[0].AsEnumerable().Select(dataRow => new SchoolCenterName
+                    {
+                        cschl = dataRow.Field<string>("cschl").ToString(),
+                        CENT = dataRow.Field<string>("CENT").ToString(),
+                        CLASS = dataRow.Field<string>("CLASS").ToString(),
+                        schlnme = dataRow.Field<string>("schlnme").ToString()
+                    }).ToList();
+                    ViewBag.SchoolCenterName = schoolCenterNames;
+                }
+                DataSet dsss = new DataSet();
+                dsss = new AbstractLayer.SchoolDB().SchoolCenterNameNearest(Session["DIST"].ToString());
+                if (dsss.Tables[0].Rows.Count > 0)
+                {
+                    List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                    foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
+                    {
+                        itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                    }
+                    ViewBag.SchoolCenterNameNearest = new SelectList(itemsTeh, "Value", "Text");
+                }
+                DataSet dssss = new DataSet();
+                dssss = new AbstractLayer.SchoolDB().SchoolCenterAnswerSheetNearest(Session["DIST"].ToString());
+                if (dssss.Tables[0].Rows.Count > 0)
+                {
+                    List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                    foreach (System.Data.DataRow dr in dssss.Tables[0].Rows)
+                    {
+                        itemsTeh.Add(new SelectListItem { Text = @dr["SchoolCode"].ToString() + "," + @dr["SchoolName"].ToString(), Value = @dr["SchoolCode"].ToString() + "," + @dr["SchoolName"].ToString() });
+                    }
+                    ViewBag.SchoolCenterAnwerNameNearest = new SelectList(itemsTeh, "Value", "Text");
+                }
+
+                if (bCheck == true)
+                {
+
+
+                    if (cmd == null)
+                    {
+                        return RedirectToAction("ViewInfrasturePerformas", "School", new { SCHL = ipm.SCHL });
+                    }
+                    else if (cmd.ToLower() == "save")
+                    {
+                        string SCHL = Convert.ToString(Session["SCHL"]);
+                        if (SCHL != "")
+                        {
+                            int a = 0;
+                            ipm.FinalSubmitStatus = 0;
+                            ipm.FinalSubmitDate = null;
+                            ipm = await new AbstractLayer.SchoolDB().UpdateInfrasturePerformaBySCHL(ipm, out a);
+                            ViewData["result"] = a;
+                        }
+                    }
+                    else if (cmd.ToLower() == "final submit")
+                    {
+                        if (!string.IsNullOrEmpty(geolocation) && !string.IsNullOrEmpty(imgpath))
+                        {
+                            string SCHL = Convert.ToString(Session["SCHL"]);
+                            if (SCHL != "")
+                            {
+                                int a = 0;
+                                ipm.FinalSubmitStatus = 1;
+                                ipm.FinalSubmitDate = DateTime.Now.ToString();
+                                ipm = await new AbstractLayer.SchoolDB().UpdateInfrasturePerformaBySCHL(ipm, out a);
+                                ViewData["result"] = a;
+                            }
+                        }
+                        else
+                        {
+                            ViewData["result"] = "Update the image of the entry gate of the school using the PSEB ExamInfraLocate app. You can download the app from\r\nthe Play Store or directly from the App link.";
+                            bCheck = false;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            if (!bCheck)
+            { return View(ipm); }
+            else { return RedirectToAction("RegSchoolList"); }
+
+        }
+
+
 
         [SessionCheckFilter]
         public async Task<ActionResult> InfrasturePerforma(InfrasturePerformas ipm)
