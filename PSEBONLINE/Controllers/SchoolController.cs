@@ -21150,40 +21150,7 @@ namespace PSEBONLINE.Controllers
 
 
        
-        [SessionCheckFilter]
-        public async Task<ActionResult> ExamCentreDetailsPerforma()
-        {
-            if (Session["SCHL"] == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
-            DataSet result = RegistrationDB.Get_School_Center_Choice();
-            if (result.Tables.Count > 0)
-            {
-                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
-                {
-                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
-
-                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
-                    objGroupLists.schl = dr["schl"].ToString();
-                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
-                    objGroupLists.distance = dr["distance"].ToString();
-                    objGroupLists.insertdate = dr["insertdate"].ToString();
-                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
-
-                    objGroupList.Add(objGroupLists);
-                }
-            }
-            LoginSession loginSession = (LoginSession)Session["LoginSession"];
-            DataSet ds = new DataSet();
-            SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
-            ViewBag.SchoolModel = sm;
-            ViewBag.objGroupList = objGroupList;
-            return View(loginSession);
-        }
-
+       
         public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL, string DIST)
         {
             InfrasturePerformas ipm = new InfrasturePerformas();
