@@ -419,7 +419,7 @@ else { Response.Redirect("~/Login"); }
                                         <td>Bank Name</td>
                                         <td>@Html.DropDownListFor(a => a.Bank3, banklist)</td>
                                         <td>IFSC Code 3</td>
-                                        <td>@Html.TextBoxFor(a => a.IFSC3, new { id = "IFSC3", @maxlength = "20", @onchange = "IFSCCodeAvailability('3')", @required = "required" } )</td>
+                                        <td>@Html.TextBoxFor(a => a.IFSC3, new { id = "IFSC3", @maxlength = "20", @onchange = "IFSCCodeAvailability('3')", @required = "required" })</td>
 
                                         <td>Branch Name & Address</td>
                                         <td>@Html.TextBoxFor(a => a.BankBranch3, new { @required = "required" })</td>
@@ -493,7 +493,7 @@ else { Response.Redirect("~/Login"); }
 
                                                     <tr>
                                                         <td width="10%">10th</td>
-                                                        <td width="10%">                                                            
+                                                        <td width="10%">
                                                             @item.CENT,@item.schlnme
                                                         </td>
 

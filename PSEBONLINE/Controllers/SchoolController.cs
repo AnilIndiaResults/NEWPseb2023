@@ -21148,39 +21148,7 @@ namespace PSEBONLINE.Controllers
         }
 
 
-        [SessionCheckFilter]
-        public async Task<ActionResult> ExamCentreDetailsPerforma()
-        {
-            if (Session["SCHL"] == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
-            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
-            DataSet result = RegistrationDB.Get_School_Center_Choice();
-            if (result.Tables.Count > 0)
-            {
-                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
-                {
-                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
-
-                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
-                    objGroupLists.schl = dr["schl"].ToString();
-                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
-                    objGroupLists.distance = dr["distance"].ToString();
-                    objGroupLists.insertdate = dr["insertdate"].ToString();
-                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
-
-                    objGroupList.Add(objGroupLists);
-                }
-            }
-            LoginSession loginSession = (LoginSession)Session["LoginSession"];
-            DataSet ds = new DataSet();
-            SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
-            ViewBag.SchoolModel = sm;
-            ViewBag.objGroupList = objGroupList;
-            return View(loginSession);
-        }
+       
 
         public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL, string DIST)
         {
@@ -21343,7 +21311,7 @@ namespace PSEBONLINE.Controllers
                     ViewData["lastDateOver"] = 0;
                 }
 
-                
+
                 if (ipm.IFSC1 == "")
                 {
                     ViewData["result"] = "IFSC 1 is required";
@@ -21545,10 +21513,10 @@ namespace PSEBONLINE.Controllers
             {
 
             }
-            if(!bCheck)
+            if (!bCheck)
             { return View(ipm); }
             else { return RedirectToAction("InfrasturePerforma"); }
-            
+
         }
 
 
@@ -22101,7 +22069,7 @@ namespace PSEBONLINE.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            DataSet result = RegistrationDB.Get_School_Center_Choice();
+            DataSet result = RegistrationDB.Get_School_Center_Choice_All();
             List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
 
             if (result.Tables.Count > 0)
@@ -22121,34 +22089,58 @@ namespace PSEBONLINE.Controllers
                 }
             }
 
+
+
             DataSet dsss = new DataSet();
             dsss = new AbstractLayer.SchoolDB().SchoolCenterNameNearestWithSchool(Session["DIST"].ToString());
             if (dsss.Tables[0].Rows.Count > 0)
             {
-                List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                string type = "";
+                List<SelectListItem> itemsTehnew = new List<SelectListItem>();
+                List<SelectListItem> itemsTehold = new List<SelectListItem>();
                 foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
                 {
-                    if (objGroupList.Count() > 0)
+                    string schl = @dr["schl"].ToString();
+                    if (Session["SCHL"].ToString() != schl)
                     {
-                        string schoolcode = @dr["SCHL"].ToString();
-                        var counts = objGroupList.Any(x => x.choiceschoolcode == schoolcode);
-                        if (counts)
+                        type = @dr["type"].ToString();
+                        if (objGroupList.Count() > 0)
                         {
+                            string schoolcode = @dr["SCHL"].ToString();
+                            var counts = objGroupList.Any(x => x.choiceschoolcode == schoolcode);
+                            if (counts)
+                            {
+
+                            }
+                            else
+                            {
+                                if (type == "OLD")
+                                {
+                                    itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                                }
+                                else
+                                {
+                                    itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                                }
+                            }
 
                         }
                         else
                         {
-                            itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                            if (type == "OLD")
+                            {
+                                itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
+                            else
+                            {
+                                itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
                         }
-
-                    }
-                    else
-                    {
-                        itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
                     }
 
                 }
-                ViewBag.SchoolCenterNameNearest = new SelectList(itemsTeh, "Value", "Text");
+                ViewBag.SchoolCenterNameNearestNew = new SelectList(itemsTehnew, "Value", "Text");
+                ViewBag.SchoolCenterNameNearestOld = new SelectList(itemsTehold, "Value", "Text");
             }
 
             LoginSession loginSession = (LoginSession)Session["LoginSession"];
@@ -22205,12 +22197,15 @@ namespace PSEBONLINE.Controllers
             dsss = new AbstractLayer.SchoolDB().SchoolCenterNameNearestWithSchool(Session["DIST"].ToString());
             if (dsss.Tables[0].Rows.Count > 0)
             {
-                List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                string type = "";
+                List<SelectListItem> itemsTehnew = new List<SelectListItem>();
+                List<SelectListItem> itemsTehold = new List<SelectListItem>();
                 foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
                 {
                     if (objGroupList.Count() > 0)
                     {
                         string schoolcode = @dr["SCHL"].ToString();
+                        type = @dr["type"].ToString();
                         var counts = objGroupList.Any(x => x.choiceschoolcode == schoolcode);
                         if (counts)
                         {
@@ -22218,17 +22213,32 @@ namespace PSEBONLINE.Controllers
                         }
                         else
                         {
-                            itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                            if (type == "OLD")
+                            {
+                                itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
+                            else
+                            {
+                                itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                            }
                         }
 
                     }
                     else
                     {
-                        itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                        if (type == "OLD")
+                        {
+                            itemsTehold.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                        }
+                        else
+                        {
+                            itemsTehnew.Add(new SelectListItem { Text = @dr["schoole"].ToString(), Value = @dr["schoole"].ToString() });
+                        }
                     }
 
                 }
-                ViewBag.SchoolCenterNameNearest = new SelectList(itemsTeh, "Value", "Text");
+                ViewBag.SchoolCenterNameNearestNew = new SelectList(itemsTehnew, "Value", "Text");
+                ViewBag.SchoolCenterNameNearestOld = new SelectList(itemsTehold, "Value", "Text");
             }
 
 
@@ -22236,6 +22246,42 @@ namespace PSEBONLINE.Controllers
             return View(loginSession);
 
         }
+
+        [SessionCheckFilter]
+        public async Task<ActionResult> ExamCentreDetailsPerforma()
+        {
+            if (Session["SCHL"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+            DataSet result = RegistrationDB.Get_School_Center_Choice_All();
+            if (result.Tables.Count > 0)
+            {
+                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                {
+                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                    objGroupLists.schl = dr["schl"].ToString();
+                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                    objGroupLists.distance = dr["distance"].ToString();
+                    objGroupLists.insertdate = dr["insertdate"].ToString();
+                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+                    objGroupLists.type = dr["type"].ToString();
+
+                    objGroupList.Add(objGroupLists);
+                }
+            }
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            DataSet ds = new DataSet();
+            SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
+            ViewBag.SchoolModel = sm;
+            ViewBag.objGroupList = objGroupList;
+            return View(loginSession);
+        }
+
         #endregion
 
 

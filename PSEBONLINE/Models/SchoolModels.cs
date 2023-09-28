@@ -2041,6 +2041,8 @@ namespace PSEBONLINE.Models
 
         public string choiceschoolcode { get; set; }
 
+        public string type { get; set; }
+
 
     }
 
