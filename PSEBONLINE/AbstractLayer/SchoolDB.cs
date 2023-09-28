@@ -6116,6 +6116,30 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
+        public Task<InfrasturePerformas> GetInfrasturePerformaBySCHLForAdmin(string SCHL)  // Type 1=Regular, 2=Open
+        {
+            InfrasturePerformas obj = new InfrasturePerformas();
+            if (SCHL != null)
+            {
+                obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == SCHL.Trim());
+                if (obj == null)
+                {
+                    var ipsNew = new InfrasturePerformas()
+                    {
+                        SCHL = SCHL
+                    };
+                    context.InfrasturePerformas.Add(ipsNew);
+                    context.SaveChanges();
+                    obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == SCHL.Trim());
+                }
+
+            }
+            Thread.Sleep(2000);
+            return Task.FromResult(obj);
+
+        }
+
+
         public Task<tblSchUsers> GetInfrastureTblSchUserPerformaBySCHL(LoginSession LM)  // Type 1=Regular, 2=Open
         {
             tblSchUsers obj = new tblSchUsers();
