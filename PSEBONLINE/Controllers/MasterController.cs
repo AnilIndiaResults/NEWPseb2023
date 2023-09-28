@@ -1413,7 +1413,7 @@ namespace PSEBONLINE.Controllers
             try
             {
                 string code = CenterChoice.Split('-')[0].Replace(" ", "");
-                DataSet result = RegistrationDB.Ins_School_Center_Choice(CenterChoice, CenterDisTance, code);
+                DataSet result = RegistrationDB.Ins_School_Center_ChoiceOld(CenterChoice, CenterDisTance, code);
 
 
                 if (result.Tables.Count > 0)
@@ -1447,6 +1447,50 @@ namespace PSEBONLINE.Controllers
 
         }
 
+        public JsonResult Ins_School_Center_Choice_New(string CenterChoice, string CenterDisTance)
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                string code = CenterChoice.Split('-')[0].Replace(" ", "");
+                DataSet result = RegistrationDB.Ins_School_Center_ChoiceNew(CenterChoice, CenterDisTance, code);
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
 
         public JsonResult Delete_School_Center_Choice(int Id)
         {
@@ -1499,8 +1543,6 @@ namespace PSEBONLINE.Controllers
 
         }
 
-
-
         public JsonResult Get_School_Center_Choice()
         {
             //List<SelectListItem> objGroupList = new List<SelectListItem>();
@@ -1546,6 +1588,49 @@ namespace PSEBONLINE.Controllers
 
         }
 
+        public JsonResult Get_School_Center_Choice_New()
+        {
+            //List<SelectListItem> objGroupList = new List<SelectListItem>();
 
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+
+            DataTable dt = null;
+
+            try
+            {
+                DataSet result = RegistrationDB.Get_School_Center_Choice_New();
+
+
+                if (result.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                    {
+                        ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                        objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                        objGroupLists.schl = dr["schl"].ToString();
+                        objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                        objGroupLists.distance = dr["distance"].ToString();
+                        objGroupLists.insertdate = dr["insertdate"].ToString();
+                        objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                        objGroupList.Add(objGroupLists);
+                    }
+                }
+
+
+                return Json(objGroupList);
+            }
+            catch (Exception ex)
+            {
+                return Json(objGroupList);
+
+            }
+
+            //return Json(result);
+
+
+
+        }
     }
 }
