@@ -248,7 +248,15 @@ namespace PSEBONLINE.AbstractLayer
                             am.ISACTIVE = Convert.ToBoolean(ds.Tables[0].Rows[0]["ISACTIVE"].ToString());
                             am.CREATEDDATE = Convert.ToDateTime(string.IsNullOrEmpty(ds.Tables[0].Rows[0]["CREATEDDATE"].ToString()) ? "1990-01-01 00:00:00.000" : ds.Tables[0].Rows[0]["CREATEDDATE"].ToString());
                             am.ChallanCategory = Convert.ToInt32(ds.Tables[0].Rows[0]["ChallanCategory"].ToString());
-                            am.ChallanId = Convert.ToString(ds.Tables[0].Rows[0]["ChallanId"].ToString());
+                            try
+                            {
+                                am.ChallanId = Convert.ToString(ds.Tables[1].Rows[0]["ChallanId"].ToString());
+                            }
+                            catch
+                            {
+                                am.ChallanId = Convert.ToString(ds.Tables[0].Rows[0]["ChallanId"].ToString());
+                            }
+                          
                             am.ChallanDt = Convert.ToString(ds.Tables[0].Rows[0]["ChallanDt"].ToString());
                             am.challanVerify = Convert.ToInt32(ds.Tables[0].Rows[0]["challanVerify"].ToString());
                             am.OldRecieptNo = Convert.ToString(ds.Tables[0].Rows[0]["OldRecieptNo"].ToString());

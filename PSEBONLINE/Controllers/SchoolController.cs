@@ -21148,14 +21148,142 @@ namespace PSEBONLINE.Controllers
         }
 
 
+
        
+        [SessionCheckFilter]
+        public async Task<ActionResult> ExamCentreDetailsPerforma()
+        {
+            if (Session["SCHL"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+            DataSet result = RegistrationDB.Get_School_Center_Choice();
+            if (result.Tables.Count > 0)
+            {
+                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                {
+                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                    objGroupLists.schl = dr["schl"].ToString();
+                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                    objGroupLists.distance = dr["distance"].ToString();
+                    objGroupLists.insertdate = dr["insertdate"].ToString();
+                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+
+                    objGroupList.Add(objGroupLists);
+                }
+            }
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+            DataSet ds = new DataSet();
+            SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
+            ViewBag.SchoolModel = sm;
+            ViewBag.objGroupList = objGroupList;
+            return View(loginSession);
+        }
 
         public async Task<ActionResult> InfrasturePerformaModifyForAdmin(string SCHL, string DIST)
         {
             InfrasturePerformas ipm = new InfrasturePerformas();
             Session["SCHL"] = SCHL;
             Session["DIST"] = DIST;
-            return await InfrasturePerforma(ipm);
+            Session["SCHOOLDIST"] = DIST;
+            LoginSession loginSession = new LoginSession();
+            loginSession.SCHL = SCHL;
+            try
+            {
+                AbstractLayer.RegistrationDB objDB = new AbstractLayer.RegistrationDB();
+                DataSet result = objDB.schooltypes(SCHL); // passing Value to DBClass from model
+                if (result == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                if (result.Tables[1].Rows.Count > 0)
+                {
+                    ViewBag.Fifth = result.Tables[1].Rows[0]["Fifth"].ToString();
+                    ViewBag.Eighth = result.Tables[1].Rows[0]["Eighth"].ToString();
+                    ViewBag.Senior = result.Tables[1].Rows[0]["Senior"].ToString();
+                    ViewBag.Matric = result.Tables[1].Rows[0]["Matric"].ToString();
+                    ViewBag.N3M1threclock = result.Tables[2].Rows[0]["reclock9th"].ToString();
+                    ViewBag.E1T1threclock = result.Tables[3].Rows[0]["reclock11th"].ToString();
+                }
+                ipm = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHL(loginSession);
+                DataSet dschool = new DataSet();
+                //var lst = await new AbstractLayer.SchoolDB().GetInfrastureTblSchUserPerformaBySCHL(loginSession);
+          
+               
+                dschool = new AbstractLayer.SchoolDB().GetSchoolUserTableData(SCHL);
+
+                if (dschool.Tables[0].Rows.Count > 0)
+                {
+                    ViewData["geolocation"] = dschool.Tables[0].Rows[0]["geolocation"].ToString();
+                    ViewData["imgpath"] = ConfigurationManager.AppSettings["AWSURL"] + dschool.Tables[0].Rows[0]["imgpath"].ToString();
+                }
+                DataSet ds = new DataSet();
+                ds = new AbstractLayer.SchoolDB().PanelEntryLastDate("InfrasturePerforma");
+                if (ds.Tables[1].Rows.Count > 0)
+                {
+                    ViewData["lastDate"] = ds.Tables[1].Rows[0]["LastDate"].ToString();
+                }
+                else
+                {
+                    ViewData["lastDate"] = "";
+                }
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    ViewData["lastDateOver"] = 1;
+                }
+                else
+                {
+                    ViewData["lastDateOver"] = 0;
+                }
+                DataSet dss = new DataSet();
+                dss = new AbstractLayer.SchoolDB().SchoolCenterName(SCHL);
+                if (dss.Tables[0].Rows.Count > 0)
+                {
+                    var schoolCenterNames = dss.Tables[0].AsEnumerable().Select(dataRow => new SchoolCenterName
+                    {
+                        cschl = dataRow.Field<string>("cschl").ToString(),
+                        CENT = dataRow.Field<string>("CENT").ToString(),
+                        CLASS = dataRow.Field<string>("CLASS").ToString(),
+                        schlnme = dataRow.Field<string>("schlnme").ToString()
+                    }).ToList();
+                    ViewBag.SchoolCenterName = schoolCenterNames;
+                }
+                DataSet dsss = new DataSet();
+                dsss = new AbstractLayer.SchoolDB().SchoolCenterNameNearest(DIST);
+                if (dsss.Tables[0].Rows.Count > 0)
+                {
+                    List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                    foreach (System.Data.DataRow dr in dsss.Tables[0].Rows)
+                    {
+                        itemsTeh.Add(new SelectListItem { Text = @dr["schlnme"].ToString(), Value = @dr["schlnme"].ToString() });
+                    }
+                    ViewBag.SchoolCenterNameNearest = new SelectList(itemsTeh, "Value", "Text");
+                }
+
+
+                DataSet dssss = new DataSet();
+                dssss = new AbstractLayer.SchoolDB().SchoolCenterAnswerSheetNearest(Session["DIST"].ToString());
+                if (dssss.Tables[0].Rows.Count > 0)
+                {
+                    List<SelectListItem> itemsTeh = new List<SelectListItem>();
+                    foreach (System.Data.DataRow dr in dssss.Tables[0].Rows)
+                    {
+                        itemsTeh.Add(new SelectListItem { Text = @dr["SchoolCode"].ToString() + "," + @dr["SchoolName"].ToString(), Value = @dr["SchoolCode"].ToString() + "," + @dr["SchoolName"].ToString() });
+                    }
+                    ViewBag.SchoolCenterAnwerNameNearest = new SelectList(itemsTeh, "Value", "Text");
+                }
+
+            }
+            catch (Exception e)
+            {
+
+            }
+            return  View("InfrasturePerforma",ipm);
+
         }
 
         [SessionCheckFilter]
@@ -21513,9 +21641,16 @@ namespace PSEBONLINE.Controllers
             {
 
             }
+
             if (!bCheck)
             { return View(ipm); }
             else { return RedirectToAction("InfrasturePerforma"); }
+
+
+            if(!bCheck)
+            { return View(ipm); }
+            else { return RedirectToAction("InfrasturePerforma"); }
+            
 
         }
 
