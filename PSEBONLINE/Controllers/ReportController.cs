@@ -2400,7 +2400,7 @@ namespace PSEBONLINE.Controllers
                 ViewBag.SelectedDateType = "0";
                 // End 
                 string Search = string.Empty;
-                Search = "a.FEECODE like '%' ";
+                Search = "FEECODE like '%' ";
                 string SelDateType = "T";
 
                 if (frm["SelClass"] != "")
@@ -2413,13 +2413,13 @@ namespace PSEBONLINE.Controllers
 
                 if (!string.IsNullOrEmpty(frm["FEECAT"]))
                 {
-                    Search += " and a.FEECODE in (" + frm["FEECAT"].ToString().Trim() + ")";
+                    Search += " and FEECODE in (" + frm["FEECAT"].ToString().Trim() + ")";
                     ViewBag.SelectedItem = frm["FEECAT"];
                     TempData["FEECAT"] = frm["FEECAT"];
                 }
                 if (frm["Bank"] != "")
                 {
-                    Search += " and a.bcode='" + frm["Bank"].ToString().Trim() + "'";
+                    Search += " and bcode='" + frm["Bank"].ToString().Trim() + "'";
                     ViewBag.SelectedBank = frm["Bank"];
                     TempData["Bank"] = frm["Bank"];
                 }
@@ -2435,13 +2435,13 @@ namespace PSEBONLINE.Controllers
                         {
                             ViewBag.FromDate = frm["FromDate"];
                             TempData["FromDate"] = frm["FromDate"];
-                            Search += " and CONVERT(DATETIME, CONVERT(varchar(10),DEPOSITDT,103), 103)>=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["FromDate"].ToString() + "',103), 103)";
+                            Search += " and VerifyDate>=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["FromDate"].ToString() + "',103), 103)";
                         }
                         if (frm["ToDate"] != "")
                         {
                             ViewBag.ToDate = frm["ToDate"];
                             TempData["ToDate"] = frm["ToDate"];
-                            Search += " and CONVERT(DATETIME, CONVERT(varchar(10),DEPOSITDT,103), 103)<=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["ToDate"].ToString() + "',103), 103)";
+                            Search += " and VerifyDate<=CONVERT(DATETIME, CONVERT(varchar(10),'" + frm["ToDate"].ToString() + "',103), 103)";
                         }
                     }
                     else if (SelDateType == "S")
