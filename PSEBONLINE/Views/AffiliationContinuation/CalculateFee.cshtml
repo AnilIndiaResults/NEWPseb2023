@@ -523,9 +523,10 @@ window.location.href = '@Url.Action("MagazineSchoolRequirements", "School")';
                                                 @if (ViewBag.TotalCount > 0)
                                                 {
                                                     <input id="btnPayment" name="submit" type="submit" value="Proceed to Pay Online" class="btn" />
+                                                    <input id="btnPayment" name="submit" type="submit" value="Generate Offline Challan" class="btn" onclick="return confirm('You are going to submit the data. After that data will be locked for any changes?');" />
+
                                                     <div id="loading1"></div>
                                                 }
-                                                @*<input id="btnPayment" name="submit" type="submit" value="Generate Challan & Final Submit" class="btn" onclick="return confirm('You are going to submit the data. After that data will be locked for any changes?');" />*@
                                             </td>
                                         </tr>
                                     </table>
@@ -658,7 +659,7 @@ window.location.href = '@Url.Action("MagazineSchoolRequirements", "School")';
                                                             {
                                                                 @Html.ActionLink("Download Form", "FinalPrintForm", new { Id = @ViewBag.SCHL.ToString() })
                                                             }
-                                                            else if (Model.StoreAllData.Tables[0].Rows[i]["StatusNumber"].ToString() == "5" && SchoolCode == "1")
+                                                            else if (Model.StoreAllData.Tables[0].Rows[i]["verified"].ToString() != "1")
                                                             {
                                                                 <a href='@Url.Action("GenerateChallaan", "AffiliationContinuation", new { Id = ChallanNo })' class="btn">Click to View Challan</a><br />
                                                                 if (ExpireVDate.ToString() == "1" && FeeDepositStatus.ToString() == "0" && IsCancel == "0")
