@@ -203,8 +203,6 @@ namespace PSEBONLINE.Controllers
         {
             try
             {
-               
-
                 LoginSession loginSession = AbstractLayer.SchoolDB.LoginSenior(lm); // passing Value to _schoolRepository.from model and Type 1 For regular   
                 if (loginSession != null)
                 {

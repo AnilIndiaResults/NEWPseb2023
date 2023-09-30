@@ -110,8 +110,7 @@
 
                 {
                     <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")'>Final Print</a>
-                {                    
-                    <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")'>Rough Print</a>                    
+
 
                 }
                 else
@@ -133,7 +132,7 @@
 
     <br /><br />
 
-          <h4 style="font-size: 18px; font-weight: bold; color: red; text-align: center; Background: white !important">You have to add 5 Centre Choice ( 3 From Upper Drop Down and 2 From lower Drop Down) Only then you will able to do final submit </h4>
+    <h4 style="font-size: 18px; font-weight: bold; color: red; text-align: center; Background: white !important">You have to add 5 Centre Choice ( 3 From Upper Drop Down and 2 From lower Drop Down) Only then you will able to do final submit </h4>
     <div class="conatiner">
         <a href="~/PDF/Instructions_For_Exam_Centre_Choice_March_2024.pdf" style="float: right; padding-top: 5px; color: #e4e70b; font-size: 16px; font-weight: bold; margin-right: 14px;" target="_blank">
             Instructions For Exam Centre Choice March 2024
@@ -668,4 +667,40 @@ if (Centerchoice == "" || CenterDistance=="") {
             $("#CenterChoices").chosen();
         });
     </script>
+    <script type='text/javascript'>
+        var isCtrl = false;
+        document.onkeyup=function(e)
+        {
+            if(e.which == 17)
+            isCtrl=false;
+        }
+        document.onkeydown = function (evt) {
+            evt = evt || window.event;
+            if (evt.keyCode == 123) {
+                return false;
+            }
+        }
+        //document.onkeydown=function(e)
+        //{
+        //    if(e.which == 17)
+        //    isCtrl=true;
+        //    if ((e.which == 85)) //85 for Ctrl+U, For Copy= (e.which == 67) && (isCtrl == true)
+        //    {
+        //        return false;
+        //    }
+        //}
+        var isNS = (navigator.appName == "Netscape") ? 1 : 0;
+        if(navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN||Event.MOUSEUP);
+        function mischandler(){
+            return false;
+        }
+        function mousehandler(e){
+            var myevent = (isNS) ? e : event;
+            var eventbutton = (isNS) ? myevent.which : myevent.button;
+            if((eventbutton==2)||(eventbutton==3)) return false;
+        }
+        document.oncontextmenu = mischandler;
+        document.onmousedown = mousehandler;
+        document.onmouseup = mousehandler;
+        </script>
 

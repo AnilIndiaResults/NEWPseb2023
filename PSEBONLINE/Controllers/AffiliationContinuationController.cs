@@ -1771,8 +1771,12 @@ namespace PSEBONLINE.Controllers
 
                         }
                         //else if (submit.ToLower().Contains("final"))
-                        else if (submit.ToLower().Contains("online"))
+                        else if (submit.ToLower().Contains("online") || submit.ToLower().Contains("offline"))
                         {
+                            if(submit.Contains("Generate Offline Challan"))
+                            {
+                                _affiliationFee.BankCode = "203";
+                            }
                             //
                             if (_affiliationFee.BankCode == null)
                             {
@@ -1834,6 +1838,11 @@ namespace PSEBONLINE.Controllers
                                     CM.FEECAT = _affiliationFee.FEECAT;
                                     CM.FEECODE = _affiliationFee.FEECODE.ToString();
                                     CM.FEEMODE = "ONLINE";
+                                    if (AllowBanks == "203")
+                                    {
+                                        CM.FEEMODE = "CASH";
+                                    }
+                                    
                                     CM.BANK = bankName;
                                     CM.BCODE = BankCode;
                                     CM.BANKCHRG = Convert.ToInt32(0);
