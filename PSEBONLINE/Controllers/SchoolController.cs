@@ -22650,6 +22650,50 @@ namespace PSEBONLINE.Controllers
             return View(loginSession);
         }
 
+
+
+        public async Task<ActionResult> ExamCentreDetailsPerformaForAdmin(string SCHL, string DIST)
+        {
+            Session["SCHL"] = SCHL;
+            Session["DIST"] = DIST;
+            Session["SCHOOLDIST"] = DIST;
+            Session["SchoolLogin"] = SCHL;
+            AbstractLayer.RegistrationDB obj = new AbstractLayer.RegistrationDB();
+            DataSet schltype = obj.schooltypes(SCHL);
+
+            if (schltype == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            List<ExamCenterDetail> objGroupList = new List<ExamCenterDetail>();
+            DataSet result = RegistrationDB.Get_School_Center_Choice_All();
+            if (result.Tables.Count > 0)
+            {
+                foreach (DataRow dr in result.Tables[0].Rows) // For addition Section
+                {
+                    ExamCenterDetail objGroupLists = new ExamCenterDetail();
+
+                    objGroupLists.ID = Convert.ToInt32(dr["ID"].ToString());
+                    objGroupLists.schl = dr["schl"].ToString();
+                    objGroupLists.choiceschlcode = dr["choiceschlcode"].ToString();
+                    objGroupLists.distance = dr["distance"].ToString();
+                    objGroupLists.insertdate = dr["insertdate"].ToString();
+                    objGroupLists.choiceschoolcode = dr["choiceschoolcode"].ToString();
+                    objGroupLists.type = dr["type"].ToString();
+
+                    objGroupList.Add(objGroupLists);
+                }
+            }
+            LoginSession loginSession = new LoginSession();
+            loginSession.SCHL = SCHL;
+            DataSet ds = new DataSet();
+            SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
+            ViewBag.SchoolModel = sm;
+            ViewBag.objGroupList = objGroupList;
+            return View("ExamCentreDetailsPerforma", loginSession);
+        }
+
         #endregion
 
 
