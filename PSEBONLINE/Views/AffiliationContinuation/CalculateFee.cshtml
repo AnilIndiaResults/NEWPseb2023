@@ -523,7 +523,7 @@ window.location.href = '@Url.Action("MagazineSchoolRequirements", "School")';
                                                 @if (ViewBag.TotalCount > 0)
                                                 {
                                                     <input id="btnPayment" name="submit" type="submit" value="Proceed to Pay Online" class="btn" />
-                                                    <input id="btnPayment" name="submit" type="submit" value="Generate Offline Challan" class="btn" onclick="return confirm('You are going to submit the data. After that data will be locked for any changes?');" />
+                                                    <input id="btnPaymentoffiline" name="submit" type="submit" value="Generate Offline Challan" class="btn" onclick="return confirm('You are going to submit the data. After that data will be locked for any changes?');" />
 
                                                     <div id="loading1"></div>
                                                 }
@@ -881,6 +881,23 @@ $('#loading1').empty();
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
 <script>
     $(document).ready(function () {
+
+        var today = new Date();
+        var targetDate = new Date('2023-09-30');
+       // var targetDate = new Date('2023-10-01');
+
+        // Compare dates
+        if (today.toDateString() === targetDate.toDateString()) {
+         
+            $("#btnPaymentoffiline").css("visibility", "visible");
+        }
+        else {
+            $("#btnPaymentoffiline").css("visibility", "hidden");
+           
+        }
+
+
+
    $(".datepicker").datepicker({
             dateFormat: "dd/mm/yy",
             changeMonth: true,
