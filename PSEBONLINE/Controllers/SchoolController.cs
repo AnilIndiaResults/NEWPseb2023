@@ -21880,10 +21880,10 @@ namespace PSEBONLINE.Controllers
             else { return RedirectToAction("InfrasturePerforma"); }
 
 
-            if(!bCheck)
+            if (!bCheck)
             { return View(ipm); }
             else { return RedirectToAction("InfrasturePerforma"); }
-            
+
 
         }
 
@@ -22652,7 +22652,32 @@ namespace PSEBONLINE.Controllers
 
         #endregion
 
+        #region unlock forms
+
+        
+        public JsonResult UnlockForms(string schl,string type)
+        {
+           DataSet newDs = new DataSet();
+            if (type == "Infra")
+            {
+                newDs = AbstractLayer.SchoolDB.UnloackPerforma(schl);
+            }
+            else if(type == "examcenter")
+            {
+                newDs = AbstractLayer.SchoolDB.unlockExamCenter(schl);
+            }
+       
+              return Json(newDs.Tables[0].Rows[0]["Status"]);
+
+        }
+    
+
+    
+
+  
+    #endregion
 
 
-    }
+
+}
 }
