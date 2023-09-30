@@ -162,12 +162,16 @@
                                                         <ul>
                                                             <li style="@(ViewBag.IsView == 1 ? "display:block" : "display:none")">
                                                                 @Html.ActionLink("View", "School_View_Form", new { id = SCHL })
+                                                               
                                                             </li>
                                                             <li>
+                                                                @Html.ActionLink("View ExamCentre Details", "ExamCentreDetailsPerformaForAdmin", new { SCHL = SCHL, DIST = disCode })
                                                                 @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
                                                                 @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
                                                                 @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
                                                                 @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
+                                                                <a class="btn btn-primary" onclick="UnlockForm(@SCHL,'Infra')">Unlock Infrastructure</a>
+                                                                <a class="btn btn-primary" onclick="UnlockForm(@SCHL,'examcenter')">Unlock ExamCenter</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -238,6 +242,7 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script type="text/javascript">
     function resetAllControls() {
         $("#searchform").find('input:text, input:password, input:file, select, textarea').val('');
@@ -280,6 +285,41 @@
 </script>
 
 <script type='text/javascript'>
+
+    function UnlockForm(schl, type) {
+        debugger;
+        console.log("form button clicked");
+
+        var request = { schl: schl, type: type };
+
+        $.ajax({
+            type: "POST",
+            url: "/School/UnlockForms", // this for calling the web method function in cs code.
+            data: JSON.stringify(request),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response == "OK") {
+                    alert("Unlocked Succesfully");
+                }
+                else {
+
+                    alert("Something Went Wrong");
+
+                }
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
+
+
+    }
+
+
+
     var isCtrl = false;
     document.onkeyup = function (e) {
         if (e.which == 17)
@@ -303,3 +343,9 @@
     document.onmousedown = mousehandler;
     document.onmouseup = mousehandler;
 </script>
+
+
+<script type='text/javascript'>
+   
+
+    </script>

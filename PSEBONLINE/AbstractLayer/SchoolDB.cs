@@ -6527,6 +6527,33 @@ namespace PSEBONLINE.AbstractLayer
         #endregion
 
 
+
+        #region unlockExamCenter
+        public static DataSet unlockExamCenter(string SchlCode)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["myDBConnection"].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("ExamCenterUnlockUnlockSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SchlCode", SchlCode);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+        #endregion
+
+
         public static int sp_Update_school_center_choice(FormCollection frm, int Finalsubmittedforchoice)
         {
             SqlConnection con = null;
