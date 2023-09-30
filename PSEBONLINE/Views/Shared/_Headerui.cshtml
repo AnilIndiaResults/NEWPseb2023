@@ -386,6 +386,18 @@
                                                 </ul>
                                             </li>
                                         }
+
+                                        <li class="dropdown">
+                                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                                Exam Centre
+                                                <span class="caret"></span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li>@Html.ActionLink("Exam Centre Details", "ExamCentreDetails", "School")</li>
+
+                                            </ul>
+                                        </li>
+
                                         @if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear())
                                         {
                                             <li class="dropdown">
@@ -453,5 +465,7 @@
         ga('send', 'pageview');
 
     </script>
+
+    
 </body>
 </html>
