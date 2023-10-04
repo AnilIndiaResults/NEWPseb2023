@@ -170,8 +170,8 @@
                                                                 @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
                                                                 @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
                                                                 @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
-                                                                <a class="btn btn-primary" onclick="UnlockForm(@SCHL,'Infra')">Unlock Infrastructure</a>
-                                                                <a class="btn btn-primary" onclick="UnlockForm(@SCHL,'examcenter')">Unlock ExamCenter</a>
+                                                                <button class="btn btn-primary" value="@SCHL" id="Infra" onclick="UnlockFormInfra()">Unlock Infrastructure</button>
+                                                                <button class="btn btn-primary" value="@SCHL"  id="examcenter" onclick="UnlockFormexamcenter()">Unlock ExamCenter</button>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -286,12 +286,44 @@
 
 <script type='text/javascript'>
 
-    function UnlockForm(schl, type) {
+    function UnlockFormInfra() {
         debugger;
         console.log("form button clicked");
+        var schl=$("#Infra").val();
+        var request = { schl: schl, type: 'Infra' };
+        console.log(schl);
+        $.ajax({
+            type: "POST",
+            url: "/School/UnlockForms", // this for calling the web method function in cs code.
+            data: JSON.stringify(request),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response == "OK") {
+                    alert("Unlocked Succesfully");
+                }
+                else {
 
-        var request = { schl: schl, type: type };
+                    alert("Something Went Wrong");
 
+                }
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
+
+
+    }
+
+    function UnlockFormexamcenter() {
+        debugger;
+        console.log("form button clicked");
+        var schl = $("#examcenter").val();
+        var request = { schl: schl, type: 'examcenter' };
+        console.log(schl);
         $.ajax({
             type: "POST",
             url: "/School/UnlockForms", // this for calling the web method function in cs code.
