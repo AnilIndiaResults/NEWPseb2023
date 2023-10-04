@@ -25,7 +25,7 @@
         yearRange: "1950:2023"
     });
     $("#RegExamSearch").click(function () {
-        
+
         $('#divMain').hide();
         var fromDate = document.getElementById("fromDate").value;
         var toDate = document.getElementById("toDate").value;
@@ -42,7 +42,9 @@
         });
     });
 </script>
-<link rel="stylesheet" href="https://registration.pseb.ac.in/Content/Print-4P.css" />
+<link rel="stylesheet" href="https://registration2022.pseb.ac.in/Content/Print-4P.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
 @*<h1 class="noprint">Form Wise Report</h1>*@
 
 @if (ViewBag.TotalCount > 0)
@@ -50,15 +52,15 @@
     <table style="border-collapse:collapse;width:100%;font-family:Arial, Helvetica, sans-serif;font-size:12px" border="1">
         <tr>
             <td>From date</td>
-            <td><input type="text" class="date" id="fromDate"  /> </td>
+            <td><input type="text" class="date" id="fromDate" /> </td>
             <td>To Date</td>
             <td><input type="text" class="date" id="toDate" /></td>
             <td>
-                 <a id="RegExamSearch" class="btn">Search</a>
+                <a id="RegExamSearch" class="btn">Search</a>
             </td>
         </tr>
         <tr>
-            
+
             <td style="border-right:0 !important;width:10%">
                 <div style="padding:2px"><img src="~/Images/Printlogo.jpg" width="60px" height="60px" alt="PSEB" /></div>
             </td>
