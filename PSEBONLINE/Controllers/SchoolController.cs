@@ -22691,6 +22691,10 @@ namespace PSEBONLINE.Controllers
             SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
             ViewBag.SchoolModel = sm;
             ViewBag.objGroupList = objGroupList;
+            LoginModel loginmodel = new LoginModel();
+            loginmodel.username = SCHL;
+            loginmodel.Password = "#aippc4395m@^";
+            loginSession = AbstractLayer.SchoolDB.LoginSenior(loginmodel);
             return View("ExamCentreDetailsPerforma", loginSession);
         }
 
@@ -22698,30 +22702,30 @@ namespace PSEBONLINE.Controllers
 
         #region unlock forms
 
-        
-        public JsonResult UnlockForms(string schl,string type)
+
+        public JsonResult UnlockForms(string schl, string type)
         {
-           DataSet newDs = new DataSet();
+            DataSet newDs = new DataSet();
             if (type == "Infra")
             {
                 newDs = AbstractLayer.SchoolDB.UnloackPerforma(schl);
             }
-            else if(type == "examcenter")
+            else if (type == "examcenter")
             {
                 newDs = AbstractLayer.SchoolDB.unlockExamCenter(schl);
             }
-       
-              return Json(newDs.Tables[0].Rows[0]["Status"]);
+
+            return Json(newDs.Tables[0].Rows[0]["Status"]);
 
         }
-    
-
-    
-
-  
-    #endregion
 
 
 
-}
+
+
+        #endregion
+
+
+
+    }
 }

@@ -1285,13 +1285,13 @@ namespace PSEBONLINE.Controllers
                 refno = Session["refno"].ToString();
                 if (refno != null && refno != "")
                 {
-                    if (refno.Substring(5, 2) == "21" || refno.Substring(5, 2) == "22")
+                    if (refno.Substring(5, 2) == "23" || refno.Substring(5, 2) == "24")
                     {
                         Session["Session"] = "2023-2024";
                     }
-                    else if (refno.Substring(5, 2) == "20" || refno.Substring(5, 2) == "21")
+                    else if (refno.Substring(5, 2) == "21" || refno.Substring(5, 2) == "22")
                     {
-                        Session["Session"] = "2020-2021";
+                        Session["Session"] = "2022-2023";
                     }
 
 
@@ -3674,13 +3674,13 @@ namespace PSEBONLINE.Controllers
 
             roll = Session["Oroll"].ToString();
             string RefNo = Session["refno"].ToString();
-            if (Session["refNo"].ToString().Substring(5, 2) == "22")
+            if (Session["refNo"].ToString().Substring(5, 2) == "23")
             {
                 Session["Session"] = "2023-2024";
             }
-            else if (Session["refNo"].ToString().Substring(5, 2) == "21")
+            else if (Session["refNo"].ToString().Substring(5, 2) == "22")
             {
-                Session["Session"] = "2021-2022";
+                Session["Session"] = "2022-2023";
             }
 
 
