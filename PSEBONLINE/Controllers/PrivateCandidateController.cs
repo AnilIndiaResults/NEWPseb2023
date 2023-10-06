@@ -586,21 +586,22 @@ namespace PSEBONLINE.Controllers
                     return Json(yearlist);
                 }
             }
-            else if (SelBatch == "3" && SelBatchYear == "2023")
+            else if (SelBatch == "3" && SelBatchYear == "2024")
             {
+                
                 //if (SelCat == "R" && SelClass == "12")
                 if (SelCat == "R")
                 {
                     if (SelRP == "R")
                     {
-                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) == 2022).ToList();
+                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) == 2023).ToList();
                         // yearlist.Reverse();
                         ViewBag.MyYear = yearlist;
                         return Json(yearlist);
                     }
                     else if (SelRP == "O")
                     {
-                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2020 && Convert.ToInt32(s.Value) <= 2022).ToList();
+                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2020 && Convert.ToInt32(s.Value) <= 2023).ToList();
 
                         ViewBag.MyYear = yearlist;
                         return Json(yearlist);
@@ -609,14 +610,14 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (SelCat == "A")
                 {
-                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 1950 && Convert.ToInt32(s.Value) <= 2022).ToList();
+                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 1950 && Convert.ToInt32(s.Value) <= 2023).ToList();
 
                     ViewBag.MyYear = yearlist;
                     return Json(yearlist);
                 }
                 else if (SelCat == "D") //for last 2 year only
                 {
-                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2021 && Convert.ToInt32(s.Value) <= 2022).ToList();
+                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2021 && Convert.ToInt32(s.Value) <= 2023).ToList();
                     ViewBag.MyYear = yearlist;
                     return Json(yearlist);
                 }
@@ -1285,13 +1286,13 @@ namespace PSEBONLINE.Controllers
                 refno = Session["refno"].ToString();
                 if (refno != null && refno != "")
                 {
-                    if (refno.Substring(5, 2) == "21" || refno.Substring(5, 2) == "22")
+                    if (refno.Substring(5, 2) == "23" || refno.Substring(5, 2) == "24")
                     {
                         Session["Session"] = "2023-2024";
                     }
-                    else if (refno.Substring(5, 2) == "20" || refno.Substring(5, 2) == "21")
+                    else if (refno.Substring(5, 2) == "21" || refno.Substring(5, 2) == "22")
                     {
-                        Session["Session"] = "2020-2021";
+                        Session["Session"] = "2022-2023";
                     }
 
 
@@ -3674,13 +3675,13 @@ namespace PSEBONLINE.Controllers
 
             roll = Session["Oroll"].ToString();
             string RefNo = Session["refno"].ToString();
-            if (Session["refNo"].ToString().Substring(5, 2) == "22")
+            if (Session["refNo"].ToString().Substring(5, 2) == "23")
             {
                 Session["Session"] = "2023-2024";
             }
-            else if (Session["refNo"].ToString().Substring(5, 2) == "21")
+            else if (Session["refNo"].ToString().Substring(5, 2) == "22")
             {
-                Session["Session"] = "2021-2022";
+                Session["Session"] = "2022-2023";
             }
 
 
