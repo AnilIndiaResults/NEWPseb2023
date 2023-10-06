@@ -7,7 +7,7 @@
     <h1 style="font-size:21px;margin-bottom:0">
         @*Private Examination Form for Re-Appear of Primary/Middle Class, July 2022 <br />*@
         @*Private Examination Form for Re-Appear/Additional Subject of Matric & Sr. Sec. Class, September 2022*@
-        Private  Examination Form for Re-Appear/Additional Subject of Matric & Sr. Sec. Class, Supplementary Exam 2023
+        Private  Examination Form for Re-Appear/Additional Subject of Matric & Sr. Sec. Class, Supplementary Exam 2024
     </h1>
     <div id="loading1"></div>
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
@@ -111,13 +111,13 @@
                         List<SelectListItem> batch = new List<SelectListItem>();
                         //batch.Add(new SelectListItem { Text = "---Month--- ", Value = "" });
                         //batch.Add(new SelectListItem { Text = "June", Value = "6" });
-                        batch.Add(new SelectListItem { Text = "July", Value = "7" });
+                        //batch.Add(new SelectListItem { Text = "July", Value = "7" });
                         //batch.Add(new SelectListItem { Text = "August", Value = "8" });
-                        batch.Add(new SelectListItem { Text = "September", Value = "9" });
+                        //batch.Add(new SelectListItem { Text = "September", Value = "9" });
                         //  batch.Add(new SelectListItem { Text = "October", Value = "10" });
                         //batch.Add(new SelectListItem { Text = "November", Value = "11" });
                         //batch.Add(new SelectListItem { Text = "January", Value = "1" });
-                        // batch.Add(new SelectListItem { Text = "March", Value = "3" });
+                        batch.Add(new SelectListItem { Text = "March", Value = "3" });
                     }
                     @Html.DropDownList("batch", batch, "--Select Batch", new { id = "batch" })
                 </div>
@@ -125,7 +125,8 @@
                     @{
                         List<SelectListItem> batchYear = new List<SelectListItem>();
                         // batchYear.Add(new SelectListItem { Text = "2022", Value = "2022", Selected = true });
-                        batchYear.Add(new SelectListItem { Text = "2023", Value = "2023", Selected = true });
+                        //batchYear.Add(new SelectListItem { Text = "2023", Value = "2023", Selected = true });
+                        batchYear.Add(new SelectListItem { Text = "2024", Value = "2024", Selected = true });
                     }
                     @Html.DropDownList("batchYear", batchYear, new { id = "batchYear" })
                 </div>
@@ -146,8 +147,8 @@
                         Class.Add(new SelectListItem { Text = "--Select--", Value = "0" });
                         Class.Add(new SelectListItem { Text = "Matriculation", Value = "10" });
                         Class.Add(new SelectListItem { Text = "Senior Secondary", Value = "12" });
-                        Class.Add(new SelectListItem { Text = "Primary", Value = "5" });
-                        Class.Add(new SelectListItem { Text = "Middle", Value = "8" });
+                        //Class.Add(new SelectListItem { Text = "Primary", Value = "5" });
+                        //Class.Add(new SelectListItem { Text = "Middle", Value = "8" });
                     }
                     @Html.DropDownList("Class", Class, new { id = "Class" })
                 </div>
@@ -431,7 +432,7 @@
             $("#Class").empty();
             $("#Class").append('<option value="0">--Select--</option>');
 
-            if ($("#batch").val() == '3' && $("#batchYear").val() == '2023') {
+            if ($("#batch").val() == '3' && $("#batchYear").val() == '2024') {
                 $("#Class").append('<option value="10">Matriculation</option>');
                 $("#Class").append('<option value="12">Senior Secondary</option>');
             }
@@ -458,7 +459,7 @@
                 $("#Class").append('<option value="10">Matriculation</option>');
                 $("#Class").append('<option value="12">Senior Secondary</option>');
             }
-            else if ($("#batch").val() == '3' && $("#batchYear").val() == '2023') {
+            else if ($("#batch").val() == '3' && $("#batchYear").val() == '2024') {
                 $("#Class").append('<option value="0">--Select--</option>');
                 $("#Class").append('<option value="10">Matriculation</option>');
                 $("#Class").append('<option value="12">Senior Secondary</option>');
@@ -474,7 +475,7 @@
                 $("#Class").append('<option value="10">Matriculation</option>');
                 $("#Class").append('<option value="12">Senior Secondary</option>');
             }
-            else if ($("#batch").val() == '3' && $("#batchYear").val() == '2023') {
+            else if ($("#batch").val() == '3' && $("#batchYear").val() == '2024') {
                 $("#Class").append('<option value="0">--Select--</option>');
                 $("#Class").append('<option value="10">Matriculation</option>');
                 $("#Class").append('<option value="12">Senior Secondary</option>');
