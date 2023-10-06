@@ -20,6 +20,8 @@
                 <div class="col-md-3">@Html.DropDownList("Dist1", new SelectList(ViewBag.MyDist, "Value", "Text", ViewBag.SelectedDist), "--All District--", new { @class = "", id = "Dist" })</div>
                 <div class="col-md-3">@Html.DropDownList("SelAction", new SelectList(ViewBag.MyAction, "Value", "Text", ViewBag.SelectedAction), new { @class = "" })</div>
                 <div class="clearfix"></div>
+                <div class="col-md-3">@Html.DropDownList("searchstatus", new SelectList(ViewBag.searchstatus, "Value", "Text", ViewBag.Selectedsearchstatus), new { @class = "" })</div>
+
                 <div class="col-md-3">@Html.DropDownList("Sch1", new SelectList(ViewBag.MySch, "Value", "Text", ViewBag.SelectedItem), "--All---", new { @class = "", id = "SelectItem" })</div>
                 <div class="col-md-3"><input type="text" id="SearchString" name="SearchString" value="@Request[" SearchString"]" /></div>
                 <div c lass="col-md-3">

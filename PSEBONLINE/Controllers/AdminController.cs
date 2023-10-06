@@ -22733,12 +22733,14 @@ namespace PSEBONLINE.Controllers
                 //AppType
                 ViewBag.MyAppType = AbstractLayer.EAffiliationDB.GetApplicationTypeList().ToList();
                 ViewBag.SelectedAppType = "0";
+                ViewBag.searchstatus = AbstractLayer.EAffiliationDB.GetApplicationStatusTypeList().ToList();
+                ViewBag.Selectedsearchstatus = "0";
 
 
 
-                //Search By
-                //Status
-                var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
+               //Search By
+               //Status
+               var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
                 new { ID = "3", Name = "School Name" },new { ID = "4", Name = "Station Name" },new { ID = "5", Name = "Mobile No" },new { ID = "7", Name = "EAffiliation Type" },}, "ID", "Name", 1);
                 ViewBag.MySch = itemSearchBy.ToList();
                 ViewBag.SelectedSearchBy = "0";
@@ -22898,6 +22900,8 @@ namespace PSEBONLINE.Controllers
                 //AppType
                 ViewBag.MyAppType = AbstractLayer.EAffiliationDB.GetApplicationTypeList().ToList();
                 ViewBag.SelectedAppType = "0";
+                ViewBag.searchstatus = AbstractLayer.EAffiliationDB.GetApplicationStatusTypeList().ToList();
+                ViewBag.Selectedsearchstatus = "0";
                 //Status
                 var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
                 new { ID = "3", Name = "School Name" },new { ID = "4", Name = "Station Name" },new { ID = "5", Name = "Mobile No" },new { ID = "7", Name = "EAffiliation Type" },}, "ID", "Name", 1);

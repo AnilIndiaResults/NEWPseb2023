@@ -187,14 +187,15 @@ else { Response.Redirect("~/Login"); }
 
                             <div id="cortxt" class="col-md-3">
                                 New Value: @Html.TextBoxFor(a => a.newVal, new
-{
-id = "newValT",
-maxlength = "50",
-@class = "kdsfont",
-onpaste = "return false;",
-oncopy = "return false;",
-oncut = "return false;",
-})
+                                      {
+                                          id = "newValT",
+                                          maxlength = "50",
+                                          @class = "kdsfont",
+                                          onpaste = "return false;",
+                                          oncopy = "return false;",
+                                          oncut = "return false;",
+                                          onfocus = "checkAdharNoLenght()"
+                                      })
                             </div>
                             <div id="corDOB" class="col-md-3">
                                 New Value: @Html.TextBoxFor(a => a.newValDOB, new { id = "newValDOB", @class = "kdsfont" })
@@ -1172,6 +1173,8 @@ function val() {
 
     }
     function formValadd() {
+        var check = $('#SelListField').val();
+        var adharNo = $('#newValT').val();
         if (document.getElementById("SelListField").value == "" || document.getElementById("SelListField").value == "0" || document.getElementById("SelListField").value == "Select Field") {
             alert("Select Correction Field");
             document.getElementById("SelListField").focus();
@@ -1182,6 +1185,11 @@ function val() {
             document.getElementById("newVal").focus();
             return false;
         }
+        else if (check == "Aadhar_num" && adharNo.length != 12) {
+            alert("Enter 12 Digit Adhar No");
+        }
+
+
 
     }
     function isNumberKey(evt) {
@@ -1193,6 +1201,25 @@ function val() {
         else {
             alert("Invalid character...Enter Only Number!!");
             return false;
+        }
+    }
+
+
+
+</script>
+
+
+<script>
+
+    function checkAdharNoLenght() {
+        
+        var check = $('#SelListField').val();
+        if (check === "Aadhar_num") {
+            $('#newValT').attr('maxlength', 12);
+
+        }
+        else {
+            $('#newValT').attr('maxlength', 50);
         }
     }
 
