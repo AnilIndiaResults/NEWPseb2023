@@ -22332,11 +22332,18 @@ namespace PSEBONLINE.Controllers
                     }
 
                     InfrasturePerformasList oInfrasturePerformas = new InfrasturePerformasList();
-                    oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLList(loginSession);
-                    ipm.ipf = oInfrasturePerformas;
-                    DataSet ds = new DataSet();
-                    SchoolModels sm = objDB.GetSchoolDataBySchl(SCHL, out ds);
-                    ipm.schlmodel = sm;
+                    oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLListAdmin(loginSession);
+                    if (oInfrasturePerformas != null)
+                    {
+                        ipm.ipf = oInfrasturePerformas;
+                        DataSet ds = new DataSet();
+                        SchoolModels sm = objDB.GetSchoolDataBySchl(SCHL, out ds);
+                        ipm.schlmodel = sm;
+                    }
+                    else
+                    {
+
+                    }
                 }
 
             }
@@ -22651,7 +22658,7 @@ namespace PSEBONLINE.Controllers
         }
 
 
-
+        [HttpGet]
         public async Task<ActionResult> ExamCentreDetailsPerformaForAdmin(string SCHL, string DIST)
         {
             Session["SCHL"] = SCHL;
