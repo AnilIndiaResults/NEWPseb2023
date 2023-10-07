@@ -286,6 +286,59 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
+
+        public DataSet InfraReportList(string search, int PageNumber, int PageSize)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("InfraReportListSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@search", search);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
+
+        public DataSet CenterChoiceReportList(string search, int PageNumber, int PageSize)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("CenterChoiceReportListSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@search", search);
+                    //cmd.Parameters.AddWithValue("@finalchoice", Finalsubmittedforchoice);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
         public DataSet RegSchoolReport(string search)
         {
             DataSet result = new DataSet();
@@ -6307,6 +6360,19 @@ namespace PSEBONLINE.AbstractLayer
                     context.SaveChanges();
                     obj = context.InfrasturePerformasList.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
                 }
+
+            }
+            Thread.Sleep(2000);
+            return Task.FromResult(obj);
+
+        }
+
+        public Task<InfrasturePerformasList> GetInfrasturePerformaBySCHLListAdmin(LoginSession LM)  // Type 1=Regular, 2=Open
+        {
+            InfrasturePerformasList obj = new InfrasturePerformasList();
+            if (LM != null)
+            {
+                obj = context.InfrasturePerformasList.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());               
 
             }
             Thread.Sleep(2000);
