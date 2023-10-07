@@ -643,7 +643,7 @@
                             }
                         </div>
                         <div class="clearfix"></div>
-                        <div class="col-md-3">
+                        @*<div class="col-md-3">
                             Do you want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
                         </div>
                         <div class="col-md-9">
@@ -664,7 +664,7 @@
                             }
 
 
-                        </div>
+                        </div>*@
 
                     </div>
 
@@ -679,8 +679,8 @@
                                 @{
                                     if (ViewBag.Photo.Contains("Batch1022") || ViewBag.Photo.Contains("Batch1122") || ViewBag.Photo.Contains("Batch0722"))
                                     {
-                                        ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
+                                        ViewBag.Photo = "Upload2024/" + Convert.ToString(ViewBag.Photo);
+                                        ViewBag.sign = "Upload2024/" + Convert.ToString(ViewBag.sign);
                                     }
                                     else if (ViewBag.Photo.Contains("Batch0122") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1021") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1122"))
                                     {
@@ -704,8 +704,8 @@
                                     }
                                     else
                                     {
-                                        ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
+                                        ViewBag.Photo = "Upload2024/" + Convert.ToString(ViewBag.Photo);
+                                        ViewBag.sign = "Upload2024/" + Convert.ToString(ViewBag.sign);
                                     }
 
                                     var PExist = ViewBag.PhotoExist;
