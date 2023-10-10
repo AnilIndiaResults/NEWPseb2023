@@ -165,13 +165,30 @@
                                                                
                                                             </li>
                                                             <li>
-                                                                @Html.ActionLink("View ExamCentre Details", "ExamCentreDetailsPerformaForAdmin", new { SCHL = SCHL, DIST = disCode })
-                                                                @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
-                                                                @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
-                                                                @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
-                                                                @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
-                                                                <button class="btn btn-primary" value="@SCHL" id="Infra" onclick="UnlockFormInfra()">Unlock Infrastructure</button>
-                                                                <button class="btn btn-primary" value="@SCHL"  id="examcenter" onclick="UnlockFormexamcenter()">Unlock ExamCenter</button>
+                                                                <span style="@(ViewBag.IsUnlockviewExamCentre > 0 ? "display:block" : "display:none")">
+                                                                    @Html.ActionLink("View ExamCentre Details", "ExamCentreDetailsPerformaForAdmin", new { SCHL = SCHL, DIST = disCode })
+                                                                </span>
+
+                                                                <span style="@(ViewBag.IsUnlockViewInfrasturePerformas > 0 ? "display:block" : "display:none")">
+                                                                    @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
+                                                                </span>
+
+                                                                <span style="@(ViewBag.IsUnlockUpdate_School_Informations > 0 ? "display:block" : "display:none")">
+                                                                    @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
+                                                                </span>
+
+                                                                <span style="@(ViewBag.IsUnlockInfrasturePerformaModifyForAdmin > 0 ? "display:block" : "display:none")">
+                                                                    @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
+                                                                    </span>
+
+                                                                    @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
+                                                                    <span style="@(ViewBag.IsUnlockInfrastructure > 0 ? "display:block" : "display:none")">
+                                                                        <button class="btn btn-primary" value="@SCHL" id="Infra" onclick="UnlockFormInfra()">Unlock Infrastructure</button>
+                                                                    </span>
+
+                                                                    <span style="@(ViewBag.IsUnlockExamCenter > 0 ? "display:block" : "display:none")">
+                                                                        <button class="btn btn-primary" value="@SCHL" id="examcenter" onclick="UnlockFormexamcenter()">Unlock ExamCenter</button>
+                                                                    </span>
                                                             </li>
                                                         </ul>
                                                     </div>
