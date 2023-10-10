@@ -7,7 +7,8 @@
     <h1 style="font-size:21px;margin-bottom:0">
         @*Private Examination Form for Re-Appear of Primary/Middle Class, July 2022 <br />*@
         @*Private Examination Form for Re-Appear/Additional Subject of Matric & Sr. Sec. Class, September 2022*@
-        Private  Examination Form for Re-Appear/Additional Subject of Matric & Sr. Sec. Class, Supplementary Exam 2024
+        @*Private  Examination Form for Re-Appear/Additional Subject of Matric & Sr. Sec. Class, Supplementary Exam 2024*@
+        Private Examination Form for Re-Appear/Additional Subject/Improvement (DIC) of Matric & Sr. Sec. Class, March 2024
     </h1>
     <div id="loading1"></div>
     <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
@@ -109,7 +110,7 @@
                 <div class="col-md-2">
                     @{
                         List<SelectListItem> batch = new List<SelectListItem>();
-                        //batch.Add(new SelectListItem { Text = "---Month--- ", Value = "" });
+                        batch.Add(new SelectListItem { Text = "--Select Batch--", Value = "0" });
                         //batch.Add(new SelectListItem { Text = "June", Value = "6" });
                         //batch.Add(new SelectListItem { Text = "July", Value = "7" });
                         //batch.Add(new SelectListItem { Text = "August", Value = "8" });
@@ -119,7 +120,7 @@
                         //batch.Add(new SelectListItem { Text = "January", Value = "1" });
                         batch.Add(new SelectListItem { Text = "March", Value = "3" });
                     }
-                    @Html.DropDownList("batch", batch, "--Select Batch", new { id = "batch" })
+                    @Html.DropDownList("batch", batch, new { id = "batch" })
                 </div>
                 <div class="col-md-2">
                     @{
@@ -288,7 +289,7 @@
             $("#Class").append('<option value="0">--Select--</option>');
             $("#Class").append('<option value="10">Matriculation</option>');
             $("#Class").append('<option value="12">Senior Secondary</option>');
-        }      
+        }
         if ($("#category").val() == 'D') {
             document.getElementById('OROLL').title = 'Enter Selected Class Passed Roll No.';
             $("#Exam_Type").empty();
