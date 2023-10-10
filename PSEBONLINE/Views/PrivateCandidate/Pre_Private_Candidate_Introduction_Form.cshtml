@@ -37,7 +37,7 @@
                 <div class="col-md-2">
                     @{
                         List<SelectListItem> batchYear = new List<SelectListItem>();
-                        batchYear.Add(new SelectListItem { Text = "2023", Value = "2023" });
+                        batchYear.Add(new SelectListItem { Text = "2024", Value = "2024" });
                         //batchYear.Add(new SelectListItem { Text = "2021", Value = "2021" });
                     }
                     @Html.DropDownListFor(a => a.batchYear, batchYear, new { id = "batchYear", @disabled = "disabled" })
