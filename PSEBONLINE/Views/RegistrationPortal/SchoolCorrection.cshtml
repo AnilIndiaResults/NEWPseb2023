@@ -1211,15 +1211,32 @@ function val() {
 
 <script>
 
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if ((charCode >= 48 && charCode <= 57) || (charCode == 9) || (charCode == 8) || (charCode == 46)) {
+            return true;
+        }
+        else {
+            alert("Invalid character...Enter Only Number!!");
+            return false;
+        }
+    }
+
+
     function checkAdharNoLenght() {
         
         var check = $('#SelListField').val();
         if (check === "Aadhar_num") {
             $('#newValT').attr('maxlength', 12);
+            $('#newValT').keypress(function (event) {
+                return isNumberKey(event);
+            });
 
         }
         else {
             $('#newValT').attr('maxlength', 50);
+            $('#newValT').off('keypress');
+            
         }
     }
 

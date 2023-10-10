@@ -601,7 +601,7 @@ namespace PSEBONLINE.Controllers
                     }
                     else if (SelRP == "O")
                     {
-                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2020 && Convert.ToInt32(s.Value) <= 2023).ToList();
+                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2021 && Convert.ToInt32(s.Value) <= 2023).ToList();
 
                         ViewBag.MyYear = yearlist;
                         return Json(yearlist);
@@ -617,7 +617,7 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (SelCat == "D") //for last 2 year only
                 {
-                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2021 && Convert.ToInt32(s.Value) <= 2023).ToList();
+                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2022 && Convert.ToInt32(s.Value) <= 2023).ToList();
                     ViewBag.MyYear = yearlist;
                     return Json(yearlist);
                 }
@@ -860,6 +860,17 @@ namespace PSEBONLINE.Controllers
                         }
                         else
                         {
+                            MS.Class = "";
+                            MS.category = "";
+                            MS.Exam_Type = "";
+                            MS.SelMonth = "";
+                            MS.SelYear = "";
+                            MS.OROLL = "";
+                            MS.emailID = "";
+                            MS.mobileNo = "";
+
+                            MS.batch = "";
+                            MS.batchYear = "";
                             ViewData["roll"] = MS.OROLL;
                             ViewData["RefNo"] = result2.Tables[0].Rows[0]["refno"].ToString();
                             ViewData["Status"] = result2.Tables[0].Rows[0]["result"].ToString();
@@ -1688,8 +1699,19 @@ namespace PSEBONLINE.Controllers
                             }
                             ViewBag.Sub1Twelve = new SelectList(DMitems1, "Value", "Text");
                         }
-                        MS.imgPhoto = MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString().Replace("UPLOAD2021", "").Replace("//", "/").Replace("Upload2024/", "").Replace("Upload2021/", "").Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("Upload2024/ ", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").Replace("upload//", "") : "";
-                        MS.imgSign = MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString().Replace("UPLOAD2021", "").Replace("//", "/").Replace("Upload2024/", "").Replace("Upload2021/", "").Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "").Replace("Upload2021", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("Upload2024/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+
+                        MS.imgPhoto = MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].
+                            ToString().Replace("UPLOAD2021", "").Replace("UPLOAD2023/", "").Replace("//", "/").Replace("Upload2024/", "").Replace("Upload2023/", "").Replace("Upload2021/", "")
+                            .Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("Upload2024/ ", "").
+                            Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").
+                            Replace("upload//", "") : "";
+
+                        MS.imgSign = MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString().
+                            Replace("UPLOAD2021", "")
+                            .Replace("//", "/").Replace("Upload2024/", "").Replace("UPLOAD2023/", "").Replace("Upload2021/", "").Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "")
+                            .Replace("Upload2021", "").Replace("UPLOAD2021/", "").Replace("Upload2023/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("Upload2024/", "").
+                            Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+
                         ViewBag.PhotoExist = "0";
                         ViewBag.signExist = "0";
                         if (MS.imgPhoto != "")
@@ -3424,8 +3446,8 @@ namespace PSEBONLINE.Controllers
                     //@ViewBag.Photo = "../../upload/" + MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
                     //@ViewBag.sign = "../../upload/" + MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
 
-                    @ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString().Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("Upload2024/ ", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").Replace("upload//", "") : "";
-                    @ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString().Replace("UPLOAD2022/", "").Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("Upload2021", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("Upload2024/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+                    @ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString().Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("Upload2023/", "").Replace("UPLOAD2023/", "").Replace("UPLOAD2024/", "").Replace("Upload2024/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").Replace("upload//", "") : "";
+                    @ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString().Replace("UPLOAD2022/", "").Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("Upload2021", "").Replace("Upload2023/", "").Replace("UPLOAD2023/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2024/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("Upload2024/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
 
                     //@ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
                     //@ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
