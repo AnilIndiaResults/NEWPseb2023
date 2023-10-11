@@ -1010,10 +1010,11 @@ namespace PSEBONLINE.Controllers
 
                     #region Action Assign Method
                     if (Session["AdminType"].ToString().ToUpper() == "ADMIN")
-                    { ViewBag.IsView = 1; ViewBag.IsUnlockInfrastructure = 1; ViewBag.IsUnlockviewExamCentre = 1; ViewBag.IsUnlockViewInfrasturePerformas = 1;
-						ViewBag.IsUnlockUpdate_School_Informations = 1; ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = 1;
-						ViewBag.IsUnlockExamCenter = 1;
-					}
+                    {
+                        ViewBag.IsView = 1; ViewBag.IsUnlockInfrastructure = 1; ViewBag.IsUnlockviewExamCentre = 1; ViewBag.IsUnlockViewInfrasturePerformas = 1;
+                        ViewBag.IsUnlockUpdate_School_Informations = 1; ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = 1;
+                        ViewBag.IsUnlockExamCenter = 1;
+                    }
                     else
                     {
 
@@ -1026,15 +1027,15 @@ namespace PSEBONLINE.Controllers
                         if (aAct.Tables[0].Rows.Count > 0)
                         {
                             ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/SCHOOL_VIEW_FORM")).Count();
-							ViewBag.IsUnlockInfrastructure = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTRUCTURE")).Count();
-                            ViewBag.IsUnlockviewExamCentre = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockviewExamCentre")).Count();
-							ViewBag.IsUnlockViewInfrasturePerformas = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockViewInfrasturePerformas")).Count();
-							ViewBag.IsUnlockUpdate_School_Informations = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockUpdate_School_Informations")).Count();
-							ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockInfrasturePerformaModifyForAdmin")).Count();
-							ViewBag.IsUnlockExamCenter = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockExamCenter")).Count();
+                            ViewBag.IsUnlockInfrastructure = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTRUCTURE")).Count();
+                            ViewBag.IsUnlockviewExamCentre = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWEXAMCENTRE")).Count();
+                            ViewBag.IsUnlockViewInfrasturePerformas = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWINFRASTUREPERFORMAS")).Count();
+                            ViewBag.IsUnlockUpdate_School_Informations = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKUPDATE_SCHOOL_INFORMATIONS")).Count();
+                            ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTUREPERFORMAMODIFYFORADMIN")).Count();
+                            ViewBag.IsUnlockExamCenter = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKEXAMCENTER")).Count();
 
-						}
-					}
+                        }
+                    }
                     #endregion Action Assign Method
 
 
@@ -1306,39 +1307,39 @@ namespace PSEBONLINE.Controllers
                 {
                     ViewBag.MyDist = ViewBag.DistUser;
                 }
-				// End Dist Allowed
+                // End Dist Allowed
 
-				#region Action Assign Method
-				if (Session["AdminType"].ToString().ToUpper() == "ADMIN")
-				{
-					ViewBag.IsView = 1; ViewBag.IsUnlockInfrastructure = 1; ViewBag.IsUnlockviewExamCentre = 1; ViewBag.IsUnlockViewInfrasturePerformas = 1;
-					ViewBag.IsUnlockUpdate_School_Informations = 1; ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = 1;
-					ViewBag.IsUnlockExamCenter = 1;
-				}
-				else
-				{
+                #region Action Assign Method
+                if (Session["AdminType"].ToString().ToUpper() == "ADMIN")
+                {
+                    ViewBag.IsView = 1; ViewBag.IsUnlockInfrastructure = 1; ViewBag.IsUnlockviewExamCentre = 1; ViewBag.IsUnlockViewInfrasturePerformas = 1;
+                    ViewBag.IsUnlockUpdate_School_Informations = 1; ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = 1;
+                    ViewBag.IsUnlockExamCenter = 1;
+                }
+                else
+                {
 
-					string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
-					string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
-					int AdminId = Convert.ToInt32(Session["AdminId"]);
-					//string AdminType = Session["AdminType"].ToString();
-					//GetActionOfSubMenu(string cont, string act)
-					DataSet aAct = objCommon.GetActionOfSubMenu(AdminId, controllerName, actionName);
-					if (aAct.Tables[0].Rows.Count > 0)
-					{
-						ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/SCHOOL_VIEW_FORM")).Count();
-						ViewBag.IsUnlockInfrastructure = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTRUCTURE")).Count();
-						ViewBag.IsUnlockviewExamCentre = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockviewExamCentre")).Count();
-						ViewBag.IsUnlockViewInfrasturePerformas = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockViewInfrasturePerformas")).Count();
-						ViewBag.IsUnlockUpdate_School_Informations = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockUpdate_School_Informations")).Count();
-						ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockInfrasturePerformaModifyForAdmin")).Count();
-						ViewBag.IsUnlockExamCenter = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UnlockExamCenter")).Count();
+                    string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+                    string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+                    int AdminId = Convert.ToInt32(Session["AdminId"]);
+                    //string AdminType = Session["AdminType"].ToString();
+                    //GetActionOfSubMenu(string cont, string act)
+                    DataSet aAct = objCommon.GetActionOfSubMenu(AdminId, controllerName, actionName);
+                    if (aAct.Tables[0].Rows.Count > 0)
+                    {
+                        ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/SCHOOL_VIEW_FORM")).Count();
+                        ViewBag.IsUnlockInfrastructure = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTRUCTURE")).Count();
+                        ViewBag.IsUnlockviewExamCentre = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWEXAMCENTRE")).Count();
+                        ViewBag.IsUnlockViewInfrasturePerformas = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWINFRASTUREPERFORMAS")).Count();
+                        ViewBag.IsUnlockUpdate_School_Informations = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKUPDATE_SCHOOL_INFORMATIONS")).Count();
+                        ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTUREPERFORMAMODIFYFORADMIN")).Count();
+                        ViewBag.IsUnlockExamCenter = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKEXAMCENTER")).Count();
 
-					}
-				}
-				#endregion Action Assign Method
+                    }
+                }
+                #endregion Action Assign Method
 
-				int pageIndex = 1;
+                int pageIndex = 1;
                 pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
                 ViewBag.pagesize = pageIndex;
 
