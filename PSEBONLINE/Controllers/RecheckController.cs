@@ -217,7 +217,7 @@ namespace PSEBONLINE.Controllers
             return View(MS);
         }
         public ActionResult RecheckExamination()
-        {
+        {   
             Session["refno"] = null;
             Session["roll"] = null;
             Session["ChallanID"] = null;
