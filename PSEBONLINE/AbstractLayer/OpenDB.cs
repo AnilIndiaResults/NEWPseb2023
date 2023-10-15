@@ -239,6 +239,7 @@ namespace PSEBONLINE.AbstractLayer
             genders.Add(new SelectListItem() { Text = "--Select--", Value = "" });
             genders.Add(new SelectListItem() { Text = "Female", Value = "female" });
             genders.Add(new SelectListItem() { Text = "Male", Value = "male" });
+            genders.Add(new SelectListItem() { Text = "Trans", Value = "Trans" });
             return genders;
         }
 
