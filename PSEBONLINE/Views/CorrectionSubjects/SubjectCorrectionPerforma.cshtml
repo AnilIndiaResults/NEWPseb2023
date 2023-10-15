@@ -376,7 +376,7 @@ else { Response.Redirect("~/Login"); }
                                                     </td>
 
 
-                                                    <td>
+                                                    @*<td>
                                                         <span>8.</span>
                                                     </td>
                                                     <td>
@@ -391,11 +391,11 @@ else { Response.Redirect("~/Login"); }
                                                     <td style="display:none;">
                                                         @Html.DropDownList("subM8", new SelectList(string.Empty, "Value", "Text"), "medium", new { @class = "" })
                                                         @Html.HiddenFor(m => m.subM8)
-                                                    </td>
+                                                    </td>*@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <span>9.</span>
+                                                        <span>8.</span>
                                                     </td>
                                                     <td>
                                                         @Html.DropDownList("S9", new SelectList(ViewBag.SubS9, "Value", "Text"), "--Select Elective Subjects---", new { @class = "" })
