@@ -9,11 +9,17 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using PSEBONLINE.Filters;
+using System.Configuration;
+using Amazon.S3;
+using Amazon.S3.Transfer;
+using Amazon;
 
 namespace PSEBONLINE.Controllers
 {
+    
     public class CorrectionSubjectsController : Controller
     {
+        private const string BUCKET_NAME = "psebdata";
         AbstractLayer.RegistrationDB objDB = new AbstractLayer.RegistrationDB(); //calling class DBClass
         AbstractLayer.DBClass objCommon = new AbstractLayer.DBClass();
         AbstractLayer.ErrorLog oErrorLog = new AbstractLayer.ErrorLog();
@@ -292,25 +298,44 @@ namespace PSEBONLINE.Controllers
                     {
                         stdPic = Path.GetFileName(rm.std_Photo.FileName);
                     }
-                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Photo"), rm.Std_id + "P" + ".jpg");
+                    string fileName = rm.Std_id + "P" + ".jpg";
+                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2024/ImageCorrection/New/Photo"), rm.Std_id + "P" + ".jpg");
 
-                    //var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
-                    var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
-                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Photo"));
-                    string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Photo"));
-                    if (!Directory.Exists(FilepathExist))
-                    {
-                        Directory.CreateDirectory(FilepathExist);
-                    }
-                    if (!Directory.Exists(FilepathExistOld))
-                    {
-                        Directory.CreateDirectory(FilepathExistOld);
-                    }
+                    ////var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
+                    //var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
+                    //string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Photo"));
+                    //string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Photo"));
+                    //if (!Directory.Exists(FilepathExist))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExist);
+                    //}
+                    //if (!Directory.Exists(FilepathExistOld))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExistOld);
+                    //}
 
-                    rm.std_Photo.SaveAs(path);
-                    filepathtosave = "../Upload/Upload2023/ImageCorrection/New/Photo/" + rm.Std_id + "P" + ".jpg";
+                    //rm.std_Photo.SaveAs(path);
+                    using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                    {
+                        using (var newMemoryStream = new MemoryStream())
+                        {
+                            ///file.CopyTo(newMemoryStream);
+
+                            var uploadRequest = new TransferUtilityUploadRequest
+                            {
+                                InputStream = rm.std_Photo.InputStream,
+                                Key = string.Format("allfiles/Upload2024/ImageCorrection/New/Photo/{0}", fileName),
+                                BucketName = BUCKET_NAME,
+                                CannedACL = S3CannedACL.PublicRead
+                            };
+
+                            var fileTransferUtility = new TransferUtility(client);
+                            fileTransferUtility.Upload(uploadRequest);
+                        }
+                    }
+                    filepathtosave = "allfiles/Upload2024/ImageCorrection/New/Photo/" + rm.Std_id + "P" + ".jpg";
                     ViewBag.ImageURL = filepathtosave;
-                    string PhotoName = "/Upload/Upload2023/ImageCorrection/New/Photo" + "/" + rm.Std_id + "P" + ".jpg";
+                    string PhotoName = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2024/ImageCorrection/New/Photo" + "/" + rm.Std_id + "P" + ".jpg";
                     rm.oldVal = frm["imgPhotoOld"];
                     rm.newVal = PhotoName;
 
@@ -322,25 +347,46 @@ namespace PSEBONLINE.Controllers
                     {
                         stdPic = Path.GetFileName(rm.std_Sign.FileName);
                     }
-                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Sign"), rm.Std_id + "S" + ".jpg");
-                    //var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
-                    var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
-                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Sign"));
-                    string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Sign"));
-                    if (!Directory.Exists(FilepathExist))
-                    {
-                        Directory.CreateDirectory(FilepathExist);
-                    }
-                    if (!Directory.Exists(FilepathExistOld))
-                    {
-                        Directory.CreateDirectory(FilepathExistOld);
-                    }
+
+                    string fileName = rm.Std_id + "S" + ".jpg";
+                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2024/ImageCorrection/New/Sign"), rm.Std_id + "S" + ".jpg");
+                    ////var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
+                    //var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
+                    //string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Sign"));
+                    //string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Sign"));
+                    //if (!Directory.Exists(FilepathExist))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExist);
+                    //}
+                    //if (!Directory.Exists(FilepathExistOld))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExistOld);
+                    //}
 
 
-                    rm.std_Sign.SaveAs(path);
-                    filepathtosave = "../Upload/Upload2023/ImageCorrection/New/Sign/" + rm.Std_id + "S" + ".jpg";
+                    //rm.std_Sign.SaveAs(path);
+                    using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                    {
+                        using (var newMemoryStream = new MemoryStream())
+                        {
+                            ///file.CopyTo(newMemoryStream);
+
+                            var uploadRequest = new TransferUtilityUploadRequest
+                            {
+                                InputStream = rm.std_Sign.InputStream,
+                                Key = string.Format("allfiles/Upload2024/ImageCorrection/New/Sign/{0}", fileName),
+                                BucketName = BUCKET_NAME,
+                                CannedACL = S3CannedACL.PublicRead
+                            };
+
+                            var fileTransferUtility = new TransferUtility(client);
+                            fileTransferUtility.Upload(uploadRequest);
+                        }
+                    }
+
+                    filepathtosave = "allfiles/Upload2024/ImageCorrection/New/Sign/" + rm.Std_id + "S" + ".jpg";
                     ViewBag.ImageURL = filepathtosave;
-                    string SignName = "/Upload/Upload2023/ImageCorrection/New/Sign" + "/" + rm.Std_id + "S" + ".jpg";
+                    string SignName = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2024/ImageCorrection/New/Sign" + "/" + rm.Std_id + "S" + ".jpg";
                     rm.oldVal = frm["imgSignOld"];
                     rm.newVal = SignName;
                     rm.oldVal = frm["imgSignOld"];

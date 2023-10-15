@@ -23623,10 +23623,10 @@ namespace PSEBONLINE.Controllers
                     {
                         itemsch.Add(new SelectListItem { Text = "9th Class", Value = "5" });
                     }
-                    //if (ViewBag.Matric == "1" && dtTodate <= eDateM)
-                    //{
-                    //    itemsch.Add(new SelectListItem { Text = "Matriculation Regular", Value = "1" });
-                    //}
+                    if (ViewBag.Matric == "1" && dtTodate <= eDateM)
+                    {
+                        itemsch.Add(new SelectListItem { Text = "Matriculation Regular", Value = "1" });
+                    }
                     //if (ViewBag.OMatric == "1" && dtTodate <= eDateMO)
                     //{
                     //    itemsch.Add(new SelectListItem { Text = "Matriculation Open", Value = "2" });
@@ -23635,10 +23635,10 @@ namespace PSEBONLINE.Controllers
                     {
                         itemsch.Add(new SelectListItem { Text = "11th Class", Value = "6" });
                     }
-                    //if (ViewBag.Senior == "1" && dtTodate <= eDateT)
-                    //{
-                    //    itemsch.Add(new SelectListItem { Text = "Sr.Secondary Regular", Value = "3" });
-                    //}
+                    if (ViewBag.Senior == "1" && dtTodate <= eDateT)
+                    {
+                        itemsch.Add(new SelectListItem { Text = "Sr.Secondary Regular", Value = "3" });
+                    }
                     //if (ViewBag.OSenior == "1" && dtTodate <= eDateTO)
                     //{
                     //    itemsch.Add(new SelectListItem { Text = "Sr.Secondary Open", Value = "4" });
