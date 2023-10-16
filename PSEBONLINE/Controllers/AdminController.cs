@@ -43,7 +43,7 @@ namespace PSEBONLINE.Controllers
         private const string BUCKET_NAME = "psebdata";
         #region SiteMenu       
 
-        //Executes before every action
+        //Executes before every actionm
         protected override void OnActionExecuting(ActionExecutingContext context)
         {
             try
@@ -22296,12 +22296,12 @@ namespace PSEBONLINE.Controllers
                 else if (AppType == "AC")
                 {
 
-                    //if (frm["AppCls"] != "")
-                    //{
-                    //    ViewBag.SelectedCls = frm["AppCls"];
-                    //    TempData["SelectedCls"] = frm["AppCls"];
-                    //    Search += " and ClassLevel='" + frm["AppCls"].ToString() + "'";
-                    //}
+                    if (frm["AppCls"] != "")
+                    {
+                        ViewBag.SelectedCls = frm["AppCls"];
+                        TempData["SelectedCls"] = frm["AppCls"];
+                        Search += " and ClassLevel='" + frm["AppCls"].ToString() + "'";
+                    }
                     if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
@@ -22927,11 +22927,16 @@ namespace PSEBONLINE.Controllers
                 TempData["SelAppType"] = AppType;
                 int SelAction = 0;
                 Search = "APPNO is not null ";
-                Search += " and  isnull(ApprovalStatus,'')=''";  // blank
+                //Search += " and  isnull(ApprovalStatus,'')=''";  // blank
 
                 if (AppType == "AFF")
                 {
-
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    }
 
                     if (frm["AppCls"] != "")
                     {
@@ -23017,6 +23022,13 @@ namespace PSEBONLINE.Controllers
 
                 else if (AppType == "AC")
                 {
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    }
+
 
                     if (frm["Dist1"] != "")
                     {
@@ -23081,6 +23093,13 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (AppType == "AS")
                 {
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    }
+
                     if (frm["AppCls"] != "")
                     {
                         ViewBag.SelectedCls = frm["AppCls"];
@@ -26920,8 +26939,58 @@ namespace PSEBONLINE.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public ActionResult FinalPrintForAdmin(string schl)
+        {
+            try
+            {
+
+                ChallanMasterModel CM = new ChallanMasterModel();
+                ViewBag.Message = "Record Not Found";
+                return View();
+               
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return RedirectToAction("Logout", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult FinalPrintForAdmin(FormCollection frm)
+        {
+            try
+            {
+
+                ChallanMasterModel CM = new ChallanMasterModel();
+                string schl = frm["schl"];
+
+
+                DataSet ds = objDB.GetFinalPrintChallan(schl);
+                CM.ChallanMasterData = ds;
+                if (CM.ChallanMasterData == null || CM.ChallanMasterData.Tables[0].Rows.Count == 0)
+                {
+                    ViewBag.Message = "Record Not Found";
+                    ViewBag.TotalCount = 0;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.TotalCount = CM.ChallanMasterData.Tables[0].Rows.Count;
+                    return View(CM);
+                }
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return View();
+            }
+        }
     }
-}
+}   
 
 
 
