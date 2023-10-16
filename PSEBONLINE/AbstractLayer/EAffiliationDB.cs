@@ -254,8 +254,8 @@ namespace PSEBONLINE.AbstractLayer
         {
             List<SelectListItem> itemOrder = new List<SelectListItem>(); 
             itemOrder.Add(new SelectListItem { Text = "--All--", Value = "0" });
-            itemOrder.Add(new SelectListItem { Text = "Accepted", Value = "1" });
-            itemOrder.Add(new SelectListItem { Text = "In-Process", Value = "2" });
+            itemOrder.Add(new SelectListItem { Text = "In-Process", Value = "1" });
+            itemOrder.Add(new SelectListItem { Text = "Accepted", Value = "2" });
             itemOrder.Add(new SelectListItem { Text = "Rejected", Value = "3" });
             return itemOrder;
         }

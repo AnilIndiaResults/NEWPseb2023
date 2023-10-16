@@ -524,41 +524,42 @@
                                                 if (ViewBag.SelectedAppType == "AFF")
                                                 {
                                                     <div id="sidebar">
-                                                        <ul>
-                                                            @{
-                                                                <li><a href="@("/Admin/EaffiliationCombinedDownloadDocuments/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" target="_blank" title="Download Combined Documents">Download Combined Documents</a></li>
+                                                                                                    <ul>
+                                                                                                        @{
+                                                                                                            <li><a href="@("/Admin/EaffiliationCombinedDownloadDocuments/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" target="_blank" title="Download Combined Documents">Download Combined Documents</a></li>
 
-                                                                <li> <a data-toggle="modal" data-target="#myModalDocument-@d">View Documents</a></li>
-                                                                <li><a href="/EAffiliation/EAffiliationReport/@APPNO" class="btn">View/Print Application</a></li>
-                                                                <li> <a data-toggle="modal" data-target="#myModalForward-@d">Forward</a></li>
+                                                                                                            <li> <a data-toggle="modal" data-target="#myModalDocument-@d">View Documents</a></li>
+                                                                                                            <li><a href="/EAffiliation/EAffiliationReport/@APPNO" class="btn">View/Print Application</a></li>
+                                                                                                            <li> <a data-toggle="modal" data-target="#myModalForward-@d">Forward</a></li>
 
-                                                                <li style="@(ViewBag.IsHistory == 1 ? "display:block" : "display:none")"><a href="@("/Admin/ViewEAffiliationHistory/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" id="viewhistory" title="View History" target="_blank">Movement History</a></li>
+                                                                                                            <li style="@(ViewBag.IsHistory == 1 ? "display:block" : "display:none")"><a href="@("/Admin/ViewEAffiliationHistory/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" id="viewhistory" title="View History" target="_blank">Movement History</a></li>
 
-                                                                if (IsFormLock == "1" && Session["AdminType"].ToString().ToUpper() == "DEALING")
-                                                                {
-                                                                    <li style="@(ViewBag.IsUnlockForm == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModalUnlock-@d">Unlock Form</a></li>
-                                                                }
-                                                                <li style="@(ViewBag.IsObjection == 1 ? "display:block" : "display:none")"><a href="@("/Admin/AffiliationObjectionLetter/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" id="viewObjection" title="View/Add Objection" target="_blank">View/Add Objection</a></li>
-                                                                <li style="@(ViewBag.IsPassword == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModal2-@d">Update Emailid/Mobile</a></li>
-                                                                <li style="@(ViewBag.IsPassword == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModal3-@d">View/Send Password</a></li>
+                                                                                                            if (IsFormLock == "1" && Session["AdminType"].ToString().ToUpper() == "DEALING")
+                                                                                                            {
+                                                                                                                <li style="@(ViewBag.IsUnlockForm == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModalUnlock-@d">Unlock Form</a></li>
+                                                                                                            }
+                                                                                                            <li style="@(ViewBag.IsObjection == 1 ? "display:block" : "display:none")"><a href="@("/Admin/AffiliationObjectionLetter/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" id="viewObjection" title="View/Add Objection" target="_blank">View/Add Objection</a></li>
+                                                                                                            <li style="@(ViewBag.IsPassword == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModal2-@d">Update Emailid/Mobile</a></li>
+                                                                                                            <li style="@(ViewBag.IsPassword == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModal3-@d">View/Send Password</a></li>
 
-                                                                if (Session["AdminType"].ToString().ToUpper().Contains("INSPECTION-COMMITTEE"))
-                                                                {
-                                                                    <li style="@(ViewBag.IsFillInspectionReport == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModalInspectionReport-@d">Fill Inspection Report</a></li>
-                                                                }
-                                                                <li><a href="@("/Admin/ViewEAffiliationInspectionReport/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" class="btn">View Inspection Report</a></li>
+                                                                                                            if (Session["AdminType"].ToString().ToUpper().Contains("INSPECTION-COMMITTEE"))
+                                                                                                            {
+                                                                                                                <li style="@(ViewBag.IsFillInspectionReport == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModalInspectionReport-@d">Fill Inspection Report</a></li>
+                                                                                                            }
+                                                                                                            <li><a href="@("/Admin/ViewEAffiliationInspectionReport/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" class="btn">View Inspection Report</a></li>
 
-                                                                <li style="@(ViewBag.IsCloseApplication == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModalCloseApplication-@d">Close Application</a></li>
+                                                                                                            <li style="@(ViewBag.IsCloseApplication == 1 ? "display:block" : "display:none")"> <a data-toggle="modal" data-target="#myModalCloseApplication-@d">Close Application</a></li>
 
-                                                                if (Session["AdminType"].ToString().ToUpper() == "DEALING")
-                                                                {
-                                                                    <li style="@(ViewBag.IsApproveForm == 1 ? "display:block" : "display:none")">   <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>
-                                                                }
+                                                                                                            if (Session["AdminType"].ToString().ToUpper() == "DEALING" || Session["AdminType"].ToString().ToUpper() == "ADMIN")
+                                                                                                            {
+                                                                                                                <li>   <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>
+                                                                                                                @*<li style="@(ViewBag.IsApproveForm == 1 ? "display:block" : "display:none")">   <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>*@
+                                                                                                            }
 
 
 
-                                                            }
-                                                        </ul>
+                                                                                                        }
+                                                                                                    </ul>
                                                     </div>
                                                 }
                                                 else if (ViewBag.SelectedAppType == "AC")
@@ -579,9 +580,10 @@
                                                             }
                                                             @*<li style="@(ViewBag.IsObjection == 1 ? "display:block" : "display:block")"> <a data-toggle="modal" data-target="#myModalObjectionLetter-@d">Objection</a></li>*@
                                                             <li style="@(ViewBag.IsObjection == 1 ? "display:block" : "display:block")"><a href="@("/Admin/AffiliationObjectionLetter/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" id="viewObjection" title="View/Add Objection" target="_blank">View/Add Objection</a></li>
-                                                            @if (Session["AdminType"].ToString().ToUpper() == "DEALING")
+                                                            @if (Session["AdminType"].ToString().ToUpper() == "DEALING" || Session["AdminType"].ToString().ToUpper() == "ADMIN")
                                                             {
-                                                                <li style="@(ViewBag.IsApproveForm == 1 ? "display:block" : "display:block")">    <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>
+                                                                <li> <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>
+                                                                @*<li style="@(ViewBag.IsApproveForm == 1 ? "display:block" : "display:block")">    <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>*@
                                                             }
 
 
@@ -605,9 +607,10 @@
                                                                 }
                                                             }
                                                             <li style="@(ViewBag.IsObjection == 1 ? "display:block" : "display:block")"><a href="@("/Admin/AffiliationObjectionLetter/" + APPNO  + "?AppType=" + ViewBag.SelectedAppType )" id="viewObjection" title="View/Add Objection" target="_blank">View/Add Objection</a></li>
-                                                            @if (Session["AdminType"].ToString().ToUpper() == "DEALING")
+                                                            @if (Session["AdminType"].ToString().ToUpper() == "DEALING" || Session["AdminType"].ToString().ToUpper() == "ADMIN")
                                                             {
-                                                                <li style="@(ViewBag.IsApproveForm == 1 ? "display:block" : "display:block")">   <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>
+                                                                <li>   <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>
+                                                                @*<li style="@(ViewBag.IsApproveForm == 1 ? "display:block" : "display:block")">   <a data-toggle="modal" data-target="#myModalStatus-@d">Approve/Reject</a></li>*@
                                                             }
 
                                                         </ul>
@@ -1003,7 +1006,16 @@
 
         //updateStatusStudentSchoolMigration
         function updateEaffApprovalStatusByChairman(k, APPNO, ApplicationType) {
-           
+            console.log("AFF", ApplicationType);
+            if (ApplicationType == "ADDITIONAL SECTION") {
+                ApplicationType = "AS";
+            }
+            if (ApplicationType == "E-Affiliation") {
+                ApplicationType = "AFF";
+            }
+            if (ApplicationType == "AFFILIATION CONTINUATION") {
+                ApplicationType = "AC";
+            }
             var flag = 0;
             if ($("#AppStatus-" + k).val() == "" || $("#AppStatus-" + k).val() == "0") {
                 $("#AppStatus-" + k).addClass("input-validation-error");
