@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="https://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="https://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="firmdata_onlineDataSet">
@@ -21,11 +21,14 @@
           <DataField>ExamCertFee</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+		<Field Name="IsWantselfcenter">
+          <DataField>IsWantselfcenter</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="IsHardCopyCertificate">
           <DataField>IsHardCopyCertificate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-      
         <Field Name="MatricBoard">
           <DataField>MatricBoard</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -250,6 +253,7 @@
           <DataField>schoolp</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+		
         <Field Name="std_id">
           <DataField>std_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -622,18 +626,18 @@
           <DataField>totalstudent</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-		  <Field Name="StudyMediumEngligh">
-			  <DataField>StudyMediumEngligh</DataField>
-			  <rd:TypeName>System.String</rd:TypeName>
-		  </Field>
-		  <Field Name="StudyMediumHindi">
-			  <DataField>StudyMediumHindi</DataField>
-			  <rd:TypeName>System.String</rd:TypeName>
-		  </Field>
-		  <Field Name="StudyMediumPunjabi">
-			  <DataField>StudyMediumPunjabi</DataField>
-			  <rd:TypeName>System.String</rd:TypeName>
-		  </Field>
+        <Field Name="StudyMediumEngligh">
+          <DataField>StudyMediumEngligh</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StudyMediumHindi">
+          <DataField>StudyMediumHindi</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="StudyMediumPunjabi">
+          <DataField>StudyMediumPunjabi</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="StartFormNo">
           <DataField>StartFormNo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -757,7 +761,12 @@
         <DataSourceName>firmdata_onlineDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
+	  
       <Fields>
+      <Field Name="ExamCertFee">
+          <DataField>ExamCertFee</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="CHALLANID">
           <DataField>CHALLANID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -860,7 +869,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>                              ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (Ïè¬ÞÐÏ) ÓèÓÖÅ 2022-23                  </Value>
+                        <Value>                              ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (Ïè¬ÞÐÏ) ÓèÓÖÅ 2023-24                  </Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>18pt</FontSize>
@@ -922,8 +931,8 @@
                     <TextRuns>
                       <TextRun>
                         <Value>¼ÓÂÛ¨ ¨Û¼Ø ²ÙÂØ Õè Ú¨: -
-1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÌØÏ° 2021 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
-2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÖÛ ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÌØÏ° 2021 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã Ïè¬ÞÐÏ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇÖØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇÖØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¤¼ã °èó¨ ¨Ï Ð¥ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇÖØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, ÌèÚ¶ñ¨ Âã ÓÏ¶ÛÚÇÖ¨ã¶ ¤¼ã ÚÏ¨ØÏ¸ ¤ÅÝÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
+1. Ú¥Õ Ó¨ÞÐ ÉëÏ¸ ÒóÐë× ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÓÖèÓÅ 2023-24 Ð¥Û ÌØÅ¼Ø ÆñØÆ¼ Õè¢
+2. Ìè× ¤ØÆ ²Û ÅÞâ Ú¥Ó Æó¼Ï ÏØÕÛ× ÉëÏ¸ ÒóÐë× Óâ°ØÚÐ¼ ¨Û¼Û ²Ø» ÒØÐÖÛ ÓÛÅÛ¤Ï Óè¨â¸ÏÛ (ÉØÏðÒÛ× ÆÏÛÚª¤Ø) ÓÖèÓÅ 2023-24 Ð¥Û ¤ØÆ»ã Ó¨ÞÐ Âã Ïè¬ÞÐÏ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÆÏÛÚª¤Ø ÇÖØÏÌ Êã² ÚÏÕØ/ÏÕÛ× ÕÙ¢ Ú¥Õ ÓØÏã ÇÖØÏÌ ¤ØÆ ²Û ÒóÐë× Êã²Û¤Ù ÕÂØÚ¥¼Ù ¤ÅÝÓØÏ Ú¼¤ØÏ ¨Û¼ã ¤¼ã °èó¨ ¨Ï Ð¥ã ¬¥ã ÕÅ¢ Ú¥ÕÅÙ ÇÖØÏÌÙ ÚÒó° ÚÂó¼ã ¬¥ã ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÒãÏÒã Ú²Òã× ÆÏÛÚª¤ØÏÁÛ ÂØ ÅÙ, ÚÆ¼Ø ÂØ ÅÙ, ÏÚ²Ó¶ÏãÓÖÅ ÅâÉÏ, ÚÒÓÖã ²ë ÆÏÛÚª¤ØÏÁÛ Æ¾ð ÚÏÕØ Õè, ÌèÚ¶ñ¨ Âã ÓÏ¶ÛÚÇÖ¨ã¶ ¤¼ã ÚÏ¨ØÏ¸ ¤ÅÝÓØÏ Æ¾¼ØÐ ¨Ï¨ã Êã²ã ¬¥ã ÕÅ ¼ã ÒãÏÚÒ¤Ù ÅÞâ ÆÏÛÚª¤ØÏÁÛ¤Ù Âã ÌØÚÆ¤Ù/ÓÏÆñÓ¼Ù Âã ÚÄ¤ØÅ ÚÒó° ÚÐ¤Ø ÚÂó¼Ø Õè ¢
 3. ÓØÏã ÆÏÛÚª¤ØÏÁÛ PCP ÂïÏØÅ 75% ÕØ²ÖÏÛ¤Ù ÆÞÏÛ¤Ù ¨ÏÂã ÕÅ¢
 4. Ú¥Õ ÆÏÛÚª¤ØÏÁÛ ¨Âã ÒÛ Ú¨Óã ÉëÏ¸ ÒóÐë× ¤»¦ÝÚ°ó¼ ºâ¬ ÒÏ¼» ¨ØÏÅ ¤Íë¬ ¨ÏØÏ ÅÕÛ× ÚÂó¼ã ¬¥ã¢</Value>
                         <Style>
@@ -939,10 +948,7 @@
                     <TextRuns>
                       <TextRun>
                         <Value>5. Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ ÒóÐë× Ú¨Óã ÒÛ Ú¨ÓÌ Âã ´¬¾ã ÂÛ ÓÞÏ¼ ÚÒó° ¨ÅâÞÅÛ ¨ØÏÒØ¥Û ¨ãÒÐ ¤èóÓ Ö¥ã Ö¤èóÓ ÖÅ¬Ï ÚÒªã ÓÚÁ¼ ¤ÂØÐ¼ ÚÒó° ÕÛ ¨Û¼Û ²Ø Ó¨ÂÛ Õè¢
-6. Ú¥ÕÅÙ ÆÏÛÚª¤ØÏÁÛ¤Ù ÚÒó°ë× Ú¨Óã ÒÛ ÆÏÛÚª¤ØÏÁÛ ÂØ ÇÖØÏÌ §ÆÅ Ó¨ÞÐ Ó¨ÛÌ ¤ÄÛÅ ÆÏÛÚª¤ØÏÁÛ Âã ¼ïÏ ¼ã ¼ÓÂÛ¨ ¨Ï¨ã ÅÕÛ× ÊãÚ²¤Ø Ú¬¤Ø¢
-7. ÆÏÛÚª¤Ø ¨ã×ÂÏ : (¼Ï²ÛÕ ¤ÅÝÓØÏ)
-     1. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 2................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ
-     3. .......................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ 4.................................................Ó¨ÞÐ ¼ë× ÂÞÏÛ.............Ú¨.ÌÛ</Value>
+6. Ú¥ÕÅÙ ÆÏÛÚª¤ØÏÁÛ¤Ù ÚÒó°ë× Ú¨Óã ÒÛ ÆÏÛÚª¤ØÏÁÛ ÂØ ÇÖØÏÌ §ÆÅ Ó¨ÞÐ Ó¨ÛÌ ¤ÄÛÅ ÆÏÛÚª¤ØÏÁÛ Âã ¼ïÏ ¼ã ¼ÓÂÛ¨ ¨Ï¨ã ÅÕÛ× ÊãÚ²¤Ø Ú¬¤Ø¢</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -955,7 +961,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>9. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
+                        <Value>7. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1911,7 +1917,7 @@ Total  </Value>
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>11. Ó¨ÞÐ Âã ¨ÝóÐ ÆÏÛÚª¤ØÏÁÛ¤Ù ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :</Value>
+                        <Value>9. Ó¨ÞÐ Âã ¨ÝóÐ ÆÏÛÚª¤ØÏÁÛ¤Ù ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1944,7 +1950,7 @@ Total  </Value>
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>10. °ÐØÅ Âã ÒãÏÒã</Value>
+                        <Value>8. °ÐØÅ Âã ÒãÏÒã</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -2581,7 +2587,7 @@ Punjab-160062</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>Senior Secondary Examination (Regular) Session 2022-23 Exam Form Details:</Value>
+                    <Value>Senior Secondary Examination (Regular) Session 2023-24 Exam Form Details:</Value>
                     <Style>
                       <FontFamily>arial</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -3381,7 +3387,7 @@ The Principal</Value>
                   </TextRun>
                   <TextRun>
                     <Value>
-Senior Secondary Examination (Regular) Session 2022-23
+Senior Secondary Examination (Regular) Session 2023-24
 Subject-Wise Count of Students (Centre Statement)</Value>
                     <Style>
                       <FontFamily>PNB-TTAmarEN</FontFamily>
@@ -4861,7 +4867,7 @@ Subject-Wise Count of Students (Centre Statement)</Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> Senior Secondary Examination (Regular) Session 2022-23 </Value>
+                    <Value> Senior Secondary Examination (Regular) Session 2023-24 </Value>
                     <Style>
                       <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
@@ -6838,7 +6844,7 @@ Set :  </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Senior Secondary Examination Form (Regular) Session 2022-23</Value>
+                                      <Value>Senior Secondary Examination Form (Regular) Session 2023-24</Value>
                                       <Style>
                                         <FontFamily>arial</FontFamily>
                                         <FontSize>14pt</FontSize>
@@ -6970,7 +6976,7 @@ Set :  </Value>
                             </Textbox>
                             <Image Name="Image1">
                               <Source>External</Source>
-                              <Value>=Parameters!ImgPath.Value + Fields!std_photo.Value</Value>
+                              <Value>=Fields!std_photo.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>2.66635in</Top>
                               <Left>5.82364in</Left>
@@ -6986,7 +6992,7 @@ Set :  </Value>
                             </Image>
                             <Image Name="Image2">
                               <Source>External</Source>
-                              <Value>= Parameters!ImgPath.Value + Fields!std_sign.Value</Value>
+                              <Value>=  Fields!std_sign.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>7.89104in</Top>
                               <Left>2.49111in</Left>
@@ -8108,27 +8114,14 @@ Roll No. </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Issue Hard Copy of Certificate : </Value>
-                                      <Style>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Fields!IsHardCopyCertificate.Value</Value>
-                                      <Style>
-                                        <FontFamily>arial</FontFamily>
-                                        <FontWeight>Bold</FontWeight>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value xml:space="preserve"> </Value>
+                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
-                                    <TextAlign>Right</TextAlign>
+                                    <TextAlign>Center</TextAlign>
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>

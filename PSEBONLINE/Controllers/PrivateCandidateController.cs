@@ -29,7 +29,7 @@ namespace PSEBONLINE.Controllers
 
     public class PrivateCandidateController : Controller
     {
-        private const string BUCKET_NAME = "psebdata";        
+        private const string BUCKET_NAME = "psebdata";
 
         public static Byte[] QRCoder(string qr)
         {
@@ -586,21 +586,22 @@ namespace PSEBONLINE.Controllers
                     return Json(yearlist);
                 }
             }
-            else if (SelBatch == "3" && SelBatchYear == "2023")
+            else if (SelBatch == "3" && SelBatchYear == "2024")
             {
+
                 //if (SelCat == "R" && SelClass == "12")
                 if (SelCat == "R")
                 {
                     if (SelRP == "R")
                     {
-                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) == 2022).ToList();
+                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) == 2023).ToList();
                         // yearlist.Reverse();
                         ViewBag.MyYear = yearlist;
                         return Json(yearlist);
                     }
                     else if (SelRP == "O")
                     {
-                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2020 && Convert.ToInt32(s.Value) <= 2022).ToList();
+                        List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2021 && Convert.ToInt32(s.Value) <= 2023).ToList();
 
                         ViewBag.MyYear = yearlist;
                         return Json(yearlist);
@@ -609,14 +610,14 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (SelCat == "A")
                 {
-                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 1950 && Convert.ToInt32(s.Value) <= 2022).ToList();
+                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 1950 && Convert.ToInt32(s.Value) <= 2023).ToList();
 
                     ViewBag.MyYear = yearlist;
                     return Json(yearlist);
                 }
                 else if (SelCat == "D") //for last 2 year only
                 {
-                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2021 && Convert.ToInt32(s.Value) <= 2022).ToList();
+                    List<SelectListItem> yearlist = objDB.GetSessionYear1().Where(s => Convert.ToInt32(s.Value) >= 2022 && Convert.ToInt32(s.Value) <= 2023).ToList();
                     ViewBag.MyYear = yearlist;
                     return Json(yearlist);
                 }
@@ -859,6 +860,17 @@ namespace PSEBONLINE.Controllers
                         }
                         else
                         {
+                            MS.Class = "";
+                            MS.category = "";
+                            MS.Exam_Type = "";
+                            MS.SelMonth = "";
+                            MS.SelYear = "";
+                            MS.OROLL = "";
+                            MS.emailID = "";
+                            MS.mobileNo = "";
+
+                            MS.batch = "";
+                            MS.batchYear = "";
                             ViewData["roll"] = MS.OROLL;
                             ViewData["RefNo"] = result2.Tables[0].Rows[0]["refno"].ToString();
                             ViewData["Status"] = result2.Tables[0].Rows[0]["result"].ToString();
@@ -1285,13 +1297,13 @@ namespace PSEBONLINE.Controllers
                 refno = Session["refno"].ToString();
                 if (refno != null && refno != "")
                 {
-                    if (refno.Substring(5, 2) == "21" || refno.Substring(5, 2) == "22")
+                    if (refno.Substring(5, 2) == "23" || refno.Substring(5, 2) == "24")
                     {
                         Session["Session"] = "2023-2024";
                     }
-                    else if (refno.Substring(5, 2) == "20" || refno.Substring(5, 2) == "21")
+                    else if (refno.Substring(5, 2) == "21" || refno.Substring(5, 2) == "22")
                     {
-                        Session["Session"] = "2020-2021";
+                        Session["Session"] = "2022-2023";
                     }
 
 
@@ -1687,8 +1699,19 @@ namespace PSEBONLINE.Controllers
                             }
                             ViewBag.Sub1Twelve = new SelectList(DMitems1, "Value", "Text");
                         }
-                        MS.imgPhoto = MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString().Replace("UPLOAD2021", "").Replace("//", "/").Replace("UPLOAD2023/", "").Replace("Upload2021/", "").Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("UPLOAD2023/ ", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").Replace("upload//", "") : "";
-                        MS.imgSign = MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString().Replace("UPLOAD2021", "").Replace("//", "/").Replace("UPLOAD2023/", "").Replace("Upload2021/", "").Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "").Replace("Upload2021", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("UPLOAD2023/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+
+                        MS.imgPhoto = MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].
+                            ToString().Replace("UPLOAD2021", "").Replace("UPLOAD2023/", "").Replace("//", "/").Replace("Upload2024/", "").Replace("Upload2023/", "").Replace("Upload2021/", "")
+                            .Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("Upload2024/ ", "").
+                            Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").
+                            Replace("upload//", "") : "";
+
+                        MS.imgSign = MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString().
+                            Replace("UPLOAD2021", "")
+                            .Replace("//", "/").Replace("Upload2024/", "").Replace("UPLOAD2023/", "").Replace("Upload2021/", "").Replace("UPLOAD2022", "Upload2022").Replace("Upload2021", "")
+                            .Replace("Upload2021", "").Replace("UPLOAD2021/", "").Replace("Upload2023/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("Upload2024/", "").
+                            Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+
                         ViewBag.PhotoExist = "0";
                         ViewBag.signExist = "0";
                         if (MS.imgPhoto != "")
@@ -1698,52 +1721,6 @@ namespace PSEBONLINE.Controllers
                         if (MS.imgSign != "")
                         {
                             ViewBag.signExist = "1";
-                        }
-                        //var filePath1 = "";                        
-
-                        // if (MS.imgPhoto == null || MS.imgSign == null)
-                        if (MS.StoreAllData.Tables[0].Rows[0]["rp"].ToString().ToUpper() == "R" && MS.imgPhoto.Contains("PvtPhoto") == false)
-                        {
-                            //@ViewBag.Photo = "https://registration2022.pseb.ac.in/Upload/Upload2021/" + MS.imgPhoto;
-                            @ViewBag.Photo = MS.imgPhoto;
-                            @ViewBag.sign = MS.imgSign;
-                            //@ViewBag.sign = "https://registration2022.pseb.ac.in/Upload/Upload2021/" + MS.imgSign;
-                            MS.PathPhoto = ViewBag.Photo;
-                            MS.PathSign = ViewBag.sign;
-
-                            //filePath1 = MS.imgPhoto = @"upload2017/" + MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString();
-                            //string PhotoExist = Path.Combine(Server.MapPath("~/Upload2021/" + MS.imgPhoto));
-                            //string SignExist = Path.Combine(Server.MapPath("~/Upload2021/" + MS.imgSign));
-                            //ViewBag.PhotoExist = System.IO.File.Exists(PhotoExist) ? "1" : "0";
-                            //ViewBag.signExist = System.IO.File.Exists(SignExist) ? "1" : "0";
-
-                        }
-                        else if (MS.StoreAllData.Tables[0].Rows[0]["rp"].ToString().ToUpper() == "O" && MS.imgPhoto.Contains("PvtPhoto") == false)
-                        {
-                            //@ViewBag.Photo = "https://registration2022.pseb.ac.in/Upload/" + MS.imgPhoto;
-                            //@ViewBag.sign = "https://registration2022.pseb.ac.in/Upload/" + MS.imgSign;
-                            @ViewBag.Photo = MS.imgPhoto;
-                            @ViewBag.sign = MS.imgSign;
-                            MS.PathPhoto = ViewBag.Photo;
-                            MS.PathSign = ViewBag.sign;
-
-                            //filePath1 = MS.imgPhoto = @"" + MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString();
-                            //string PhotoExist = Path.Combine(Server.MapPath("~/" + MS.imgPhoto.Replace("https://registration2022.pseb.ac.in/", "")));
-                            //string SignExist = Path.Combine(Server.MapPath("~/" + MS.imgSign.Replace("https://registration2022.pseb.ac.in/", "")));
-                            //ViewBag.PhotoExist = System.IO.File.Exists(PhotoExist) ? "1" : "0";
-                            //ViewBag.signExist = System.IO.File.Exists(SignExist) ? "1" : "0";
-                        }
-                        else
-                        {
-                            @ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
-                            @ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
-                            MS.PathPhoto = ViewBag.Photo;
-                            MS.PathSign = ViewBag.sign;
-
-                            //string PhotoExist = Path.Combine(Server.MapPath("~/Upload2023/" + MS.imgPhoto));
-                            //string SignExist = Path.Combine(Server.MapPath("~/Upload2023/" + MS.imgSign));
-                            //ViewBag.PhotoExist = System.IO.File.Exists(PhotoExist) ? "1" : "0";
-                            //ViewBag.signExist = System.IO.File.Exists(SignExist) ? "1" : "0";
                         }
 
                         #region update photo and sign  if mis match
@@ -1764,153 +1741,73 @@ namespace PSEBONLINE.Controllers
 
                             string imgBatchPath = "Batch" + MS.refNo.Substring(3, 4);
 
+                            string type = "P";
 
-                            if (phtURL.Contains(imgBatchPath) == false)
+                            if (phtURL != "" && (!phtURL.Contains("allfiles") || !phtURL.Contains("Upload")))
                             {
-                                if (rp == "R" && (phtURL.Contains("PvtPhoto/Photo") == true || phtURL.Contains("PvtPhoto/Batch0321/Photo") == true))
+                                MS.imgPhoto = MS.imgPhoto.Replace("allfiles/", "");
+                                MS.imgSign = MS.imgSign.Replace("allfiles/", "");
+                                string Photo = "";
+                                string sign = "";
+                                if (MS.imgPhoto.Contains("Batch1022") || MS.imgPhoto.Contains("Batch1122") || MS.imgPhoto.Contains("Batch0722"))
                                 {
-                                    filePath1 = MS.imgPhoto = @"Upload2023/" + phtURL;
-                                    //Oldpath = Path.Combine(Server.MapPath("~/Upload2021/" + phtURL));
+                                    Photo = "allfiles/Upload2023/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/Upload2023/" + Convert.ToString(MS.imgSign);
                                 }
-                                else if (rp == "R" && phtURL.Contains("PvtPhoto") == false)
+                                else if (MS.imgPhoto.Contains("Batch0122") || MS.imgPhoto.Contains("Batch0322") || MS.imgPhoto.Contains("Batch1021") || MS.imgPhoto.Contains("Batch0322") || MS.imgPhoto.Contains("Batch1122"))
                                 {
-                                    filePath1 = MS.imgPhoto = @"Upload2021/" + phtURL;
-                                    //Oldpath = Path.Combine(Server.MapPath("~/Upload2021/" + phtURL));
+                                    Photo = "allfiles/Upload2022/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/Upload2022/" + Convert.ToString(MS.imgSign);
                                 }
-                                else if (phtURL.Contains("PvtPhoto") == true && (phtURL.Contains("21/Photo") == true || phtURL.Contains("21/Photo") == true))
+                                else if (MS.imgPhoto.Contains("Batch0722"))
                                 {
-                                    filePath1 = MS.imgPhoto = @"Upload2023/" + phtURL;
-                                    //Oldpath = Path.Combine(Server.MapPath("~/Upload2023/" + phtURL));
+                                    Photo = "allfiles/Upload2022/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/Upload2022/" + Convert.ToString(MS.imgSign);
                                 }
-                                else if (phtURL.Contains("PvtPhoto") == true && phtURL.Contains("20/Photo") == true)
+                                else if (MS.imgPhoto.Contains("http"))
                                 {
-                                    filePath1 = MS.imgPhoto = @"Upload2021/" + phtURL;
-                                    //Oldpath = Path.Combine(Server.MapPath("~/Upload2021/" + phtURL));
+                                    Photo = Convert.ToString(MS.imgPhoto);
+                                    sign = Convert.ToString(MS.imgSign);
                                 }
-                                else if (rp == "O" && phtURL.Contains("PvtPhoto") == false)
+                                else if (MS.imgPhoto.Contains("Open2021"))
                                 {
-                                    filePath1 = MS.imgPhoto = @"" + phtURL;
-                                    //Oldpath = Path.Combine(Server.MapPath("~/" + phtURL));
+                                    Photo = "allfiles/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/" + Convert.ToString(MS.imgSign);
                                 }
-                                else if (cat == "SR" || cat.ToUpper() == "SD")
+                                else if (MS.imgPhoto.Contains("Batch0324") && MS.imgPhoto.Contains("PvtPhoto"))
                                 {
-                                    filePath1 = MS.imgPhoto = "~/Upload2023/" + phtURL;
-                                    //Oldpath = Path.Combine(Server.MapPath("~/Upload2023/" + phtURL));
+                                    Photo = "allfiles/" + "Upload2024/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/" + "Upload2024/" + Convert.ToString(MS.imgSign);
+                                }
+                                else if (MS.imgPhoto.Contains("PvtPhoto") && MS.imgPhoto.Contains("Batch0823"))
+                                {
+                                    Photo = "allfiles/" + "Upload2023/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/" + "Upload2023/" + Convert.ToString(MS.imgSign);
+                                }
+                                else
+                                {
+                                    Photo = "allfiles/" + "Upload2023/" + Convert.ToString(MS.imgPhoto);
+                                    sign = "allfiles/" + "Upload2023/" + Convert.ToString(MS.imgSign);
                                 }
 
-                                if (filePath1 != null && filePath1 != "" && filePath1.Contains("Upload") && phtURL.Contains(imgBatchPath) == false)
+                                if (!MS.imgPhoto.Contains("allfiles"))
                                 {
-                                    var path = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo"), MS.refNo + "P" + ".jpg");
-                                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo"));
-
-                                    if (MS.Class == "Matriculation" || MS.Class == "Senior Secondary" || MS.Class == "Primary" || MS.Class == "Middle")
-                                    {
-                                        string type = "P";
-                                        string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathPhoto, type);
-                                    }
-                                    //else
-                                    //{
-
-                                    //    if (!Directory.Exists(FilepathExist))
-                                    //    {
-                                    //        Directory.CreateDirectory(FilepathExist);
-                                    //    }
-                                    //    if (System.IO.File.Exists(path))
-                                    //    {
-                                    //        System.IO.File.Delete(path);
-                                    //    }
-
-                                    //    if (System.IO.File.Exists(Oldpath))
-                                    //    {
-                                    //        System.IO.File.Copy(Oldpath, path);
-                                    //        filepathtosave = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + MS.refNo + "P" + ".jpg";
-                                    //        MS.PathPhoto = filepathtosave;
-                                    //        MS.imgPhoto = filepathtosave;
-                                    //        string PhotoName = MS.refNo + "P" + ".jpg";
-                                    //        string type = "P";
-                                    //        string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathPhoto, type);
-                                    //        k++;
-                                    //    }
-                                    //}
-
+                                    type = "P";
+                                    string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, Photo, type);
                                 }
+                                if (!MS.imgSign.Contains("allfiles"))
+                                {
+                                    type = "S";
+                                    string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, sign, type);
+                                }
+                                ViewBag.Photo = Photo;
+                                ViewBag.sign = sign;
 
                             }
-
-                            if (signURL.Contains(imgBatchPath) == false)
+                            else
                             {
-                                if (rp == "R" && (signURL.Contains("PvtPhoto/Sign") == true || signURL.Contains("PvtPhoto/Batch0321/Sign") == true))
-                                {
-                                    filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                                }
-                                else if (rp == "R" && signURL.Contains("PvtPhoto") == false)
-                                {
-                                    filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                                }
-
-                                else if (signURL.Contains("PvtPhoto") == true && (signURL.Contains("20/Sign") == true || signURL.Contains("21/Sign") == true))
-                                {
-                                    filePath1Sign = MS.imgSign = @"Upload2023/" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/Upload2023/" + signURL));
-                                }
-                                else if (signURL.Contains("PvtPhoto") == true && signURL.Contains("19/Sign") == true)
-                                {
-                                    filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                                }
-                                else if (rp == "O" && signURL.Contains("PvtPhoto") == false)
-                                {
-                                    filePath1Sign = MS.imgSign = @"" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/" + signURL));
-                                }
-                                if (cat == "SR" || cat == "SD")
-                                {
-                                    filePath1Sign = MS.imgPhoto = "~/Upload2023/" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/Upload2023/" + signURL));
-                                }
-                                if (signURL.Contains("Correction1819") == true)
-                                {
-                                    filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                    //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                                }
-
-                                if (filePath1Sign != null && filePath1Sign != "" && filePath1Sign.Contains("Upload") && signURL.Contains(imgBatchPath) == false)
-                                {
-                                    var path = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign"), MS.refNo + "S" + ".jpg");
-                                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign"));
-
-                                    if (MS.Class == "Matriculation" || MS.Class == "Senior Secondary" || MS.Class == "Primary" || MS.Class == "Middle")
-                                    {
-                                        string type = "S";
-                                        string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathSign, type);
-                                    }
-
-                                    //if (!Directory.Exists(FilepathExist))
-                                    //{
-                                    //    Directory.CreateDirectory(FilepathExist);
-                                    //}
-                                    //if (System.IO.File.Exists(path))
-                                    //{
-                                    //    System.IO.File.Delete(path);
-                                    //}
-
-
-
-                                    //if (System.IO.File.Exists(OldpathSign))
-                                    //{
-                                    //    System.IO.File.Copy(OldpathSign, path);
-
-                                    //    //System.IO.File.Copy(filePath1, path);
-                                    //    filepathtosaveSign = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + MS.refNo + "S" + ".jpg";
-                                    //    MS.PathSign = filepathtosaveSign;
-                                    //    MS.imgSign = filepathtosaveSign;
-                                    //    string PhotoName = MS.refNo + "S" + ".jpg";
-                                    //    string type = "S";
-                                    //    string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathSign, type);
-                                    //}
-                                }
+                                ViewBag.Photo = phtURL;
+                                ViewBag.sign = signURL;
                             }
                         }
                         #endregion
@@ -2350,18 +2247,18 @@ namespace PSEBONLINE.Controllers
                 if (MS.std_Photo != null) //  confirmation post
                 {
                     stdPic = Path.GetFileName(MS.std_Photo.FileName);
-                    //string Filepath = Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/");
+                    //string Filepath = Server.MapPath("~/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/");
                     //if (!Directory.Exists(Filepath))
                     //{
                     //    Directory.CreateDirectory(Filepath);
                     //}
 
-                    //string pathPhoto = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/"), MS.refNo + "P" + ".jpg");
+                    //string pathPhoto = Path.Combine(Server.MapPath("~/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/"), MS.refNo + "P" + ".jpg");
 
 
                     string Orgfile = MS.refNo + "P" + ".jpg";
-                    string Filename = "allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/";
-                    MS.PathPhoto = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + Orgfile;
+                    string Filename = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/";
+                    MS.PathPhoto = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + Orgfile;
                     string pathPhoto = MS.refNo + "P" + ".jpg";
                     using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                     {
@@ -2372,7 +2269,7 @@ namespace PSEBONLINE.Controllers
                             var uploadRequest = new TransferUtilityUploadRequest
                             {
                                 InputStream = MS.std_Photo.InputStream,
-                                Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
+                                Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
                                 BucketName = BUCKET_NAME,
                                 CannedACL = S3CannedACL.PublicRead
                             };
@@ -2383,116 +2280,21 @@ namespace PSEBONLINE.Controllers
                     }
 
                     //MS.std_Photo.SaveAs(pathPhoto);
-                    ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("UPLOAD2023/", "").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg") : "";
-                    ViewBag.ImageURL = MS.PathPhoto != "" ? MS.PathPhoto.ToString().Replace("UPLOAD2023/", "").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg") : ""; ;
+                    ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg") : "";
+                    ViewBag.ImageURL = MS.PathPhoto != "" ? MS.PathPhoto.ToString().Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg") : ""; ;
 
-                    //ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("UPLOAD2023", "Upload2023").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "") : "";
+                    //ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("Upload2024", "Upload2024").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "") : "";
                     //ViewBag.ImageURL = MS.PathPhoto;
                     Session["imgPhoto"] = MS.PathPhoto;
 
                 }
-                else
-                {
-                    string filepathtosave = "";
-                    var filePath1 = "";
-                    var rp = MS.StoreAllData.Tables[0].Rows[0]["rp"].ToString().ToUpper();
-                    var phtURL = MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString();
-                    var cat = MS.StoreAllData.Tables[0].Rows[0]["cat"].ToString().ToUpper();
-                    string Oldpath = "";
-                    string imgBatchPath = "Batch" + MS.refNo.Substring(3, 4);
 
-                    if (phtURL.Contains(imgBatchPath) == false)
-                    {
-                        if (rp == "R" && (phtURL.Contains("PvtPhoto/Photo") == true || phtURL.Contains("PvtPhoto/Batch0321/Photo") == true))
-                        {
-                            filePath1 = MS.imgPhoto = @"Upload2021/" + phtURL;
-                            //Oldpath = Path.Combine(Server.MapPath("~/Upload2021/" + phtURL));
-                        }
-                        else if (rp == "R" && phtURL.Contains("PvtPhoto") == false)
-                        {
-                            if (!phtURL.Contains("Upload2021"))
-                            {
-                                filePath1 = MS.imgPhoto = @"Upload2021/" + phtURL;
-                                //Oldpath = Path.Combine(Server.MapPath("~/Upload2021/" + phtURL));
-                            }
-
-                        }
-                        else if (phtURL.Contains("PvtPhoto") == true && (phtURL.Contains("21/Photo") == true || phtURL.Contains("22/Photo") == true))
-                        {
-                            if (!phtURL.Contains("Upload2023"))
-                            {
-                                filePath1 = MS.imgPhoto = @"Upload2023/" + phtURL;
-                                //Oldpath = Path.Combine(Server.MapPath("~/Upload2023/" + phtURL));
-                            }
-                        }
-                        else if (phtURL.Contains("PvtPhoto") == true && phtURL.Contains("20/Photo") == true)
-                        {
-                            if (!phtURL.Contains("Upload2021"))
-                            {
-                                filePath1 = MS.imgPhoto = @"Upload2021/" + phtURL;
-                                //Oldpath = Path.Combine(Server.MapPath("~/Upload2021/" + phtURL));
-                            }
-                        }
-                        else if (rp == "O" && phtURL.Contains("PvtPhoto") == false)
-                        {
-                            filePath1 = MS.imgPhoto = @"" + phtURL;
-                            //Oldpath = Path.Combine(Server.MapPath("~/" + phtURL));
-                        }
-                        else if (cat == "SR" || cat.ToUpper() == "SD")
-                        {
-                            if (!phtURL.Contains("Upload2023"))
-                            {
-                                filePath1 = MS.imgPhoto = "~/Upload2023/" + phtURL;
-                                //Oldpath = Path.Combine(Server.MapPath("~/Upload2023/" + phtURL));
-                            }
-                        }
-
-                        bool isExistsInBatch = phtURL.Contains(imgBatchPath);
-                        if (!string.IsNullOrEmpty(filePath1) && isExistsInBatch == false)
-                        // if (filePath1 != null && filePath1 != "" && filePath1.Contains("Upload") && phtURL.Contains(imgBatchPath) == false)
-                        {
-                            var path = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo"), MS.refNo + "P" + ".jpg");
-                            string FilepathExist = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo"));
-
-
-                            if (!Directory.Exists(FilepathExist))
-                            {
-                                Directory.CreateDirectory(FilepathExist);
-                            }
-                            if (System.IO.File.Exists(path))
-                            {
-                                System.IO.File.Delete(path);
-                            }
-
-                            if (System.IO.File.Exists(Oldpath))
-                            {
-                                System.IO.File.Copy(Oldpath, path);
-                                filepathtosave = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + MS.refNo + "P" + ".jpg";
-                                MS.PathPhoto = filepathtosave;
-
-                                ViewBag.Photo = filepathtosave;
-                                ViewBag.ImageURL = filepathtosave;
-                                Session["imgPhoto"] = filepathtosave;
-
-
-
-                                //string PhotoName = MS.refNo + "P" + ".jpg";
-                                //string type = "P";
-                                //string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathPhoto, type);
-
-                            }
-                            string type = "P";
-                            string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathPhoto, type);
-                        }
-                    }
-
-                }
                 if (MS.std_Sign != null)
                 {
                     stdSign = Path.GetFileName(MS.std_Sign.FileName);
                     string Orgfile = MS.refNo + "S" + ".jpg";
-                    string Filename = "allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/";
-                    MS.PathSign = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + Orgfile;
+                    string Filename = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/";
+                    MS.PathSign = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + Orgfile;
                     string pathSign = MS.refNo + "S" + ".jpg";
                     using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                     {
@@ -2503,7 +2305,7 @@ namespace PSEBONLINE.Controllers
                             var uploadRequest = new TransferUtilityUploadRequest
                             {
                                 InputStream = MS.std_Sign.InputStream,
-                                Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
+                                Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
                                 BucketName = BUCKET_NAME,
                                 CannedACL = S3CannedACL.PublicRead
                             };
@@ -2514,125 +2316,18 @@ namespace PSEBONLINE.Controllers
                     }
 
                     //stdSign = Path.GetFileName(MS.std_Sign.FileName);
-                    //string Filepath = Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/");
+                    //string Filepath = Server.MapPath("~/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/");
                     //if (!Directory.Exists(Filepath))
                     //{
                     //    Directory.CreateDirectory(Filepath);
                     //}
 
-                    //string pathSign = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/"), MS.refNo + "S" + ".jpg");
+                    //string pathSign = Path.Combine(Server.MapPath("~/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/"), MS.refNo + "S" + ".jpg");
                     //MS.PathSign = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + MS.refNo + "S" + ".jpg";
                     //MS.std_Sign.SaveAs(pathSign);
                     ViewBag.sign = MS.PathSign;
                     Session["imgSign"] = MS.PathSign;
 
-                }
-                else
-                {
-
-                    string stdSign = "";
-                    string filepathtosaveSign = "";
-                    var filePath1 = "";
-                    var filePath1Sign = "";
-                    var rp = MS.StoreAllData.Tables[0].Rows[0]["rp"].ToString().ToUpper();
-                    var signURL = MS.StoreAllData.Tables[0].Rows[0]["Sign_url"].ToString();
-                    var cat = MS.StoreAllData.Tables[0].Rows[0]["cat"].ToString().ToUpper();
-                    string Oldpath = "", OldpathSign = "";
-
-                    string imgBatchPath = "Batch" + MS.refNo.Substring(3, 4);
-
-
-                    if (signURL.Contains(imgBatchPath) == false)
-                    {
-                        if (rp == "R" && (signURL.Contains("PvtPhoto/Sign") == true || signURL.Contains("PvtPhoto/Batch0321/Sign") == true))
-                        {
-                            if (!signURL.Contains("Upload2021"))
-                            {
-                                filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                            }
-                        }
-                        else if (rp == "R" && signURL.Contains("PvtPhoto") == false)
-                        {
-                            if (!signURL.Contains("Upload2021"))
-                            {
-                                filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                            }
-                        }
-
-                        else if (signURL.Contains("PvtPhoto") == true && (signURL.Contains("21/Sign") == true || signURL.Contains("22/Sign") == true))
-                        {
-                            if (!signURL.Contains("Upload2023"))
-                            {
-                                filePath1Sign = MS.imgSign = @"Upload2023/" + signURL;
-                                // OldpathSign = Path.Combine(Server.MapPath("~/Upload2023/" + signURL));
-                            }
-                        }
-                        else if (signURL.Contains("PvtPhoto") == true && signURL.Contains("19/Sign") == true)
-                        {
-                            if (!signURL.Contains("Upload2021"))
-                            {
-                                filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                            }
-                        }
-                        else if (rp == "O" && signURL.Contains("PvtPhoto") == false)
-                        {
-                            filePath1Sign = MS.imgSign = @"" + signURL;
-                            //OldpathSign = Path.Combine(Server.MapPath("~/" + signURL));
-                        }
-                        if (cat == "SR" || cat == "SD")
-                        {
-                            if (!signURL.Contains("Upload2023"))
-                            {
-                                filePath1Sign = MS.imgPhoto = "~/Upload2023/" + signURL;
-                                //OldpathSign = Path.Combine(Server.MapPath("~/Upload2023/" + signURL));
-                            }
-                        }
-                        if (signURL.Contains("Correction1819") == true)
-                        {
-                            if (!signURL.Contains("Upload2021"))
-                            {
-                                filePath1Sign = MS.imgSign = @"Upload2021/" + signURL;
-                                //OldpathSign = Path.Combine(Server.MapPath("~/Upload2021/" + signURL));
-                            }
-                        }
-
-                        bool isExistsInBatch = signURL.Contains(imgBatchPath);
-                        if (!string.IsNullOrEmpty(filePath1Sign) && isExistsInBatch == false)
-                        {
-                            var path = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign"), MS.refNo + "S" + ".jpg");
-                            string FilepathExist = Path.Combine(Server.MapPath("~/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign"));
-
-                            if (!Directory.Exists(FilepathExist))
-                            {
-                                Directory.CreateDirectory(FilepathExist);
-                            }
-                            if (System.IO.File.Exists(path))
-                            {
-                                System.IO.File.Delete(path);
-                            }
-
-                            if (System.IO.File.Exists(OldpathSign))
-                            {
-                                System.IO.File.Copy(OldpathSign, path);
-
-                                //System.IO.File.Copy(filePath1, path);
-                                filepathtosaveSign = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + MS.refNo + "S" + ".jpg";
-                                ViewBag.ImageURL = filepathtosaveSign;
-                                MS.PathSign = filepathtosaveSign;
-                                ViewBag.sign = filepathtosaveSign;
-                                Session["imgSign"] = filepathtosaveSign;
-
-                                //string PhotoName = MS.refNo + "S" + ".jpg";
-                                //string type = "S";
-                                //string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathSign, type);
-                            }
-                            string type = "S";
-                            string UpdatePic = new AbstractLayer.PrivateCandidateDB().Updated_PrivateCandidate_PhotoSign_ByRefNo(MS.refNo, MS.PathSign, type);
-                        }
-                    }
                 }
 
                 MS.PathPhoto = MS.PathPhoto = Session["imgPhoto"].ToString();
@@ -2769,7 +2464,7 @@ namespace PSEBONLINE.Controllers
 
 
 
-                MS.IsHardCopyCertificate = frm["IsHardCopyCertificate"].ToString();
+                MS.IsHardCopyCertificate = "YES";
                 if (string.IsNullOrEmpty(MS.IsHardCopyCertificate))
                 {
                     MS.category = frm["category"].ToString();
@@ -3287,23 +2982,23 @@ namespace PSEBONLINE.Controllers
 
                         if (MS.StoreAllData.Tables[0].Rows[0]["rp"].ToString().ToUpper() == "R" && MS.imgPhoto.Contains("PvtPhoto") == false)
                         {
-                            @ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + MS.imgPhoto;
-                            @ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + MS.imgSign;
+                            @ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/" + MS.imgPhoto;
+                            @ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + MS.imgSign;
                             MS.PathPhoto = ViewBag.Photo;
                             MS.PathSign = ViewBag.sign;
                             MS.imgPhoto = ViewBag.Photo;
                             MS.imgSign = ViewBag.sign;
 
                             //filePath1 = MS.imgPhoto = @"upload2017/" + MS.StoreAllData.Tables[0].Rows[0]["Photo_url"].ToString();
-                            string PhotoExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + MS.imgPhoto;
-                            string SignExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + MS.imgSign;
+                            string PhotoExist = "https://psebdata.s3.ap-south-1.amazonaws.com/" + MS.imgPhoto;
+                            string SignExist = "https://psebdata.s3.ap-south-1.amazonaws.com/" + MS.imgSign;
                             ViewBag.PhotoExist = System.IO.File.Exists(PhotoExist) ? "1" : "0";
                             ViewBag.signExist = System.IO.File.Exists(SignExist) ? "1" : "0";
                         }
                         else if (MS.StoreAllData.Tables[0].Rows[0]["rp"].ToString().ToUpper() == "O" && MS.imgPhoto.Contains("PvtPhoto") == false)
                         {
-                            @ViewBag.Photo = "https://registration2022.pseb.ac.in/Upload/" + MS.imgPhoto;
-                            @ViewBag.sign = "https://registration2022.pseb.ac.in/Upload/" + MS.imgSign;
+                            @ViewBag.Photo = "https://registration2022.pseb.ac.in/" + MS.imgPhoto;
+                            @ViewBag.sign = "https://registration2022.pseb.ac.in/" + MS.imgSign;
                             MS.PathPhoto = ViewBag.Photo;
                             MS.PathSign = ViewBag.sign;
                             MS.imgPhoto = ViewBag.Photo;
@@ -3320,8 +3015,8 @@ namespace PSEBONLINE.Controllers
                             @ViewBag.Photo = MS.imgPhoto;
                             @ViewBag.sign = MS.imgSign;
 
-                            string PhotoExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + MS.imgPhoto;
-                            string SignExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + MS.imgSign;
+                            string PhotoExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2024/" + MS.imgPhoto;
+                            string SignExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2024/" + MS.imgSign;
                             ViewBag.PhotoExist = System.IO.File.Exists(PhotoExist) ? "1" : "0";
                             ViewBag.signExist = System.IO.File.Exists(SignExist) ? "1" : "0";
                         }
@@ -3423,8 +3118,12 @@ namespace PSEBONLINE.Controllers
                     //@ViewBag.Photo = "../../upload/" + MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
                     //@ViewBag.sign = "../../upload/" + MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
 
-                    @ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString().Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("UPLOAD2023/ ", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").Replace("upload//", "") : "";
-                    @ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString().Replace("UPLOAD2022/", "").Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("Upload2021", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("UPLOAD2023/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+                    //@ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString().Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("UPLOAD2022/ ", "").Replace("Upload2023/", "").Replace("UPLOAD2023/", "").Replace("UPLOAD2024/", "").Replace("Upload2024/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg").Replace("upload//", "") : "";
+                    //@ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString() != "" ? MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString().Replace("UPLOAD2022/", "").Replace("UPLOAD2021", "").Replace("Upload2021/", "").Replace("Upload2021", "").Replace("Upload2021", "").Replace("Upload2023/", "").Replace("UPLOAD2023/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2024/", "").Replace("UPLOAD2021/", "").Replace("UPLOAD2022/", "").Replace("Upload2024/", "").Replace("OPEN2021", "Open2021").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg").Replace("upload//", "") : "";
+
+
+                    @ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
+                    @ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
 
                     //@ViewBag.Photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
                     //@ViewBag.sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
@@ -3674,13 +3373,13 @@ namespace PSEBONLINE.Controllers
 
             roll = Session["Oroll"].ToString();
             string RefNo = Session["refno"].ToString();
-            if (Session["refNo"].ToString().Substring(5, 2) == "22")
+            if (Session["refNo"].ToString().Substring(5, 2) == "23")
             {
                 Session["Session"] = "2023-2024";
             }
-            else if (Session["refNo"].ToString().Substring(5, 2) == "21")
+            else if (Session["refNo"].ToString().Substring(5, 2) == "22")
             {
-                Session["Session"] = "2021-2022";
+                Session["Session"] = "2022-2023";
             }
 
 
@@ -4156,8 +3855,8 @@ namespace PSEBONLINE.Controllers
                     MS.StoreAllData = objDB.GetPrivateCandidateConfirmation(MS.refNo);
                     string photo = MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
                     string sign = MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
-                    string PhotoExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/" + "Upload2023/" + MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
-                    string SignExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/" + "Upload2023/" + MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
+                    string PhotoExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/" + "Upload2024/" + MS.StoreAllData.Tables[0].Rows[0]["photo_url"].ToString();
+                    string SignExist = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/" + "Upload2024/" + MS.StoreAllData.Tables[0].Rows[0]["sign_url"].ToString();
                     ViewBag.PhotoExist = System.IO.File.Exists(PhotoExist) ? "1" : "0";
                     ViewBag.signExist = System.IO.File.Exists(SignExist) ? "1" : "0";
                     MS.StoreAllData = null;
@@ -4494,7 +4193,7 @@ namespace PSEBONLINE.Controllers
                                     var uploadRequest = new TransferUtilityUploadRequest
                                     {
                                         InputStream = MS.std_Photo.InputStream,
-                                        Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
+                                        Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
                                         BucketName = BUCKET_NAME,
                                         CannedACL = S3CannedACL.PublicRead
                                     };
@@ -4523,7 +4222,7 @@ namespace PSEBONLINE.Controllers
                                     var uploadRequest = new TransferUtilityUploadRequest
                                     {
                                         InputStream = MS.std_Photo.InputStream,
-                                        Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
+                                        Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
                                         BucketName = BUCKET_NAME,
                                         CannedACL = S3CannedACL.PublicRead
                                     };
@@ -4678,7 +4377,7 @@ namespace PSEBONLINE.Controllers
                         {
                             stdPic = Path.GetFileName(MS.std_Photo.FileName);
                             string Orgfile = MS.refNo + "P" + ".jpg";
-                            string Filename = "allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/";
+                            string Filename = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/";
                             MS.PathPhoto = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + Orgfile;
                             string pathPhoto = MS.refNo + "P" + ".jpg";
                             using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
@@ -4690,7 +4389,7 @@ namespace PSEBONLINE.Controllers
                                     var uploadRequest = new TransferUtilityUploadRequest
                                     {
                                         InputStream = MS.std_Photo.InputStream,
-                                        Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
+                                        Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
                                         BucketName = BUCKET_NAME,
                                         CannedACL = S3CannedACL.PublicRead
                                     };
@@ -4701,10 +4400,10 @@ namespace PSEBONLINE.Controllers
                             }
 
                             //MS.std_Photo.SaveAs(pathPhoto);
-                            ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("UPLOAD2023/", "").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg") : "";
-                            ViewBag.ImageURL = MS.PathPhoto != "" ? MS.PathPhoto.ToString().Replace("UPLOAD2023/", "").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg") : ""; ;
+                            ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("Upload2024/", "").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "jpg") : "";
+                            ViewBag.ImageURL = MS.PathPhoto != "" ? MS.PathPhoto.ToString().Replace("Upload2024/", "").Replace("OPEN2022", "Open2022").Replace("SIGN", "Sign").Replace("JPG", "jpg") : ""; ;
 
-                            //ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("UPLOAD2023", "Upload2023").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "") : "";
+                            //ViewBag.Photo = MS.PathPhoto != "" ? MS.PathPhoto.Replace("Upload2024", "Upload2024").Replace("OPEN2022", "Open2022").Replace("PHOTO", "Photo").Replace("JPG", "") : "";
                             //ViewBag.ImageURL = MS.PathPhoto;
                             Session["imgPhoto"] = MS.PathPhoto;
                         }
@@ -4717,7 +4416,7 @@ namespace PSEBONLINE.Controllers
                         {
                             stdSign = Path.GetFileName(MS.std_Sign.FileName);
                             string Orgfile = MS.refNo + "S" + ".jpg";
-                            string Filename = "allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/";
+                            string Filename = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/";
                             MS.PathSign = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + Orgfile;
                             string pathSign = MS.refNo + "S" + ".jpg";
                             using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
@@ -4729,7 +4428,7 @@ namespace PSEBONLINE.Controllers
                                     var uploadRequest = new TransferUtilityUploadRequest
                                     {
                                         InputStream = MS.std_Sign.InputStream,
-                                        Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
+                                        Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
                                         BucketName = BUCKET_NAME,
                                         CannedACL = S3CannedACL.PublicRead
                                     };
@@ -6064,7 +5763,7 @@ namespace PSEBONLINE.Controllers
                             var uploadRequest = new TransferUtilityUploadRequest
                             {
                                 InputStream = MS.std_Photo.InputStream,
-                                Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
+                                Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/{0}", Orgfile),
                                 BucketName = BUCKET_NAME,
                                 CannedACL = S3CannedACL.PublicRead
                             };
@@ -6093,7 +5792,7 @@ namespace PSEBONLINE.Controllers
                             var uploadRequest = new TransferUtilityUploadRequest
                             {
                                 InputStream = MS.std_Sign.InputStream,
-                                Key = string.Format("allfiles/Upload2023/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
+                                Key = string.Format("allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/{0}", Orgfile),
                                 BucketName = BUCKET_NAME,
                                 CannedACL = S3CannedACL.PublicRead
                             };

@@ -1500,6 +1500,7 @@
     <Content Include="Views\Challan\MisUpdate.cshtml" />
     <Content Include="Views\School\ExamCentreDetailsPerforma.cshtml" />
     <Content Include="Views\Report\AccountReportDetails.cshtml" />
+    <Content Include="Views\School\InfrasturePerformaModifyForAdmin.cshtml" />
     <None Include="Views\School\Welcome.cshtml_SITEMENU" />
     <Content Include="Views\RegistrationPortal\M1Formgrid.cshtml" />
     <Content Include="Views\RegistrationPortal\M1FormModify.cshtml" />
@@ -1555,6 +1556,7 @@
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_AssociateHeading.cshtml" />
     <Content Include="Views\Shared\_AssociateMenu.cshtml" />
+    <Content Include="Views\Shared\_Home_Header.cshtml" />
     <None Include="Web References\epunjabschool\service-pseb.wsdl" />
   </ItemGroup>
   <ItemGroup>

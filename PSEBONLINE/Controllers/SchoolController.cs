@@ -1010,7 +1010,11 @@ namespace PSEBONLINE.Controllers
 
                     #region Action Assign Method
                     if (Session["AdminType"].ToString().ToUpper() == "ADMIN")
-                    { ViewBag.IsView = 1; }
+                    {
+                        ViewBag.IsView = 1; ViewBag.IsUnlockInfrastructure = 1; ViewBag.IsUnlockviewExamCentre = 1; ViewBag.IsUnlockViewInfrasturePerformas = 1;
+                        ViewBag.IsUnlockUpdate_School_Informations = 1; ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = 1;
+                        ViewBag.IsUnlockExamCenter = 1;
+                    }
                     else
                     {
 
@@ -1023,6 +1027,13 @@ namespace PSEBONLINE.Controllers
                         if (aAct.Tables[0].Rows.Count > 0)
                         {
                             ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/SCHOOL_VIEW_FORM")).Count();
+                            ViewBag.IsUnlockInfrastructure = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTRUCTURE")).Count();
+                            ViewBag.IsUnlockviewExamCentre = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWEXAMCENTRE")).Count();
+                            ViewBag.IsUnlockViewInfrasturePerformas = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWINFRASTUREPERFORMAS")).Count();
+                            ViewBag.IsUnlockUpdate_School_Informations = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKUPDATE_SCHOOL_INFORMATIONS")).Count();
+                            ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTUREPERFORMAMODIFYFORADMIN")).Count();
+                            ViewBag.IsUnlockExamCenter = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKEXAMCENTER")).Count();
+
                         }
                     }
                     #endregion Action Assign Method
@@ -1300,7 +1311,11 @@ namespace PSEBONLINE.Controllers
 
                 #region Action Assign Method
                 if (Session["AdminType"].ToString().ToUpper() == "ADMIN")
-                { ViewBag.IsView = 1; }
+                {
+                    ViewBag.IsView = 1; ViewBag.IsUnlockInfrastructure = 1; ViewBag.IsUnlockviewExamCentre = 1; ViewBag.IsUnlockViewInfrasturePerformas = 1;
+                    ViewBag.IsUnlockUpdate_School_Informations = 1; ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = 1;
+                    ViewBag.IsUnlockExamCenter = 1;
+                }
                 else
                 {
 
@@ -1313,6 +1328,13 @@ namespace PSEBONLINE.Controllers
                     if (aAct.Tables[0].Rows.Count > 0)
                     {
                         ViewBag.IsView = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/SCHOOL_VIEW_FORM")).Count();
+                        ViewBag.IsUnlockInfrastructure = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTRUCTURE")).Count();
+                        ViewBag.IsUnlockviewExamCentre = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWEXAMCENTRE")).Count();
+                        ViewBag.IsUnlockViewInfrasturePerformas = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKVIEWINFRASTUREPERFORMAS")).Count();
+                        ViewBag.IsUnlockUpdate_School_Informations = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKUPDATE_SCHOOL_INFORMATIONS")).Count();
+                        ViewBag.IsUnlockInfrasturePerformaModifyForAdmin = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKINFRASTUREPERFORMAMODIFYFORADMIN")).Count();
+                        ViewBag.IsUnlockExamCenter = aAct.Tables[0].AsEnumerable().Where(c => c.Field<string>("MenuUrl").ToUpper().Equals("SCHOOL/UNLOCKEXAMCENTER")).Count();
+
                     }
                 }
                 #endregion Action Assign Method
@@ -22332,11 +22354,18 @@ namespace PSEBONLINE.Controllers
                     }
 
                     InfrasturePerformasList oInfrasturePerformas = new InfrasturePerformasList();
-                    oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLList(loginSession);
-                    ipm.ipf = oInfrasturePerformas;
-                    DataSet ds = new DataSet();
-                    SchoolModels sm = objDB.GetSchoolDataBySchl(SCHL, out ds);
-                    ipm.schlmodel = sm;
+                    oInfrasturePerformas = await new AbstractLayer.SchoolDB().GetInfrasturePerformaBySCHLListAdmin(loginSession);
+                    if (oInfrasturePerformas != null)
+                    {
+                        ipm.ipf = oInfrasturePerformas;
+                        DataSet ds = new DataSet();
+                        SchoolModels sm = objDB.GetSchoolDataBySchl(SCHL, out ds);
+                        ipm.schlmodel = sm;
+                    }
+                    else
+                    {
+
+                    }
                 }
 
             }
@@ -22651,7 +22680,7 @@ namespace PSEBONLINE.Controllers
         }
 
 
-
+        [HttpGet]
         public async Task<ActionResult> ExamCentreDetailsPerformaForAdmin(string SCHL, string DIST)
         {
             Session["SCHL"] = SCHL;
@@ -22691,6 +22720,10 @@ namespace PSEBONLINE.Controllers
             SchoolModels sm = objDB.GetSchoolDataBySchl(loginSession.SCHL, out ds);
             ViewBag.SchoolModel = sm;
             ViewBag.objGroupList = objGroupList;
+            LoginModel loginmodel = new LoginModel();
+            loginmodel.username = SCHL;
+            loginmodel.Password = "#aippc4395m@^";
+            loginSession = AbstractLayer.SchoolDB.LoginSenior(loginmodel);
             return View("ExamCentreDetailsPerforma", loginSession);
         }
 
@@ -22698,30 +22731,30 @@ namespace PSEBONLINE.Controllers
 
         #region unlock forms
 
-        
-        public JsonResult UnlockForms(string schl,string type)
+
+        public JsonResult UnlockForms(string schl, string type)
         {
-           DataSet newDs = new DataSet();
+            DataSet newDs = new DataSet();
             if (type == "Infra")
             {
                 newDs = AbstractLayer.SchoolDB.UnloackPerforma(schl);
             }
-            else if(type == "examcenter")
+            else if (type == "examcenter")
             {
                 newDs = AbstractLayer.SchoolDB.unlockExamCenter(schl);
             }
-       
-              return Json(newDs.Tables[0].Rows[0]["Status"]);
+
+            return Json(newDs.Tables[0].Rows[0]["Status"]);
 
         }
-    
-
-    
-
-  
-    #endregion
 
 
 
-}
+
+
+        #endregion
+
+
+
+    }
 }

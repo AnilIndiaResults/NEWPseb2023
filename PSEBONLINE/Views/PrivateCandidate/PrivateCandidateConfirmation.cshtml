@@ -643,28 +643,28 @@
                             }
                         </div>
                         <div class="clearfix"></div>
-                        <div class="col-md-3">
-                            Do you want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
-                        </div>
-                        <div class="col-md-9">
+                        @*<div class="col-md-3">
+                                Do you want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
+                            </div>
+                            <div class="col-md-9">
 
-                            @{
-                                var FormStatus21 = Model.StoreAllData.Tables[0].Rows[0]["FormStatus"].ToString();
-                                if (FormStatus21 == "2" || FormStatus21 == "3")
-                                {
-                                    @Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "--Select--", new { required = "required", @disabled = "disabled" })
+                                @{
+                                    var FormStatus21 = Model.StoreAllData.Tables[0].Rows[0]["FormStatus"].ToString();
+                                    if (FormStatus21 == "2" || FormStatus21 == "3")
+                                    {
+                                        @Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "--Select--", new { required = "required", @disabled = "disabled" })
 
-                                    @Html.HiddenFor(a => a.IsHardCopyCertificate)
+                                        @Html.HiddenFor(a => a.IsHardCopyCertificate)
 
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "--Select--", new { required = "required" })
+                                    }
                                 }
-                                else
-                                {
-                                    @Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "--Select--", new { required = "required" })
-                                }
-                            }
 
 
-                        </div>
+                            </div>*@
 
                     </div>
 
@@ -677,36 +677,41 @@
                                 Upload Photo
 
                                 @{
-                                    if (ViewBag.Photo.Contains("Batch1022") || ViewBag.Photo.Contains("Batch1122") || ViewBag.Photo.Contains("Batch0722"))
-                                    {
-                                        ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Batch0122") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1021") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1122"))
-                                    {
-                                        ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Batch0722"))
-                                    {
-                                        ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("http"))
-                                    {
-                                        ViewBag.Photo = Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Open2021"))
-                                    {
-                                        ViewBag.Photo = Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = Convert.ToString(ViewBag.sign);
-                                    }
-                                    else
-                                    {
-                                        ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
-                                    }
+                                    //if (ViewBag.Photo.Contains("Batch1022") || ViewBag.Photo.Contains("Batch1122") || ViewBag.Photo.Contains("Batch0722"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Batch0122") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1021") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1122"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Batch0722"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("http"))
+                                    //{
+                                    //    ViewBag.Photo = Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Open2021"))
+                                    //{
+                                    //    ViewBag.Photo = Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Batch0324"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2024/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2024/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else
+                                    //{
+                                    //    ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
+                                    //}
 
                                     var PExist = ViewBag.PhotoExist;
                                     var SExist = ViewBag.signExist;
@@ -733,7 +738,7 @@
 
                             </div>
 
-                            <div class="col-md-4"><img src="https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/@ViewBag.Photo" class="img-responsive" alt="Photo" id="imgPhoto" /></div>
+                            <div class="col-md-4"><img src="https://psebdata.s3.ap-south-1.amazonaws.com/@ViewBag.Photo" class="img-responsive" alt="Photo" id="imgPhoto" /></div>
 
                             <div class="clearfix"></div>
                             <div class="col-md-8">
@@ -763,7 +768,7 @@
 
                                 }
                             </div>
-                            <div class="col-md-4"><br /><img src="https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/@ViewBag.sign" class="img-responsive" alt="Signature" id="imgSign" /></div>
+                            <div class="col-md-4"><br /><img src="https://psebdata.s3.ap-south-1.amazonaws.com/@ViewBag.sign" class="img-responsive" alt="Signature" id="imgSign" /></div>
                         </div>
 
                     </div>
@@ -2010,15 +2015,12 @@
                     $('#std_Photo').val('');
                     ('#imgPhoto').hide();
                 }
-
-
             }
         }
 
     }
     function findSizeAndPreviewSign(input) {
         if (typeof ($("#std_Sign")[0].files) != "undefined") {
-
             var size = parseFloat($("#std_Sign")[0].files[0].size / 1024).toFixed(2);
             // alert(size);
             if (parseInt(size) >= 1 && parseInt(size) <= 50) {
@@ -2029,7 +2031,6 @@
                 }
                 filerdrS.readAsDataURL(input.files[0]);
                 $("#errmsg").hide();
-
             }
             else {
                 if (parseInt(size) <= 1) {
@@ -2045,7 +2046,6 @@
 
             }
         }
-
     }
 
     function val() {
@@ -2061,6 +2061,34 @@
         if (input == 1 || input == 2 || input == 3 || input == 4 || input == 5 || input == 6 || input == 7 || input == 8) { subID.selectedIndex = 0; subID.style.backgroundColor = '#ffe5e5'; }
     }
 
+</script>
+
+<script type='text/javascript'>
+    var isCtrl = false;
+    document.onkeyup = function (e) {
+        if (e.which == 17)
+            isCtrl = false;
+    }
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 123) {
+            return false;
+        }
+    }
+
+    var isNS = (navigator.appName == "Netscape") ? 1 : 0;
+    if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
+    function mischandler() {
+        return false;
+    }
+    function mousehandler(e) {
+        var myevent = (isNS) ? e : event;
+        var eventbutton = (isNS) ? myevent.which : myevent.button;
+        if ((eventbutton == 2) || (eventbutton == 3)) return false;
+    }
+    document.oncontextmenu = mischandler;
+    document.onmousedown = mousehandler;
+    document.onmouseup = mousehandler;
 </script>
 
 
