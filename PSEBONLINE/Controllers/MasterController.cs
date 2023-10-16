@@ -1197,7 +1197,8 @@ namespace PSEBONLINE.Controllers
                 string approvedStatus = AbstractLayer.DBClass.GetAcceptRejectDDL().Where(s => s.Value == status).Select(s => s.Text).FirstOrDefault();
                 dee = "1"; outstatus = "1";
 
-                string ApprovalIP = StaticDB.GetFullIPAddress();
+                //string ApprovalIP = StaticDB.GetFullIPAddress();
+                string ApprovalIP  ="";
                 string OutError = "0";
 
                 if (string.IsNullOrEmpty(AppNo) || string.IsNullOrEmpty(AppType) || string.IsNullOrEmpty(status))
@@ -1206,7 +1207,7 @@ namespace PSEBONLINE.Controllers
                 }
 
 
-                DataSet ds = AbstractLayer.EAffiliationDB.EAffiliation_AppType_Approval(AppType, AppNo, approvedStatus, remarks, AdminUser, ApprovalFileNo, ApprovalIP, adminLoginSession.AdminEmployeeUserId, out OutError);
+                DataSet ds = AbstractLayer.EAffiliationDB.EAffiliation_AppType_Approval(AppType, AppNo, status, remarks, AdminUser, ApprovalFileNo, ApprovalIP, adminLoginSession.AdminEmployeeUserId, out OutError);
 
                 if (OutError == "1")
                 {
