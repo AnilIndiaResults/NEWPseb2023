@@ -1157,8 +1157,8 @@ namespace PSEBONLINE.AbstractLayer
             try
             {
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                string mail_from = ("noreply@psebonline.in");
-                mail.From = new MailAddress(mail_from, "psebonline.in");
+                string mail_from = ("noreply@pseb.ac.in");
+                mail.From = new MailAddress(mail_from, "pseb.ac.in");
                 if (to == "")
                 {
 
@@ -1178,9 +1178,9 @@ namespace PSEBONLINE.AbstractLayer
                 mail.Body = body;
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "mail.smtp2go.com";
+                smtp.Host = "smtp.netcorecloud.net";
                 smtp.Port = 2525;
-                //smtp.Credentials = new System.Net.NetworkCredential("noreply@psebonline.in", "YWZtam9qZWtrNHRr");
+                smtp.Credentials = new System.Net.NetworkCredential("indiaresultspep", "LxnTMoQgKN2023");
 
                 try
                 {
