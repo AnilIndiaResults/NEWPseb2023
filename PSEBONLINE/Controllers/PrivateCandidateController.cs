@@ -5752,7 +5752,7 @@ namespace PSEBONLINE.Controllers
                 {
                     string Orgfile = MS.refNo + "P" + ".jpg";
                     //MS.PathPhoto = "PvtPhoto/Photo/" + MS.refNo + "P" + ".jpg";
-                    MS.PathPhoto = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + Orgfile;
+                    MS.PathPhoto = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Photo/" + Orgfile;
 
                     //MS.std_Photo.SaveAs(pathPhoto);
 
@@ -5783,7 +5783,7 @@ namespace PSEBONLINE.Controllers
                 if (MS.std_Sign != null)
                 {
                     string Orgfile = MS.refNo + "S" + ".jpg";
-                    MS.PathSign = "PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + Orgfile;
+                    MS.PathSign = "allfiles/Upload2024/PvtPhoto/Batch" + MS.refNo.Substring(3, 4) + "/Sign/" + Orgfile;
 
                     using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
                     {
