@@ -6953,6 +6953,31 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
+
+        public DataSet GetFinalPrintChallan(string SchoolCode)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("GetFinalPrintChallanSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SchoolCode", SchoolCode);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
+
         #endregion
 
     }
