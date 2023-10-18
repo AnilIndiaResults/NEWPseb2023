@@ -557,8 +557,8 @@
                         <div class="col-md-8">
                             Upload Photo
                             @{
-                                ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + Convert.ToString(ViewBag.sign);
+                                ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Convert.ToString(ViewBag.Photo);
+                                ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Convert.ToString(ViewBag.sign);
                                 {
                                     @Html.TextBoxFor(a => a.std_Photo, new { id = "std_Photo", type = "file", onchange = "findSizeAndPreview(this)" })
                                     <span class="rqf">*Photo Size 5 to 50 KB (.JPG ONly)</span>
