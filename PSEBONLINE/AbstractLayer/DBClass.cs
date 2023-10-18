@@ -30,32 +30,49 @@ namespace PSEBONLINE.AbstractLayer
 
         public static List<SelectListItem> GetCorrectionTypeByClass(string cls)
         {
-            List<SelectListItem> SecList = new List<SelectListItem>();
+			DateTime specificDateTime = new DateTime(2023, 10, 22, 12, 0, 0);
+			List<SelectListItem> SecList = new List<SelectListItem>();
             string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
             if (class1 == "9")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                // SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+				
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				
+				// SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
             }
             else if (class1 == "11")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                // SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                //SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
+				
+				
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				
+				// SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				//SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+			}
             else if (class1 == "10")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				
+				if (DateTime.Now< specificDateTime)
+                {
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				}
+				//SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
                 // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
             }
             else if (class1 == "12")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                //SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
+				if (DateTime.Now < specificDateTime)
+				{
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				}
+				//SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				// SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+			}
             return SecList;
         }
 

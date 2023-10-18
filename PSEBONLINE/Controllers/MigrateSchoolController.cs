@@ -1745,13 +1745,14 @@ namespace PSEBONLINE.Controllers
              new{ID="4",Name="Father's Name"},new{ID="5",Name="Mother's Name"},new{ID="6",Name="DOB"},}, "ID", "Name", 1);
                 ViewBag.MyFilter = itemFilter.ToList();
 
-                var itemAction = new SelectList(new[] { new { ID = "1", Name = "Allot Descrepancy" }, }, "ID", "Name", 1);
+                var itemAction = new SelectList(new[] { new { ID = "0", Name = "All" }, new { ID = "1", Name = "Allot Descrepancy" }, new { ID = "2", Name = "Allot Regno" } }, "ID", "Name", 0);
                 ViewBag.MyAction = itemAction.ToList();
+				
 
 
-                //------------------------
+				//------------------------
 
-                string schlid = string.Empty;
+				string schlid = string.Empty;
 
                 if (id != null)
                 {
