@@ -22327,7 +22327,6 @@ namespace PSEBONLINE.Controllers
             }
         }
 
-
         public async Task<ActionResult> ViewInfrasturePerformas(string SCHL)
         {
             InfrasturePerformasviewModel ipm = new InfrasturePerformasviewModel();
@@ -22423,8 +22422,6 @@ namespace PSEBONLINE.Controllers
                 return View();
             }
         }
-
-
 
         #endregion
 

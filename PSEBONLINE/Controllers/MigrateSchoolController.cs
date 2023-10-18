@@ -1504,7 +1504,6 @@ namespace PSEBONLINE.Controllers
                 { ViewBag.IsREG = 1; }
                 else
                 {
-
                     string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                     string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
                     int AdminId = Convert.ToInt32(Session["AdminId"]);
