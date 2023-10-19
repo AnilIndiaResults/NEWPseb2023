@@ -30,7 +30,7 @@
             <div class="clearefix"></div>
             <div class="row">
                 <div class="col-md-2">
-                    Select Action:  @Html.DropDownList("SelAction", new SelectList(ViewBag.MyAction, "Value", "Text", ViewBag.SelectedAction), "Removed Reg. No.", new { @class = "" })
+                    Select Action:  @Html.DropDownList("SelAction", new SelectList(ViewBag.MyAction, "Value", "Text", ViewBag.SelectedAction), new { @class = "" })
                 </div>
                 <div class="col-md-2">
                     Select Form:  @Html.DropDownList("SelForm", new SelectList(ViewBag.MyForm, "Value", "Text", ViewBag.SelectedForm), "--All---", new { @class = "" })
