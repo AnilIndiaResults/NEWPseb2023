@@ -254,6 +254,7 @@ namespace PSEBONLINE.Models
     public class RecheckChallanMasterModel
     {
         public string RefNo { get; internal set; }
+        public string Class { get; internal set; }
         public string roll { get; internal set; }
         public int StatusNumber { get; set; }
         public string Action { get; set; }

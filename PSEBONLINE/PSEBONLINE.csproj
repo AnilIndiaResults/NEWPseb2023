@@ -1556,6 +1556,7 @@
     <Content Include="Views\Shared\_Grid.cshtml" />
     <Content Include="Views\Shared\_AssociateHeading.cshtml" />
     <Content Include="Views\Shared\_AssociateMenu.cshtml" />
+    <Content Include="Views\Shared\_Home_Header.cshtml" />
     <None Include="Web References\epunjabschool\service-pseb.wsdl" />
   </ItemGroup>
   <ItemGroup>
