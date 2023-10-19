@@ -677,41 +677,41 @@
                                 Upload Photo
 
                                 @{
-                                    if (ViewBag.Photo.Contains("Batch1022") || ViewBag.Photo.Contains("Batch1122") || ViewBag.Photo.Contains("Batch0722"))
-                                    {
-                                        ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Batch0122") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1021") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1122"))
-                                    {
-                                        ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Batch0722"))
-                                    {
-                                        ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("http"))
-                                    {
-                                        ViewBag.Photo = Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Open2021"))
-                                    {
-                                        ViewBag.Photo = Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = Convert.ToString(ViewBag.sign);
-                                    }
-                                    else if (ViewBag.Photo.Contains("Batch0324"))
-                                    {
-                                        ViewBag.Photo = "Upload2024/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2024/" + Convert.ToString(ViewBag.sign);
-                                    }
-                                    else
-                                    {
-                                        ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                        ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
-                                    }
+                                    //if (ViewBag.Photo.Contains("Batch1022") || ViewBag.Photo.Contains("Batch1122") || ViewBag.Photo.Contains("Batch0722"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Batch0122") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1021") || ViewBag.Photo.Contains("Batch0322") || ViewBag.Photo.Contains("Batch1122"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Batch0722"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2022/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2022/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("http"))
+                                    //{
+                                    //    ViewBag.Photo = Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Open2021"))
+                                    //{
+                                    //    ViewBag.Photo = Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else if (ViewBag.Photo.Contains("Batch0324"))
+                                    //{
+                                    //    ViewBag.Photo = "Upload2024/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2024/" + Convert.ToString(ViewBag.sign);
+                                    //}
+                                    //else
+                                    //{
+                                    //    ViewBag.Photo = "Upload2023/" + Convert.ToString(ViewBag.Photo);
+                                    //    ViewBag.sign = "Upload2023/" + Convert.ToString(ViewBag.sign);
+                                    //}
 
                                     var PExist = ViewBag.PhotoExist;
                                     var SExist = ViewBag.signExist;
@@ -738,7 +738,7 @@
 
                             </div>
 
-                            <div class="col-md-4"><img src="https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/@ViewBag.Photo" class="img-responsive" alt="Photo" id="imgPhoto" /></div>
+                            <div class="col-md-4"><img src="https://psebdata.s3.ap-south-1.amazonaws.com/@ViewBag.Photo" class="img-responsive" alt="Photo" id="imgPhoto" /></div>
 
                             <div class="clearfix"></div>
                             <div class="col-md-8">
@@ -768,7 +768,7 @@
 
                                 }
                             </div>
-                            <div class="col-md-4"><br /><img src="https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/@ViewBag.sign" class="img-responsive" alt="Signature" id="imgSign" /></div>
+                            <div class="col-md-4"><br /><img src="https://psebdata.s3.ap-south-1.amazonaws.com/@ViewBag.sign" class="img-responsive" alt="Signature" id="imgSign" /></div>
                         </div>
 
                     </div>
@@ -2075,15 +2075,7 @@
             return false;
         }
     }
-    //document.onkeydown=function(e)
-    //{
-    //    if(e.which == 17)
-    //    isCtrl=true;
-    //    if ((e.which == 85)) //85 for Ctrl+U, For Copy= (e.which == 67) && (isCtrl == true)
-    //    {
-    //        return false;
-    //    }
-    //}
+
     var isNS = (navigator.appName == "Netscape") ? 1 : 0;
     if (navigator.appName == "Netscape") document.captureEvents(Event.MOUSEDOWN || Event.MOUSEUP);
     function mischandler() {

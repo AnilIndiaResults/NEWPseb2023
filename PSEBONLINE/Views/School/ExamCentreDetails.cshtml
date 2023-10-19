@@ -58,8 +58,17 @@
     </style>
 
 
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
+        </div>
+        <div class="col-md-2">
+            <span style="font-size:14px;color:red;">Last Date :- 20-10-2023</span>
+        </div>
 
-    <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
+        
+    </div>
+    
 
     @using (Html.BeginForm("ExamCentreDetails", "School", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -667,7 +676,7 @@ if (Centerchoice == "" || CenterDistance=="") {
             $("#CenterChoices").chosen();
         });
     </script>
-    <script type='text/javascript'>
+    @*<script type='text/javascript'>
         var isCtrl = false;
         document.onkeyup=function(e)
         {
@@ -702,5 +711,5 @@ if (Centerchoice == "" || CenterDistance=="") {
         document.oncontextmenu = mischandler;
         document.onmousedown = mousehandler;
         document.onmouseup = mousehandler;
-        </script>
+        </script>*@
 

@@ -30,32 +30,49 @@ namespace PSEBONLINE.AbstractLayer
 
         public static List<SelectListItem> GetCorrectionTypeByClass(string cls)
         {
-            List<SelectListItem> SecList = new List<SelectListItem>();
+			DateTime specificDateTime = new DateTime(2023, 10, 22, 12, 0, 0);
+			List<SelectListItem> SecList = new List<SelectListItem>();
             string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
             if (class1 == "9")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                // SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+				
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				
+				// SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
             }
             else if (class1 == "11")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                // SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                //SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
+				
+				
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				
+				// SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				//SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+			}
             else if (class1 == "10")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				
+				if (DateTime.Now< specificDateTime)
+                {
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				}
+				//SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
                 // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
             }
             else if (class1 == "12")
             {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                //SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
+				if (DateTime.Now < specificDateTime)
+				{
+					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+
+				}
+				//SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+				// SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+			}
             return SecList;
         }
 
@@ -1157,8 +1174,8 @@ namespace PSEBONLINE.AbstractLayer
             try
             {
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                string mail_from = ("noreply@psebonline.in");
-                mail.From = new MailAddress(mail_from, "psebonline.in");
+                string mail_from = ("noreply@pseb.ac.in");
+                mail.From = new MailAddress(mail_from, "pseb.ac.in");
                 if (to == "")
                 {
 
@@ -1178,9 +1195,9 @@ namespace PSEBONLINE.AbstractLayer
                 mail.Body = body;
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "mail.smtp2go.com";
+                smtp.Host = "smtp.netcorecloud.net";
                 smtp.Port = 2525;
-                //smtp.Credentials = new System.Net.NetworkCredential("noreply@psebonline.in", "YWZtam9qZWtrNHRr");
+                smtp.Credentials = new System.Net.NetworkCredential("indiaresultspep", "LxnTMoQgKN2023");
 
                 try
                 {

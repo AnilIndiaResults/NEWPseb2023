@@ -27,22 +27,24 @@
             <div class="row">
                 <div class="col-xs-3 col-md-3"><img src="~/Images/pseb_logo.png" alt="Punjab School Education Board" class="img-responsive" /></div>
                 <div class="col-xs-9 col-md-6"><center> <img src="~/Images/PSEB_Text.png" alt="Punjab School Education Board" class="img-responsive" /></center></div>
-                <div class="col-xs-12 col-md-3 text-right">                
+                <div class="col-xs-12 col-md-3 text-right">
+                    Toll Free Help Line No. :<span class="blink_text">8058911911</span>
                     @if (Session["TollFreeStatus"] != null)
                     {
                         if (Session["TollFreeStatus"].ToString() == "1")
                         {
-                           <span style="color:#fff">
-                                Email Id: <a target="_blank" href="mailto:contact2@psebonline.in" style="color:#fff">psebhelpdesk@gmail.com</a><br />
-                                Toll Free Help Line No. :<span class="blink_text">18002700280</span>
+                            <span style="color:#fff">
+                                Email Id: <a target="_blank" href="mailto:psebhelpdesk@gmail.com" style="color:#fff">psebhelpdesk@gmail.com</a><br />
+                                Toll Free Help Line No. :<span class="blink_text">8058911911</span>
                             </span>
                         }
                         else
                         {
                             <span style="color:#fff">
-                                Email Id: <a target="_blank" href="mailto:contact2@psebonline.in" style="color:#fff">contact2@psebonline.in</a><br />
-                                Toll Free Help Line No. : <span class="blink_text">18004190690</span></span>
-                           
+                                Email Id: <a target="_blank" href="mailto:psebhelpdesk@gmail.com" style="color:#fff">psebhelpdesk@gmail.com</a><br />
+                                Toll Free Help Line No. : <span class="blink_text">8058911911</span>
+                            </span>
+
                         }
                     }
                     else { Response.Redirect("~/Login"); }

@@ -24,7 +24,7 @@
                     <input type="submit" value="Download Excel" formaction="RegSchoolListForExcel" formmethod="Post" />
                     <input type="submit" name="Reset" value="Reset" formaction="CancelForm" formmethod="post" />
                 </div>
-                
+
             }
         }
     </div>
@@ -88,113 +88,117 @@
                                 var status = Model.StoreAllData.Tables[0].Rows[i]["STATUS"].ToString();
                                 var vfalg = Model.StoreAllData.Tables[0].Rows[i]["vflag"].ToString();
                                 var Approved = Model.StoreAllData.Tables[0].Rows[i]["Approved"].ToString();
-                                var disCode = Model.StoreAllData.Tables[0].Rows[i]["dist"].ToString(); 
+                                var disCode = Model.StoreAllData.Tables[0].Rows[i]["dist"].ToString();
 
-                                        <tr>
-                                            <td>
-                                                @SCHL
-                                            </td>
-                                            @*<td>
-            @IDNO
-        </td>*@
-                                            <td>
-                                                @SCHLE,@StationE
-                                            </td>
-                                            
-                                            <td>
-                                                @Classs
-                                            </td>
-                                            <td>
-                                                @principalname
-                                            </td>
-                                            <td>
-                                                @mobilenumber
-                                            </td>
-                                            <td>
-                                                @(FinalSubmitStatus=="1"?"Submitted":"Pending")
-                                            </td>
-                                            @if (geolocation != "")
-                                            {
+                                <tr>
+                                    <td>
+                                        @SCHL
+                                    </td>
+                                    @*<td>
+                                            @IDNO
+                                        </td>*@
+                                    <td>
+                                        @SCHLE,@StationE
+                                    </td>
 
-                                                <td>
+                                    <td>
+                                        @Classs
+                                    </td>
+                                    <td>
+                                        @principalname
+                                    </td>
+                                    <td>
+                                        @mobilenumber
+                                    </td>
+                                    <td>
+                                        @(FinalSubmitStatus=="1"?"Submitted":"Pending")
+                                    </td>
+                                    @if (geolocation != "")
+                                    {
 
-                                                    <iframe name="frame1" src="https://maps.google.com/maps?q=@geolocation&hl=es;z=14&amp;output=embed" width="150" height="50"
-                                                            style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                                    </iframe>
+                                        <td>
 
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                </td>
-                                            }
-                                            @if (imgpath != "")
-                                            {
-                                                <td>
-                                                    <a href="@(AWS_URL+imgpath)" target="_blank">
-                                                        <img src="@(AWS_URL+imgpath)" class="img-responsive" alt="Photo" id="imgPhoto" style="width: 79px;height: 70px;" />
-                                                    </a>
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                </td>
-                                            }
+                                            <iframe name="frame1" src="https://maps.google.com/maps?q=@geolocation&hl=es;z=14&amp;output=embed" width="150" height="50"
+                                                    style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                                            </iframe>
 
-                                            <td>
-                                                @DISTE
-                                            </td>
-                                            @*<td>
-            @status
-        </td>*@
-                                            @*<td>
-            @vfalg
-        </td>*@
-                                            @*<td>
-            @Approved
-        </td>*@
-                                            <td>
-                                                <div class="cart">
-                                                    Choose Action <span class="caret"></span>
-                                                    <div id="sidebar">
-                                                        <ul>
-                                                            <li style="@(ViewBag.IsView == 1 ? "display:block" : "display:none")">
-                                                                @Html.ActionLink("View", "School_View_Form", new { id = SCHL })
-                                                               
-                                                            </li>
-                                                            <li>
-                                                                <span style="@(ViewBag.IsUnlockviewExamCentre > 0 ? "display:block" : "display:none")">
-                                                                    @Html.ActionLink("View ExamCentre Details", "ExamCentreDetailsPerformaForAdmin", new { SCHL = SCHL, DIST = disCode })
-                                                                </span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                        </td>
+                                    }
+                                    @if (imgpath != "")
+                                    {
+                                        <td>
+                                            <a href="@(AWS_URL+imgpath)" target="_blank">
+                                                <img src="@(AWS_URL+imgpath)" class="img-responsive" alt="Photo" id="imgPhoto" style="width: 79px;height: 70px;" />
+                                            </a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                        </td>
+                                    }
 
-                                                                <span style="@(ViewBag.IsUnlockViewInfrasturePerformas > 0 ? "display:block" : "display:none")">
-                                                                    @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
-                                                                </span>
+                                    <td>
+                                        @DISTE
+                                    </td>
+                                    @*<td>
+                                            @status
+                                        </td>*@
+                                    @*<td>
+                                            @vfalg
+                                        </td>*@
+                                    @*<td>
+                                            @Approved
+                                        </td>*@
+                                    <td>
+                                        <div class="cart">
+                                            Choose Action <span class="caret"></span>
+                                            <div id="sidebar">
+                                                <ul>
+                                                    <li style="@(ViewBag.IsView == 1 ? "display:block" : "display:none")">
+                                                        @Html.ActionLink("View", "School_View_Form", new { id = SCHL })
 
-                                                                <span style="@(ViewBag.IsUnlockUpdate_School_Informations > 0 ? "display:block" : "display:none")">
-                                                                    @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
-                                                                </span>
+                                                    </li>
+                                                    <li>
+                                                        <span style="@(ViewBag.IsUnlockviewExamCentre > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("View ExamCentre Details", "ExamCentreDetailsPerformaForAdmin", new { SCHL = SCHL, DIST = disCode })
+                                                        </span>
 
-                                                                <span style="@(ViewBag.IsUnlockInfrasturePerformaModifyForAdmin > 0 ? "display:block" : "display:none")">
-                                                                    @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
-                                                                    </span>
+                                                        <span style="@(ViewBag.IsUnlockViewInfrasturePerformas > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
+                                                        </span>
 
-                                                                    @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
-                                                                    <span style="@(ViewBag.IsUnlockInfrastructure > 0 ? "display:block" : "display:none")">
-                                                                        <button class="btn btn-primary" value="@SCHL" id="Infra" onclick="UnlockFormInfra()">Unlock Infrastructure</button>
-                                                                    </span>
+                                                        <span style="@(ViewBag.IsUnlockViewInfrasturePerformas > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("Download Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
+                                                        </span>
 
-                                                                    <span style="@(ViewBag.IsUnlockExamCenter > 0 ? "display:block" : "display:none")">
-                                                                        <button class="btn btn-primary" value="@SCHL" id="examcenter" onclick="UnlockFormexamcenter()">Unlock ExamCenter</button>
-                                                                    </span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                        <span style="@(ViewBag.IsUnlockUpdate_School_Informations > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockInfrasturePerformaModifyForAdmin > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
+                                                        </span>
+
+                                                        @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
+                                                        <span style="@(ViewBag.IsUnlockInfrastructure > 0 ? "display:block" : "display:none")">
+                                                            <button class="btn btn-primary" value="@SCHL" id="Infra" onclick="UnlockFormInfra()">Unlock Infrastructure</button>
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockExamCenter > 0 ? "display:block" : "display:none")">
+                                                            <button class="btn btn-primary" value="@SCHL" id="examcenter" onclick="UnlockFormexamcenter()">Unlock ExamCenter</button>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
 
                                 if (d == ViewBag.TotalCount)
                                 {
@@ -306,7 +310,7 @@
     function UnlockFormInfra() {
         debugger;
         console.log("form button clicked");
-        var schl=$("#Infra").val();
+        var schl = $("#Infra").val();
         var request = { schl: schl, type: 'Infra' };
         console.log(schl);
         $.ajax({
@@ -395,6 +399,6 @@
 
 
 <script type='text/javascript'>
-   
 
-    </script>
+
+</script>
