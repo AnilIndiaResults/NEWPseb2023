@@ -23,6 +23,7 @@ using Amazon.S3.Transfer;
 using Amazon.S3;
 using Amazon;
 using PSEBONLINE.AbstractLayer;
+using iTextSharp.text.pdf;
 
 namespace PSEBONLINE.Controllers
 {
@@ -22676,7 +22677,6 @@ namespace PSEBONLINE.Controllers
             return View(loginSession);
         }
 
-
         [HttpGet]
         public async Task<ActionResult> ExamCentreDetailsPerformaForAdmin(string SCHL, string DIST)
         {
@@ -22727,8 +22727,6 @@ namespace PSEBONLINE.Controllers
         #endregion
 
         #region unlock forms
-
-
         public JsonResult UnlockForms(string schl, string type)
         {
             DataSet newDs = new DataSet();
@@ -22740,18 +22738,8 @@ namespace PSEBONLINE.Controllers
             {
                 newDs = AbstractLayer.SchoolDB.unlockExamCenter(schl);
             }
-
-            return Json(newDs.Tables[0].Rows[0]["Status"]);
-
+            return Json(newDs.Tables[0].Rows[0]["Status"]);            
         }
-
-
-
-
-
         #endregion
-
-
-
     }
 }

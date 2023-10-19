@@ -217,7 +217,7 @@ namespace PSEBONLINE.Controllers
             return View(MS);
         }
         public ActionResult RecheckExamination()
-        {   
+        {
             Session["refno"] = null;
             Session["roll"] = null;
             Session["ChallanID"] = null;
@@ -932,6 +932,8 @@ namespace PSEBONLINE.Controllers
                     CM.FeeStudentList = "1";
                     RecheckPaymentformViewModel PFVMSession = (RecheckPaymentformViewModel)Session["RecheckPaymentform"];
                     CM.roll = roll;
+                    CM.Class = PFVMSession.Class;
+                    pfvm.Class = PFVMSession.Class;
                     CM.RefNo = refno;
                     //CM.FEE = Convert.ToInt32(PFVMSession.TotalFinalFees);
                     CM.FEE = Convert.ToInt32(PFVMSession.TotalFees);
