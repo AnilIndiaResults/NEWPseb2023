@@ -21536,7 +21536,7 @@ namespace PSEBONLINE.Controllers
             }
             if (!bCheck)
             { return View(ipm); }
-            else { return RedirectToAction("RegSchoolList"); }
+            else { return RedirectToAction("InfrasturePerformaModifyForAdmin",new {schl= Session["SCHL"].ToString(), Dist= Session["DIST"].ToString() }); }
 
         }
 
