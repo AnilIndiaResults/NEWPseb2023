@@ -1504,7 +1504,6 @@ namespace PSEBONLINE.Controllers
                 { ViewBag.IsREG = 1; }
                 else
                 {
-
                     string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
                     string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
                     int AdminId = Convert.ToInt32(Session["AdminId"]);
@@ -1671,7 +1670,8 @@ namespace PSEBONLINE.Controllers
                 List<SelectListItem> ErrorList10 = new List<SelectListItem>();
                 List<SelectListItem> ErrorList11 = new List<SelectListItem>();
                 List<SelectListItem> ErrorList12 = new List<SelectListItem>();
-                foreach (System.Data.DataRow dr in result1.Tables[2].Rows)
+				List<SelectListItem> ErrorList27 = new List<SelectListItem>();
+				foreach (System.Data.DataRow dr in result1.Tables[2].Rows)
                 {
                     if (dr["FORM"].ToString() == "F2")
                     {
@@ -1703,17 +1703,21 @@ namespace PSEBONLINE.Controllers
                         ErrorList10.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
                         ErrorList11.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
                         ErrorList12.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
-                    }
+						ErrorList27.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
+					}
                 }
                 ViewBag.ErrorList5 = ErrorList5;
                 ViewBag.ErrorList8 = ErrorList8;
                 ViewBag.ErrorList9 = ErrorList9;
                 ViewBag.ErrorList10 = ErrorList10;
                 ViewBag.ErrorList11 = ErrorList11;
-                ViewBag.ErrorList12 = ErrorList12;               // MS.ErrorList = ErrorList9;
-                /*******/
+                ViewBag.ErrorList12 = ErrorList12;
+				ViewBag.ErrorList27 = ErrorList27;
 
-                List<SelectListItem> empList = new List<SelectListItem>();
+				// MS.ErrorList = ErrorList9;
+				/*******/
+
+				List<SelectListItem> empList = new List<SelectListItem>();
                 foreach (System.Data.DataRow dr in ViewBag.AllEmpList.Rows)
                 {
                     empList.Add(new SelectListItem { Text = @dr["EmpDisplayName"].ToString(), Value = @dr["EmpId"].ToString() });
@@ -1746,13 +1750,14 @@ namespace PSEBONLINE.Controllers
              new{ID="4",Name="Father's Name"},new{ID="5",Name="Mother's Name"},new{ID="6",Name="DOB"},}, "ID", "Name", 1);
                 ViewBag.MyFilter = itemFilter.ToList();
 
-                var itemAction = new SelectList(new[] { new { ID = "1", Name = "Allot Descrepancy" }, }, "ID", "Name", 1);
+                var itemAction = new SelectList(new[] { new { ID = "0", Name = "All" }, new { ID = "1", Name = "Allot Descrepancy" }, new { ID = "2", Name = "Allot Regno" } }, "ID", "Name", 0);
                 ViewBag.MyAction = itemAction.ToList();
+				
 
 
-                //------------------------
+				//------------------------
 
-                string schlid = string.Empty;
+				string schlid = string.Empty;
 
                 if (id != null)
                 {
@@ -1865,7 +1870,8 @@ namespace PSEBONLINE.Controllers
                 List<SelectListItem> ErrorList10 = new List<SelectListItem>();
                 List<SelectListItem> ErrorList11 = new List<SelectListItem>();
                 List<SelectListItem> ErrorList12 = new List<SelectListItem>();
-                foreach (System.Data.DataRow dr in result1.Tables[2].Rows)
+				List<SelectListItem> ErrorList27 = new List<SelectListItem>();
+				foreach (System.Data.DataRow dr in result1.Tables[2].Rows)
                 {
                     if (dr["FORM"].ToString() == "F2")
                     {
@@ -1897,14 +1903,18 @@ namespace PSEBONLINE.Controllers
                         ErrorList10.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
                         ErrorList11.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
                         ErrorList12.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
-                    }
+						ErrorList27.Add(new SelectListItem { Text = @dr["Error_Code"].ToString(), Value = @dr["Error_desc"].ToString() });
+					}
                 }
                 ViewBag.ErrorList5 = ErrorList5;
                 ViewBag.ErrorList8 = ErrorList8;
                 ViewBag.ErrorList9 = ErrorList9;
                 ViewBag.ErrorList10 = ErrorList10;
                 ViewBag.ErrorList11 = ErrorList11;
-                ViewBag.ErrorList12 = ErrorList12;               // MS.ErrorList = ErrorList9;
+                ViewBag.ErrorList12 = ErrorList12;
+                ViewBag.ErrorList27 = ErrorList27;
+
+                // MS.ErrorList = ErrorList9;
                 /*******/
                 List<SelectListItem> empList = new List<SelectListItem>();
                 foreach (System.Data.DataRow dr in ViewBag.AllEmpList.Rows)
@@ -1945,10 +1955,10 @@ namespace PSEBONLINE.Controllers
             new{ID="4",Name="Father's Name"},new{ID="5",Name="Mother's Name"},new{ID="6",Name="DOB"},}, "ID", "Name", 1);
             ViewBag.MyFilter = itemFilter.ToList();
 
-            var itemAction = new SelectList(new[] { new { ID = "1", Name = "Allot Descrepancy" }, }, "ID", "Name", 1);
-            ViewBag.MyAction = itemAction.ToList();
-            ////------------------------
-            ViewBag.SelectedFilter = "0";
+			var itemAction = new SelectList(new[] { new { ID = "0", Name = "All" }, new { ID = "1", Name = "Allot Descrepancy" }, new { ID = "2", Name = "Allot Regno" } }, "ID", "Name", 0);
+			ViewBag.MyAction = itemAction.ToList();
+			////------------------------
+			ViewBag.SelectedFilter = "0";
             ViewBag.SelectedAction = "0";
             ViewBag.SelectedForm = "0";
             ViewBag.SelectedLot = "0";
@@ -2333,7 +2343,7 @@ namespace PSEBONLINE.Controllers
                 new{ID="4",Name="Father's Name"},new{ID="5",Name="Mother's Name"},new{ID="6",Name="DOB"},}, "ID", "Name", 1);
                 ViewBag.MyFilter = itemFilter.ToList();
 
-                var itemAction = new SelectList(new[] { new { ID = "1", Name = "Removed Error" }, new { ID = "2", Name = "Remove Descrepancy" }, }, "ID", "Name", 1);
+                var itemAction = new SelectList(new[] { new { ID = "0", Name = "All" },new { ID = "1", Name = "Allotted Regno" },new { ID = "2", Name = " Error list" }, new { ID = "3", Name = "Descrepancy List" }, }, "ID", "Name", 1);
                 ViewBag.MyAction = itemAction.ToList();
 
                 ViewBag.SelectedFilter = "0";
@@ -2494,10 +2504,11 @@ namespace PSEBONLINE.Controllers
             new{ID="4",Name="Father's Name"},new{ID="5",Name="Mother's Name"},new{ID="6",Name="DOB"},}, "ID", "Name", 1);
             ViewBag.MyFilter = itemFilter.ToList();
 
-            var itemAction = new SelectList(new[] { new { ID = "1", Name = "Removed Error" }, new { ID = "2", Name = "Removed Descrepancy" }, }, "ID", "Name", 1);
-            ViewBag.MyAction = itemAction.ToList();
 
-            ViewBag.SelectedFilter = ViewBag.SelectedFilter;
+			var itemAction = new SelectList(new[] { new { ID = "0", Name = "All" }, new { ID = "1", Name = "Allotted Regno" }, new { ID = "2", Name = " Error list" }, new { ID = "3", Name = "Descrepancy List" }, }, "ID", "Name", 1);
+			ViewBag.MyAction = itemAction.ToList();
+
+			ViewBag.SelectedFilter = ViewBag.SelectedFilter;
             ViewBag.SelectedAction = ViewBag.SelectedAction;
             ViewBag.SelectedForm = ViewBag.SelectedForm;
             ViewBag.SelectedLot = ViewBag.SelectedLot;
@@ -2511,20 +2522,23 @@ namespace PSEBONLINE.Controllers
                 {
                     ViewBag.SelectedAction = frm["SelAction"];
                     int SelValueSch = Convert.ToInt32(frm["SelAction"].ToString());
-                    if (frm["SelAction"] != "")
+                    if (frm["SelAction"] != "" && frm["SelAction"] != "0")
                     {
 
-                        if (SelValueSch == 1)
-                        { Search += " and  Registration_num like 'ERR%'"; }
-                        else if (SelValueSch == 2)
+						if (SelValueSch == 1)
+						{ Search += " and  Registration_num !='' and Registration_num not like '%ERR%'"; }
+                        else if(SelValueSch == 2)
+							{ Search += " and  Registration_num !='' and Registration_num like '%ERR%'"; }
+                        else if (SelValueSch == 3)
                         { Search += " and  Registration_num like '%:ERR%'"; }
                     }
                 }
-                if (frm["SelAction"] == "")
+                if (frm["SelAction"] == "" || frm["SelAction"] == "0")
                 {
                     ViewBag.SelectedAction = "0";
-                    Search += " and  Registration_num not like '%ERR%'";
-                }
+                    //Search += " and  Registration_num not like '%ERR%'";
+					Search += "";
+				}
                 //else { ViewBag.SelectedAction = "0"; }
 
                 if (frm["SelForm"] != "")
@@ -2611,20 +2625,37 @@ namespace PSEBONLINE.Controllers
                     //string errid = s.Split('(', ')')[1];
                     if (stdid != "")
                     {
-                        dee = objDB.RemoveRegno(stdid, Convert.ToInt32(Action), userid, selEmp, adminLoginSession.AdminEmployeeUserId);
-                    }
+                        string AdminEmployeeUserId = adminLoginSession.AdminEmployeeUserId;
+                       
+                        try
+                        {
+							dee = objDB.RemoveRegno(stdid, Convert.ToInt16(Action), userid, selEmp, AdminEmployeeUserId);
+
+						}
+                        catch(Exception ex)
+                        {
+                            
+                        }
+
+
+						//dee = objDB.RemoveRegno(stdid, Convert.ToInt16(Action), userid, selEmp, AdminEmployeeUserId);
+					}
                 }
             }
             string Message = "";
-            if (Convert.ToInt32(Action) == 0)
+			if (Convert.ToInt32(Action) == 0)
+			{
+				Message = "Registration Number Removed Successfully";
+			}
+			if (Convert.ToInt32(Action) == 1)
             {
                 Message = "Registration Number Removed Successfully";
             }
-            if (Convert.ToInt32(Action) == 1)
+            if (Convert.ToInt32(Action) == 2)
             {
                 Message = "Error Removed Successfully";
             }
-            if (Convert.ToInt32(Action) == 2)
+            if (Convert.ToInt32(Action) == 3)
             {
                 Message = "Descrepancy Removed Successfully";
             }

@@ -23,6 +23,7 @@ using Amazon.S3.Transfer;
 using Amazon.S3;
 using Amazon;
 using PSEBONLINE.AbstractLayer;
+using iTextSharp.text.pdf;
 
 namespace PSEBONLINE.Controllers
 {
@@ -926,7 +927,7 @@ namespace PSEBONLINE.Controllers
                         }
                         else if (Type == "2")
                         {
-                            string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Respected " + PRINCIPAL + "</b>,</td></tr><tr><td><b>Your School Login Details are given Below for Punjab School Education Board Web Portal :-</b><br /><b>School Code :</b> " + Schl + "<br /><b>School Name :</b> " + Password + "<br /></td></tr><tr><td><b>Path :</b><a href=https://www.registration.pseb.ac.in target = _blank>www.registration.pseb.ac.in</a><br /><b>UserId :</b> " + Schl + "<br /><b>Password :</b> " + Password + "<br /></td></tr><tr><td><b>Note:</b>Make sure change password after first login for Security reason.</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 18002700280<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:Contact2@psebonline.in target=_blank>contact2@psebonline.in</a><br><b>Toll Free Help Line No. :</b> 18004190690<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
+                            string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Respected " + PRINCIPAL + "</b>,</td></tr><tr><td><b>Your School Login Details are given Below for Punjab School Education Board Web Portal :-</b><br /><b>School Code :</b> " + Schl + "<br /><b>School Name :</b> " + Password + "<br /></td></tr><tr><td><b>Path :</b><a href=https://https://registration2023.pseb.ac.in target = _blank>https://registration2023.pseb.ac.in</a><br /><b>UserId :</b> " + Schl + "<br /><b>Password :</b> " + Password + "<br /></td></tr><tr><td><b>Note:</b>Make sure change password after first login for Security reason.</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
                             string subject = "School Login Details for PSEB Portal.";
                             bool result = new AbstractLayer.DBClass().mail(subject, body, emailid);
                             if (result == true)
@@ -21535,7 +21536,7 @@ namespace PSEBONLINE.Controllers
             }
             if (!bCheck)
             { return View(ipm); }
-            else { return RedirectToAction("RegSchoolList"); }
+            else { return RedirectToAction("InfrasturePerformaModifyForAdmin",new {schl= Session["SCHL"].ToString(), Dist= Session["DIST"].ToString() }); }
 
         }
 
@@ -22327,7 +22328,6 @@ namespace PSEBONLINE.Controllers
             }
         }
 
-
         public async Task<ActionResult> ViewInfrasturePerformas(string SCHL)
         {
             InfrasturePerformasviewModel ipm = new InfrasturePerformasviewModel();
@@ -22423,8 +22423,6 @@ namespace PSEBONLINE.Controllers
                 return View();
             }
         }
-
-
 
         #endregion
 
@@ -22679,7 +22677,6 @@ namespace PSEBONLINE.Controllers
             return View(loginSession);
         }
 
-
         [HttpGet]
         public async Task<ActionResult> ExamCentreDetailsPerformaForAdmin(string SCHL, string DIST)
         {
@@ -22730,8 +22727,6 @@ namespace PSEBONLINE.Controllers
         #endregion
 
         #region unlock forms
-
-
         public JsonResult UnlockForms(string schl, string type)
         {
             DataSet newDs = new DataSet();
@@ -22743,18 +22738,8 @@ namespace PSEBONLINE.Controllers
             {
                 newDs = AbstractLayer.SchoolDB.unlockExamCenter(schl);
             }
-
-            return Json(newDs.Tables[0].Rows[0]["Status"]);
-
+            return Json(newDs.Tables[0].Rows[0]["Status"]);            
         }
-
-
-
-
-
         #endregion
-
-
-
     }
 }

@@ -3034,7 +3034,7 @@ namespace PSEBONLINE.AbstractLayer
             sb.AppendLine("<br/>ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ,");
             sb.AppendLine("<br/>ਐੱਸ.ਏ.ਐੱਸ. ਨਗਰ (ਮੋਹਾਲੀ)");
             sb.AppendLine("<br/><br/>ਓਪਨ ਸਕੂਲ ਸਬੰਧੀ ਕਿਸੇ ਵੀ ਜਾਣਕਾਰੀ ਲਈ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ: 0172-5227195, 197");
-            sb.AppendLine("<br/>ਟੋਲ ਫਰੀ ਨੰ: 18002700280");
+            sb.AppendLine("<br/>ਟੋਲ ਫਰੀ ਨੰ: 8058911911");
             sb.AppendLine("<br/><br/><hr/><br/><br/>");
             sb.AppendLine("Respected Principal/Headmaster,");
             sb.AppendLine("<br/><br/>");
@@ -3048,7 +3048,7 @@ namespace PSEBONLINE.AbstractLayer
             sb.AppendLine("<br/>e-Open School Team,");
             sb.AppendLine("<br/>Punjab School Education Board");
             sb.AppendLine("<br/>Contact us: 0172-5227195, 197");
-            sb.AppendLine("<br/>Toll free no- 18002700280");
+            sb.AppendLine("<br/>Toll free no- 8058911911");
 
             msg.IsBodyHtml = true;
             msg.Body = sb.ToString();

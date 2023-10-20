@@ -43,7 +43,7 @@ namespace PSEBONLINE.Controllers
         private const string BUCKET_NAME = "psebdata";
         #region SiteMenu       
 
-        //Executes before every action
+        //Executes before every actionm
         protected override void OnActionExecuting(ActionExecutingContext context)
         {
             try
@@ -8151,7 +8151,7 @@ namespace PSEBONLINE.Controllers
                     }
                     if (oModel.EmailID != "")
                     {
-                        string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + oModel.User_fullnm + "</b>,</td></tr><tr><td><b>Your Admin User Details are given Below:-</b><br /><b>User Id :</b> " + oModel.user + "<br /><b>Password :</b> " + oModel.pass + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://www.registration.pseb.ac.in/Admin target = _blank>www.registration.pseb.ac.in/Admin</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /></td></tr>";
+                        string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + oModel.User_fullnm + "</b>,</td></tr><tr><td><b>Your Admin User Details are given Below:-</b><br /><b>User Id :</b> " + oModel.user + "<br /><b>Password :</b> " + oModel.pass + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://registration2023.pseb.ac.in/Admin target = _blank>https://registration2023.pseb.ac.in/Admin</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /></td></tr>";
                         // bool result = new AbstractLayer.DBClass().mail("PSEB - Admin User Details", body, "rohit.nanda@ethical.in");
                         bool result = new AbstractLayer.DBClass().mail("PSEB - Admin User Details", body, oModel.EmailID);
                     }
@@ -22296,12 +22296,12 @@ namespace PSEBONLINE.Controllers
                 else if (AppType == "AC")
                 {
 
-                    //if (frm["AppCls"] != "")
-                    //{
-                    //    ViewBag.SelectedCls = frm["AppCls"];
-                    //    TempData["SelectedCls"] = frm["AppCls"];
-                    //    Search += " and ClassLevel='" + frm["AppCls"].ToString() + "'";
-                    //}
+                    if (frm["AppCls"] != "")
+                    {
+                        ViewBag.SelectedCls = frm["AppCls"];
+                        TempData["SelectedCls"] = frm["AppCls"];
+                        Search += " and ClassLevel='" + frm["AppCls"].ToString() + "'";
+                    }
                     if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
@@ -22927,11 +22927,16 @@ namespace PSEBONLINE.Controllers
                 TempData["SelAppType"] = AppType;
                 int SelAction = 0;
                 Search = "APPNO is not null ";
-                Search += " and  isnull(ApprovalStatus,'')=''";  // blank
+                //Search += " and  isnull(ApprovalStatus,'')=''";  // blank
 
                 if (AppType == "AFF")
                 {
-
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    }
 
                     if (frm["AppCls"] != "")
                     {
@@ -23017,6 +23022,13 @@ namespace PSEBONLINE.Controllers
 
                 else if (AppType == "AC")
                 {
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    }
+
 
                     if (frm["Dist1"] != "")
                     {
@@ -23081,6 +23093,13 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (AppType == "AS")
                 {
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    }
+
                     if (frm["AppCls"] != "")
                     {
                         ViewBag.SelectedCls = frm["AppCls"];
@@ -26920,8 +26939,58 @@ namespace PSEBONLINE.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public ActionResult FinalPrintForAdmin(string schl)
+        {
+            try
+            {
+
+                ChallanMasterModel CM = new ChallanMasterModel();
+                ViewBag.Message = "Record Not Found";
+                return View();
+               
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return RedirectToAction("Logout", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult FinalPrintForAdmin(FormCollection frm)
+        {
+            try
+            {
+
+                ChallanMasterModel CM = new ChallanMasterModel();
+                string schl = frm["schl"];
+
+
+                DataSet ds = objDB.GetFinalPrintChallan(schl);
+                CM.ChallanMasterData = ds;
+                if (CM.ChallanMasterData == null || CM.ChallanMasterData.Tables[0].Rows.Count == 0)
+                {
+                    ViewBag.Message = "Record Not Found";
+                    ViewBag.TotalCount = 0;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.TotalCount = CM.ChallanMasterData.Tables[0].Rows.Count;
+                    return View(CM);
+                }
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return View();
+            }
+        }
     }
-}
+}   
 
 
 
