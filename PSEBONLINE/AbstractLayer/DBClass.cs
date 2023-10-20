@@ -446,8 +446,8 @@ namespace PSEBONLINE.AbstractLayer
         public static List<SelectListItem> GetAcceptRejectDDL()
         {
             List<SelectListItem> itemStatus = new List<SelectListItem>();
-            itemStatus.Add(new SelectListItem { Text = "Accept", Value = "A" });
-            itemStatus.Add(new SelectListItem { Text = "Reject", Value = "R" });
+            itemStatus.Add(new SelectListItem { Text = "Accept", Value = "2" });
+            itemStatus.Add(new SelectListItem { Text = "Reject", Value = "3" });
             //itemStatus.Add(new SelectListItem { Text = "Cancel", Value = "C" });
             return itemStatus;
         }

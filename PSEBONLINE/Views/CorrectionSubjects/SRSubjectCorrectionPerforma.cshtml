@@ -2032,25 +2032,25 @@ else { Response.Redirect("~/Login"); }
 
     $("#PreNSQF").change(function () {
 
-        $("#NsqfPattern").prop('disabled', false);
-        $("#NsqfPattern").val('');
+        //$("#NsqfPattern").prop('disabled', false);
+        $("#NsqfPattern").val('2');
         $("#NSQFsubS6").empty();
         var selectedText = $(this).find("option:selected").text();
         var selectedVal = $("#PreNSQF").val();//document.getElementById("#MyDist");
-        $("#NsqfPattern").prop('disabled', false);
+       // $("#NsqfPattern").prop('disabled', false);
         if (selectedVal == "" || selectedVal == "0") {
-            $('#dvNSQFYESPATTERN').css("display", "none");
-            $("#NsqfPattern").prop('required', false);
-            $("#NsqfPattern").val('');
+            //$('#dvNSQFYESPATTERN').css("display", "none");
+            //$("#NsqfPattern").prop('required', false);
+            $("#NsqfPattern").val('2');
             $('#NSQFSUB').css("display", "none");
             $("#NSQFsubS6").empty();
         }
         else if (selectedVal == "NO") {
-            $('#dvNSQFYESPATTERN').css("display", "block");
-            $("#NsqfPattern").prop('required', true);
-            $("#NsqfPattern").prop('disabled', true);
+            //$('#dvNSQFYESPATTERN').css("display", "block");
+            //$("#NsqfPattern").prop('required', true);
+            //$("#NsqfPattern").prop('disabled', true);
             $("#NsqfPattern").val('2');
-            //
+            ////
             bind_S9_HUM();
             // bind_NSQFSUB6('2');
             $('#NSQFSUB').css("display", "block");
@@ -2061,9 +2061,9 @@ else { Response.Redirect("~/Login"); }
         }
         else {
             $('#NSQFSUB').css("display", "block");
-            $('#dvNSQFYESPATTERN').css("display", "block");
-            $("#NsqfPattern").prop('required', true);
-            $("#NsqfPattern").val('');
+            //$('#dvNSQFYESPATTERN').css("display", "block");
+            //$("#NsqfPattern").prop('required', true);
+            $("#NsqfPattern").val('2');
         }
 
     });
@@ -2226,23 +2226,23 @@ else { Response.Redirect("~/Login"); }
 
     $("#PreNSQFcomm").change(function () {
 
-        $("#NsqfPattern_COMM").prop('disabled', false);
-        $("#NsqfPattern_COMM").val('');
+        //$("#NsqfPattern_COMM").prop('disabled', false);
+        $("#NsqfPattern_COMM").val('2');
         $("#NSQFsubS6comm").empty();
         var selectedText = $(this).find("option:selected").text();
         var selectedVal = $("#PreNSQFcomm").val();//document.getElementById("#MyDist");
-        $("#NsqfPattern_COMM").prop('disabled', false);
+        //$("#NsqfPattern_COMM").prop('disabled', false);
         if (selectedVal == "" || selectedVal == "0") {
-            $('#dvNSQFYESPATTERN_COMM').css("display", "none");
-            $("#NsqfPattern_COMM").prop('required', false);
-            $("#NsqfPattern_COMM").val('');
+           // $('#dvNSQFYESPATTERN_COMM').css("display", "none");
+            //$("#NsqfPattern_COMM").prop('required', false);
+            $("#NsqfPattern_COMM").val('2');
             $('#NSQFSUBcomm').css("display", "none");
             $("#NSQFsubS6comm").empty();
         }
         else if (selectedVal == "NO") {
-            $('#dvNSQFYESPATTERN_COMM').css("display", "block");
-            $("#NsqfPattern_COMM").prop('required', true);
-            $("#NsqfPattern_COMM").prop('disabled', true);
+            //$('#dvNSQFYESPATTERN_COMM').css("display", "block");
+            //$("#NsqfPattern_COMM").prop('required', true);
+            //$("#NsqfPattern_COMM").prop('disabled', true);
             $("#NsqfPattern_COMM").val('2');
             //
             $('#NSQFSUBcomm').css("display", "block");
@@ -2255,10 +2255,10 @@ else { Response.Redirect("~/Login"); }
         }
         else {
             $('#NSQFSUBcomm').css("display", "block");
-            $('#dvNSQFYESPATTERN_COMM').css("display", "block");
-            $("#NsqfPattern_COMM").prop('required', true);
-            $("#NsqfPattern_COMM_COMM").val('');
-        }
+           // $('#dvNSQFYESPATTERN_COMM').css("display", "block");
+        //    $("#NsqfPattern_COMM").prop('required', true);
+        //    $("#NsqfPattern_COMM_COMM").val('');
+        //}
 
     });
 
@@ -3939,8 +3939,10 @@ else { Response.Redirect("~/Login"); }
                             }
                             else {
                                 if (selectedValNsqfPattern.value == "" || selectedValNsqfPattern.value == "0") {
-                                    alert("Select Nsqf Pattern");
-                                    document.getElementById("NsqfPattern").focus();
+                                    $("#NsqfPattern").val('2');
+                                    NsqfPattern
+                                    //alert("Select Nsqf Pattern");
+                                    //document.getElementById("NsqfPattern").focus();
                                     return false;
                                 }
                             }
