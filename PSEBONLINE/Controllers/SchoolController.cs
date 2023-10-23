@@ -22459,6 +22459,7 @@ namespace PSEBONLINE.Controllers
 
         public ActionResult ExamCentreDetails()
         {
+            LoginSession loginSession = (LoginSession)Session["LoginSession"];
             if (Session["SCHL"] == null)
             {
                 return RedirectToAction("Index", "Login");
@@ -22482,6 +22483,19 @@ namespace PSEBONLINE.Controllers
 
                     objGroupList.Add(objGroupLists);
                 }
+            }
+
+            DataSet results = RegistrationDB.Get_School_Center_Choice_Finalsubmittedforchoice();
+            if (results.Tables.Count > 0)
+            {
+                foreach (DataRow dr in results.Tables[0].Rows) // For addition Section
+                {
+                    loginSession.Finalsubmittedforchoice = dr["Finalsubmittedforchoice"].ToString() != "0" ? 1 : 0;
+                }
+            }
+            else
+            {
+                loginSession.Finalsubmittedforchoice = 0;
             }
 
 
@@ -22538,7 +22552,7 @@ namespace PSEBONLINE.Controllers
                 ViewBag.SchoolCenterNameNearestOld = new SelectList(itemsTehold, "Value", "Text");
             }
 
-            LoginSession loginSession = (LoginSession)Session["LoginSession"];
+
             return View(loginSession);
         }
 
@@ -22738,7 +22752,7 @@ namespace PSEBONLINE.Controllers
             {
                 newDs = AbstractLayer.SchoolDB.unlockExamCenter(schl);
             }
-            return Json(newDs.Tables[0].Rows[0]["Status"]);            
+            return Json(newDs.Tables[0].Rows[0]["Status"]);
         }
         #endregion
     }
