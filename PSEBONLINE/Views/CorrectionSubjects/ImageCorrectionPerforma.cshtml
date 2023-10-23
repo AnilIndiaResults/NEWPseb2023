@@ -164,7 +164,8 @@
                                             var OPhotoSign = "";
                                             if (cls == "Matriculation Open" || cls == "Sr.Secondary Open")
                                             {
-                                                OPhotoSign =   Model.StoreAllData.Tables[0].Rows[i]["CandPhotoFullPath"].ToString();
+                                                //OPhotoSign =   Model.StoreAllData.Tables[0].Rows[i]["CandPhotoFullPath"].ToString();
+                                                OPhotoSign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
                                             }
                                             else
                                             {

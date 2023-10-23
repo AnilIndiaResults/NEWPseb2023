@@ -15266,7 +15266,7 @@ namespace PSEBONLINE.Controllers
 
 
                 //GetAllowedGroupListBySchool
-                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDL();
+                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDL();   
                 ViewBag.MyGroup = MyAcceptRejectList;
 
                 string Search = "MigrationId like '%%' and class not in (5,8) ";

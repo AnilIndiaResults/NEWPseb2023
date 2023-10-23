@@ -316,14 +316,15 @@
                                     //var Class = Model.Correctiondatafinal.Tables[0].Rows[i]["Class"].ToString();
                                     var CorrectionType = Model.Correctiondatafinal.Tables[0].Rows[i]["CorrectionFieldDisplayName"].ToString();
                                     var cls = Model.Correctiondatafinal.Tables[0].Rows[i]["Class"].ToString();
+                                    var AWS_URL = System.Configuration.ConfigurationManager.AppSettings["AWSURL"].ToString();
                                     var OldValue = "";
                                     if (cls == "Matriculation Open" || cls == "Sr.Secondary Open")
                                     {
-                                        OldValue = "https://registration2022.pseb.ac.in/upload/" + Model.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
+                                        OldValue = AWS_URL + Model.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
                                     }
                                     else
                                     {
-                                        OldValue = "https://registration2022.pseb.ac.in/upload/upload2020/" + Model.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
+                                        OldValue = AWS_URL + Model.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
                                     }
 
 

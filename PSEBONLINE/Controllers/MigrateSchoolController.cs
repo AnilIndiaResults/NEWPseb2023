@@ -1982,12 +1982,12 @@ namespace PSEBONLINE.Controllers
                     TempData["SelAction"] = frm["SelAction"];
                     ViewBag.SelectedAction = frm["SelAction"];
                     int SelValueSch = Convert.ToInt32(frm["SelAction"].ToString());
-                    if (frm["SelAction"] != "")
+                    if (frm["SelAction"] != "0")
                     {
                         if (SelValueSch == 1)
-                        { Search += " and  Registration_num!='' "; }
+                        { Search += " and  Registration_num!='' and  Registration_num not like 'BS/23%' "; }
                         else
-                        { Search += "  and (Registration_num is null or Registration_num='') "; }
+                        { Search += "  and (Registration_num is not null or Registration_num!='' and Registration_num not like '%ERR%') "; }
                     }
                 }
 
