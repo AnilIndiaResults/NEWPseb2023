@@ -5284,7 +5284,7 @@ namespace PSEBONLINE.AbstractLayer
                             }
                             else
                             {
-                                filelocation = Path.Combine(DwonSp + "/Upload2023/", str);
+                                filelocation = Path.Combine("X:/", str);
                             }
 
                             //// check File Exists
@@ -5324,14 +5324,15 @@ namespace PSEBONLINE.AbstractLayer
                     //loopcounter
                     for (int loopcounter = 0; loopcounter < dt.Rows.Count; loopcounter++)
                     {
-                        //assign dataset values to array
-                        arrvalues[0, loopcounter] = dt.Rows[loopcounter]["Photo"].ToString();
-                        arrvalues[1, loopcounter] = dt.Rows[loopcounter]["Sign"].ToString();
+						//assign dataset values to array
+						arrvalues[0, loopcounter] = dt.Rows[loopcounter]["Photo"].ToString();
+						arrvalues[1, loopcounter] = dt.Rows[loopcounter]["Sign"].ToString();
+						
 
-                        // arrvalues[0, loopcounter] = dt.Rows[loopcounter]["PhotoPath"].ToString();
-                        //arrvalues[1, loopcounter] = dt.Rows[loopcounter]["SignPath"].ToString();
-                    }
-                }
+						//                  arrvalues[0, loopcounter] = dt.Rows[loopcounter]["SignPath"].ToString();
+						//arrvalues[1, loopcounter] = dt.Rows[loopcounter]["PhotoPath"].ToString();
+					}
+				}
                 return arrvalues;
             }
             catch (Exception ex)

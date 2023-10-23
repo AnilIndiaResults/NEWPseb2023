@@ -22682,7 +22682,7 @@ namespace PSEBONLINE.Controllers
                 string AdminType = Session["AdminType"].ToString().ToUpper();
                 string AdminUser = Session["AdminUser"].ToString().ToUpper();
 
-                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDL();
+                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDLForMigration();
                 ViewBag.MyApprovalStatusList = MyAcceptRejectList;
 
                 string DistAllow = "";
@@ -22848,7 +22848,7 @@ namespace PSEBONLINE.Controllers
                 }
                 int AdminId = Convert.ToInt32(Session["AdminId"]);
                 string AdminType = Session["AdminType"].ToString().ToUpper();
-                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDL();
+                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDLForMigration();
                 ViewBag.MyApprovalStatusList = MyAcceptRejectList;
                 string DistAllow = "";
                 // Dist Allowed
@@ -22934,8 +22934,12 @@ namespace PSEBONLINE.Controllers
                     if (frm["searchstatus"] != "")
                     {
                         ViewBag.SelectedStatus = frm["searchstatus"];
-                        //TempData["searchstatus"] = frm["searchstatus"];
+                        if (ViewBag.SelectedStatus != "0")
+                        {
                         Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+
+                        }
+                        //TempData["searchstatus"] = frm["searchstatus"];
                     }
 
                     if (frm["AppCls"] != "")
@@ -23022,15 +23026,19 @@ namespace PSEBONLINE.Controllers
 
                 else if (AppType == "AC")
                 {
-                    if (frm["searchstatus"] != "")
-                    {
-                        ViewBag.SelectedStatus = frm["searchstatus"];
-                        //TempData["searchstatus"] = frm["searchstatus"];
-                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
-                    }
+					if (frm["searchstatus"] != "")
+					{
+						ViewBag.SelectedStatus = frm["searchstatus"];
+						if (ViewBag.SelectedStatus != "0")
+						{
+							Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+
+						}
+						//TempData["searchstatus"] = frm["searchstatus"];
+					}
 
 
-                    if (frm["Dist1"] != "")
+					if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
                         TempData["SelectedDist"] = frm["Dist1"];
@@ -23093,14 +23101,18 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (AppType == "AS")
                 {
-                    if (frm["searchstatus"] != "")
-                    {
-                        ViewBag.SelectedStatus = frm["searchstatus"];
-                        //TempData["searchstatus"] = frm["searchstatus"];
-                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
-                    }
+					if (frm["searchstatus"] != "")
+					{
+						ViewBag.SelectedStatus = frm["searchstatus"];
+						if (ViewBag.SelectedStatus != "0")
+						{
+							Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
 
-                    if (frm["AppCls"] != "")
+						}
+						//TempData["searchstatus"] = frm["searchstatus"];
+					}
+
+					if (frm["AppCls"] != "")
                     {
                         ViewBag.SelectedCls = frm["AppCls"];
                         TempData["SelectedCls"] = frm["AppCls"];
