@@ -8096,7 +8096,36 @@ namespace PSEBONLINE.AbstractLayer
             return ds;
 
         }
+        public static DataSet Get_School_Center_Choice_Finalsubmittedforchoice()
+        {
+            DataSet ds = new DataSet();
+            ds = null;
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
 
+
+
+            try
+            {
+                Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandText = "Get_School_Center_Choice_Finalsubmittedforchoice";
+                cmd.Parameters.AddWithValue("@schl", schl);
+                ds = db.ExecuteDataSet(cmd);
+                if (ds != null)
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return ds;
+
+        }
+
+        
         public static DataSet Get_School_Center_Choice_New()
         {
             DataSet ds = new DataSet();

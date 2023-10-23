@@ -63,12 +63,12 @@
             <h1>Examination Centre Details(Choice Of The Examination Centre for March 2024)</h1>
         </div>
         <div class="col-md-2">
-            <span style="font-size:14px;color:red;">Last Date :- 20-10-2023</span>
+            <span style="font-size:14px;color:red;">Last Date :- 23-10-2023</span>
         </div>
 
-        
+
     </div>
-    
+
 
     @using (Html.BeginForm("ExamCentreDetails", "School", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -118,7 +118,7 @@
                 @if (Model.Finalsubmittedforchoice == 1)
 
                 {
-                    <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")'>Final Print</a>
+                    <a class="btn" href='@Url.Action("ExamCentreDetailsPerforma", "School")' id="finalprinttr">Final Print</a>
 
 
                 }
@@ -512,10 +512,7 @@ if (Centerchoice == "" || CenterDistance=="") {
 
 
         function DeleteRow(id) {
-
             var dataList;
-
-
             $('#t01 tbody tr').empty();
             var selectedCat = { id: id }
 
