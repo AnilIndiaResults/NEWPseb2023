@@ -37,7 +37,7 @@
             <div class="clearefix"></div>
             <div class="row">
                 <div class="col-md-2">
-                    Select Action:  @Html.DropDownList("SelAction", new SelectList(ViewBag.MyAction, "Value", "Text", ViewBag.SelectedAction), "--All---", new { @class = "" })
+                    Select Action:  @Html.DropDownList("SelAction", new SelectList(ViewBag.MyAction, "Value", "Text", ViewBag.SelectedAction), new { @class = "" })
                 </div>
 
                 <div class="col-md-2">
@@ -155,6 +155,7 @@
                             if (Class == "4") { Model.ErrorList = ViewBag.ErrorList12; }
                             if (Class == "5") { Model.ErrorList = ViewBag.ErrorList5; }
                             if (Class == "8") { Model.ErrorList = ViewBag.ErrorList8; }
+                            //if (Class == "5" || Class == "8" || Class == "1" || Class == "2" || Class == "3" || Class == "4") { Model.ErrorList = ViewBag.ErrorList27; }
                             var IsDocumentUpdatedBySchool = Model.StoreAllData.Tables[0].Rows[i]["IsDocumentUpdatedBySchool"].ToString();
                             var DocumentApprovedDetails = Model.StoreAllData.Tables[0].Rows[i]["DocumentApprovedDetails"].ToString();
                             var IsDocumentApproved = Model.StoreAllData.Tables[0].Rows[i]["IsDocumentApproved"].ToString();

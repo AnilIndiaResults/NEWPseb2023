@@ -30,7 +30,7 @@ namespace PSEBONLINE.AbstractLayer
 
         public static List<SelectListItem> GetCorrectionTypeByClass(string cls)
         {
-			DateTime specificDateTime = new DateTime(2023, 10, 22, 12, 0, 0);
+			DateTime specificDateTime = new DateTime(2023, 10, 23, 12, 0, 0);
 			List<SelectListItem> SecList = new List<SelectListItem>();
             string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
             if (class1 == "9")
@@ -443,17 +443,26 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
-        public static List<SelectListItem> GetAcceptRejectDDL()
+        public static List<SelectListItem> GetAcceptRejectDDLForMigration()
         {
             List<SelectListItem> itemStatus = new List<SelectListItem>();
-            itemStatus.Add(new SelectListItem { Text = "Accept", Value = "A" });
-            itemStatus.Add(new SelectListItem { Text = "Reject", Value = "R" });
+            itemStatus.Add(new SelectListItem { Text = "Accept", Value = "2" });
+            itemStatus.Add(new SelectListItem { Text = "Reject", Value = "3" });
             //itemStatus.Add(new SelectListItem { Text = "Cancel", Value = "C" });
             return itemStatus;
         }
+		
+		public static List<SelectListItem> GetAcceptRejectDDL()
+		{
+			List<SelectListItem> itemStatus = new List<SelectListItem>();
+			itemStatus.Add(new SelectListItem { Text = "Accept", Value = "A" });
+			itemStatus.Add(new SelectListItem { Text = "Reject", Value = "R" });
+			//itemStatus.Add(new SelectListItem { Text = "Cancel", Value = "C" });
+			return itemStatus;
+		}
 
 
-        public List<SelectListItem> GetEAffType()
+		public List<SelectListItem> GetEAffType()
         {
             List<SelectListItem> itemStatus = new List<SelectListItem>();
             itemStatus.Add(new SelectListItem { Text = "Apply for Fresh Affiliation", Value = "NEW" });
