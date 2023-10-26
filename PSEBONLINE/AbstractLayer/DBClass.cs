@@ -30,49 +30,43 @@ namespace PSEBONLINE.AbstractLayer
 
         public static List<SelectListItem> GetCorrectionTypeByClass(string cls)
         {
-			DateTime specificDateTime = new DateTime(2023, 10, 23, 12, 0, 0);
+
+            DataTable dt = new DataTable();
+            var onlyDate = DateTime.Now;
+            var DateToday = onlyDate.Date;
 			List<SelectListItem> SecList = new List<SelectListItem>();
-            string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
-            if (class1 == "9")
-            {
-				
-					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
 
-				
-				// SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-				SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
-            else if (class1 == "11")
-            {
-				
-				
-					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
 
-				
-				// SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-				//SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-			}
-            else if (class1 == "10")
-            {
-				
-				if (DateTime.Now< specificDateTime)
+            string formName = cls == "1" ? "N" : cls == "10" ? "M" : cls == "2" ? "E" : cls == "12" ? "T" : cls == "22" ? "MO" : cls == "44" ? "TO" : "0";
+				string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
+			 dt = SchoolDB.CorrectionAllowsforClassWise(class1, formName);
+			for (var Row = 0; Row < dt.Rows.Count; Row++)
                 {
-					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+                if (dt.Rows.Count > 0)
+                {
+                    DateTime allowedCorrectionsDate = Convert.ToDateTime(dt.Rows[Row]["VerifyLastDateBySchl"]);
+                    string form = dt.Rows[Row]["Form"].ToString();
+                    string Allowedcorrections = dt.Rows[Row]["AllowedCorrections"].ToString();
 
-				}
-				//SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
-            else if (class1 == "12")
-            {
-				if (DateTime.Now < specificDateTime)
-				{
-					SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+                    if (Allowedcorrections.Contains("P") && allowedCorrectionsDate >= DateToday)
+                    {
 
-				}
-				//SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-				// SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-			}
+                        SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+                    }
+                    if (Allowedcorrections.Contains("S") && allowedCorrectionsDate >= DateToday)
+                    {
+                        SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+                    }
+                    if (Allowedcorrections.Contains("I") && allowedCorrectionsDate >= DateToday)
+                    {
+                        SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+                    }
+                    
+                }
+
+                }
+
+            
             return SecList;
         }
 

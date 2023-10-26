@@ -6665,5 +6665,26 @@ namespace PSEBONLINE.AbstractLayer
 
 
         }
-    }
+
+		public static DataTable CorrectionAllowsforClassWise(string cls,string formName)
+		{
+			try
+			{
+				DataSet ds = new DataSet();
+				Microsoft.Practices.EnterpriseLibrary.Data.Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+				SqlCommand cmd = new SqlCommand();
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandTimeout = 300;
+				cmd.CommandText = "CorrectionAllowsforClassWise";
+				cmd.Parameters.AddWithValue("@cls", Convert.ToInt16(cls));
+				cmd.Parameters.AddWithValue("@formName", formName);
+				ds = db.ExecuteDataSet(cmd);
+				return ds.Tables[0];
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+	}
 }
