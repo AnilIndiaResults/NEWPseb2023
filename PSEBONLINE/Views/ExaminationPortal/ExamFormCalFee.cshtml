@@ -543,6 +543,7 @@
                 }
             });
             function OnSuccess(response) {
+                debugger;
                 if (response.dee == "1") {
                     alert("Challan Re-Generated Successfully & Your Challan ID is " + response.chid);
                     $("#myModal-" + k).hide();

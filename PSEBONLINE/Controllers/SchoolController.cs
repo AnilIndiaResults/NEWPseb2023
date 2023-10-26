@@ -1063,7 +1063,7 @@ namespace PSEBONLINE.Controllers
                         ViewBag.SelectedSchoolType = "";
                         ViewBag.SelectedStatusType = "";
                         ViewBag.SelectedClassType = "";
-                        SchoolModels ASM = new SchoolModels();
+                        SchoolModels ASM = new SchoolModels();      
                         string Search = string.Empty;
                         if (TempData["SearchRegSchoolList"] != null)
                         {
