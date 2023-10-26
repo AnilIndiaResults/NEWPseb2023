@@ -21,7 +21,7 @@
           <DataField>ExamCertFee</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-		<Field Name="IsWantselfcenter">
+        <Field Name="IsWantselfcenter">
           <DataField>IsWantselfcenter</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
@@ -253,7 +253,6 @@
           <DataField>schoolp</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-		
         <Field Name="std_id">
           <DataField>std_id</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
@@ -761,9 +760,8 @@
         <DataSourceName>firmdata_onlineDataSet</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
-	  
       <Fields>
-      <Field Name="ExamCertFee">
+        <Field Name="ExamCertFee">
           <DataField>ExamCertFee</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
@@ -8081,7 +8079,7 @@ Roll No. </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=First(Fields!Board.Value)</Value>
+                                      <Value>=First(Fields!MatricBoard.Value)</Value>
                                       <Style>
                                         <FontSize>7pt</FontSize>
                                       </Style>
