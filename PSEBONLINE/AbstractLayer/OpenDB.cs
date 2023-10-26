@@ -2464,10 +2464,12 @@ namespace PSEBONLINE.AbstractLayer
         {
             List<SelectListItem> subjects = new List<SelectListItem>();
             //  subjects.Add(new SelectListItem() { Value = "", Text = "--Select--" });
-            cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','006','007','019','023','024','025','026','028','031','032','033','035','036','037','038','041','042','043','044','045','049','052','053','054','065','072','141','142','144','150')";
-            // by harpal sir for 2023-24
-            // cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','025','026','028','031','032','035','036','037','038','042','045','049','065','072','150')";
-            cmd.CommandType = CommandType.Text;
+            //cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','006','007','019','023','024','025','026','028','031','032','033','035','036','037','038','041','042','043','044','045','049','052','053','054','065','072','141','142','144','150')";
+            cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','006','007','019','023','024','025','026','028','031','032','033','035','036','037','038','041','042','043','044','045','049','065','072','141','142','144','150')";
+
+			// by harpal sir for 2023-24
+			// cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','025','026','028','031','032','035','036','037','038','042','045','049','065','072','150')";
+			cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             DataSet ds = new DataSet();
             SqlDataAdapter adp = new SqlDataAdapter(cmd);
@@ -2483,7 +2485,34 @@ namespace PSEBONLINE.AbstractLayer
             return subjects;
         }
 
-        public List<SelectListItem> GetSeniorSubjects_1()
+
+		public List<SelectListItem> GetSeniorSubjects_MainSubjectsForIntiGrated()
+		{
+			List<SelectListItem> subjects = new List<SelectListItem>();
+			//  subjects.Add(new SelectListItem() { Value = "", Text = "--Select--" });
+			cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','006','007','019','023','024','025','026','028','031','032','033','035','036','037','038','041','042','043','044','045','049','052','053','054','065','072','141','142','144','150')";
+			//cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','006','007','019','023','024','025','026','028','031','032','033','035','036','037','038','041','042','043','044','045','049','065','072','141','142','144','150')";
+
+			// by harpal sir for 2023-24
+			// cmd.CommandText = "select sub,name_eng from ssnew where sub in ('004','005','025','026','028','031','032','035','036','037','038','042','045','049','065','072','150')";
+			cmd.CommandType = CommandType.Text;
+			cmd.Connection = con;
+			DataSet ds = new DataSet();
+			SqlDataAdapter adp = new SqlDataAdapter(cmd);
+			adp.Fill(ds);
+			if (ds.Tables[0].Rows.Count > 0)
+			{
+				foreach (DataRow dr in ds.Tables[0].Rows)
+				{
+					subjects.Add(new SelectListItem() { Text = dr["name_eng"].ToString(), Value = dr["sub"].ToString() });
+				}
+			}
+
+			return subjects;
+		}
+
+
+		public List<SelectListItem> GetSeniorSubjects_1()
         {
             List<SelectListItem> subjects = new List<SelectListItem>();
             //  Old
