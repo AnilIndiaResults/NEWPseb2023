@@ -2007,7 +2007,7 @@
                                 checked=checked+1;
                             }
                             else{}
-                            if(@Convert.ToInt32((ViewData["Sub_6_Th_Obt"]!=null)?ViewData["Sub_6_Th_Obt"].ToString():"0")>0)
+                            if(@Convert.ToInt32((ViewData["Sub_6_Th_Obt"] != null) ? ViewData["Sub_6_Th_Obt"].ToString() : "0")>0)
                             {
                                 document.getElementById("Sub_6_Th_Obt").value = '@ViewData["Sub_6_Th_Obt"].ToString()';
                                 document.getElementById("Sub_6_Th_Min").value = '@ViewData["Sub_6_Th_Min"].ToString()';
@@ -2998,9 +2998,49 @@
             </script>
         }
 
+            <script>
+                $(document).ready(function () {
+
+                    var groupname = $("#group").text();
+                    if (groupname == "INTIGRATED GROUP") {
+                        $('#Subject_4 option[value="052"]').remove();
+                        $('#Subject_4 option[value="053"]').remove();
+                        $('#Subject_4 option[value="054"]').remove();
+                        $('#Subject_5 option[value="052"]').remove();
+                        $('#Subject_5 option[value="053"]').remove();
+                        $('#Subject_5 option[value="054"]').remove();
+                    }
+                    // Remove option with value '2'
+
+                })
+                    }
+            </script>
+
+            <script>
+                $(document).ready(function () {
+
+                    var groupname = $("#HUMANITIES").text();
+                    if (groupname == "INTIGRATED GROUP") {
+                        $('#Subject_3 option[value="052"]').remove();
+                        $('#Subject_3 option[value="053"]').remove();
+                        $('#Subject_3 option[value="054"]').remove();
+                        $('#Subject_4 option[value="052"]').remove();
+                        $('#Subject_4 option[value="053"]').remove();
+                        $('#Subject_4 option[value="054"]').remove();
+                        $('#Subject_5 option[value="052"]').remove();
+                        $('#Subject_5 option[value="053"]').remove();
+                        $('#Subject_5 option[value="054"]').remove();
+                    }
+                    // Remove option with value '2'
+
+                })
+                    }
+            </script>
 
 
+
+
+        }
     }
-}
 
 
