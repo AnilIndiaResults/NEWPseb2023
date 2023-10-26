@@ -47,17 +47,20 @@ namespace PSEBONLINE.AbstractLayer
                     DateTime allowedCorrectionsDate = Convert.ToDateTime(dt.Rows[Row]["VerifyLastDateBySchl"]);
                     string form = dt.Rows[Row]["Form"].ToString();
                     string Allowedcorrections = dt.Rows[Row]["AllowedCorrections"].ToString();
+					string IsParticularVerifyAllow = dt.Rows[Row]["IsParticularVerifyAllow"].ToString();
+					string IsPhotoVerifyAllow = dt.Rows[Row]["IsPhotoVerifyAllow"].ToString();
+					string IsSubjectVerifyAllow = dt.Rows[Row]["IsSubjectVerifyAllow"].ToString();
 
-                    if (Allowedcorrections.Contains("P") && allowedCorrectionsDate >= DateToday)
+					if (IsParticularVerifyAllow.Contains("Y") && allowedCorrectionsDate >= DateToday)
                     {
 
                         SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
                     }
-                    if (Allowedcorrections.Contains("S") && allowedCorrectionsDate >= DateToday)
+                    if (IsSubjectVerifyAllow.Contains("Y") && allowedCorrectionsDate >= DateToday)
                     {
                         SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
                     }
-                    if (Allowedcorrections.Contains("I") && allowedCorrectionsDate >= DateToday)
+                    if (IsPhotoVerifyAllow.Contains("Y") && allowedCorrectionsDate >= DateToday)
                     {
                         SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
                     }
