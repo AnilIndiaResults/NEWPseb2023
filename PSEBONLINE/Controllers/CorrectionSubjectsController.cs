@@ -335,9 +335,10 @@ namespace PSEBONLINE.Controllers
                     }
                     filepathtosave = "allfiles/Upload2024/ImageCorrection/New/Photo/" + rm.Std_id + "P" + ".jpg";
                     ViewBag.ImageURL = filepathtosave;
-                    string PhotoName = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2024/ImageCorrection/New/Photo" + "/" + rm.Std_id + "P" + ".jpg";
-                    rm.oldVal = frm["imgPhotoOld"];
-                    rm.newVal = PhotoName;
+                    string PhotoName = "allfiles/Upload2024/ImageCorrection/New/Photo" + "/" + rm.Std_id + "P" + ".jpg";
+                   // rm.oldVal = frm["imgPhotoOld"];
+                    rm.oldVal = @ViewBag.PhotoOld;
+					rm.newVal = PhotoName;
 
                     //System.IO.File.Copy(pathOld, FilepathExistOld);
                 }
@@ -386,11 +387,12 @@ namespace PSEBONLINE.Controllers
 
                     filepathtosave = "allfiles/Upload2024/ImageCorrection/New/Sign/" + rm.Std_id + "S" + ".jpg";
                     ViewBag.ImageURL = filepathtosave;
-                    string SignName = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2024/ImageCorrection/New/Sign" + "/" + rm.Std_id + "S" + ".jpg";
+                    string SignName = "allfiles/Upload2024/ImageCorrection/New/Sign" + "/" + rm.Std_id + "S" + ".jpg";
                     rm.oldVal = frm["imgSignOld"];
                     rm.newVal = SignName;
-                    rm.oldVal = frm["imgSignOld"];
-                    rm.newVal = SignName;
+                   // rm.oldVal = frm["imgSignOld"];
+                    rm.oldVal = @ViewBag.SignOld;
+					rm.newVal = SignName;
 
                     //System.IO.File.Copy(pathOld, FilepathExistOld);
                 }
@@ -503,7 +505,7 @@ namespace PSEBONLINE.Controllers
                         }
                         else
                         {
-                            @ViewBag.PhotoOld = seleLastCan.Tables[0].Rows[0]["Std_photo"].ToString();
+							@ViewBag.PhotoOld = seleLastCan.Tables[0].Rows[0]["Std_photo"].ToString();
                             @ViewBag.SignOld = seleLastCan.Tables[0].Rows[0]["Std_Sign"].ToString();
                         }
 
