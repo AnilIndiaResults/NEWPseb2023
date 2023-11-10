@@ -67,16 +67,16 @@
                                         {
                                             if (OldValue.Contains("https") || OldValue.Contains("OPEN"))
                                             {
-                                                OldValue = "https://registration2022.pseb.ac.in/upload/" + OldValue;
+                                                OldValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" + OldValue;
                                             }
                                             else if (!OldValue.Contains("https"))
                                             {
-                                                OldValue = "https://registration2022.pseb.ac.in/upload/Upload2023/" + OldValue;
+                                                OldValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" + OldValue;
                                             }
 
                                             if (!NewValue.Contains("https"))
                                             {
-                                                NewValue = "https://registration2022.pseb.ac.in" + NewValue;
+                                                NewValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" + NewValue;
                                             }
 
 

@@ -10675,7 +10675,7 @@ namespace PSEBONLINE.Controllers
         #endregion Rohit Firm School Correction Updated 
 
         #region  Final Submit Rohit
-        public ActionResult SchoolCorrectionFinalSubmit(string id)
+        public ActionResult SchoolCorrectionFinalSubmit(string id,string Lot)
         {
             try
             {
@@ -10709,7 +10709,7 @@ namespace PSEBONLINE.Controllers
                 AdminModels am = new AdminModels();
                 if (ModelState.IsValid)
                 {
-                    if (id == "FinalSubmit")
+                    if (id == "FinalSubmit" && Lot!=null)
                     {
                         DataSet dschk = objDB.CheckFeeAllCorrectionDataByFirmSP(1, "SCHL", "");// check fee exist 
                         ViewBag.TotalCount = 0;//am.StoreAllData.Tables[0].Rows.Count;
@@ -10719,7 +10719,7 @@ namespace PSEBONLINE.Controllers
 
                             string FirmCorrectionLot = string.Empty;
                             string OutError = string.Empty;
-                            DataSet ds1 = objDB.CorrectionDataFirmFinalSubmitSPRN("", UserName, out FirmCorrectionLot, out OutError);  // Final Submit Main Function                       
+                            DataSet ds1 = objDB.CorrectionDataFirmFinalSubmitSPRNBySchool("", UserName,Lot, out FirmCorrectionLot, out OutError);  // Final Submit Main Function                       
                             if (FirmCorrectionLot.Length > 2)
                             {
                                 ViewBag.TotalCount = 1;

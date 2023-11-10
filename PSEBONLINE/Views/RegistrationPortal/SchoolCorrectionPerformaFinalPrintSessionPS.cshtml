@@ -328,7 +328,7 @@
                                     }
 
 
-                                    var NewValue = Model.Correctiondatafinal.Tables[0].Rows[i]["NewValue"].ToString();
+                                    var NewValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" +  Model.Correctiondatafinal.Tables[0].Rows[i]["NewValue"].ToString();
                                     var Lot = Model.Correctiondatafinal.Tables[0].Rows[i]["CorrectionLot"].ToString();
                                     var Remark = Model.Correctiondatafinal.Tables[0].Rows[i]["Remark"].ToString();
                                     var OldSubjlist = Model.Correctiondatafinal.Tables[0].Rows[i]["OlDsubjectList"].ToString();

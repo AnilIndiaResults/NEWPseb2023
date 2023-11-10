@@ -217,9 +217,11 @@
                                                 @if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear() && Session["IsOpen"] != null && Session["IsOpen"].ToString().ToLower().Trim() == "true")
                                                 {
                                                     <li>@Html.ActionLink("Open School Admission", "SchoolOpen", "Open")</li>
-                                                }
+                                                    <li>@Html.ActionLink("Open Fee Repayment", "StudentlistForRepayment", "Open")</li>
+                                                    
+                                                                        }
                                                 @*<li>@Html.ActionLink("Open School Accreditation", "SchoolAccreditation", "School")</li>
-                                                    <li>@Html.ActionLink("Marks Entry Of School Based Exams", "SchoolBasedExamsPortal", "School")</li>*@
+        <li>@Html.ActionLink("Marks Entry Of School Based Exams", "SchoolBasedExamsPortal", "School")</li>*@
                                             </ul>
                                         </li>
                                         @if (Session["Session"].ToString() == PSEBONLINE.AbstractLayer.StaticDB.GetCurrentYear())
