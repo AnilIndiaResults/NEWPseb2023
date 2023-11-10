@@ -5059,6 +5059,7 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.Parameters.AddWithValue("@FirmName", UserName);
                     cmd.Parameters.AddWithValue("@FirmCorrectionLot", FirmCorrectionLot);
 
+
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
                     con.Open();
@@ -5083,9 +5084,10 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = 300;
                     cmd.Parameters.AddWithValue("@CorrectionLot", CorrectionLot);
-                    cmd.Parameters.AddWithValue("@FirmUser", userNM);
-                    cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
-                    cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+					cmd.Parameters.AddWithValue("@FirmUser", userNM);
+                    cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId); 
+
+					cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
@@ -5118,7 +5120,8 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.CommandTimeout = 300;
                     cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
                     cmd.Parameters.AddWithValue("@FirmUser", userNM);
-                    cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+					cmd.Parameters.AddWithValue("@CorrectionLot", "");
+					cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
@@ -5136,7 +5139,39 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
-        public string CorrLotRejectRemarksSP(string corid, string remarks, string adminid)
+		public DataSet CorrectionDataFirmFinalSubmitSPRNBySchool(string EmpUserId, string userNM,string CorrectionLot, out string FirmCorrectionLot, out string OutError)
+		{
+			DataSet result = new DataSet();
+			SqlDataAdapter ad = new SqlDataAdapter();
+			try
+			{
+				using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+				{
+					SqlCommand cmd = new SqlCommand("CorrectionDataFirmFinalSubmitSPRN", con);
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.CommandTimeout = 300;
+					cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
+					cmd.Parameters.AddWithValue("@FirmUser", userNM);
+					cmd.Parameters.AddWithValue("@CorrectionLot", CorrectionLot);
+					cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+					cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+					ad.SelectCommand = cmd;
+					ad.Fill(result);
+					con.Open();
+					FirmCorrectionLot = (string)cmd.Parameters["@FirmCorrectionLot"].Value;
+					OutError = (string)cmd.Parameters["@OutError"].Value;
+					return result;
+				}
+			}
+			catch (Exception ex)
+			{
+				FirmCorrectionLot = "-1";
+				OutError = "-1";
+				return result = null;
+			}
+		}
+
+		public string CorrLotRejectRemarksSP(string corid, string remarks, string adminid)
         {
             SqlConnection con = null;
             string result = "";

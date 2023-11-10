@@ -403,8 +403,20 @@
                             e.preventDefault();
                         }
                         else {
+                            var lot = $("#CorrectionLot").val();
+                            if (lot == "" || lot == null) {
+                                alert("Please Enter Correction Lot");
+                                return false;
+                            }
+                            else if (lot.includes("MR") || lot.includes("SR")) {
+                                alert("10th and 12th Varification Can'not be at School Level Please Verify at Sub District Office");
+                                return false;
+                            }
+                            else {
+                                    window.location.href = '/School/SchoolCorrectionFinalSubmit?id=FinalSubmit&Lot=' + lot + '';
+                            }
                             //valFormAmount();
-                            window.location.href = '/School/SchoolCorrectionFinalSubmit/FinalSubmit';
+                            
                         }
                     });
                 });

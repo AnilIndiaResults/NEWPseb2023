@@ -3532,7 +3532,34 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
-        public DataSet OpenStudentlistAdmin(string search, string dist, int PageNumber)
+		public DataSet OpenStudentlistForRepaymentSP(string schl)
+		{
+			DataSet result = new DataSet();
+			SqlDataAdapter ad = new SqlDataAdapter();
+			try
+			{
+				using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+				{
+					SqlCommand cmd = new SqlCommand("open_Repayment", con);  //SelectPrintList_sp
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("@schl", schl); // O for Admin 1 for School else Openstudent
+			
+					ad.SelectCommand = cmd;
+					ad.Fill(result);
+					con.Open();
+					return result;
+				}
+			}
+			catch (Exception ex)
+			{
+				return result = null;
+			}
+		}
+
+
+
+
+		public DataSet OpenStudentlistAdmin(string search, string dist, int PageNumber)
         {
             DataSet result = new DataSet();
             SqlDataAdapter ad = new SqlDataAdapter();
