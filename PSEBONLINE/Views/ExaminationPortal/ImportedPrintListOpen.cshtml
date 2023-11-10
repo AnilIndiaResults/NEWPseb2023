@@ -40,7 +40,17 @@ else { Response.Redirect("~/Login"); }
                 }
             *@
 
-            <a href="/Home/ExamCalculateFee" class="btn">Calculate Fee and Generate Challan</a> <a href="/ExaminationPortal/PrintlistOpen?id=@ViewBag.id" class="btn">Back</a>
+            @if (ViewBag.id == "MO")
+            {
+                <a href="/Home/ExamCalculateFee?id=MO" class="btn">Calculate Fee and Generate Challan</a>
+            }
+            else if (ViewBag.id == "SO")
+            {
+                <a href="/Home/ExamCalculateFee?id=SO" class="btn">Calculate Fee and Generate Challan</a>
+            }
+
+            @*<a href="/Home/ExamCalculateFee" class="btn">Calculate Fee and Generate Challan</a>*@
+            <a href="/ExaminationPortal/PrintlistOpen?id=@ViewBag.id" class="btn">Back</a>
         </div>
     </div>
 
@@ -96,27 +106,27 @@ else { Response.Redirect("~/Login"); }
                                     var msg = Model.StoreAllData.Tables[0].Rows[i]["msg"].ToString();
                                     var IsHardCopyCertificate = Model.StoreAllData.Tables[0].Rows[i]["IsHardCopyCertificate"].ToString();
                                     Count = Count + 1;
-                                                <tr>
-                                                    <td>@Count</td>
-                                                    <td>@form_Name</td>
-                                                    <td>@StudentUniqueId</td>
-                                                    <td>@Registration_num</td>
-                                                    <td>@Candi_Name/@Father_Name/@Mother_Name</td>
-                                                    <td>@Admission_Date</td>
-                                                    <td>@Caste</td>
-                                                    <td>@(challanVerify == "1" ? "yes" : "no")</td>
-                                                    <td>@IsHardCopyCertificate</td>
-                                                    <td>
-                                                        @if (printlotnew == "0")
-                                                        {
-                                                            <input type="checkbox" class="checkbox" id="cb-@id)_@stdid" />
-                                                        }
-                                                        else
-                                                        {
-                                                            @msg
-                                                        }
-                                                    </td>
-                                                </tr>
+                                    <tr>
+                                        <td>@Count</td>
+                                        <td>@form_Name</td>
+                                        <td>@StudentUniqueId</td>
+                                        <td>@Registration_num</td>
+                                        <td>@Candi_Name/@Father_Name/@Mother_Name</td>
+                                        <td>@Admission_Date</td>
+                                        <td>@Caste</td>
+                                        <td>@(challanVerify == "1" ? "yes" : "no")</td>
+                                        <td>@IsHardCopyCertificate</td>
+                                        <td>
+                                            @if (printlotnew == "0")
+                                            {
+                                                <input type="checkbox" class="checkbox" id="cb-@id)_@stdid" />
+                                            }
+                                            else
+                                            {
+                                                @msg
+                                            }
+                                        </td>
+                                    </tr>
                                     if (d == ViewBag.TotalCount)
                                     {
                                         <tr>
@@ -208,7 +218,7 @@ else { Response.Redirect("~/Login"); }
                     var id = this.id;
                     //alert(id);
                     this.checked = status; //change ".checkbox" checked status
-                    
+
                 });
             });
 
@@ -222,7 +232,7 @@ else { Response.Redirect("~/Login"); }
 
                 }
             });
-           
+
 
 
             $("#btnsubmit").click(function () {
@@ -293,7 +303,7 @@ else { Response.Redirect("~/Login"); }
                 }
 
             });
-          
+
     });
 </script>
 
@@ -305,23 +315,19 @@ else { Response.Redirect("~/Login"); }
 
     }
 
-    function deecancel(recordid,quantity)
-    {
+    function deecancel(recordid, quantity) {
         var quant1 = $('#txtupdateaashirward-' + recordid).val();
-        if (quant1 == "")
-            {
+        if (quant1 == "") {
             $('#txtaashirward-' + recordid).val(quantity);
         }
-        else
-        {
+        else {
             $('#txtaashirward-' + recordid).val(quant1);
         }
         $('#updateit-' + recordid).slideUp("slow");
         $('#cancelit-' + recordid).slideUp("slow");
     }
 
-    function deeupdate(id, reg16id, aashirwardno)
-    {
+    function deeupdate(id, reg16id, aashirwardno) {
         //alert("Jay");
         var value = parseInt($('#txtaashirward-' + id).val());
         alert(value);
@@ -334,20 +340,20 @@ else { Response.Redirect("~/Login"); }
             $('#cancelit-' + id).slideUp("slow");
             $('#divMain').hide();
             $('div#loading').html("<p><img src='https://registration2022.pseb.ac.in/images/loadingk.gif'></p>");
-            $.post("../ExaminationPortal/UpdateAashirwardNo", { "id": id, "reg16id": reg16id, "aashirwardno": value},
-                    function (data) {
-                        $('#divMain').show();
-                        if (data.outstatus == 1) {
-                            $('#update-message').empty();
-                            $('#update-message').html("Aashirward Portal Id Updated Successfully.");
-                            $('#txtaashirward-' + id).val(value);
-                            $('#txtupdateaashirward-' + id).val(value);
-                        }
-                        else {
-                           $('#update-message').html("Something went wrong.");
-                        }
-                        $('div#loading').empty();
-                    });
+            $.post("../ExaminationPortal/UpdateAashirwardNo", { "id": id, "reg16id": reg16id, "aashirwardno": value },
+                function (data) {
+                    $('#divMain').show();
+                    if (data.outstatus == 1) {
+                        $('#update-message').empty();
+                        $('#update-message').html("Aashirward Portal Id Updated Successfully.");
+                        $('#txtaashirward-' + id).val(value);
+                        $('#txtupdateaashirward-' + id).val(value);
+                    }
+                    else {
+                        $('#update-message').html("Something went wrong.");
+                    }
+                    $('div#loading').empty();
+                });
         }
 
     }

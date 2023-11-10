@@ -1198,9 +1198,11 @@ namespace PSEBONLINE.AbstractLayer
                 mail.Body = body;
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.netcorecloud.net";
-                smtp.Port = 2525;
-                smtp.Credentials = new System.Net.NetworkCredential("indiaresultspep", "LxnTMoQgKN2023");
+                //smtp.Host = "smtp.netcorecloud.net";
+                smtp.Host = "smtp.sendgrid.net";
+                smtp.Port = 587;
+                //smtp.Credentials = new System.Net.NetworkCredential("indiaresultspep", "LxnTMoQgKN2023");
+                smtp.Credentials = new System.Net.NetworkCredential("apikey", "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");
 
                 try
                 {
