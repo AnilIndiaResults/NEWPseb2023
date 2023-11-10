@@ -22,6 +22,7 @@ using Amazon.S3;
 using Amazon;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Http.Results;
 
 namespace PSEBONLINE.Controllers
 {
@@ -143,7 +144,8 @@ namespace PSEBONLINE.Controllers
         [Route("Open/Index")]
         public ActionResult Index()
         {
-            Session.Abandon();
+			
+			Session.Abandon();
             Session.RemoveAll();
             System.Web.Security.FormsAuthentication.SignOut();
             return View();
@@ -168,7 +170,11 @@ namespace PSEBONLINE.Controllers
                         ViewData["result"] = "CANCEL";
                         return View();
                     }
-                    Session["Session"] = @PSEBONLINE.Repository.SessionSettingMastersRepository.GetSessionSettingMasters().SessionShortYear;
+					//string Sms = "Your Challan no. " + 123 + " of Lot no " + 123 + " successfully generated and valid till Dt " + 123 + ". Regards PSEB";
+     //               string tempid = "1007161586293060875";
+					////string tempid = "1001154774637029939";
+					//string getSms = new AbstractLayer.DBClass().gosmsPsebforschool("8532836827", Sms, tempid);
+					Session["Session"] = @PSEBONLINE.Repository.SessionSettingMastersRepository.GetSessionSettingMasters().SessionShortYear;
                     Session["app_no"] = ol.APPNO.ToString();
                     Session["SCHLCode"] = ol.SCHLCode.ToString();
                     Session["app_name"] = ol.NAME.ToString();
@@ -3242,8 +3248,8 @@ namespace PSEBONLINE.Controllers
                         else
                         {
 
-                            string Sms = "Your Challan no. " + result + " of Lot no " + Session["app_no"].ToString() + " successfully generated and valid till Dt " + CM.CHLNVDATE + ".Regards PSEB";
-                            string tempid = "1001154774637029939";
+                            string Sms = "Your Challan no. " + result + " of Lot no " + Session["app_no"].ToString() + " successfully generated and valid till Dt " + CM.CHLNVDATE + ". Regards PSEB";
+                            string tempid = "1007161586293060875";
                             string getSms = new AbstractLayer.DBClass().gosmsPsebforschool(SchoolMobile, Sms, tempid);                            
                             //--For Showing Message---------//                   
                             return RedirectToAction("GenerateChallaan", "Home", new { ChallanId = result });
@@ -5709,5 +5715,173 @@ namespace PSEBONLINE.Controllers
         }
 
 
-    }
+		public ActionResult StudentlistForRepayment(string id, int? page)
+		{
+			try
+			{
+				//if (id == null)
+				//{
+				//	return RedirectToAction("SchoolOpen", "Open");
+				//}
+				ViewBag.Id = id;
+				string schlcode = "";
+				if (Convert.ToString(Session["SCHL"]) != "")
+				{
+					schlcode = Convert.ToString(Session["SCHL"]);
+				}
+				else
+				{
+					return RedirectToAction("Index", "Login");
+				}
+				DataSet result = new DBClass().schooltypes(schlcode); // passing Value to DBClass from model
+				if (result == null)
+				{
+					return RedirectToAction("Index", "Home");
+				}
+				if (result.Tables[1].Rows.Count > 0)
+				{
+					ViewBag.OSenior = result.Tables[1].Rows[0]["OSenior"].ToString();
+					ViewBag.OMatric = result.Tables[1].Rows[0]["OMatric"].ToString();
+				}
+				var itemsch = new SelectList(new[]{new {ID="1",Name="Application No"},new{ID="2",Name="Candidate Name"},
+			new{ID="3",Name="Father's Name"},new{ID="4",Name="Mother's Name"},new{ID="5",Name="DOB"},}, "ID", "Name", 1);
+				ViewBag.MySch = itemsch.ToList();
+			
+                
+                Printlist obj = new Printlist();
+					obj.StoreAllData = openDB.OpenStudentlistForRepaymentSP(Session["SCHL"].ToString());
+					if (obj.StoreAllData == null || obj.StoreAllData.Tables[0].Rows.Count == 0)
+					{
+						ViewBag.Message = "Record Not Found";
+						ViewBag.TotalCount = 0;
+						ViewBag.TotalCount1 = 0;
+					}
+					else
+					{
+						ViewBag.TotalCount = obj.StoreAllData.Tables[0].Rows.Count;
+						//int count = Convert.ToInt32(obj.StoreAllData.Tables[1].Rows[0]["TotalCnt"]);
+						//ViewBag.TotalCount1 = count;
+						//int tp = Convert.ToInt32(count);
+						//int pn = tp / 20;
+						//int cal = 20 * pn;
+						//int res = Convert.ToInt32(ViewBag.TotalCount1) - cal;
+						//if (res >= 1)
+						//	ViewBag.pn = pn + 1;
+						//else
+						//	ViewBag.pn = pn;
+						ViewBag.SelectedItem = (TempData["SelValueSch"] != null) ? TempData["SelValueSch"].ToString() : string.Empty;
+						ViewBag.SearchString = (TempData["SearchString"] != null) ? TempData["SearchString"].ToString() : string.Empty;
+						return View(obj);
+					}
+			
+
+				return View();
+			}
+			catch (Exception ex)
+			{
+				return View();
+			}
+		}
+
+		[HttpPost]
+		public ActionResult StudentlistForRepayment(string id, int? page, FormCollection frm)
+		{
+			try
+			{
+				if (id == null)
+				{
+					return RedirectToAction("SchoolOpen", "Open");
+				}
+				string schlcode = "";
+				if (Convert.ToString(Session["SCHL"]) != "")
+				{
+					schlcode = Convert.ToString(Session["SCHL"]);
+				}
+				else
+				{
+					return RedirectToAction("Index", "Login");
+				}
+				DataSet result = new DBClass().schooltypes(schlcode); // passing Value to DBClass from model
+				if (result == null)
+				{
+					return RedirectToAction("Index", "Home");
+				}
+				if (result.Tables[1].Rows.Count > 0)
+				{
+					ViewBag.OSenior = result.Tables[1].Rows[0]["OSenior"].ToString();
+					ViewBag.OMatric = result.Tables[1].Rows[0]["OMatric"].ToString();
+				}
+
+				var itemsch = new SelectList(new[]{new {ID="1",Name="Application No"},new{ID="2",Name="Candidate Name"},
+			new{ID="3",Name="Father's Name"},new{ID="4",Name="Mother's Name"},new{ID="5",Name="DOB"},}, "ID", "Name", 1);
+				ViewBag.MySch = itemsch.ToList();
+
+				int pageIndex = 1;
+				pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+				ViewBag.pagesize = pageIndex;
+				//AbstractLayer.SchoolDB objDB = new AbstractLayer.SchoolDB();
+				Printlist obj = new Printlist();
+				ViewBag.Id = id;
+				string Search = "";
+				if (id == "M3" || id == "T3")
+				{
+					string clas = "SCHL='" + schlcode + "' and FORM = '" + id.Trim().ToString().ToUpper() + "'";
+					Search = " c.SCHL='" + schlcode + "' and  c.FORM='" + id.ToString() + "' ";
+					if (frm["SelList"] != "")
+					{
+						ViewBag.SelectedItem = frm["SelList"];
+						int SelValueSch = Convert.ToInt32(frm["SelList"].ToString());
+
+
+						if (frm["SearchString"] != "")
+						{
+							if (SelValueSch == 1)
+							{ Search += " and b.APPNO='" + frm["SearchString"].ToString() + "'"; }
+							else if (SelValueSch == 2)
+							{ Search += " and  c.NAME like '%" + frm["SearchString"].ToString() + "%'"; }
+							else if (SelValueSch == 3)
+							{ Search += " and c.FNAME  like '%" + frm["SearchString"].ToString() + "%'"; }
+							else if (SelValueSch == 4)
+							{ Search += " and c.MNAME like '%" + frm["SearchString"].ToString() + "%'"; }
+							else if (SelValueSch == 5)
+							{ Search += " and c.DOB='" + frm["SearchString"].ToString() + "'"; }
+						}
+						TempData["SelValueSch"] = ViewBag.SelectedItem = SelValueSch;
+						TempData["SearchString"] = ViewBag.SearchString = frm["SearchString"];
+					}
+					TempData["SearchId"] = id.ToString();
+					TempData["Search"] = Search;
+					obj.StoreAllData = openDB.OpenStudentlist(Search, clas, pageIndex, 1);//OpenStudentlistSP
+					if (obj.StoreAllData == null || obj.StoreAllData.Tables[0].Rows.Count == 0)
+					{
+						ViewBag.Message = "Record Not Found";
+						ViewBag.TotalCount = 0;
+						ViewBag.TotalCount1 = 0;
+					}
+					else
+					{
+						ViewBag.TotalCount = obj.StoreAllData.Tables[0].Rows.Count;
+						int count = Convert.ToInt32(obj.StoreAllData.Tables[1].Rows[0]["TotalCnt"]);
+						ViewBag.TotalCount1 = count;
+						int tp = Convert.ToInt32(count);
+						int pn = tp / 20;
+						int cal = 20 * pn;
+						int res = Convert.ToInt32(ViewBag.TotalCount1) - cal;
+						if (res >= 1)
+							ViewBag.pn = pn + 1;
+						else
+							ViewBag.pn = pn;
+					}
+				}
+				return View(obj);
+			}
+			catch (Exception ex)
+			{
+				return View(id);
+			}
+		}
+
+
+
+	}
 }

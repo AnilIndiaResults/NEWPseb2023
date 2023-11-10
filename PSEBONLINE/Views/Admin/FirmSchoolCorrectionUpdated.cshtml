@@ -321,11 +321,11 @@
                             {
                                 if (Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString().Contains("OPEN2018"))
                                 {
-                                    OldValue = "https://registration2018.pseb.ac.in/upload/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
+                                    OldValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
                                 }
-                                else { OldValue = "https://registration2018.pseb.ac.in/upload/upload2023/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString(); }
+                                else { OldValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString(); }
 
-                                NewValue = "https://registration2018.pseb.ac.in" + Model.StoreAllData.Tables[0].Rows[i]["NewValue"].ToString();
+                                NewValue = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["NewValue"].ToString();
                             }
                             else
                             {
