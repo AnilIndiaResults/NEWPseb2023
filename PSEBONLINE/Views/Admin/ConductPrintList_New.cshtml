@@ -5,11 +5,53 @@
 }
 <link rel="stylesheet" href="/Content/Print-4P.css" />
 <style type="text/css">
-    .tprint td {padding: 4px 4px;line-height: 36px;font-weight: normal;}.Col4 {width: 24%;display: inline-block;padding:55px 0;}
-    .ffix {position:fixed;bottom:0;width:100%;background-color:#fff}body {font-size: 16px;}.brack{page-break-after:always}</style>
+    .tprint td {
+        padding: 4px 4px;
+        line-height: 36px;
+        font-weight: normal;
+    }
+
+    .Col4 {
+        width: 24%;
+        display: inline-block;
+        padding: 55px 0;
+    }
+
+    .ffix {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #fff
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    .brack {
+        page-break-after: always
+    }
+</style>
 @using (Html.BeginForm("ConductPrintList_New", "Admin", FormMethod.Post, new { id = "searchform" }))
 {
     <div class="row">
+
+        <div class="col-md-12">
+            <div style="border:1px solid #fff !important;display:block">
+                <table border="1" width="100%" class="tprint" style="border-right:0 !important">
+                    <thead>
+                        <tr>
+                            <td style="border-right:0 !important" colspan="2"><img src="~/Images/Printlogo.jpg" alt="PSEB" height="60px" width="60px" /></td>
+                            <td colspan="8" style="text-align:center;border-left:0 !important;border-right:0 !important;line-height:20PX">
+                                <span style="font-size:28px;font-weight:bold">Punjab School Education Board</span><br />
+                                <span style="font-size:20px;">@ViewBag.IsRecheck September 2023</span>
+                            </td>
+                            <td align="right" style="border-left:0 !important" colspan="2">Lot:- @ViewBag.lot<br />Print Date: @DateTime.Now.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
         <div class="col-md-12 noprint">
             <fieldset style="margin-bottom:15px">
                 <legend>Search</legend>
@@ -92,11 +134,11 @@
                                                         if (@month == "03")
                                                             m = "ਮਾਰਚ";
                                                         else
-                                                            m = "ਮਾਰਚ";
+                                                            m = "September";
 
                                                     }
 
-                                                    
+
                                                     @*ਦਸੰਬਰ*@
                                                     <span style="font-size:28px;font-weight:bold">
                                                         ਪੰਜਾਬ ਸਕੂਲ ਸਿੱਖਿਆ ਬੋਰਡ
@@ -105,7 +147,7 @@
                                                         ਕਾਰਜ ਸੰਚਾਲਨ ਸ਼ਾਖਾ : ਐਸ.ਏ.ਐਸ. ਨਗਰ-160062
                                                     </span><br />
                                                     <span style="font-size:18px">
-                                                        @s ਪ੍ਰੀਖਿਆ @m - 2019 ਦੀ ਰੀਚੈਕਿੰਗ  ਲਈ ਆਨਲਾਈਨ ਅਪਲਾਈ ਕੀਤੇ  ਵੇਰਵੇ:-
+                                                        @s ਪ੍ਰੀਖਿਆ @m - 2023 ਦੀ ਰੀਚੈਕਿੰਗ  ਲਈ ਆਨਲਾਈਨ ਅਪਲਾਈ ਕੀਤੇ  ਵੇਰਵੇ:-
 
                                                         @*ਪ੍ਰੀਖਿਆ@*ਮਾਰਚ/ਜੁਲਾਈ/ਸਤੰਬਰ ................* ਮਾਰਚ - 2017 ਦੀ ਰੀਚੈਕਿੰਗ ਸਬੰਧੀ ਕੰਪਿਊਟਰ ਸ਼ਾਖਾ ਵੱਲੋਂ ਦਿੱਤੇ ਵੇਰਵੇ:-*@
                                                     </span>
@@ -157,7 +199,7 @@
                                                 {
                                                     var nxt_subC = Model.StoreAllData.Tables[0].Rows[i + 1]["subcode"].ToString();
                                                     var nxt_subnm = Model.StoreAllData.Tables[0].Rows[i + 1]["subnm"].ToString();
-                                                    var nxt_subjects = nxt_subnm +' ' + '/' + ' '+ nxt_subC;
+                                                    var nxt_subjects = nxt_subnm + ' ' + '/' + ' ' + nxt_subC;
                                                     var nxt_BagC = Model.StoreAllData.Tables[0].Rows[i + 1]["bag"].ToString();
                                                     var nxt_BarC = Model.StoreAllData.Tables[0].Rows[i + 1]["bar"].ToString();
                                                     var nxt_BagBarCode = nxt_BagC + ' ' + '/' + ' ' + nxt_BarC;
@@ -180,12 +222,12 @@
                                                         if (ViewBag.SearchList == "4" || ViewBag.SearchList == "5")
                                                         {
                                                             //@Count
-                                                                        @DSrNo
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                        @CSrNo
-                                                                            }
+                                                            @DSrNo
+                                                        }
+                                                        else
+                                                        {
+                                                            @CSrNo
+                                                        }
 
                                                     }
                                                     @refno
@@ -196,9 +238,9 @@
                                                 </td>
                                             </tr>
 
-                                </table>
-                                        </td>
-                                    </tr>
+                                        </table>
+                                    </td>
+                                </tr>
 
 
                                 <tr>
@@ -209,7 +251,7 @@
                                         &nbsp;3.    ਉਤੱਰ ਪੱਤਰੀ ਤੇ ਉਤੱਰਾਂ ਦੇ ਅੰਕਾਂ ਦਾ ਜੋੜ ਠੀਕ ਹੈ|<br />
                                         &nbsp;4.    ਰੀਚੈਕਿੰਗ ਉਪਰੰਤ ਨਤੀਜਾ ...........................
                                     </td>
-                                
+
                                 <tr>
                                     <td colspan="4" style="line-height:50px;padding-top:30px;font-size:19px">
                                         <b>ਟਿੱਪਣੀ:-</b> ਪਹਿਲਾਂ ਐਲਾਨੇ ਜਾ ਚੁੱਕੇ ਨਤੀਜੇ ਵਿੱਚ ਕੋਈ ਤਬਦੀਲੀ ਨਹੀਂ ਹੈ| ਉਮੀਦਵਾਰ ਨੂੰ ਸੂਚਿਤ ਕਰਨ/ਨਤੀਜਾ ਬੋਰਡ ਦੀ ਵੈਬ ਸਾਈਟ ਤੇ ਪਾਉਣ ਦੀ ਪ੍ਰਵਾਨਗੀ ਦਿੱਤੀ ਜਾਵੇ|<br />
@@ -220,8 +262,8 @@
                                         .........................................................................................................................................................................................................
                                         .........................................................................................................................................................................................................
                                         .........................................................................................................................................................................................................
-                                       
-                                        
+
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -236,38 +278,38 @@
                                     </td>
                                 </tr>
 
-                                                </table>
-                                                                //.... Pagin start
-                                                                if (d == ViewBag.TotalCountp)
-                                                                {
+                            </table>
+                            //.... Pagin start
+                            if (d == ViewBag.TotalCountp)
+                            {
 
-                                                                }
+                            }
 
-                                                                //... Paging end
-                                                            }
-                                                        }
+                            //... Paging end
+                        }
+                    }
 
 
-                                                        else
-                                                        {
-                                                            <div style="color:#cc0000;font-size:16px">
-                                                                @ViewBag.Message
-                                                            </div>
+                    else
+                    {
+                        <div style="color:#cc0000;font-size:16px">
+                            @ViewBag.Message
+                        </div>
 
-                                                        }
+                    }
                 }
 
 
             </div>
 
-            </div>
         </div>
+    </div>
 
-                        }
+}
 
 <script type="text/javascript">
     function dee() {
-        
+
         if ($("#SelList").val() == "" && $("#SelList").val() != '5' && $("#SelList").val() != '6') {
             $("#reqsellist").slideDown("slow");
             return false;
@@ -282,7 +324,7 @@
             return true;
 
     }
-   
+
 </script>
 <script>
     function deetext() {
