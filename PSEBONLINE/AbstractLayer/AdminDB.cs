@@ -7013,8 +7013,35 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
+		public DataSet UpdateEXFileData(DataTable dt,string schl,out string OutError)
+		{
+			DataSet result = new DataSet();
+			SqlDataAdapter ad = new SqlDataAdapter();
+			try
+			{
+                
+				using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+				{
+					SqlCommand cmd = new SqlCommand("update_Ex_file_data_sp", con);
+					cmd.CommandType = CommandType.StoredProcedure;
+					cmd.Parameters.AddWithValue("@UpdateEXFile_tblType", dt);
+					cmd.Parameters.AddWithValue("@schl", schl);
+					cmd.Parameters.Add("@outError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+					ad.SelectCommand = cmd;
+					ad.Fill(result);
+					con.Open();
+					OutError = (string)cmd.Parameters["@OutError"].Value;
+					return result;
+				}
+			}
+			catch (Exception ex)
+			{
+				OutError = ex.Message;
+				return result = null;
+			}
+		}
 
-        #endregion
+		#endregion
 
-    }
+	}
 }
