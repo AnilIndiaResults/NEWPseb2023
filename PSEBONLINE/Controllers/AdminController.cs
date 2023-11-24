@@ -27001,7 +27001,186 @@ namespace PSEBONLINE.Controllers
                 return View();
             }
         }
-    }
+
+
+		public ActionResult UpdateExFile(string id)
+		{
+			try
+			{
+				AdminModels admModel = new AdminModels();
+				string schl = (string)Session["schl"];
+
+
+                DataSet ds = null; // objDB.GetExFileData(schl);
+				admModel.StoreAllData = ds;
+				if (admModel.StoreAllData == null || admModel.StoreAllData.Tables[0].Rows.Count == 0)
+				{
+					ViewBag.Message = "Record Not Found";
+					ViewBag.TotalCount = 0;
+					return View();
+				}
+				else
+				{
+					ViewBag.TotalCount = admModel.StoreAllData.Tables[0].Rows.Count;
+					return View(admModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+				return View();
+			}
+
+		}
+
+		[HttpPost]
+		public ActionResult UpdateExFile(AdminModels admModel, string id)
+		{
+			string DeoUser = null;
+			string district = null;
+			string fileLocation = "";
+			string filename = "";
+			string uid = "";
+			try
+			{
+
+
+				if (admModel.file != null)
+				{
+					filename = Path.GetFileName(admModel.file.FileName);
+
+					DataSet ds = new DataSet();
+					if (admModel.file.ContentLength > 0)  //(Request.Files["file"].ContentLength > 0
+					{
+						string fileName1 = "EXDATA" + district + '_' + DateTime.Now.ToString("ddMMyyyyHHmmss");  //MIS_201_110720161210
+						string fileExtension = System.IO.Path.GetExtension(admModel.file.FileName);
+						if (fileExtension == ".xls" || fileExtension == ".xlsx")
+						{
+							fileLocation = Server.MapPath("~/EXUpload/" + fileName1 + fileExtension);
+
+							if (System.IO.File.Exists(fileLocation))
+							{
+								try
+								{
+									System.IO.File.Delete(fileLocation);
+								}
+								catch (Exception)
+								{
+
+								}
+							}
+							admModel.file.SaveAs(fileLocation);
+							string excelConnectionString = string.Empty;
+							excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+								fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+							//connection String for xls file format.
+							//if (Path.GetExtension(path).ToLower().Trim() == ".xls" && Environment.Is64BitOperatingSystem == false)
+							//if (fileExtension == ".xls")
+							//{
+							//	excelConnectionString = "Provider=Microsoft.Jet.OLEDB.12.0;Data Source=" +
+							//	fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+							//}
+							////connection String for xlsx file format.
+							//else if (fileExtension == ".xlsx")
+							//{
+							//	excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+							//	fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+							//}
+							//Create Connection to Excel work book and add oledb namespace
+							using (OleDbConnection excelConnection = new OleDbConnection(excelConnectionString))
+							{
+								excelConnection.Open();
+								DataTable dt = new DataTable();
+								dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+								if (dt == null)
+								{
+									return null;
+								}
+								String[] excelSheets = new String[dt.Rows.Count];
+								int t = 0;
+								//excel data saves in temp file here.
+								foreach (DataRow row in dt.Rows)
+								{
+									excelSheets[t] = row["TABLE_NAME"].ToString(); // bank_mis     TABLE_NAME
+									t++;
+								}
+								string query = string.Format("Select * from [{0}]", excelSheets[0]);
+								using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection))
+								{
+									dataAdapter.Fill(ds);
+								}
+							}
+
+							DataTable dtexport;
+                            string CheckMis = "";
+                                //objDB.CheckUpdateMasterDataMis(ds, out dtexport, RP);
+							if (CheckMis == "")
+							{
+								DataTable dt1 = ds.Tables[0];
+								if (dt1.Columns.Contains("Status"))
+								{
+									dt1.Columns.Remove("Status");
+								}
+								// UpdateData
+								#region UpdateData
+
+
+								string ErrStatus = string.Empty;
+                                admModel.StoreAllData = objDB.UpdateEXFileData(ds.Tables[0], admModel.SchlCode, out ErrStatus); // UpdateMasterDataSPNew
+
+								if (ErrStatus == "1")
+								{
+									ViewBag.Message = "EX File Data Updated Successfully";
+									ViewData["Result"] = "1";
+								}
+								else
+								{
+									ViewBag.Message = ErrStatus;
+									ViewData["Result"] = "0";
+
+								}
+								#endregion UpdateData                          
+								return View(admModel);
+							}
+							else
+							{
+								//if (dtexport != null)
+								//{
+								//	ExportDataFromDataTable(dtexport, "Error_MasterData");
+								//}
+								//ViewData["Result"] = "-1";
+								//ViewBag.Message = CheckMis;
+								return View(admModel);
+							}
+						}
+						else
+						{
+
+							ViewData["Result"] = "-2";
+							ViewBag.Message = "Please Upload Only .xls file only";
+							return View(admModel);
+						}
+					}
+
+				}
+				else
+				{
+					//ViewData["Result"] = "-4";
+					// ViewBag.Message = "Please select .xls file only";
+					//return View();
+				}
+			}
+			catch (Exception ex)
+			{
+				oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+				return View();
+
+			}
+			return View(admModel);
+		}
+
+
+	}
 }   
 
 
