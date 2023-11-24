@@ -11,8 +11,15 @@ using System.Web.Mvc;
 namespace PSEBONLINE.Models
 {
 
-    public class OpenUserLogin
+    public class FeeOpenModel
     {
+        public FeeOpen feeopenData { get; set; }
+		public List<FeeOpen> feeopenList { get; set; }
+	}
+
+	public class OpenUserLogin
+    {
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public long APPNO { get; set; }
@@ -341,7 +348,8 @@ namespace PSEBONLINE.Models
         public int NoAddSub { get; set; }
         public int TotalFee { get; set; }
         public int HardCopyCertificateFee { get; set; }
-    }
+		public int lastPaidFee { get; set; }
+	}
 
 
 
