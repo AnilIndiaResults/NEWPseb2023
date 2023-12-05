@@ -328,7 +328,8 @@
                 Do you want Hard Copy of Certificate?<sup style="color:red;font-size:15px;">*</sup>
             </div>
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "--Select--", new { required = "required" })
+                @*@Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "--Select--", new { required = "required" })*@
+                @Html.DropDownListFor(model => model.IsHardCopyCertificate, (List<SelectListItem>)ViewBag.YesNoList, "YES", new { required = "required", @disabled = true })
                 @Html.HiddenFor(model => model.IsHardCopyCertificate)
             </div>
             <div class="col-md-2">
@@ -964,6 +965,8 @@
                                     return false;
                                 }
 
+                                //to send IsHardCopyCertificateHidden by default yes by gulab ji sir 
+                                document.getElementById("IsHardCopyCertificateHidden").value = "Y";
                                 var IsHardCopyCertificate = document.getElementById("IsHardCopyCertificate");
                                 if (IsHardCopyCertificate.value.trim() == "" || IsHardCopyCertificate == "0") {
                                     alert("Select Do you want Hard Copy of Certificate?");

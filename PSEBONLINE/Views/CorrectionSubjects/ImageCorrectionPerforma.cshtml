@@ -96,10 +96,10 @@
                             @*-----------------------Photo sign-----------------------------*@
                             <div id="corPhoto" class="col-md-9">
                                 @{
-                                    //ViewBag.PhotoOld = "https://registration2022.pseb.ac.in/upload/" + @ViewBag.PhotoOld;
-                                    ViewBag.PhotoOld=  @ViewBag.CandPhotoFullPath;
+                                    //ViewBag.PhotoOld = "https://psebdata.s3.ap-south-1.amazonaws.com/" + @ViewBag.PhotoOld;
+                                    ViewBag.PhotoOld=   @ViewBag.CandPhotoFullPath;
                                 }
-                                <div class="col-md-2">OldPhoto<img src=@ViewBag.PhotoOld class="img-responsive" style="max-width:100%" alt="Photo" id="imgPhotoOld" /></div>
+                                <div class="col-md-2">OldPhoto<img src="https://psebdata.s3.ap-south-1.amazonaws.com/@ViewBag.PhotoOld" class="img-responsive" style="max-width:100%" alt="Photo" id="imgPhotoOld" /></div>
                                 <div class="col-md-5">
                                     <span class="rqfst" style="font-size:11PX;">Upload Colored Passport Size Photograph(3.5 * 4.5)</span>
                                     @Html.TextBoxFor(a => a.std_Photo, new { id = "std_Photo", type = "file", onchange = "findSizeAndPreview(this)" })                                    
@@ -111,10 +111,10 @@
                             @*-----------------------Photo sign-----------------------------*@
                             <div id="corSign" class="col-md-9">
                                 @{
-                                   // ViewBag.SignOld = "https://registration2022.pseb.ac.in/upload/" + @ViewBag.SignOld;
-                                    ViewBag.SignOld =  @ViewBag.CandSignFullPath;
+                                    // ViewBag.SignOld = "https://psebdata.s3.ap-south-1.amazonaws.com/" + @ViewBag.SignOld;
+                                    ViewBag.SignOld = "https://psebdata.s3.ap-south-1.amazonaws.com/" + @ViewBag.CandSignFullPath;
                                 }
-                                <div class="col-md-2">OldSign<img src=@ViewBag.SignOld  class="img-responsive" style="max-width:100%" alt="Photo" id="imgSignOld" /></div>
+                                <div class="col-md-2">OldSign<img src="@ViewBag.SignOld"  class="img-responsive" style="max-width:100%" alt="Photo" id="imgSignOld" /></div>
                                 <div class="col-md-5">
                                     @Html.TextBoxFor(a => a.std_Sign, new { id = "std_Sign", type = "file", onchange = "findSizeAndPreviewSign(this)" })
                                     <span class="rqf">*Signature Size 1 to 50 KB  (.JPG ONly)</span>
@@ -164,14 +164,15 @@
                                             var OPhotoSign = "";
                                             if (cls == "Matriculation Open" || cls == "Sr.Secondary Open")
                                             {
-                                                OPhotoSign = Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
+                                                //OPhotoSign =   Model.StoreAllData.Tables[0].Rows[i]["CandPhotoFullPath"].ToString();
+                                                OPhotoSign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
                                             }
                                             else
                                             {
-                                                OPhotoSign = "https://registration2022.pseb.ac.in/upload/Upload2023/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
+                                                OPhotoSign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["OldValue"].ToString();
                                             }
 
-                                            var NPhotoSign = Model.StoreAllData.Tables[0].Rows[i]["NewValue"].ToString();
+                                            var NPhotoSign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Model.StoreAllData.Tables[0].Rows[i]["NewValue"].ToString();
                                             var Ntype = Model.StoreAllData.Tables[0].Rows[i]["CorrectionType"].ToString();
                                             var Can = Model.StoreAllData.Tables[0].Rows[i]["std_id"].ToString();
                                             var Clot = Model.StoreAllData.Tables[0].Rows[i]["CorrectionLot"].ToString();
@@ -250,7 +251,7 @@
                             <input type="button" value="Print Correction Performa" onclick="javascript:document.location.href='@Url.Action("SchoolCorrectionFinalPrintList", "RegistrationPortal")'" />
 
                             @*<input type="submit" value="Exit" formaction="ExitCorrection" />*@   
-							<a href="/School/SchoolCorrection" class="btn">Verify Corrections</a>
+							@*<a href="/School/SchoolCorrection" class="btn">Verify Corrections</a>*@
                         </div>
                         </div>                   
                 </div>

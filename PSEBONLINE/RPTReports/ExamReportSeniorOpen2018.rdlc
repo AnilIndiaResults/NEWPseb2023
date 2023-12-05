@@ -1958,7 +1958,7 @@ Late Fee
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>11. Ó¨ÞÐ Âã ¨ÝóÐ ÆÏÛÚª¤ØÏÁÛ¤Ù ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :</Value>
+                        <Value>9. Ó¨ÞÐ Âã ¨ÝóÐ ÆÏÛÚª¤ØÏÁÛ¤Ù ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1991,7 +1991,7 @@ Late Fee
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>10. ÇÛÓ Âã ÒãÏÒã</Value>
+                        <Value>8. ÇÛÓ Âã ÒãÏÒã</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -2310,32 +2310,36 @@ Late Fee
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Textbox Name="Textbox17">
+              <Textbox Name="Textbox7">
                 <CanGrow>true</CanGrow>
                 <KeepTogether>true</KeepTogether>
                 <Paragraphs>
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
+                        <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
                         <Style>
-                          <Color>DarkGreen</Color>
+                          <FontFamily>PNB-TTAmarEN</FontFamily>
+                          <FontSize>14pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
                         </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
                   </Paragraph>
                 </Paragraphs>
-                <rd:DefaultName>Textbox5</rd:DefaultName>
-                <Top>9.39788in</Top>
+                <rd:DefaultName>Textbox1</rd:DefaultName>
+                <Top>8.8392in</Top>
                 <Left>0.15269in</Left>
                 <Height>0.25in</Height>
-                <Width>2.02351in</Width>
+                <Width>1.82289in</Width>
                 <ZIndex>13</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <BackgroundColor>Black</BackgroundColor>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -5192,7 +5196,7 @@ The Principal</Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox378</rd:DefaultName>
-            <Top>28.03704in</Top>
+            <Top>27.91204in</Top>
             <Left>4.59005in</Left>
             <Height>0.24802in</Height>
             <Width>3.10445in</Width>
@@ -7212,7 +7216,7 @@ The Principal</Value>
                             </Textbox>
                             <Image Name="Image1">
                               <Source>External</Source>
-                              <Value>=Parameters!ImgPath.Value + Fields!std_photo.Value</Value>
+                              <Value>= Fields!std_photo.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>2.54753in</Top>
                               <Left>5.65228in</Left>
@@ -7228,7 +7232,7 @@ The Principal</Value>
                             </Image>
                             <Image Name="Image2">
                               <Source>External</Source>
-                              <Value>= Parameters!ImgPath.Value + Fields!std_sign.Value</Value>
+                              <Value>=  Fields!std_sign.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>8.17115in</Top>
                               <Left>2.26976in</Left>
@@ -8394,7 +8398,7 @@ Set :  </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
+                                      <Value EvaluationMode="Constant" />
                                       <Style>
                                         <FontSize>8pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
@@ -8432,7 +8436,7 @@ Set :  </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
+                                      <Value EvaluationMode="Constant" />
                                       <Style>
                                         <FontSize>8pt</FontSize>
                                         <FontWeight>Bold</FontWeight>
@@ -8510,7 +8514,7 @@ Set :  </Value>
               <BreakLocation>Start</BreakLocation>
             </PageBreak>
             <KeepTogether>true</KeepTogether>
-            <Top>28.48437in</Top>
+            <Top>28.35937in</Top>
             <Left>0.06784in</Left>
             <Height>0.01042in</Height>
             <Width>7.62167in</Width>
@@ -9332,64 +9336,72 @@ Total ST Candidates        </Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox18">
+          <Textbox Name="Textbox13">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
+                    <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
                     <Style>
-                      <Color>DarkGreen</Color>
+                      <FontFamily>PNB-TTAmarEN</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>White</Color>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>28.03704in</Top>
-            <Left>0.12703in</Left>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>23.79054in</Top>
+            <Left>0.25in</Left>
             <Height>0.25in</Height>
-            <Width>2.02351in</Width>
+            <Width>1.82289in</Width>
             <ZIndex>32</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <BackgroundColor>Black</BackgroundColor>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox21">
+          <Textbox Name="Textbox17">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
+                    <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
                     <Style>
-                      <Color>DarkGreen</Color>
+                      <FontFamily>PNB-TTAmarEN</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>White</Color>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>23.77666in</Top>
-            <Left>0.18116in</Left>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>27.91204in</Top>
+            <Left>0.13723in</Left>
             <Height>0.25in</Height>
-            <Width>2.02351in</Width>
+            <Width>1.82289in</Width>
             <ZIndex>33</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <BackgroundColor>Black</BackgroundColor>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>

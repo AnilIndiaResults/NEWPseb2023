@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Office.Word;
 
 namespace PSEBONLINE.AbstractLayer
 {
@@ -79,6 +80,12 @@ namespace PSEBONLINE.AbstractLayer
                     if (reader.Read())
                     {
                         loginSession.PRINCIPAL = DBNull.Value != reader["PRINCIPAL"] ? (string)reader["PRINCIPAL"] : default(string);
+                        loginSession.PHONE = DBNull.Value != reader["PHONE"] ? (string)reader["PHONE"] : default(string);
+                        loginSession.STDCODE = DBNull.Value != reader["STDCODE"] ? (string)reader["STDCODE"] : default(string);
+                        loginSession.PrincipalName2 = DBNull.Value != reader["PrincipalName2"] ? (string)reader["PrincipalName2"] : default(string);
+                        loginSession.PrincipalMobile2 = DBNull.Value != reader["PrincipalMobile2"] ? (string)reader["PrincipalMobile2"] : default(string);
+                        loginSession.Finalsubmittedforchoice = DBNull.Value != reader["Finalsubmittedforchoice"] ? (int)reader["Finalsubmittedforchoice"] : default(int);
+
                         loginSession.STATUS = DBNull.Value != reader["STATUS"] ? (string)reader["STATUS"] : default(string);
                         loginSession.DIST = DBNull.Value != reader["DIST"] ? (string)reader["DIST"] : default(string);
                         loginSession.SCHL = DBNull.Value != reader["SCHL"] ? (string)reader["SCHL"] : default(string);
@@ -267,6 +274,59 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
                     cmd.Parameters.AddWithValue("@PageSize", PageSize);
                     cmd.Parameters.AddWithValue("@search", search);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
+
+        public DataSet InfraReportList(string search, int PageNumber, int PageSize)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("InfraReportListSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@search", search);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
+
+        public DataSet CenterChoiceReportList(string search, int PageNumber, int PageSize)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("CenterChoiceReportListSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@PageNumber", PageNumber);
+                    cmd.Parameters.AddWithValue("@PageSize", PageSize);
+                    cmd.Parameters.AddWithValue("@search", search);
+                    //cmd.Parameters.AddWithValue("@finalchoice", Finalsubmittedforchoice);
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
                     con.Open();
@@ -4998,7 +5058,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 300;
                 cmd.CommandText = "CheckMigrationStatus"; //InsertOnlinePaymentMISSP // InsertOnlinePaymentMISSPNEW
-              
+
                 cmd.Parameters.AddWithValue("@StdId", stdId);
                 ds = db.ExecuteDataSet(cmd);
                 //result = db.ExecuteNonQuery(cmd);                
@@ -5012,7 +5072,7 @@ namespace PSEBONLINE.AbstractLayer
             }
 
 
-            
+
         }
         #endregion
 
@@ -6019,6 +6079,29 @@ namespace PSEBONLINE.AbstractLayer
                 return result = null;
             }
         }
+
+        public DataSet SchoolCenterNameNearestWithSchool(string Dist)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("sp_SchoolCenterNameNearestWithSchool", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Dist", Dist);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
         public DataSet SchoolCenterAnswerSheetNearest(string Dist)
         {
             DataSet result = new DataSet();
@@ -6077,6 +6160,30 @@ namespace PSEBONLINE.AbstractLayer
                     context.InfrasturePerformas.Add(ipsNew);
                     context.SaveChanges();
                     obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
+                }
+
+            }
+            Thread.Sleep(2000);
+            return Task.FromResult(obj);
+
+        }
+
+
+        public Task<InfrasturePerformas> GetInfrasturePerformaBySCHLForAdmin(string SCHL)  // Type 1=Regular, 2=Open
+        {
+            InfrasturePerformas obj = new InfrasturePerformas();
+            if (SCHL != null)
+            {
+                obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == SCHL.Trim());
+                if (obj == null)
+                {
+                    var ipsNew = new InfrasturePerformas()
+                    {
+                        SCHL = SCHL
+                    };
+                    context.InfrasturePerformas.Add(ipsNew);
+                    context.SaveChanges();
+                    obj = context.InfrasturePerformas.SingleOrDefault(x => x.SCHL.Trim() == SCHL.Trim());
                 }
 
             }
@@ -6253,6 +6360,19 @@ namespace PSEBONLINE.AbstractLayer
                     context.SaveChanges();
                     obj = context.InfrasturePerformasList.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());
                 }
+
+            }
+            Thread.Sleep(2000);
+            return Task.FromResult(obj);
+
+        }
+
+        public Task<InfrasturePerformasList> GetInfrasturePerformaBySCHLListAdmin(LoginSession LM)  // Type 1=Regular, 2=Open
+        {
+            InfrasturePerformasList obj = new InfrasturePerformasList();
+            if (LM != null)
+            {
+                obj = context.InfrasturePerformasList.SingleOrDefault(x => x.SCHL.Trim() == LM.SCHL.Trim());               
 
             }
             Thread.Sleep(2000);
@@ -6447,8 +6567,6 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
         #endregion REGOPENPracticalExamCentre
-
-
         #region unlockperformaa
         public static DataSet UnloackPerforma(string SchlCode)
         {
@@ -6474,5 +6592,99 @@ namespace PSEBONLINE.AbstractLayer
         }
         #endregion
 
-    }
+
+
+        #region unlockExamCenter
+        public static DataSet unlockExamCenter(string SchlCode)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["myDBConnection"].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("ExamCenterUnlockUnlockSP", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SchlCode", SchlCode);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+        #endregion
+
+
+        public static int sp_Update_school_center_choice(FormCollection frm, int Finalsubmittedforchoice)
+        {
+            SqlConnection con = null;
+            string PricipleName = frm["PricipleName"].ToString();
+            string stdCode = frm["stdCode"].ToString();
+            string phone = frm["phone"].ToString();
+            string Mobile = frm["Mobile"].ToString();
+            string Priciple2Name = frm["Priciple2Name"].ToString();
+            string Priciple2Mobile = frm["Priciple2Mobile"].ToString();
+            string schl = HttpContext.Current.Session["SCHL"].ToString();
+            int Finalsubmittedforchoiceval = Finalsubmittedforchoice;
+            int OutStatus = 0;
+            string result = "";
+            try
+            {
+                con = new SqlConnection(ConfigurationManager.ConnectionStrings["myDBConnection"].ToString());
+                SqlCommand cmd = new SqlCommand("sp_Update_school_center_choice", con);  //AllotCCESenior
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@SCHL", schl);
+                cmd.Parameters.AddWithValue("@PRINCIPAL", PricipleName);
+                cmd.Parameters.AddWithValue("@STDCODE", stdCode);
+                cmd.Parameters.AddWithValue("@PHONE", phone);
+                cmd.Parameters.AddWithValue("@Mobile", Mobile);
+                cmd.Parameters.AddWithValue("@PrincipalName2", Priciple2Name);
+                cmd.Parameters.AddWithValue("@PrincipalMobile2", Priciple2Mobile);
+                cmd.Parameters.AddWithValue("@Finalsubmittedforchoice", Finalsubmittedforchoiceval);
+                cmd.Parameters.Add("@OutStatus", SqlDbType.Int).Direction = ParameterDirection.Output;
+                con.Open();
+                result = cmd.ExecuteNonQuery().ToString();
+                OutStatus = (int)cmd.Parameters["@OutStatus"].Value;                
+                return OutStatus;
+            }
+            catch (Exception ex)
+            {
+                OutStatus = -1;
+                //mbox(ex);
+                return OutStatus;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+
+        }
+
+		public static DataTable CorrectionAllowsforClassWise(string cls,string formName)
+		{
+			try
+			{
+				DataSet ds = new DataSet();
+				Microsoft.Practices.EnterpriseLibrary.Data.Database db = DatabaseFactory.CreateDatabase("myDBConnection");
+				SqlCommand cmd = new SqlCommand();
+				cmd.CommandType = CommandType.StoredProcedure;
+				cmd.CommandTimeout = 300;
+				cmd.CommandText = "CorrectionAllowsforClassWise";
+				cmd.Parameters.AddWithValue("@cls", Convert.ToInt16(cls));
+				cmd.Parameters.AddWithValue("@formName", formName);
+				ds = db.ExecuteDataSet(cmd);
+				return ds.Tables[0];
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+	}
 }

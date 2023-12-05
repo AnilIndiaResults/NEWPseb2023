@@ -9,11 +9,17 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using PSEBONLINE.Filters;
+using System.Configuration;
+using Amazon.S3;
+using Amazon.S3.Transfer;
+using Amazon;
 
 namespace PSEBONLINE.Controllers
 {
+    
     public class CorrectionSubjectsController : Controller
     {
+        private const string BUCKET_NAME = "psebdata";
         AbstractLayer.RegistrationDB objDB = new AbstractLayer.RegistrationDB(); //calling class DBClass
         AbstractLayer.DBClass objCommon = new AbstractLayer.DBClass();
         AbstractLayer.ErrorLog oErrorLog = new AbstractLayer.ErrorLog();
@@ -292,27 +298,47 @@ namespace PSEBONLINE.Controllers
                     {
                         stdPic = Path.GetFileName(rm.std_Photo.FileName);
                     }
-                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Photo"), rm.Std_id + "P" + ".jpg");
+                    string fileName = rm.Std_id + "P" + ".jpg";
+                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2024/ImageCorrection/New/Photo"), rm.Std_id + "P" + ".jpg");
 
-                    //var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
-                    var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
-                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Photo"));
-                    string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Photo"));
-                    if (!Directory.Exists(FilepathExist))
-                    {
-                        Directory.CreateDirectory(FilepathExist);
-                    }
-                    if (!Directory.Exists(FilepathExistOld))
-                    {
-                        Directory.CreateDirectory(FilepathExistOld);
-                    }
+                    ////var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
+                    //var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Photo"].ToString();
+                    //string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Photo"));
+                    //string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Photo"));
+                    //if (!Directory.Exists(FilepathExist))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExist);
+                    //}
+                    //if (!Directory.Exists(FilepathExistOld))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExistOld);
+                    //}
 
-                    rm.std_Photo.SaveAs(path);
-                    filepathtosave = "../Upload/Upload2023/ImageCorrection/New/Photo/" + rm.Std_id + "P" + ".jpg";
+                    //rm.std_Photo.SaveAs(path);
+                    using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                    {
+                        using (var newMemoryStream = new MemoryStream())
+                        {
+                            ///file.CopyTo(newMemoryStream);
+
+                            var uploadRequest = new TransferUtilityUploadRequest
+                            {
+                                InputStream = rm.std_Photo.InputStream,
+                                Key = string.Format("allfiles/Upload2024/ImageCorrection/New/Photo/{0}", fileName),
+                                BucketName = BUCKET_NAME,
+                                CannedACL = S3CannedACL.PublicRead
+                            };
+
+                            var fileTransferUtility = new TransferUtility(client);
+                            fileTransferUtility.Upload(uploadRequest);
+                        }
+                    }
+                    filepathtosave = "allfiles/Upload2024/ImageCorrection/New/Photo/" + rm.Std_id + "P" + ".jpg";
                     ViewBag.ImageURL = filepathtosave;
-                    string PhotoName = "/Upload/Upload2023/ImageCorrection/New/Photo" + "/" + rm.Std_id + "P" + ".jpg";
-                    rm.oldVal = frm["imgPhotoOld"];
-                    rm.newVal = PhotoName;
+                    string PhotoName = "allfiles/Upload2024/ImageCorrection/New/Photo" + "/" + rm.Std_id + "P" + ".jpg";
+                   // rm.oldVal = frm["imgPhotoOld"];
+                    rm.oldVal = @ViewBag.PhotoOld;
+					rm.newVal = PhotoName;
 
                     //System.IO.File.Copy(pathOld, FilepathExistOld);
                 }
@@ -322,29 +348,51 @@ namespace PSEBONLINE.Controllers
                     {
                         stdPic = Path.GetFileName(rm.std_Sign.FileName);
                     }
-                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Sign"), rm.Std_id + "S" + ".jpg");
-                    //var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
-                    var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
-                    string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Sign"));
-                    string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Sign"));
-                    if (!Directory.Exists(FilepathExist))
-                    {
-                        Directory.CreateDirectory(FilepathExist);
-                    }
-                    if (!Directory.Exists(FilepathExistOld))
-                    {
-                        Directory.CreateDirectory(FilepathExistOld);
-                    }
+
+                    string fileName = rm.Std_id + "S" + ".jpg";
+                    var path = Path.Combine(Server.MapPath("~/Upload/Upload2024/ImageCorrection/New/Sign"), rm.Std_id + "S" + ".jpg");
+                    ////var pathOld = @"\\10.10.10.113\Nucleus\live.psebonline.in\www\upload\Upload2017\" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
+                    //var pathOld = "https://registration2022.pseb.ac.in/Upload/Upload2023/" + ds.Tables[0].Rows[0]["std_Sign"].ToString();
+                    //string FilepathExist = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/New/Sign"));
+                    //string FilepathExistOld = Path.Combine(Server.MapPath("~/Upload/Upload2023/ImageCorrection/Old/Sign"));
+                    //if (!Directory.Exists(FilepathExist))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExist);
+                    //}
+                    //if (!Directory.Exists(FilepathExistOld))
+                    //{
+                    //    Directory.CreateDirectory(FilepathExistOld);
+                    //}
 
 
-                    rm.std_Sign.SaveAs(path);
-                    filepathtosave = "../Upload/Upload2023/ImageCorrection/New/Sign/" + rm.Std_id + "S" + ".jpg";
+                    //rm.std_Sign.SaveAs(path);
+                    using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                    {
+                        using (var newMemoryStream = new MemoryStream())
+                        {
+                            ///file.CopyTo(newMemoryStream);
+
+                            var uploadRequest = new TransferUtilityUploadRequest
+                            {
+                                InputStream = rm.std_Sign.InputStream,
+                                Key = string.Format("allfiles/Upload2024/ImageCorrection/New/Sign/{0}", fileName),
+                                BucketName = BUCKET_NAME,
+                                CannedACL = S3CannedACL.PublicRead
+                            };
+
+                            var fileTransferUtility = new TransferUtility(client);
+                            fileTransferUtility.Upload(uploadRequest);
+                        }
+                    }
+
+                    filepathtosave = "allfiles/Upload2024/ImageCorrection/New/Sign/" + rm.Std_id + "S" + ".jpg";
                     ViewBag.ImageURL = filepathtosave;
-                    string SignName = "/Upload/Upload2023/ImageCorrection/New/Sign" + "/" + rm.Std_id + "S" + ".jpg";
+                    string SignName = "allfiles/Upload2024/ImageCorrection/New/Sign" + "/" + rm.Std_id + "S" + ".jpg";
                     rm.oldVal = frm["imgSignOld"];
                     rm.newVal = SignName;
-                    rm.oldVal = frm["imgSignOld"];
-                    rm.newVal = SignName;
+                   // rm.oldVal = frm["imgSignOld"];
+                    rm.oldVal = @ViewBag.SignOld;
+					rm.newVal = SignName;
 
                     //System.IO.File.Copy(pathOld, FilepathExistOld);
                 }
@@ -457,7 +505,7 @@ namespace PSEBONLINE.Controllers
                         }
                         else
                         {
-                            @ViewBag.PhotoOld = seleLastCan.Tables[0].Rows[0]["Std_photo"].ToString();
+							@ViewBag.PhotoOld = seleLastCan.Tables[0].Rows[0]["Std_photo"].ToString();
                             @ViewBag.SignOld = seleLastCan.Tables[0].Rows[0]["Std_Sign"].ToString();
                         }
 
@@ -1657,18 +1705,18 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
+                        //else if (i == 8)
+                        //{
+                        //    rm.subS8 = "92";// sub8-Welcome Life
+                        //    dr["SUB"] = rm.subS8; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "G";
+                        //    if (rm.subS8 != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySub(rm.subS8.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
                         else if (i == 8)
-                        {
-                            rm.subS8 = "92";// sub8-Welcome Life
-                            dr["SUB"] = rm.subS8; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "G";
-                            if (rm.subS8 != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySub(rm.subS8.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
-                        else if (i == 9)
                         {
                             dr["MEDIUM"] = "Medium";
 
@@ -1688,7 +1736,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 10)
+                        else if (i == 9)
                         {
                             dr["SUB"] = rm.s10; dr["MEDIUM"] = rm.m10; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "A";
                             if (rm.NSQF == "NO")
@@ -1712,7 +1760,7 @@ namespace PSEBONLINE.Controllers
                             }
 
                         }
-                        else if (i == 11)
+                        else if (i == 10)
                         {
                             if (rm.m11 != null)
                             {
@@ -1730,7 +1778,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 12)
+                        else if (i == 11)
                         {
                             if (rm.m12 != null)
                             {
@@ -2030,7 +2078,7 @@ namespace PSEBONLINE.Controllers
                 int NoOfSub = DTNoOfSub.Count();
                 if (rm.DA == "N.A.")
                 {
-                    if (NoOfSub < 9)
+                    if (NoOfSub < 8)
                     {
                         TempData["resultUpdate"] = 15;
                         return RedirectToAction("SubjectCorrectionPerforma", "CorrectionSubjects");
@@ -3049,41 +3097,41 @@ namespace PSEBONLINE.Controllers
                                     rm.comm4 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[3]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 4)
-                                {
-                                    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
-                                    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
-                                }
+                                //else if (i == 4)
+                                //{
+                                //    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
+                                //    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
+                                //}
 
-                                else if (i == 5)
+                                else if (i == 4)
                                 {
                                     rm.ss5 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.sm5 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 6)
+                                else if (i == 5)
                                 {
                                     rm.ss6 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.sm6 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 7)
+                                else if (i == 6)
                                 {
                                     rm.ss7 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.sm7 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 8)
+                                else if (i == 7)
                                 {
                                     rm.ss8 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.sm8 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
 
-                                //else if (i == 8)
-                                //{
-                                //    rm.s9 = ds.Tables[1].Rows[8]["SUB"].ToString();
-                                //    DataSet SelectedMediumList = objDB.SelectS1(rm.s9);
-                                //    List<SelectListItem> iMEdiumList = objDB.GetMatricMediumList(SelectedMediumList);
-                                //    rm.m9 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[8]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
-                                //    ViewBag.SubS9m = iMEdiumList;
-                                //}
+                                else if (i == 8)
+                                {
+                                    rm.s9 = ds.Tables[1].Rows[8]["SUB"].ToString();
+                                    DataSet SelectedMediumList = objDB.SelectS1(rm.s9);
+                                    List<SelectListItem> iMEdiumList = objDB.GetMatricMediumList(SelectedMediumList);
+                                    rm.m9 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[8]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
+                                    ViewBag.SubS9m = iMEdiumList;
+                                }
 
                             }
                             if (ds.Tables[0].Rows[0]["Group_Name"].ToString() == "COMMERCE")
@@ -3113,17 +3161,17 @@ namespace PSEBONLINE.Controllers
                                     ViewBag.comm4NM = ds.Tables[1].Rows[3]["SUBNM"].ToString();
                                     rm.comcm4 = ds.Tables[1].Rows[3]["MEDIUM"].ToString();
                                 }
+                                //else if (i == 4)
+                                //{
+                                //    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
+                                //    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
+                                //}
                                 else if (i == 4)
-                                {
-                                    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
-                                    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
-                                }
-                                else if (i == 5)
                                 {
                                     rm.coms5 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.comm5 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 6)
+                                else if (i == 5)
                                 {
                                     rm.coms6 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.comm6 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3133,12 +3181,12 @@ namespace PSEBONLINE.Controllers
                                 //    rm.coms7 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                 //    rm.comm7 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 //}
-                                else if (i == 7)
+                                else if (i == 6)
                                 {
                                     rm.coms8 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.comm8 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 8)
+                                else if (i == 7)
                                 {
                                     rm.coms9 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.comm9 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3179,12 +3227,12 @@ namespace PSEBONLINE.Controllers
                                     rm.hums4 = ds.Tables[1].Rows[3]["SUB"].ToString();
                                     rm.humm4 = ds.Tables[1].Rows[3]["MEDIUM"].ToString();
                                 }
+                                //else if (i == 4)
+                                //{
+                                //    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
+                                //    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
+                                //}
                                 else if (i == 4)
-                                {
-                                    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
-                                    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
-                                }
-                                else if (i == 5)
                                 {
                                     rm.hums5 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     DataSet SelectedMediumList = objDB.SelectTwelveMedium(rm.hums5);
@@ -3192,7 +3240,7 @@ namespace PSEBONLINE.Controllers
                                     rm.humm5 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 6)
+                                else if (i == 5)
                                 {
                                     rm.hums6 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     // rm.humm6 = ds.Tables[1].Rows[5]["MEDIUM"].ToString();
@@ -3202,7 +3250,7 @@ namespace PSEBONLINE.Controllers
                                     ViewBag.Commonmedium = iMEdiumList;
 
                                 }
-                                else if (i == 7)
+                                else if (i == 6)
                                 {
                                     rm.hums7 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.humm7 = ds.Tables[1].Rows[6]["MEDIUM"].ToString();
@@ -3211,7 +3259,7 @@ namespace PSEBONLINE.Controllers
                                     rm.humm7 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 8)
+                                else if (i == 7)
                                 {
                                     rm.hums8 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.humm8 = ds.Tables[1].Rows[7]["MEDIUM"].ToString();
@@ -3249,12 +3297,12 @@ namespace PSEBONLINE.Controllers
                                     rm.tecs4 = ds.Tables[1].Rows[3]["SUB"].ToString();
                                     rm.tecm4 = ds.Tables[1].Rows[3]["MEDIUM"].ToString();
                                 }
+                                //else if (i == 4)
+                                //{
+                                //    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
+                                //    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
+                                //}
                                 else if (i == 4)
-                                {
-                                    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
-                                    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
-                                }
-                                else if (i == 5)
                                 {
                                     rm.tecs5 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.tecm5 = ds.Tables[1].Rows[4]["MEDIUM"].ToString();
@@ -3263,7 +3311,7 @@ namespace PSEBONLINE.Controllers
                                     rm.tecm5 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 6)
+                                else if (i == 5)
                                 {
                                     rm.tecs6 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.tecm6 = ds.Tables[1].Rows[5]["MEDIUM"].ToString();
@@ -3272,7 +3320,7 @@ namespace PSEBONLINE.Controllers
                                     rm.tecm6 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 7)
+                                else if (i == 6)
                                 {
                                     rm.tecs7 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.tecm7 = ds.Tables[1].Rows[6]["MEDIUM"].ToString();
@@ -3281,7 +3329,7 @@ namespace PSEBONLINE.Controllers
                                     rm.tecm7 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 8)
+                                else if (i == 7)
                                 {
                                     rm.tecs8 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.tecm8 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3319,12 +3367,12 @@ namespace PSEBONLINE.Controllers
                                     rm.agrs4 = ds.Tables[1].Rows[3]["SUB"].ToString();
                                     rm.agrm4 = ds.Tables[1].Rows[3]["MEDIUM"].ToString();
                                 }
+                                //else if (i == 4)
+                                //{
+                                //    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
+                                //    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
+                                //}
                                 else if (i == 4)
-                                {
-                                    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
-                                    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
-                                }
-                                else if (i == 5)
                                 {
                                     rm.agrs5 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.agrm5 = ds.Tables[1].Rows[4]["MEDIUM"].ToString();
@@ -3333,7 +3381,7 @@ namespace PSEBONLINE.Controllers
                                     rm.agrm5 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 6)
+                                else if (i == 5)
                                 {
                                     rm.agrs6 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.agrm6 = ds.Tables[1].Rows[5]["MEDIUM"].ToString();
@@ -3342,7 +3390,7 @@ namespace PSEBONLINE.Controllers
                                     rm.agrm6 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 7)
+                                else if (i == 6)
                                 {
                                     rm.agrs7 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.agrm7 = ds.Tables[1].Rows[6]["MEDIUM"].ToString();
@@ -3351,7 +3399,7 @@ namespace PSEBONLINE.Controllers
                                     rm.agrm7 = iMEdiumList.Where(s => s.Text == ds.Tables[1].Rows[i]["MEDIUM"].ToString()).Select(s => s.Value).FirstOrDefault();
                                     ViewBag.Commonmedium = iMEdiumList;
                                 }
-                                else if (i == 8)
+                                else if (i == 7)
                                 {
                                     rm.agrs8 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     //rm.agrm8 = ds.Tables[1].Rows[7]["MEDIUM"].ToString();
@@ -3394,12 +3442,12 @@ namespace PSEBONLINE.Controllers
                                     ViewBag.vocs4 = ds.Tables[1].Rows[3]["SUBNM"].ToString();
                                     rm.vocm4 = ds.Tables[1].Rows[3]["MEDIUM"].ToString();
                                 }
+                                //else if (i == 4)
+                                //{
+                                //    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
+                                //    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
+                                //}
                                 else if (i == 4)
-                                {
-                                    rm.ssWEL = ds.Tables[1].Rows[i]["SUB"].ToString();
-                                    rm.smWEL = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
-                                }
-                                else if (i == 5)
                                 {
                                     rm.vocs5 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.vocm5 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3407,7 +3455,7 @@ namespace PSEBONLINE.Controllers
                                     var VS1 = vos5.ToList().Where(s => s.Value == rm.vocs5).Select(s => s);
                                     ViewBag.vos5 = VS1.ToList();
                                 }
-                                else if (i == 6)
+                                else if (i == 5)
                                 {
                                     rm.vocs6 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.vocm6 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3416,7 +3464,7 @@ namespace PSEBONLINE.Controllers
                                     var VS2 = vos6.ToList().Where(s => s.Value == rm.vocs6).Select(s => s);
                                     ViewBag.vos6 = VS2.ToList();
                                 }
-                                else if (i == 7)
+                                else if (i == 6)
                                 {
                                     rm.vocs7 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.vocm7 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3425,17 +3473,17 @@ namespace PSEBONLINE.Controllers
                                     var VS3 = vos7.ToList().Where(s => s.Value == rm.vocs7).Select(s => s);
                                     ViewBag.vos7 = VS3.ToList();
                                 }
-                                else if (i == 8)
+                                else if (i == 7)
                                 {
                                     rm.vocs8 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.vocm8 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 9)
+                                else if (i == 8)
                                 {
                                     rm.vocs9 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.vocm9 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
                                 }
-                                else if (i == 10)
+                                else if (i == 9)
                                 {
                                     rm.vocs10 = ds.Tables[1].Rows[i]["SUB"].ToString();
                                     rm.vocm10 = ds.Tables[1].Rows[i]["MEDIUM"].ToString();
@@ -3958,20 +4006,20 @@ namespace PSEBONLINE.Controllers
                             }
                         }
 
+                        //else if (i == 5)
+                        //{
+                        //    dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
+                        //    if (rm.ssWEL != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
+
+
+
                         else if (i == 5)
-                        {
-                            dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
-                            if (rm.ssWEL != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
-
-
-
-                        else if (i == 6)
                         {
                             dr["SUB"] = rm.ss5; dr["MEDIUM"] = rm.sm5; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.ss5 != null)
@@ -3981,7 +4029,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 7)
+                        else if (i == 6)
                         {
                             dr["SUB"] = rm.ss6; dr["MEDIUM"] = rm.sm6; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.ss6 != null)
@@ -3991,7 +4039,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 8)
+                        else if (i == 7)
                         {
                             dr["SUB"] = rm.ss7; dr["MEDIUM"] = rm.sm7; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.ss7 != null)
@@ -4001,7 +4049,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 9)
+                        else if (i == 8)
                         {
                             dr["SUB"] = rm.ss8; dr["MEDIUM"] = rm.sm8; dr["SUB_SEQ"] = 10; dr["SUBCAT"] = "A";
                             if (rm.ss8 != null)
@@ -4067,19 +4115,19 @@ namespace PSEBONLINE.Controllers
                             }
                         }
 
+                        //else if (i == 5)
+                        //{
+                        //    dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
+                        //    if (rm.ssWEL != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
+
+
                         else if (i == 5)
-                        {
-                            dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
-                            if (rm.ssWEL != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
-
-
-                        else if (i == 6)
                         {
                             dr["SUB"] = rm.coms5; dr["MEDIUM"] = rm.comm5; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.coms5 != null)
@@ -4089,7 +4137,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 7)
+                        else if (i == 6)
                         {
                             dr["SUB"] = rm.coms6; dr["MEDIUM"] = rm.comm6; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.coms6 != null)
@@ -4099,7 +4147,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 8)
+                        else if (i == 7)
                         {
                             dr["SUB"] = rm.coms7; dr["MEDIUM"] = rm.comm7; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.coms7 != null)
@@ -4109,7 +4157,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 9)
+                        else if (i == 8)
                         {
                             dr["SUB"] = rm.coms8; dr["MEDIUM"] = rm.comm8; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.coms8 != null)
@@ -4119,7 +4167,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 10)
+                        else if (i == 9)
                         {
                             dr["SUB"] = rm.coms9; dr["MEDIUM"] = rm.comm9; dr["SUB_SEQ"] = 10; dr["SUBCAT"] = "A";
                             if (rm.coms9 != null)
@@ -4191,20 +4239,20 @@ namespace PSEBONLINE.Controllers
                             }
                         }
 
+                        //else if (i == 5)
+                        //{
+                        //    dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
+                        //    if (rm.ssWEL != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
+
+
+
                         else if (i == 5)
-                        {
-                            dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
-                            if (rm.ssWEL != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
-
-
-
-                        else if (i == 6)
                         {
                             dr["SUB"] = rm.hums5; dr["MEDIUM"] = rm.humm5; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.hums5 != null)
@@ -4214,7 +4262,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 7)
+                        else if (i == 6)
                         {
                             dr["SUB"] = rm.hums6; dr["MEDIUM"] = rm.humm6; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.hums6 != null)
@@ -4224,7 +4272,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 8)
+                        else if (i == 7)
                         {
                             dr["SUB"] = rm.hums7; dr["MEDIUM"] = rm.humm7; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.hums7 != null)
@@ -4234,7 +4282,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 9)
+                        else if (i == 8)
                         {
                             dr["SUB"] = rm.hums8; dr["MEDIUM"] = rm.humm8; dr["SUB_SEQ"] = 10; dr["SUBCAT"] = "A";
                             if (rm.hums8 != null)
@@ -4307,19 +4355,19 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
+                        //else if (i == 5)
+                        //{
+                        //    dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
+                        //    if (rm.ssWEL != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
+
+
                         else if (i == 5)
-                        {
-                            dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
-                            if (rm.ssWEL != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
-
-
-                        else if (i == 6)
                         {
                             dr["SUB"] = rm.vocs5; dr["MEDIUM"] = rm.vocm5; dr["SUB_SEQ"] = i; dr["GROUP"] = rm.groupsel; dr["TCODE"] = rm.TCODE; dr["TNAME"] = rm.grouptr; dr["SUBCAT"] = "R";
                             if (rm.vocs5 != null)
@@ -4329,7 +4377,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 7)
+                        else if (i == 6)
                         {
                             dr["SUB"] = rm.vocs6; dr["MEDIUM"] = rm.vocm6; dr["SUB_SEQ"] = i; dr["GROUP"] = rm.groupsel; dr["TCODE"] = rm.TCODE; dr["TNAME"] = rm.grouptr; dr["SUBCAT"] = "R";
                             if (rm.vocs6 != null)
@@ -4339,7 +4387,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 8)
+                        else if (i == 7)
                         {
                             dr["SUB"] = rm.vocs7; dr["MEDIUM"] = rm.vocm7; dr["SUB_SEQ"] = i; dr["GROUP"] = rm.groupsel; dr["TCODE"] = rm.TCODE; dr["TNAME"] = rm.grouptr; dr["SUBCAT"] = "R";
                             if (rm.vocs7 != null)
@@ -4349,7 +4397,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 9)
+                        else if (i == 8)
                         {
                             dr["SUB"] = rm.vocs8; dr["MEDIUM"] = rm.vocm8; dr["SUB_SEQ"] = i; dr["GROUP"] = rm.groupsel; dr["TCODE"] = rm.TCODE; dr["TNAME"] = rm.grouptr; dr["SUBCAT"] = "A";
                             if (rm.vocs8 != null)
@@ -4359,7 +4407,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 10)
+                        else if (i == 9)
                         {
                             dr["SUB"] = rm.vocs9; dr["MEDIUM"] = rm.vocm9; dr["SUB_SEQ"] = i; dr["GROUP"] = rm.groupsel; dr["TCODE"] = rm.TCODE; dr["TNAME"] = rm.grouptr; dr["SUBCAT"] = "G";
                             if (rm.vocs9 != null)
@@ -4369,7 +4417,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 11)
+                        else if (i == 10)
                         {
                             if (rm.vocm10 != null)
                             {
@@ -4443,18 +4491,18 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 5)
-                        {
-                            dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
-                            if (rm.ssWEL != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
+                        //else if (i == 5)
+                        //{
+                        //    dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
+                        //    if (rm.ssWEL != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
 
-                        else if (i == 6)
+                        else if (i == 5)
                         {
                             dr["SUB"] = rm.tecs5; dr["MEDIUM"] = rm.tecm5; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.tecs5 != null)
@@ -4464,7 +4512,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 7)
+                        else if (i == 6)
                         {
                             dr["SUB"] = rm.tecs6; dr["MEDIUM"] = rm.tecm6; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.tecs6 != null)
@@ -4474,7 +4522,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 8)
+                        else if (i == 7)
                         {
                             dr["SUB"] = rm.tecs7; dr["MEDIUM"] = rm.tecm7; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.tecs7 != null)
@@ -4484,7 +4532,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 9)
+                        else if (i == 8)
                         {
                             dr["SUB"] = rm.tecs8; dr["MEDIUM"] = rm.tecm8; dr["SUB_SEQ"] = 10; dr["SUBCAT"] = "A";
                             if (rm.tecs8 != null)
@@ -4549,18 +4597,18 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 5)
-                        {
-                            dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
-                            if (rm.ssWEL != null)
-                            {
-                                dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
-                                dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
-                                dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
-                            }
-                        }
+                        //else if (i == 5)
+                        //{
+                        //    dr["SUB"] = rm.ssWEL; dr["MEDIUM"] = rm.smWEL; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
+                        //    if (rm.ssWEL != null)
+                        //    {
+                        //        dsSub = objDB.GetNAmeAndAbbrbySubFromSSE(rm.ssWEL.ToString());
+                        //        dr["SUBNM"] = dsSub.Tables[0].Rows[0]["NAME_ENG"].ToString();
+                        //        dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
+                        //    }
+                        //}
 
-                        else if (i == 6)
+                        else if (i == 5)
                         {
                             dr["SUB"] = rm.agrs5; dr["MEDIUM"] = rm.agrm5; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.agrs5 != null)
@@ -4570,7 +4618,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 7)
+                        else if (i == 6)
                         {
                             dr["SUB"] = rm.agrs6; dr["MEDIUM"] = rm.agrm6; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.agrs6 != null)
@@ -4580,7 +4628,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 8)
+                        else if (i == 7)
                         {
                             dr["SUB"] = rm.agrs7; dr["MEDIUM"] = rm.agrm7; dr["SUB_SEQ"] = i; dr["SUBCAT"] = "R";
                             if (rm.agrs7 != null)
@@ -4590,7 +4638,7 @@ namespace PSEBONLINE.Controllers
                                 dr["SUBABBR"] = dsSub.Tables[0].Rows[0]["ABBR_ENG"].ToString();
                             }
                         }
-                        else if (i == 9)
+                        else if (i == 8)
                         {
                             dr["SUB"] = rm.agrs8; dr["MEDIUM"] = rm.agrm8; dr["SUB_SEQ"] = 10; dr["SUBCAT"] = "A";
                             if (rm.agrs8 != null)

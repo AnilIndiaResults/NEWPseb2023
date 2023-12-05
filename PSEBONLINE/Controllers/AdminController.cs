@@ -43,7 +43,7 @@ namespace PSEBONLINE.Controllers
         private const string BUCKET_NAME = "psebdata";
         #region SiteMenu       
 
-        //Executes before every action
+        //Executes before every actionm
         protected override void OnActionExecuting(ActionExecutingContext context)
         {
             try
@@ -7523,8 +7523,29 @@ namespace PSEBONLINE.Controllers
                         {
                             Directory.CreateDirectory(FilepathExist);
                         }
-                        Photo.SaveAs(path);
-                        imgPhoto = "Upload2023/Open2022/Photo/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_P.jpg";
+                        //Photo.SaveAs(path);
+                        imgPhoto = "allfiles/Upload2023/Open2022/Photo/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_P.jpg";
+
+                        string Orgfile = openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_P.jpg";
+
+                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                        {
+                            using (var newMemoryStream = new MemoryStream())
+                            {
+                                var uploadRequest = new TransferUtilityUploadRequest
+                                {
+                                    InputStream = Photo.InputStream,
+                                    Key = string.Format("allfiles/Upload2023/Open2022/Photo/{0}",Orgfile),
+
+                                    BucketName = BUCKET_NAME,
+                                    CannedACL = S3CannedACL.PublicRead
+                                };
+
+                                var fileTransferUtility = new TransferUtility(client);
+                                fileTransferUtility.Upload(uploadRequest);
+                            }
+                        }
+
                     }
                     else
                     {
@@ -7538,8 +7559,26 @@ namespace PSEBONLINE.Controllers
                         {
                             Directory.CreateDirectory(FilepathExist);
                         }
-                        Sign.SaveAs(path);
-                        imgSign = "Upload2023/Open2022/Sign/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_S.jpg";
+                        //Sign.SaveAs(path);
+                        imgSign = "allfiles/Upload2023/Open2022/Sign/" + openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_S.jpg";
+                        string Orgfile = openUserRegistrationViewModel.openUserRegistration.APPNO.ToString() + "_S.jpg";
+                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                        {
+                            using (var newMemoryStream = new MemoryStream())
+                            {
+                                var uploadRequest = new TransferUtilityUploadRequest
+                                {
+                                    InputStream = Sign.InputStream,
+                                    Key = string.Format("allfiles/Upload2023/Open2022/Sign/{0}", Orgfile),
+
+                                    BucketName = BUCKET_NAME,
+                                    CannedACL = S3CannedACL.PublicRead
+                                };
+
+                                var fileTransferUtility = new TransferUtility(client);
+                                fileTransferUtility.Upload(uploadRequest);
+                            }
+                        }
                     }
                     else
                     {
@@ -8112,7 +8151,7 @@ namespace PSEBONLINE.Controllers
                     }
                     if (oModel.EmailID != "")
                     {
-                        string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + oModel.User_fullnm + "</b>,</td></tr><tr><td><b>Your Admin User Details are given Below:-</b><br /><b>User Id :</b> " + oModel.user + "<br /><b>Password :</b> " + oModel.pass + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://www.registration.pseb.ac.in/Admin target = _blank>www.registration.pseb.ac.in/Admin</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /></td></tr>";
+                        string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + oModel.User_fullnm + "</b>,</td></tr><tr><td><b>Your Admin User Details are given Below:-</b><br /><b>User Id :</b> " + oModel.user + "<br /><b>Password :</b> " + oModel.pass + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://registration2023.pseb.ac.in/Admin target = _blank>https://registration2023.pseb.ac.in/Admin</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /></td></tr>";
                         // bool result = new AbstractLayer.DBClass().mail("PSEB - Admin User Details", body, "rohit.nanda@ethical.in");
                         bool result = new AbstractLayer.DBClass().mail("PSEB - Admin User Details", body, oModel.EmailID);
                     }
@@ -22257,12 +22296,12 @@ namespace PSEBONLINE.Controllers
                 else if (AppType == "AC")
                 {
 
-                    //if (frm["AppCls"] != "")
-                    //{
-                    //    ViewBag.SelectedCls = frm["AppCls"];
-                    //    TempData["SelectedCls"] = frm["AppCls"];
-                    //    Search += " and ClassLevel='" + frm["AppCls"].ToString() + "'";
-                    //}
+                    if (frm["AppCls"] != "")
+                    {
+                        ViewBag.SelectedCls = frm["AppCls"];
+                        TempData["SelectedCls"] = frm["AppCls"];
+                        Search += " and ClassLevel='" + frm["AppCls"].ToString() + "'";
+                    }
                     if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
@@ -22643,7 +22682,7 @@ namespace PSEBONLINE.Controllers
                 string AdminType = Session["AdminType"].ToString().ToUpper();
                 string AdminUser = Session["AdminUser"].ToString().ToUpper();
 
-                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDL();
+                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDLForMigration();
                 ViewBag.MyApprovalStatusList = MyAcceptRejectList;
 
                 string DistAllow = "";
@@ -22694,12 +22733,14 @@ namespace PSEBONLINE.Controllers
                 //AppType
                 ViewBag.MyAppType = AbstractLayer.EAffiliationDB.GetApplicationTypeList().ToList();
                 ViewBag.SelectedAppType = "0";
+                ViewBag.searchstatus = AbstractLayer.EAffiliationDB.GetApplicationStatusTypeList().ToList();
+                ViewBag.Selectedsearchstatus = "0";
 
 
 
-                //Search By
-                //Status
-                var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
+               //Search By
+               //Status
+               var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
                 new { ID = "3", Name = "School Name" },new { ID = "4", Name = "Station Name" },new { ID = "5", Name = "Mobile No" },new { ID = "7", Name = "EAffiliation Type" },}, "ID", "Name", 1);
                 ViewBag.MySch = itemSearchBy.ToList();
                 ViewBag.SelectedSearchBy = "0";
@@ -22807,7 +22848,7 @@ namespace PSEBONLINE.Controllers
                 }
                 int AdminId = Convert.ToInt32(Session["AdminId"]);
                 string AdminType = Session["AdminType"].ToString().ToUpper();
-                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDL();
+                List<SelectListItem> MyAcceptRejectList = AbstractLayer.DBClass.GetAcceptRejectDDLForMigration();
                 ViewBag.MyApprovalStatusList = MyAcceptRejectList;
                 string DistAllow = "";
                 // Dist Allowed
@@ -22859,6 +22900,8 @@ namespace PSEBONLINE.Controllers
                 //AppType
                 ViewBag.MyAppType = AbstractLayer.EAffiliationDB.GetApplicationTypeList().ToList();
                 ViewBag.SelectedAppType = "0";
+                ViewBag.searchstatus = AbstractLayer.EAffiliationDB.GetApplicationStatusTypeList().ToList();
+                ViewBag.Selectedsearchstatus = "0";
                 //Status
                 var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
                 new { ID = "3", Name = "School Name" },new { ID = "4", Name = "Station Name" },new { ID = "5", Name = "Mobile No" },new { ID = "7", Name = "EAffiliation Type" },}, "ID", "Name", 1);
@@ -22884,11 +22927,20 @@ namespace PSEBONLINE.Controllers
                 TempData["SelAppType"] = AppType;
                 int SelAction = 0;
                 Search = "APPNO is not null ";
-                Search += " and  isnull(ApprovalStatus,'')=''";  // blank
+                //Search += " and  isnull(ApprovalStatus,'')=''";  // blank
 
                 if (AppType == "AFF")
                 {
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        if (ViewBag.SelectedStatus != "0")
+                        {
+                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
 
+                        }
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                    }
 
                     if (frm["AppCls"] != "")
                     {
@@ -22974,8 +23026,19 @@ namespace PSEBONLINE.Controllers
 
                 else if (AppType == "AC")
                 {
+					if (frm["searchstatus"] != "")
+					{
+						ViewBag.SelectedStatus = frm["searchstatus"];
+						if (ViewBag.SelectedStatus != "0")
+						{
+							Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
 
-                    if (frm["Dist1"] != "")
+						}
+						//TempData["searchstatus"] = frm["searchstatus"];
+					}
+
+
+					if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
                         TempData["SelectedDist"] = frm["Dist1"];
@@ -23038,7 +23101,18 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (AppType == "AS")
                 {
-                    if (frm["AppCls"] != "")
+					if (frm["searchstatus"] != "")
+					{
+						ViewBag.SelectedStatus = frm["searchstatus"];
+						if (ViewBag.SelectedStatus != "0")
+						{
+							Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+
+						}
+						//TempData["searchstatus"] = frm["searchstatus"];
+					}
+
+					if (frm["AppCls"] != "")
                     {
                         ViewBag.SelectedCls = frm["AppCls"];
                         TempData["SelectedCls"] = frm["AppCls"];
@@ -23986,7 +24060,7 @@ namespace PSEBONLINE.Controllers
                                 filename = spi.AffObjectionLetters.AppNo + "_" + DocName.Replace(" ", "_") + ext;
                                 path = Path.Combine(Server.MapPath(exactPath), filename.ToUpper());
                                 FilepathExist = Path.Combine(Server.MapPath(exactPath));
-                                spi.AffObjectionLetters.ObjectionFile = "Upload2023/AffObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/" + filename.ToUpper();
+                                spi.AffObjectionLetters.ObjectionFile = "allfiles/Upload2023/AFFObjecttonLetter" + spi.AffObjectionLetters.AppType + "/" + filename.ToUpper();
                             }
 
                             if (cmd.ToLower() == "submit" || cmd.ToLower() == "save")
@@ -24021,7 +24095,30 @@ namespace PSEBONLINE.Controllers
                                         {
                                             Directory.CreateDirectory(FilepathExist);
                                         }
-                                        ObjectionFile.SaveAs(path);
+
+                                        string Orgfile = filename;
+
+                                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                                        {
+                                            using (var newMemoryStream = new MemoryStream())
+                                            {
+                                                var uploadRequest = new TransferUtilityUploadRequest
+                                                {
+                                                    InputStream = ObjectionFile.InputStream,
+                                                    Key = string.Format("allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/{0}" ,Orgfile),
+
+                                                    BucketName = BUCKET_NAME,
+                                                    CannedACL = S3CannedACL.PublicRead
+                                                };
+
+                                                var fileTransferUtility = new TransferUtility(client);
+                                                fileTransferUtility.Upload(uploadRequest);
+                                            }
+                                        }
+
+
+
+                                       //ObjectionFile.SaveAs(path);
                                     }
                                 }
                                 else
@@ -25589,7 +25686,7 @@ namespace PSEBONLINE.Controllers
                                 filename = spi.AffObjectionLetters.AppNo + "_" + DocName.Replace(" ", "_") + ext;
                                 path = Path.Combine(Server.MapPath(exactPath), filename.ToUpper());
                                 FilepathExist = Path.Combine(Server.MapPath(exactPath));
-                                spi.AffObjectionLetters.ObjectionFile = "Upload2023/AffObjecttonLetter/" + spi.AffObjectionLetters.AppType + filename.ToUpper();
+                                spi.AffObjectionLetters.ObjectionFile = "allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + filename.ToUpper();
                             }
 
                             if (cmd.ToLower() == "submit" || cmd.ToLower() == "save")
@@ -25624,7 +25721,28 @@ namespace PSEBONLINE.Controllers
                                         {
                                             Directory.CreateDirectory(FilepathExist);
                                         }
-                                        objectionFile.SaveAs(path);
+
+                                        string Orgfile = filename;
+
+                                        using (var client = new AmazonS3Client(ConfigurationManager.AppSettings["AWSKey"], ConfigurationManager.AppSettings["AWSValue"], RegionEndpoint.APSouth1))
+                                        {
+                                            using (var newMemoryStream = new MemoryStream())
+                                            {
+                                                var uploadRequest = new TransferUtilityUploadRequest
+                                                {
+                                                    InputStream = objectionFile.InputStream,
+                                                    Key = string.Format("allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/{0}", Orgfile),
+
+                                                    BucketName = BUCKET_NAME,
+                                                    CannedACL = S3CannedACL.PublicRead
+                                                };
+
+                                                var fileTransferUtility = new TransferUtility(client);
+                                                fileTransferUtility.Upload(uploadRequest);
+                                            }
+                                        }
+
+                                        //objectionFile.SaveAs(path);
                                     }
                                 }
                                 else
@@ -26833,8 +26951,237 @@ namespace PSEBONLINE.Controllers
             }
             base.Dispose(disposing);
         }
-    }
-}
+
+
+
+        public ActionResult FinalPrintForAdmin(string schl)
+        {
+            try
+            {
+
+                ChallanMasterModel CM = new ChallanMasterModel();
+                ViewBag.Message = "Record Not Found";
+                return View();
+               
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return RedirectToAction("Logout", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult FinalPrintForAdmin(FormCollection frm)
+        {
+            try
+            {
+
+                ChallanMasterModel CM = new ChallanMasterModel();
+                string schl = frm["schl"];
+
+
+                DataSet ds = objDB.GetFinalPrintChallan(schl);
+                CM.ChallanMasterData = ds;
+                if (CM.ChallanMasterData == null || CM.ChallanMasterData.Tables[0].Rows.Count == 0)
+                {
+                    ViewBag.Message = "Record Not Found";
+                    ViewBag.TotalCount = 0;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.TotalCount = CM.ChallanMasterData.Tables[0].Rows.Count;
+                    return View(CM);
+                }
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return View();
+            }
+        }
+
+
+		public ActionResult UpdateExFile(string id)
+		{
+			try
+			{
+				AdminModels admModel = new AdminModels();
+				string schl = (string)Session["schl"];
+
+
+                DataSet ds = null; // objDB.GetExFileData(schl);
+				admModel.StoreAllData = ds;
+				if (admModel.StoreAllData == null || admModel.StoreAllData.Tables[0].Rows.Count == 0)
+				{
+					ViewBag.Message = "Record Not Found";
+					ViewBag.TotalCount = 0;
+					return View();
+				}
+				else
+				{
+					ViewBag.TotalCount = admModel.StoreAllData.Tables[0].Rows.Count;
+					return View(admModel);
+				}
+			}
+			catch (Exception ex)
+			{
+				oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+				return View();
+			}
+
+		}
+
+		[HttpPost]
+		public ActionResult UpdateExFile(AdminModels admModel, string id)
+		{
+			string DeoUser = null;
+			string district = null;
+			string fileLocation = "";
+			string filename = "";
+			string uid = "";
+			try
+			{
+
+
+				if (admModel.file != null)
+				{
+					filename = Path.GetFileName(admModel.file.FileName);
+
+					DataSet ds = new DataSet();
+					if (admModel.file.ContentLength > 0)  //(Request.Files["file"].ContentLength > 0
+					{
+						string fileName1 = "EXDATA" + district + '_' + DateTime.Now.ToString("ddMMyyyyHHmmss");  //MIS_201_110720161210
+						string fileExtension = System.IO.Path.GetExtension(admModel.file.FileName);
+						if (fileExtension == ".xls" || fileExtension == ".xlsx")
+						{
+							fileLocation = Server.MapPath("~/EXUpload/" + fileName1 + fileExtension);
+
+							if (System.IO.File.Exists(fileLocation))
+							{
+								try
+								{
+									System.IO.File.Delete(fileLocation);
+								}
+								catch (Exception)
+								{
+
+								}
+							}
+							admModel.file.SaveAs(fileLocation);
+							string excelConnectionString = string.Empty;
+							excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+								fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+							//connection String for xls file format.
+							//if (Path.GetExtension(path).ToLower().Trim() == ".xls" && Environment.Is64BitOperatingSystem == false)
+							//if (fileExtension == ".xls")
+							//{
+							//	excelConnectionString = "Provider=Microsoft.Jet.OLEDB.12.0;Data Source=" +
+							//	fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+							//}
+							////connection String for xlsx file format.
+							//else if (fileExtension == ".xlsx")
+							//{
+							//	excelConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+							//	fileLocation + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+							//}
+							//Create Connection to Excel work book and add oledb namespace
+							using (OleDbConnection excelConnection = new OleDbConnection(excelConnectionString))
+							{
+								excelConnection.Open();
+								DataTable dt = new DataTable();
+								dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+								if (dt == null)
+								{
+									return null;
+								}
+								String[] excelSheets = new String[dt.Rows.Count];
+								int t = 0;
+								//excel data saves in temp file here.
+								foreach (DataRow row in dt.Rows)
+								{
+									excelSheets[t] = row["TABLE_NAME"].ToString(); // bank_mis     TABLE_NAME
+									t++;
+								}
+								string query = string.Format("Select * from [{0}]", excelSheets[0]);
+								using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection))
+								{
+									dataAdapter.Fill(ds);
+								}
+							}
+
+							DataTable dtexport;
+                            string CheckMis = "";
+                                //objDB.CheckUpdateMasterDataMis(ds, out dtexport, RP);
+							if (CheckMis == "")
+							{
+								DataTable dt1 = ds.Tables[0];
+								if (dt1.Columns.Contains("Status"))
+								{
+									dt1.Columns.Remove("Status");
+								}
+								// UpdateData
+								#region UpdateData
+
+
+								string ErrStatus = string.Empty;
+                                admModel.StoreAllData = objDB.UpdateEXFileData(ds.Tables[0], admModel.SchlCode, out ErrStatus); // UpdateMasterDataSPNew
+
+								if (ErrStatus == "1")
+								{
+									ViewBag.Message = "EX File Data Updated Successfully";
+									ViewData["Result"] = "1";
+								}
+								else
+								{
+									ViewBag.Message = ErrStatus;
+									ViewData["Result"] = "0";
+
+								}
+								#endregion UpdateData                          
+								return View(admModel);
+							}
+							else
+							{
+								//if (dtexport != null)
+								//{
+								//	ExportDataFromDataTable(dtexport, "Error_MasterData");
+								//}
+								//ViewData["Result"] = "-1";
+								//ViewBag.Message = CheckMis;
+								return View(admModel);
+							}
+						}
+						else
+						{
+
+							ViewData["Result"] = "-2";
+							ViewBag.Message = "Please Upload Only .xls file only";
+							return View(admModel);
+						}
+					}
+
+				}
+				else
+				{
+					//ViewData["Result"] = "-4";
+					// ViewBag.Message = "Please select .xls file only";
+					//return View();
+				}
+			}
+			catch (Exception ex)
+			{
+				oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+				return View();
+
+			}
+			return View(admModel);
+		}
+
+
+	}
+}   
 
 
 

@@ -252,6 +252,7 @@
                                     var NewSubjectList = Model.Correctiondatafinal.Tables[0].Rows[i]["NewSubjectList"].ToString();
                                     //var CRC = Model.Correctiondatafinal.Tables[0].Rows[i]["CRC"].ToString();
                                     var cls = Model.Correctiondatafinal.Tables[0].Rows[i]["Class"].ToString();
+                                    var AWS_URL = System.Configuration.ConfigurationManager.AppSettings["AWSURL"].ToString();
                                     Count = Count + 1;
 
                                     if (cls == "Matriculation Open" || cls == "Sr.Secondary Open")
@@ -260,9 +261,9 @@
                                     }
                                     else
                                     {
-                                        OldValue = "https://registration2022.pseb.ac.in/upload/upload2019/" + Model.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
+                                        OldValue = AWS_URL + Model.Correctiondatafinal.Tables[0].Rows[i]["OldValue"].ToString();
                                     }
-                                    NewValue = "https://registration2022.pseb.ac.in" + Model.Correctiondatafinal.Tables[0].Rows[i]["NewValue"].ToString(); ;
+                                    NewValue = AWS_URL + Model.Correctiondatafinal.Tables[0].Rows[i]["NewValue"].ToString(); ;
 
                                     NextPage = NextPage + 1;
                                     <tr>

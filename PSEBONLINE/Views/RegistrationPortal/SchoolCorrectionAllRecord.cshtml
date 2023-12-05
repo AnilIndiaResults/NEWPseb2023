@@ -95,20 +95,21 @@
                                         var OldValue = Model.Correctiondata.Tables[0].Rows[i]["OldValue"].ToString();
                                         var NewValue = Model.Correctiondata.Tables[0].Rows[i]["NewValue"].ToString();
                                         var Lot = Model.Correctiondata.Tables[0].Rows[i]["CorrectionLot"].ToString();
+                                        var AWS_URL = System.Configuration.ConfigurationManager.AppSettings["AWSURL"].ToString();
                                         if (CorrectionType == "Sign" || CorrectionType == "Photo")
                                         {
                                             if (OldValue.Contains("https") || OldValue.Contains("OPEN"))
                                             {
-                                                OldValue = "https://registration2018.pseb.ac.in/upload/" + OldValue;
+                                                OldValue = AWS_URL + OldValue;
                                             }
                                             else if (!OldValue.Contains("https"))
                                             {
-                                                OldValue = "https://registration2018.pseb.ac.in/upload/Upload2023/" + OldValue;
+                                                OldValue = AWS_URL + OldValue;
                                             }
 
                                             if (!NewValue.Contains("https"))
                                             {
-                                                NewValue = "https://registration2018.pseb.ac.in" + NewValue;
+                                                NewValue = AWS_URL + NewValue;
                                             }
 
 

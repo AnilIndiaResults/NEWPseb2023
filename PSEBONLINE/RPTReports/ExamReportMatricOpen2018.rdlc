@@ -2351,25 +2351,29 @@ Late Fee
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
+                        <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
                         <Style>
-                          <Color>DarkGreen</Color>
+                          <FontFamily>PNB-TTAmarEN</FontFamily>
+                          <FontSize>14pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
                         </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
                   </Paragraph>
                 </Paragraphs>
-                <rd:DefaultName>Textbox5</rd:DefaultName>
-                <Top>9.91528in</Top>
-                <Left>0.18625in</Left>
+                <rd:DefaultName>Textbox1</rd:DefaultName>
+                <Top>9.76761in</Top>
+                <Left>5.90503in</Left>
                 <Height>0.25in</Height>
-                <Width>2.02351in</Width>
+                <Width>1.82289in</Width>
                 <ZIndex>13</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <BackgroundColor>Black</BackgroundColor>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -7406,7 +7410,7 @@ The Head Master / Head Mistress / Principal</Value>
                             </Textbox>
                             <Image Name="Image1">
                               <Source>External</Source>
-                              <Value>=Parameters!ImgPath.Value + Fields!std_photo.Value</Value>
+                              <Value>=Fields!std_photo.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>2.86218in</Top>
                               <Left>5.65305in</Left>
@@ -7422,7 +7426,7 @@ The Head Master / Head Mistress / Principal</Value>
                             </Image>
                             <Image Name="Image2">
                               <Source>External</Source>
-                              <Value>= Parameters!ImgPath.Value + Fields!std_sign.Value</Value>
+                              <Value>= Fields!std_sign.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>7.59898in</Top>
                               <Left>2.32474in</Left>
@@ -8288,7 +8292,7 @@ The Head Master / Head Mistress / Principal</Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
+                                      <Value />
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
@@ -9145,6 +9149,42 @@ Total Candidates </Value>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox17">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
+                    <Style>
+                      <FontFamily>PNB-TTAmarEN</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>White</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>23.38915in</Top>
+            <Left>0.125in</Left>
+            <Height>0.25in</Height>
+            <Width>1.82289in</Width>
+            <ZIndex>32</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BackgroundColor>Black</BackgroundColor>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
           <Textbox Name="Textbox7">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -9152,57 +9192,29 @@ Total Candidates </Value>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
+                    <Value>ÂÇ¼Ï ÅÞâ Êã²ã ²Ø» ÒØÐØ ÇØÏÌ</Value>
                     <Style>
-                      <Color>DarkGreen</Color>
+                      <FontFamily>PNB-TTAmarEN</FontFamily>
+                      <FontSize>14pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>White</Color>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>23.37527in</Top>
-            <Left>0.16923in</Left>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>27.60919in</Top>
+            <Left>0.10964in</Left>
             <Height>0.25in</Height>
-            <Width>2.02351in</Width>
-            <ZIndex>32</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox13">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value> $ ਦਫਤਰ ਨੂੰ ਭੇਜੇ ਜਾਣ ਵਾਲਾ ਫਾਰਮ</Value>
-                    <Style>
-                      <Color>DarkGreen</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>27.88436in</Top>
-            <Left>0.08305in</Left>
-            <Height>0.25in</Height>
-            <Width>2.02351in</Width>
+            <Width>1.82289in</Width>
             <ZIndex>33</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <BackgroundColor>Black</BackgroundColor>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>

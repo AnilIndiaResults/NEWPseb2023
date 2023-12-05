@@ -55,6 +55,9 @@ namespace PSEBONLINE.Controllers
         {
             AffiliationContinuationDashBoardViews _DashBoardModel = new AffiliationContinuationDashBoardViews();
             am.affiliationContinuationDashBoardViews = new AffiliationContinuationDashBoardViews();
+            ViewBag.AID = null;
+            ViewBag.ChallanId = null;
+            ViewBag.challanVerify = null;
 
             string schl = Session["SCHL"].ToString();
             ViewBag.SCHL = schl;
@@ -63,6 +66,9 @@ namespace PSEBONLINE.Controllers
             am = affiliationDB.AffiliationContinuationBySchl(Session["SCHL"].ToString(), 1, out outDs);//ResultStatics
             if (am.ID > 0)
             {
+                ViewBag.AID = am.ID;
+                ViewBag.ChallanId = am.ChallanId;
+                ViewBag.challanVerify = am.challanVerify;
 
                 _DashBoardModel = _context.AffiliationContinuationDashBoardViews.Where(s => s.SCHL == schl).FirstOrDefault();
                 am.affiliationContinuationDashBoardViews = _DashBoardModel;
@@ -1765,8 +1771,12 @@ namespace PSEBONLINE.Controllers
 
                         }
                         //else if (submit.ToLower().Contains("final"))
-                        else if (submit.ToLower().Contains("online"))
+                        else if (submit.ToLower().Contains("online") || submit.ToLower().Contains("offline"))
                         {
+                            if(submit.Contains("Generate Offline Challan"))
+                            {
+                                _affiliationFee.BankCode = "203";
+                            }
                             //
                             if (_affiliationFee.BankCode == null)
                             {
@@ -1828,6 +1838,11 @@ namespace PSEBONLINE.Controllers
                                     CM.FEECAT = _affiliationFee.FEECAT;
                                     CM.FEECODE = _affiliationFee.FEECODE.ToString();
                                     CM.FEEMODE = "ONLINE";
+                                    if (AllowBanks == "203")
+                                    {
+                                        CM.FEEMODE = "CASH";
+                                    }
+                                    
                                     CM.BANK = bankName;
                                     CM.BCODE = BankCode;
                                     CM.BANKCHRG = Convert.ToInt32(0);

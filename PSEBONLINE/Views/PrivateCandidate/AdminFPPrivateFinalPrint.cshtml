@@ -190,13 +190,13 @@ var refnoH = Session["refno"].ToString().Substring(3, 2);
                                                         var strP = Convert.ToString(ViewBag.Photo);
                                                         if (strP.Contains("Batch0320"))
                                                         {
-                                                            ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2019/" + Convert.ToString(ViewBag.Photo);
-                                                            ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2019/" + Convert.ToString(ViewBag.sign);
+                                                            ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Convert.ToString(ViewBag.Photo);
+                                                            ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Convert.ToString(ViewBag.sign);
                                                         }
                                                         else
                                                         {
-                                                            ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + Convert.ToString(ViewBag.Photo);
-                                                            ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/allfiles/Upload2023/" + Convert.ToString(ViewBag.sign);
+                                                            ViewBag.Photo = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Convert.ToString(ViewBag.Photo);
+                                                            ViewBag.sign = "https://psebdata.s3.ap-south-1.amazonaws.com/" + Convert.ToString(ViewBag.sign);
                                                         }
                                                         //ViewBag.Photo = "/upload/upload2018/" + Convert.ToString(ViewBag.Photo);
                                                         //ViewBag.sign = "/upload/upload2018/" + Convert.ToString(ViewBag.sign);

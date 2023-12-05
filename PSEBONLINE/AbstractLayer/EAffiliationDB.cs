@@ -14,7 +14,6 @@ using System.Collections;
 using System.Data.Odbc;
 using System.Text;
 using Microsoft.Practices.EnterpriseLibrary.Data;
-
 namespace PSEBONLINE.AbstractLayer
 {
 
@@ -250,8 +249,18 @@ namespace PSEBONLINE.AbstractLayer
             itemOrder.Add(new SelectListItem { Text = "Additional Section", Value = "AS" });            
             return itemOrder;
         }
-    
-            public static List<EAffiliationClassMasters> GetEAffiliationClassMasterList()
+
+        public static List<SelectListItem> GetApplicationStatusTypeList()
+        {
+            List<SelectListItem> itemOrder = new List<SelectListItem>(); 
+            itemOrder.Add(new SelectListItem { Text = "--All--", Value = "0" });
+            itemOrder.Add(new SelectListItem { Text = "In-Process", Value = "1" });
+            itemOrder.Add(new SelectListItem { Text = "Accepted", Value = "2" });
+            itemOrder.Add(new SelectListItem { Text = "Rejected", Value = "3" });
+            return itemOrder;
+        }
+
+        public static List<EAffiliationClassMasters> GetEAffiliationClassMasterList()
         {
             List<EAffiliationClassMasters> eAffiliationClassMasters = new List<EAffiliationClassMasters>();
             try

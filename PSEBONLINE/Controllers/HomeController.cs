@@ -3803,7 +3803,7 @@ namespace PSEBONLINE.Controllers
 
 
 
-                                if (CheckExists != "")
+                                if (CheckExists == "")
                                 {
                                     ViewData["FeeStatus"] = "10";
                                     string[] myArray = CheckExists.Trim().Split(',').Distinct().ToArray();

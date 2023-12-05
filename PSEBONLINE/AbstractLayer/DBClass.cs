@@ -30,32 +30,46 @@ namespace PSEBONLINE.AbstractLayer
 
         public static List<SelectListItem> GetCorrectionTypeByClass(string cls)
         {
-            List<SelectListItem> SecList = new List<SelectListItem>();
-            string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
-            if (class1 == "9")
-            {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                // SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
-            else if (class1 == "11")
-            {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                // SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                //SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
-            else if (class1 == "10")
-            {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
-            else if (class1 == "12")
-            {
-                SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
-                //SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
-                // SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
-            }
+
+            DataTable dt = new DataTable();
+            var onlyDate = DateTime.Now;
+            var DateToday = onlyDate.Date;
+			List<SelectListItem> SecList = new List<SelectListItem>();
+
+
+            string formName = cls == "1" ? "N" : cls == "10" ? "M" : cls == "2" ? "E" : cls == "12" ? "T" : cls == "22" ? "MO" : cls == "44" ? "TO" : "0";
+				string class1 = cls == "1" ? "9" : cls == "2" ? "11" : cls == "10" ? "10" : cls == "22" ? "10" : cls == "12" ? "12" : cls == "44" ? "12" : "0";
+			 dt = SchoolDB.CorrectionAllowsforClassWise(class1, formName);
+			for (var Row = 0; Row < dt.Rows.Count; Row++)
+                {
+                if (dt.Rows.Count > 0)
+                {
+                    DateTime allowedCorrectionsDate = Convert.ToDateTime(dt.Rows[Row]["VerifyLastDateBySchl"]);
+                    string form = dt.Rows[Row]["Form"].ToString();
+                    string Allowedcorrections = dt.Rows[Row]["AllowedCorrections"].ToString();
+					string IsParticularVerifyAllow = dt.Rows[Row]["IsParticularVerifyAllow"].ToString();
+					string IsPhotoVerifyAllow = dt.Rows[Row]["IsPhotoVerifyAllow"].ToString();
+					string IsSubjectVerifyAllow = dt.Rows[Row]["IsSubjectVerifyAllow"].ToString();
+
+					if (IsParticularVerifyAllow.Contains("Y") && allowedCorrectionsDate >= DateToday)
+                    {
+
+                        SecList.Add(new SelectListItem { Text = "Particular", Value = "1" });
+                    }
+                    if (IsSubjectVerifyAllow.Contains("Y") && allowedCorrectionsDate >= DateToday)
+                    {
+                        SecList.Add(new SelectListItem { Text = "Subject", Value = "2" });
+                    }
+                    if (IsPhotoVerifyAllow.Contains("Y") && allowedCorrectionsDate >= DateToday)
+                    {
+                        SecList.Add(new SelectListItem { Text = "Image", Value = "4" });
+                    }
+                    
+                }
+
+                }
+
+            
             return SecList;
         }
 
@@ -426,17 +440,26 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
-        public static List<SelectListItem> GetAcceptRejectDDL()
+        public static List<SelectListItem> GetAcceptRejectDDLForMigration()
         {
             List<SelectListItem> itemStatus = new List<SelectListItem>();
-            itemStatus.Add(new SelectListItem { Text = "Accept", Value = "A" });
-            itemStatus.Add(new SelectListItem { Text = "Reject", Value = "R" });
+            itemStatus.Add(new SelectListItem { Text = "Accept", Value = "2" });
+            itemStatus.Add(new SelectListItem { Text = "Reject", Value = "3" });
             //itemStatus.Add(new SelectListItem { Text = "Cancel", Value = "C" });
             return itemStatus;
         }
+		
+		public static List<SelectListItem> GetAcceptRejectDDL()
+		{
+			List<SelectListItem> itemStatus = new List<SelectListItem>();
+			itemStatus.Add(new SelectListItem { Text = "Accept", Value = "A" });
+			itemStatus.Add(new SelectListItem { Text = "Reject", Value = "R" });
+			//itemStatus.Add(new SelectListItem { Text = "Cancel", Value = "C" });
+			return itemStatus;
+		}
 
 
-        public List<SelectListItem> GetEAffType()
+		public List<SelectListItem> GetEAffType()
         {
             List<SelectListItem> itemStatus = new List<SelectListItem>();
             itemStatus.Add(new SelectListItem { Text = "Apply for Fresh Affiliation", Value = "NEW" });
@@ -1157,8 +1180,8 @@ namespace PSEBONLINE.AbstractLayer
             try
             {
                 System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                string mail_from = ("noreply@psebonline.in");
-                mail.From = new MailAddress(mail_from, "psebonline.in");
+                string mail_from = ("noreply@pseb.ac.in");
+                mail.From = new MailAddress(mail_from, "pseb.ac.in");
                 if (to == "")
                 {
 
@@ -1178,9 +1201,11 @@ namespace PSEBONLINE.AbstractLayer
                 mail.Body = body;
                 mail.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "mail.smtp2go.com";
-                smtp.Port = 2525;
-                //smtp.Credentials = new System.Net.NetworkCredential("noreply@psebonline.in", "YWZtam9qZWtrNHRr");
+                //smtp.Host = "smtp.netcorecloud.net";
+                smtp.Host = "smtp.sendgrid.net";
+                smtp.Port = 587;
+                //smtp.Credentials = new System.Net.NetworkCredential("indiaresultspep", "LxnTMoQgKN2023");
+                smtp.Credentials = new System.Net.NetworkCredential("apikey", "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");
 
                 try
                 {

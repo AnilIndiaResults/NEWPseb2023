@@ -28,9 +28,14 @@ namespace PSEBONLINE.Controllers
         public AbstractLayer.AdditionalSectionDB additionalSectionDB = new AbstractLayer.AdditionalSectionDB();
         public AbstractLayer.SchoolDB ObjSchoolDB = new AbstractLayer.SchoolDB();
 
+               
+
         // GET: AdditionalSection
         public ActionResult Index(AdditionalSectionModel am)
         {
+            ViewBag.AID = null;
+            ViewBag.ChallanId = null;
+            ViewBag.challanVerify = null;
             if (Request.UrlReferrer != null)
             {
                 if (Request.UrlReferrer.ToString().Contains("AdditionalSection/CalculateFee"))
@@ -51,7 +56,9 @@ namespace PSEBONLINE.Controllers
             am = additionalSectionDB.AdditionalSectionBySchl(Session["SCHL"].ToString(), 1, out outDs);//ResultStatics
             if (am.ID > 0)
             {
-                            
+                ViewBag.AID = am.ID;
+                ViewBag.ChallanId = am.ChallanId;
+                ViewBag.challanVerify = am.challanVerify;
 
                 additionalSectionDashBoardModel = _context.AdditionalSectionDashBoardViews.Where(s => s.SCHL == schl).FirstOrDefault();
                 am.additionalSectionDashBoardViews = additionalSectionDashBoardModel;
@@ -1355,6 +1362,7 @@ namespace PSEBONLINE.Controllers
         public JsonResult GetGroupByClass(string SelClass)
         {
             List<SelectListItem> objGroupList = new List<SelectListItem>();
+         
 
             if (SelClass == "12")
             {

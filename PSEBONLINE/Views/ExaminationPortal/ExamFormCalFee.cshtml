@@ -140,7 +140,7 @@
                                                             <a href="/Home/GenerateChallaan?ChallanId=@Challanid">Print Challan</a>
                                                         }
                                                     }
-                                                    else if (StatusNumber.ToString() == "1") //Downloaded by Bank : Date
+                                                    else if (StatusNumber.ToString() == "1" || StatusNumber.ToString() == "0") //Downloaded by Bank : Date
                                                     {
                                                         if (ExpireVDate.ToString() == "0" && FeeDepositStatus.ToString() == "0")
                                                         {
@@ -166,7 +166,7 @@
                                                         }
                                                     }
 
-                                                    @if (Verified == "0" && IsCancel == "0" && downldflg == "0")
+                                                    @if ((Verified == "0" && IsCancel == "0" && downldflg == "0") || (ExpireVDate.ToString() == "1" && FeeDepositStatus.ToString() == "0" && Verified == "0"))
                                                     {
                                                         <a data-toggle="modal" data-target="#myModal2-@Challanid">CANCEL CHALLAN</a>
 
@@ -543,6 +543,7 @@
                 }
             });
             function OnSuccess(response) {
+                debugger;
                 if (response.dee == "1") {
                     alert("Challan Re-Generated Successfully & Your Challan ID is " + response.chid);
                     $("#myModal-" + k).hide();

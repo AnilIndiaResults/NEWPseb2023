@@ -2785,7 +2785,66 @@ namespace PSEBONLINE.Controllers
             }
             return Params;
         }
+        public ActionResult MisUpdate()
+        {
+            if (Session["AdminId"] == null || Session["AdminId"].ToString() == "")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            try
+            {
+                AbstractLayer.BankDB objDB = new AbstractLayer.BankDB();
+                Challan rm = new Challan();
+                rm.StoreAllData = objDB.GetPendingChallanDetails();
 
+                if (rm.StoreAllData == null || rm.StoreAllData.Tables[0].Rows.Count == 0)
+                {
+                    ViewBag.Message = "Record Not Found";
+                    ViewBag.TotalCount = 0;
+                    return View();
+                }
+                else
+                {
+                    ViewBag.TotalCount = rm.StoreAllData.Tables[0].Rows.Count;
+                    int count = Convert.ToInt32(rm.StoreAllData.Tables[1].Rows[0]["TotalCnt"]);
+                    //ViewBag.TotalCount1 = count;
+                    return View(rm);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+            }
+
+            //ViewBag.SuccessVerifyMsg = "NONE";
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MisUpdate(int? id)
+        {
+            AbstractLayer.BankDB objDB = new AbstractLayer.BankDB();
+            Challan rm = new Challan();
+            try
+            {
+
+                rm.StoreAllData = objDB.GetPendingChallanDetails();
+
+                if (rm.StoreAllData.Tables[0].Rows != null || rm.StoreAllData.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow row in rm.StoreAllData.Tables[0].Rows)
+                    {
+                        callBackAPI(row["challanid"].ToString(), Convert.ToInt32(row["totfee"].ToString()));
+                    }
+                }
+            }
+
+            catch {; }
+
+
+            return RedirectToAction("MisUpdate");
+        }
 
         #endregion
     }

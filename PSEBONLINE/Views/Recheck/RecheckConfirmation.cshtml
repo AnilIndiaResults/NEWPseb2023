@@ -50,7 +50,7 @@
         @if (Model.Class == "10" || Model.Class.StartsWith("M"))
         {<span class="rqf">Matriculation</span>}
         else
-        { <span class="rqf">Sr. Secondary</span>}  Examination,  March 2023 <input type="button" value="Logout" onclick="javascript:document.location.href='@Url.Action("RecheckExamination", "Recheck")'" style="float:right" />
+        { <span class="rqf">Sr. Secondary</span>}  Examination,  September 2023 <input type="button" value="Logout" onclick="javascript:document.location.href='@Url.Action("RecheckExamination", "Recheck")'" style="float:right" />
     </h1> 
     @using (Html.BeginForm("RecheckConfirmation", "Recheck", FormMethod.Post, new { id = "refno", enctype = "multipart/form-data" }))
     {
@@ -216,7 +216,7 @@
 
                                                 }
                                             }
-                                            <tr>
+                                            @*<tr>
                                                 <td colspan="8">
                                                     @if (ViewBag.TotalCount2 > 0 && ViewBag.Islock2 == "0")
                                                     {
@@ -232,7 +232,7 @@
                                                     }
                                                 </td>
 
-                                            </tr>
+                                            </tr>*@
                                         }
                                         else
                                         {

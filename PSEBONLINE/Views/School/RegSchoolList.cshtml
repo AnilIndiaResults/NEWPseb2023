@@ -19,7 +19,12 @@
                 <div class="col-md-2">@Html.DropDownList("Sch1", new SelectList(ViewBag.MySch, "Value", "Text", ViewBag.SelectedItem), "--All---", new { @class = "", id = "SelectItem" })</div>
                 <div class="col-md-2">@Html.DropDownList("SchoolStatus", new SelectList(ViewBag.MyStatus, "Value", "Text", ViewBag.SelectedStatusType), "--All School Status---", new { @class = "" })</div>
                 <div class="col-md-2"><input type="text" id="SearchString" name="SearchString" value="@Request["SearchString"]" /></div>
-                <div class="col-md-2"><input type="submit" value="Search" /> <input type="submit" name="Reset" value="Reset" formaction="CancelForm" formmethod="post" /></div>
+                <div class="col-md-4">
+                    <input type="submit" value="Search" />
+                    <input type="submit" value="Download Excel" formaction="RegSchoolListForExcel" formmethod="Post" />
+                    <input type="submit" name="Reset" value="Reset" formaction="CancelForm" formmethod="post" />
+                </div>
+
             }
         }
     </div>
@@ -34,6 +39,7 @@
                         <th>SCHL</th>
                         @*<th>ID NO.</th>*@
                         <th>School Name</th>
+                        <th>Class</th>
                         <th>Principal Name</th>
                         <th>Mobile</th>
                         <th>
@@ -69,6 +75,7 @@
                                 d = d + 1;
                                 var schid = Model.StoreAllData.Tables[0].Rows[i]["id"].ToString();
                                 var SCHL = Model.StoreAllData.Tables[0].Rows[i]["SCHL"].ToString();
+                                var Classs = Model.StoreAllData.Tables[0].Rows[i]["class"].ToString();
                                 var IDNO = Model.StoreAllData.Tables[0].Rows[i]["IDNO"].ToString();
                                 var principalname = Model.StoreAllData.Tables[0].Rows[i]["principalname"].ToString();
                                 var mobilenumber = Model.StoreAllData.Tables[0].Rows[i]["mobilenumber"].ToString();
@@ -81,6 +88,7 @@
                                 var status = Model.StoreAllData.Tables[0].Rows[i]["STATUS"].ToString();
                                 var vfalg = Model.StoreAllData.Tables[0].Rows[i]["vflag"].ToString();
                                 var Approved = Model.StoreAllData.Tables[0].Rows[i]["Approved"].ToString();
+                                var disCode = Model.StoreAllData.Tables[0].Rows[i]["dist"].ToString();
 
                                 <tr>
                                     <td>
@@ -91,6 +99,10 @@
                                         </td>*@
                                     <td>
                                         @SCHLE,@StationE
+                                    </td>
+
+                                    <td>
+                                        @Classs
                                     </td>
                                     <td>
                                         @principalname
@@ -150,11 +162,37 @@
                                                 <ul>
                                                     <li style="@(ViewBag.IsView == 1 ? "display:block" : "display:none")">
                                                         @Html.ActionLink("View", "School_View_Form", new { id = SCHL })
+
                                                     </li>
                                                     <li>
-                                                        @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
-                                                        @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
+                                                        <span style="@(ViewBag.IsUnlockviewExamCentre > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("View ExamCentre Details", "ExamCentreDetailsPerformaForAdmin", new { SCHL = SCHL, DIST = disCode })
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockViewInfrasturePerformas > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("View Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockViewInfrasturePerformas > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("Download Infrasture", "ViewInfrasturePerformas", new { SCHL = SCHL })
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockUpdate_School_Informations > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("Modify Infrasture", "InfrasturePerformaModifyForAdmin", new { SCHL = SCHL, DIST = disCode })
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockInfrasturePerformaModifyForAdmin > 0 ? "display:block" : "display:none")">
+                                                            @Html.ActionLink("View School Information", "Update_School_Informations", new { SCHL = SCHL })
+                                                        </span>
+
                                                         @Html.ActionLink("View School Staff Details", "DisplaySchoolStaffDetail", new { id = SCHL })
+                                                        <span style="@(ViewBag.IsUnlockInfrastructure > 0 ? "display:block" : "display:none")">
+                                                            <button class="btn btn-primary" value="@SCHL" id="Infra" onclick="UnlockFormInfra()">Unlock Infrastructure</button>
+                                                        </span>
+
+                                                        <span style="@(ViewBag.IsUnlockExamCenter > 0 ? "display:block" : "display:none")">
+                                                            <button class="btn btn-primary" value="@SCHL" id="examcenter" onclick="UnlockFormexamcenter()">Unlock ExamCenter</button>
+                                                        </span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -225,6 +263,7 @@
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <script type="text/javascript">
     function resetAllControls() {
         $("#searchform").find('input:text, input:password, input:file, select, textarea').val('');
@@ -267,6 +306,73 @@
 </script>
 
 <script type='text/javascript'>
+
+    function UnlockFormInfra() {
+        debugger;
+        console.log("form button clicked");
+        var schl = $("#Infra").val();
+        var request = { schl: schl, type: 'Infra' };
+        console.log(schl);
+        $.ajax({
+            type: "POST",
+            url: "/School/UnlockForms", // this for calling the web method function in cs code.
+            data: JSON.stringify(request),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response == "OK") {
+                    alert("Unlocked Succesfully");
+                }
+                else {
+
+                    alert("Something Went Wrong");
+
+                }
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
+
+
+    }
+
+    function UnlockFormexamcenter() {
+        debugger;
+        console.log("form button clicked");
+        var schl = $("#examcenter").val();
+        var request = { schl: schl, type: 'examcenter' };
+        console.log(schl);
+        $.ajax({
+            type: "POST",
+            url: "/School/UnlockForms", // this for calling the web method function in cs code.
+            data: JSON.stringify(request),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response == "OK") {
+                    alert("Unlocked Succesfully");
+                }
+                else {
+
+                    alert("Something Went Wrong");
+
+                }
+
+            },
+            failure: function (response) {
+                alert(response);
+            }
+        });
+
+
+
+    }
+
+
+
     var isCtrl = false;
     document.onkeyup = function (e) {
         if (e.which == 17)
@@ -289,4 +395,10 @@
     document.oncontextmenu = mischandler;
     document.onmousedown = mousehandler;
     document.onmouseup = mousehandler;
+</script>
+
+
+<script type='text/javascript'>
+
+
 </script>

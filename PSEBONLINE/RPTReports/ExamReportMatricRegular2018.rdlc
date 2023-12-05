@@ -777,6 +777,10 @@
           <DataField>fee</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="ExamCertFee">
+          <DataField>ExamCertFee</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="REGFEE">
           <DataField>REGFEE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -908,11 +912,7 @@
                       <TextRun>
                         <Value>4. Ú¥Õ ÆÏÛÚª¤ØÏÁÛ ¨Âã ÒÛ Ú¨Óã ÉëÏ¸ ÒóÐë× ¤»¦ÝÚ°ó¼ ºâ¬ ÒÏ¼» ¨ØÏÅ ¤Íë¬ ¨ÏØÏ ÅÕÛ× ÚÂó¼ã ¬¥ã¢
 5. Ó¨ÞÐ ÆÏÛÚª¤ØÏÁÛ ÒóÐë× Ú¨Óã ÒÛ Ú¨ÓÌ Âã ´¬¾ã ÂÛ ÓÞÏ¼ ÚÒó° ¨ÅâÞÅÛ ¨ØÏÒØ¥Û ¨ãÒÐ ¤èóÓ Ö¥ã Ö¤èóÓ ÖÅ¬Ï ÚÒªã ÓÚÁó¼ ¤ÂØÐ¼ ÚÒó° ÕÛ ¨Û¼Û ²Ø Ó¨ÂÛ Õè¢
-6.  Ú¥ÕÅÙ ÆÏÛÚª¤ØÏÁÛ¤Ù ÚÒó° Ú¨Óã ÒÛ ÆÏÛÚª¤ØÏÁÛ ÂØ ÇÖØÏÌ §ÆÅ Ó¨ÞÐ Ó¨ÛÌ ¤ÄÛÅ ÆÏÛÚª¤ØÏÁÛ Âã ¼ïÏ ¼ã ¼ÓÂÛ¨ ¨Ï¨ã ÅÕÛ× ÊãÚ²¤Ø Ú¬¤Ø¢
-7. Õã∙ ÚÐªÛ¤Ù Íë¬¼ØÒÙ ÓÉâÄÛ ÓÖÏ¼Ù  ÚÒó°ë× ÕÏ Ú¥ó¨ ¦ÝÌÛÂÒØÏ ®ó¶ë ®ó¶ Ú¥ó¨ ÓÖÏ¼ ÆÞÏÛ ¨ÏÂØ Õè¢
-   ¦. Ú¥Õ ¤ó∙ÒÛ× ÆÏÛÚª¤Ø ²Ù Ú¥Ó Âã ÉÏØÉÏ ÂÛ ÆÏÛÚª¤Ø Âë ÓØÐ ÆÚÕÐÙ ÆØÓ ¨Ï °óÝ¨ã ÕÅ ¤¼ã ÅëÒÛ× ÂÛ ÆÏÛÚª¤Ø ÓÏ¨ØÏÛ/ÌØÅ¼Ø ÆñØÆ¼ / ¤èÓëÓÛ¥ã¶¸ Ó¨ÞÐ ¼ë× Ïè¬ÝÐÏ                ¼ïÏ ¼ã ÆØÓ ¨Û¼Û Õè¢
-   ¤. Ú¥Õ ÉëÏ¸ ÂÛ ÌèÚ¶ñ¨ÝÐãÔÅ / Óè¨â¸ÏÛ Ó¨ÞÐ ÆÏÛÚª¤Ø ÚÒó°ë× ÆÚÕÐÙ ÇãÐ Õë °Ýó¨ã ÕÅ¢    
-        </Value>
+6.  Ú¥ÕÅÙ ÆÏÛÚª¤ØÏÁÛ¤Ù ÚÒó° Ú¨Óã ÒÛ ÆÏÛÚª¤ØÏÁÛ ÂØ ÇÖØÏÌ §ÆÅ Ó¨ÞÐ Ó¨ÛÌ ¤ÄÛÅ ÆÏÛÚª¤ØÏÁÛ Âã ¼ïÏ ¼ã ¼ÓÂÛ¨ ¨Ï¨ã ÅÕÛ× ÊãÚ²¤Ø Ú¬¤Ø¢        </Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -925,7 +925,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>8. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
+                        <Value>7. Ó¨ÞÐ Âã ¨ÝóÐ ÇØÏÌÙ ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :-</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1897,7 +1897,7 @@ Late Fee  </Value>
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>11. Ó¨ÞÐ Âã ¨ÝóÐ ÆÏÛÚª¤ØÏÁÛ¤Ù ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :</Value>
+                        <Value>9. Ó¨ÞÐ Âã ¨ÝóÐ ÆÏÛÚª¤ØÏÁÛ¤Ù ÂÛ Ú¬»¼Û Õã· ÚÐªã ¤ÅÝÓØÏ Õè :</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1930,7 +1930,7 @@ Late Fee  </Value>
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>10. °ÐØÅ Âã ÒãÏÒã</Value>
+                        <Value>8. °ÐØÅ Âã ÒãÏÒã</Value>
                         <Style>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -2293,6 +2293,7 @@ Late Fee  </Value>
                           <FontFamily>PNB-TTAmarEN</FontFamily>
                           <FontSize>14pt</FontSize>
                           <FontWeight>Bold</FontWeight>
+                          <Color>White</Color>
                         </Style>
                       </TextRun>
                     </TextRuns>
@@ -2301,14 +2302,15 @@ Late Fee  </Value>
                 </Paragraphs>
                 <rd:DefaultName>Textbox1</rd:DefaultName>
                 <Top>9.94028in</Top>
-                <Left>3.73833in</Left>
+                <Left>5.90507in</Left>
                 <Height>0.25in</Height>
-                <Width>3.94789in</Width>
+                <Width>1.82289in</Width>
                 <ZIndex>13</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <BackgroundColor>Black</BackgroundColor>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -4360,22 +4362,25 @@ The Head Master / Head Mistress / Principal</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.58677in</Width>
+                  <Width>0.56891in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.09937in</Width>
+                  <Width>1.01162in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.94163in</Width>
+                  <Width>0.51168in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.98687in</Width>
+                  <Width>0.7188in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.8374in</Width>
+                  <Width>0.76706in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.8374in</Width>
+                  <Width>0.81954in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.0168in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -4437,6 +4442,40 @@ The Head Master / Head Mistress / Principal</Value>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox41</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox22">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>*C.H.F</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox22</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -4663,6 +4702,41 @@ The Head Master / Head Mistress / Principal</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox24">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=First(Fields!ExamCertFee.Value, "ChallanDetails")</Value>
+                                  <Style>
+                                    <FontFamily>Tahoma</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox99">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -4813,6 +4887,7 @@ The Head Master / Head Mistress / Principal</Value>
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -4828,9 +4903,9 @@ The Head Master / Head Mistress / Principal</Value>
             </TablixRowHierarchy>
             <DataSetName>SubjectwiseCountOfStudent</DataSetName>
             <Top>27.34851in</Top>
-            <Left>2.42788in</Left>
+            <Left>2.30288in</Left>
             <Height>0.58333in</Height>
-            <Width>5.28944in</Width>
+            <Width>5.41441in</Width>
             <ZIndex>17</ZIndex>
             <Style>
               <Border>
@@ -4959,7 +5034,7 @@ The Head Master / Head Mistress / Principal</Value>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>19.76735cm</Width>
+                  <Width>19.91893cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -7029,12 +7104,12 @@ Set : </Value>
                             </Textbox>
                             <Image Name="Image1">
                               <Source>External</Source>
-                              <Value>=Fields!std_photo.Value</Value>
+                              <Value>= Fields!std_photo.Value</Value>
                               <Sizing>Fit</Sizing>
                               <Top>2.64135in</Top>
-                              <Left>5.70305in</Left>
+                              <Left>5.58989in</Left>
                               <Height>1.95833in</Height>
-                              <Width>1.85155in</Width>
+                              <Width>2.08971in</Width>
                               <ZIndex>53</ZIndex>
                               <Style>
                                 <Border>
@@ -7867,7 +7942,7 @@ Roll No. </Value>
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value EvaluationMode="Constant" />
+                                      <Value>=iif(First(Fields!IsWantselfcenter.Value)="1", "Phy. Challanged Self Exam Centre","")</Value>
                                       <Style>
                                         <FontWeight>Bold</FontWeight>
                                       </Style>
@@ -7926,7 +8001,7 @@ Roll No. </Value>
             <Top>76.27463cm</Top>
             <Left>0.12974cm</Left>
             <Height>24.16538cm</Height>
-            <Width>19.76735cm</Width>
+            <Width>19.91893cm</Width>
             <ZIndex>21</ZIndex>
             <Style>
               <Border>
@@ -9214,6 +9289,7 @@ Total Candidates </Value>
                       <FontFamily>PNB-TTAmarEN</FontFamily>
                       <FontSize>14pt</FontSize>
                       <FontWeight>Bold</FontWeight>
+                      <Color>White</Color>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -9221,8 +9297,8 @@ Total Candidates </Value>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>29.27159in</Top>
-            <Left>3.01465in</Left>
+            <Top>27.95962in</Top>
+            <Left>2.40228in</Left>
             <Height>0.25in</Height>
             <Width>1.73858in</Width>
             <ZIndex>37</ZIndex>
@@ -9230,6 +9306,7 @@ Total Candidates </Value>
               <Border>
                 <Style>None</Style>
               </Border>
+              <BackgroundColor>Black</BackgroundColor>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
               <PaddingTop>2pt</PaddingTop>
@@ -9274,7 +9351,7 @@ Total Candidates </Value>
         <Height>39.70985in</Height>
         <Style />
       </Body>
-      <Width>7.86547in</Width>
+      <Width>7.89318in</Width>
       <Page>
         <PageFooter>
           <Height>0.2625in</Height>
@@ -9361,10 +9438,10 @@ Total Candidates </Value>
         </PageFooter>
         <PageHeight>11.69in</PageHeight>
         <PageWidth>8.27in</PageWidth>
-        <LeftMargin>1in</LeftMargin>
-        <RightMargin>1in</RightMargin>
-        <TopMargin>1in</TopMargin>
-        <BottomMargin>1in</BottomMargin>
+        <LeftMargin>0.5in</LeftMargin>
+        <RightMargin>0.5in</RightMargin>
+        <TopMargin>0.5in</TopMargin>
+        <BottomMargin>0.5in</BottomMargin>
         <Style />
       </Page>
     </ReportSection>

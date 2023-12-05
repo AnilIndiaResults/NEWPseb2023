@@ -1951,6 +1951,10 @@ namespace PSEBONLINE.AbstractLayer
         }
         public string insertinbulkexammasterregular2017(string storeid, string storescid, string storeaashirwardno, string IsWantselfcenter)
         {
+            if (IsWantselfcenter.Length > 0)
+            {
+                IsWantselfcenter = IsWantselfcenter.Substring(0, IsWantselfcenter.Length - 1);
+            } 
             SqlConnection con = null;
             string result = "";
             try

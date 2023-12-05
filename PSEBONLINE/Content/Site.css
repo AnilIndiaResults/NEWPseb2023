@@ -28,7 +28,7 @@ h1 {border-bottom:1px dashed #ccc;font-size:28px;padding:6px 0
 .cart {cursor:pointer;position: relative;display: inline-block;color:#000;border-top:1px solid #fff;border-left:1px solid #fff;border-right:1px solid #fff;width:98%}
 #sidebar {display: none;}
 .cart:hover {border-top-color:#fb9709;border-left-color: #fb9709;border-right-color:#fb9709}
-.cart:hover #sidebar {position: absolute;z-index: 1;top: 100%; display: block;background-color:#fb9709;width:100%;cursor:pointer;}
+.cart:hover #sidebar {position: absolute;z-index: 1;top: 100%; display: block;background-color:#fb9709;cursor:pointer;}
 #sidebar li {list-style:none;}
 #sidebar li a {color:#fff;padding:4px;cursor:pointer;border-bottom:1px solid #fff;display:block}
 #sidebar li a:hover {background-color:#336dc0;color:#fff}

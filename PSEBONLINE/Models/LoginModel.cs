@@ -54,7 +54,18 @@ namespace PSEBONLINE.Models
         public int IsAllowPSTET { get; set; }
 
         public string DealingBranchContact { get; set; }
+        public string STDCODE { get; set; }
+        public string PHONE { get; set; }
+        public string PrincipalName2 { get; set; }
+        public string PrincipalMobile2 { get; set; }
+
+        public int Finalsubmittedforchoice { get; set; }   
+
     }
+        
+
+
+
     public class LoginModel
     {
         [Required]

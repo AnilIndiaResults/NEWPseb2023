@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Login_Header.cshtml";
 }
-<script src="/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
 <div class="container KDBG">
@@ -31,13 +31,13 @@
                         batch.Add(new SelectListItem { Text = "March", Value = "3" });
                         batch.Add(new SelectListItem { Text = "November", Value = "11" });
                     }
-                    @Html.DropDownListFor(a=>a.batch, batch, new { id = "batch", @disabled = "disabled" })
-                    @Html.HiddenFor(a=>a.batch)
+                    @Html.DropDownListFor(a => a.batch, batch, new { id = "batch", @disabled = "disabled" })
+                    @Html.HiddenFor(a => a.batch)
                 </div>
                 <div class="col-md-2">
                     @{
                         List<SelectListItem> batchYear = new List<SelectListItem>();
-                        batchYear.Add(new SelectListItem { Text = "2023", Value = "2023" });
+                        batchYear.Add(new SelectListItem { Text = "2024", Value = "2024" });
                         //batchYear.Add(new SelectListItem { Text = "2021", Value = "2021" });
                     }
                     @Html.DropDownListFor(a => a.batchYear, batchYear, new { id = "batchYear", @disabled = "disabled" })
@@ -109,18 +109,18 @@
                         <div class="col-md-4">@Html.TextBoxFor(a => a.Mother_Name, new { @ReadOnly = "ReadOnly" })</div>
                         <div class="col-md-4">@Html.TextBoxFor(a => a.PMname, new { @ReadOnly = "ReadOnly", @class = "kdsfont" })</div>
 
-                            if (ViewBag.totcount > 0)
+                        if (ViewBag.totcount > 0)
+                        {
+                            if (Model.StoreAllData.Tables[0].Rows[0]["class"].ToString() == "12")
+                            { }
+                            else
                             {
-                                if (Model.StoreAllData.Tables[0].Rows[0]["class"].ToString() == "12")
-                                { }
-                                else
-                                {
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-2">Date Of Birth</div>
-                                    <div class="col-md-4">@Html.TextBoxFor(a => a.DOB, new { @ReadOnly = "ReadOnly" })</div>
-                                }
+                                <div class="clearfix"></div>
+                                <div class="col-md-2">Date Of Birth</div>
+                                <div class="col-md-4">@Html.TextBoxFor(a => a.DOB, new { @ReadOnly = "ReadOnly" })</div>
                             }
-                        
+                        }
+
 
 
                     }
@@ -131,32 +131,32 @@
                         <div class="col-md-4">@Html.TextBoxFor(a => a.Result)</div>
 
                         @*<div class="clearfix"></div>
-                <div class="col-md-2">Result</div>
-                <div class="col-md-4">@Html.TextBoxFor(a => a.Result)</div>*@
+                            <div class="col-md-2">Result</div>
+                            <div class="col-md-4">@Html.TextBoxFor(a => a.Result)</div>*@
 
 
 
                         <div class="col-md-4" style="display:none;">@Html.TextBoxFor(a => a.RegNo)</div>
 
                         @*<div class="clearfix"></div>
-                <div class="col-md-2">Registration No.</div>
-                <div class="col-md-4">@Html.TextBoxFor(a => a.RegNo)</div>*@
+                            <div class="col-md-2">Registration No.</div>
+                            <div class="col-md-4">@Html.TextBoxFor(a => a.RegNo)</div>*@
 
                         <div class="clearfix"></div>
                         <div class="col-md-2">Candidate Name</div>
                         <div class="col-md-4">@Html.TextBoxFor(a => a.Candi_Name)</div>
                         <div class="col-md-4 kdsfont">
                             @Html.TextBoxFor(a => a.Pname, new
-                                     {
-                                         id = "Pname",
-                                         @class = "keyboardInput",
-                                         onKeyPress = "javascript:convertThis(event)",
-                                         onpaste = "return false;",
-                                         oncopy = "return false;",
-                                         oncut = "return false;",
-                                         onclick = "toggleKBMode1(event)",
-                                         lang = "pa"
-                                     })
+                            {
+                                id = "Pname",
+                                @class = "keyboardInput",
+                                onKeyPress = "javascript:convertThis(event)",
+                                onpaste = "return false;",
+                                oncopy = "return false;",
+                                oncut = "return false;",
+                                onclick = "toggleKBMode1(event)",
+                                lang = "pa"
+                            })
                         </div>
 
 
@@ -165,16 +165,16 @@
                         <div class="col-md-4">@Html.TextBoxFor(a => a.Father_Name)</div>
                         <div class="col-md-4 kdsfont">
                             @Html.TextBoxFor(a => a.PFname, new
-                         {
-                             id = "PFname",
-                             @class = "keyboardInput",
-                             onKeyPress = "javascript:convertThis(event)",
-                             onpaste = "return false;",
-                             oncopy = "return false;",
-                             oncut = "return false;",
-                             onclick = "toggleKBMode1(event)",
-                             lang = "pa"
-                         })
+                            {
+                                id = "PFname",
+                                @class = "keyboardInput",
+                                onKeyPress = "javascript:convertThis(event)",
+                                onpaste = "return false;",
+                                oncopy = "return false;",
+                                oncut = "return false;",
+                                onclick = "toggleKBMode1(event)",
+                                lang = "pa"
+                            })
                         </div>
 
 
@@ -183,16 +183,16 @@
                         <div class="col-md-4">@Html.TextBoxFor(a => a.Mother_Name)</div>
                         <div class="col-md-4 kdsfont">
                             @Html.TextBoxFor(a => a.PMname, new
-                         {
-                             id = "PMname",
-                             @class = "keyboardInput",
-                             onKeyPress = "javascript:convertThis(event)",
-                             onpaste = "return false;",
-                             oncopy = "return false;",
-                             oncut = "return false;",
-                             onclick = "toggleKBMode1(event)",
-                             lang = "pa"
-                         })
+                            {
+                                id = "PMname",
+                                @class = "keyboardInput",
+                                onKeyPress = "javascript:convertThis(event)",
+                                onpaste = "return false;",
+                                oncopy = "return false;",
+                                oncut = "return false;",
+                                onclick = "toggleKBMode1(event)",
+                                lang = "pa"
+                            })
                         </div>
 
                         if (ViewBag.totcount > 0)
@@ -201,27 +201,27 @@
                             { }
                             else
                             {
-                            <div class="clearfix"></div>
-                            <div class="col-md-2">Date Of Birth</div>
-                            <div class="col-md-4">
-                                @Html.TextBoxFor(a => a.DOB, new
-                           {
-                               id = "DOB",
-                               @readonly = "readonly",
-                               @maxlength = "10",
-                               //onkeypress = "javascript: return false;",
-                               onpaste = "return false;",
-                               oncopy = "return false;",
-                               oncut = "return false;",
-                               //onkeydown = "return false;"
-                           })
-                            </div>
-                                }
+                                <div class="clearfix"></div>
+                                <div class="col-md-2">Date Of Birth</div>
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(a => a.DOB, new
+                                    {
+                                        id = "DOB",
+                                        @readonly = "readonly",
+                                        @maxlength = "10",
+                                        //onkeypress = "javascript: return false;",
+                                        onpaste = "return false;",
+                                        oncopy = "return false;",
+                                        oncut = "return false;",
+                                        //onkeydown = "return false;"
+                                    })
+                                </div>
                             }
-
                         }
 
                     }
+
+                }
 
 
                 <div class="clearfix"></div>
@@ -235,13 +235,13 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-4 text-center tdp">
                     <input value="Save & Next" type="submit" onclick="return valForm();" />
-                    
+
                     <input type="button" value="Back" class="btn" onclick="history.go(-1);" />
                     <input value="Home" type="button" onclick="return valHome();" />
                 </div>
             </div>
         </form>
-                    }
+    }
 
     @{
 
@@ -321,7 +321,7 @@
                 return false;
             }
 
-         
+
 
 
         }
@@ -330,9 +330,9 @@
             history.go(-1);
         }
         function valHome() {
-            document.location.href = 'https://registration2022.pseb.ac.in/PrivateCandidate/Private_Candidate_Examination_Form';
+            document.location.href = 'https://registration2023.pseb.ac.in/PrivateCandidate/Private_Candidate_Examination_Form';
         }
-      
+
         $(document).ready(function () {
             var vcat = document.getElementById('category').value;
             if (vcat == "Additional Subject" || vcat == "Golden Chance Re-Appear" || vcat == "Golden Chance Improvement" || vcat == "Golden Chance Additional") {

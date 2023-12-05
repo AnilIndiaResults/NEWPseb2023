@@ -123,14 +123,14 @@ namespace PSEBONLINE.Controllers
                     if (status == true)
                     {
                         HttpContext.Session["TollFreeStatus"] = "2";
-                        //  HttpContext.Session["TollFreeEmail"] = lm.TollFreeNumber = "Email Id: contact2@psebonline.in";
-                        //  HttpContext.Session["TollFreeNumber"] = lm.TollFreeEmail = "Toll Free Help Line No. : 18004190690";
+                        //  HttpContext.Session["TollFreeEmail"] = lm.TollFreeNumber = "Email Id: psebhelpdesk@gmail.com";
+                        //  HttpContext.Session["TollFreeNumber"] = lm.TollFreeEmail = "Toll Free Help Line No. : 8058911911";
                     }
                     else
                     {
                         HttpContext.Session["TollFreeStatus"] = "1";
                         // HttpContext.Session["TollFreeEmail"] = lm.TollFreeNumber = "psebhelpdesk@gmail.com";
-                        // HttpContext.Session["TollFreeNumber"] = lm.TollFreeEmail = "Toll Free Help Line No. : 18002700280";
+                        // HttpContext.Session["TollFreeNumber"] = lm.TollFreeEmail = "Toll Free Help Line No. : 8058911911";
                     }
                     //  return RedirectToAction("Choose_Session", "Login");
                     // return RedirectToAction("Index", "Home");
@@ -203,14 +203,9 @@ namespace PSEBONLINE.Controllers
         {
             try
             {
-               
-
                 LoginSession loginSession = AbstractLayer.SchoolDB.LoginSenior(lm); // passing Value to _schoolRepository.from model and Type 1 For regular   
                 if (loginSession != null)
                 {
-
-
-
                     loginSession.CurrentSession = lm.Session;
                     TempData["result"] = loginSession.LoginStatus;
                     Session["Session"] = lm.Session.ToString();
@@ -261,6 +256,7 @@ namespace PSEBONLINE.Controllers
                                 HttpContext.Session["Schtype4form"] = dt.Rows[0]["Schtype4form"].ToString();
                                 HttpContext.Session["12Supt"] = dt.Rows[0]["12Supt"].ToString();
                                 HttpContext.Session["10Supt"] = dt.Rows[0]["10Supt"].ToString();
+                                
 
                                 HttpContext.Session["EXAMCENTSCHLN"] = dt.Rows[0]["cent"].ToString();
                                 for (int i = 0; i < dt.Rows.Count; i++)
@@ -493,7 +489,7 @@ namespace PSEBONLINE.Controllers
                             if (!string.IsNullOrEmpty(to))
                             {
 
-                                string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + SchoolNameWithCode + "</b>,</td></tr><tr><td height=" + 30 + ">As per your request Dated <b>" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</b> Regarding Forget Password</td></tr><tr><td><b>Your Login Details are given Below:-</b><br /><b>School Login Id (School Code) :</b> " + sid + "<br /><b>Password :</b> " + password + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://www.registration.pseb.ac.in target = _blank>www.registration.pseb.ac.in</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 18002700280<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:Contact2@psebonline.in target=_blank>contact2@psebonline.in</a><br><b>Toll Free Help Line No. :</b> 18004190690<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
+                                string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + SchoolNameWithCode + "</b>,</td></tr><tr><td height=" + 30 + ">As per your request Dated <b>" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</b> Regarding Forget Password</td></tr><tr><td><b>Your Login Details are given Below:-</b><br /><b>School Login Id (School Code) :</b> " + sid + "<br /><b>Password :</b> " + password + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://https://registration2023.pseb.ac.in target = _blank>https://registration2023.pseb.ac.in</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
                                 string subject = "PSEB-Forgot Password Notification";
                                 bool result = dbclass.mail(subject, body, to);
                                 if (result == true)

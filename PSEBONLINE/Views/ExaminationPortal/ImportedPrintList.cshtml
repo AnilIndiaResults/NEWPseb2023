@@ -61,7 +61,7 @@ else { Response.Redirect("~/Login"); }
                             <th>Admission Date</th>
                             <th>Caste</th>
                             <th>Verified</th>                            
-                            <th>Want Hard Copy<br />Certificate? </th>
+                            <th>WANT SELF CENTER? </th>
                             <th><input type="checkbox" id="selectall" />Delete All</th>
 
                         </tr>
@@ -97,6 +97,7 @@ else { Response.Redirect("~/Login"); }
                                     var printlotnew = Model.StoreAllData.Tables[0].Rows[i]["printlotnew"].ToString();
                                     var msg = Model.StoreAllData.Tables[0].Rows[i]["msg"].ToString();
                                     var IsHardCopyCertificate = Model.StoreAllData.Tables[0].Rows[i]["IsHardCopyCertificate"].ToString();
+                                    var IsWantselfcenter = Model.StoreAllData.Tables[0].Rows[i]["IsWantselfcenter"].ToString();
                                     Count = Count + 1;
                                                 <tr>
                                                     <td>@Count</td>
@@ -107,7 +108,7 @@ else { Response.Redirect("~/Login"); }
                                                     <td>@Admission_Date</td>
                                                     <td>@Caste</td>
                                                     <td>@(challanVerify == "1" ? "yes" : "no")</td>
-                                                    <td>@IsHardCopyCertificate</td>
+                                                    <td>@(IsWantselfcenter == "1" ? "yes" : "no")</td>
                                                     @*<td>
             @if (exemptionallow == "1" && (printlotnew == "0" || printlotnew == null))
             {
