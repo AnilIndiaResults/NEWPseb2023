@@ -2938,7 +2938,8 @@ namespace PSEBONLINE.Controllers
                     ViewBag.SR = ds.Tables[1].Rows[0]["SR"].ToString();
                     ViewBag.MO = ds.Tables[2].Rows[0]["MO"].ToString();
                     ViewBag.SO = ds.Tables[3].Rows[0]["SO"].ToString();
-                    if (ds.Tables[4].Rows[0]["DTGap"].ToString() == "0")
+					//if (ds.Tables[4].Rows[0]["DTGap"].ToString() == "0") need to change again after few days
+					if (ds.Tables[4].Rows[0]["DTGap"].ToString() == "1")
                     {
                         ViewBag.DateMessage = "Today, You Are Not Authorize To Calcualate Fee";
                     }
