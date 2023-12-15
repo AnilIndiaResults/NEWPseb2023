@@ -91,8 +91,11 @@ namespace PSEBONLINE.Models
 
         public string AdminEmployeeUserId { get; set; }
         public string AdminEmployeePassword { get; set; }
+		public string Status { get; set; }
+		public string Schl { get; set; }
+		public string Mobile { get; set; }
 
-    }
+	}
 
     public class LoginModel2
     {
