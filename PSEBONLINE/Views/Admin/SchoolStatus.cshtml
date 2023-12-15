@@ -1,0 +1,254 @@
+﻿@model PSEBONLINE.Models.AdminModels 
+    @*@{
+
+        var schools = ViewBag.Schools; // Replace 'School' with your actual model type*@
+   @* }*@
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css" />
+
+    @using (Html.BeginForm("SchoolStatus", "Admin", FormMethod.Post, new { id = "searchform", enctype = "multipart/form-data" }))
+    {
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <style>
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
+
+                th, td {
+                    padding: 10px; /* Adjust the padding as needed */
+                    text-align: left;
+                }
+            </style>
+
+        </head>
+        <body>
+
+            <div class="row align-center" style="text-align:center">
+                <h3>Punjab School Education Board</h3>
+                <h5>MATRICULATION MARCH, 2023 SCHOOL MATER</h5>
+            </div>
+            <div class="col-md-3">
+                <label id="dist">Dist:</label>
+
+            </div>
+            <div class="col-md-3" style="text-align:center">
+                <label id="set">SET:</label>
+
+            </div>
+            <div class="col-md-3 " style="text-align:right">
+                <label id="page">Page:</label><br />
+                <label id="date">Date:</label>
+            </div>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Dist</th>
+                        <th>DISTNM</th>
+                        <th>SCHL</th>
+                        <th>Schlnme</th>
+                        <th>ContactInfo</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Total Candidates</th>
+                        <th>From Roll</th>
+                        <th>To Roll</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.StoreAllData.Tables[0].Rows.Count; i++)
+                    {
+                    <tr>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["dist"]; </td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["DISTNM"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["MSET"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["SCHL"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["Schlnme"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["ContactInfo"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["EMAILID"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["Type"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["cencode"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["cenname"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["totCand"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["from"]</td>
+                        <td>@Model.StoreAllData.Tables[0].Rows[i]["to"]</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <!--<table>
+            <thead>
+                <tr>
+                    <th>Sch Code</th>
+                    <th>Gen/Open Noc</th>
+                    <th>School Centre</th>
+                    <th>School Name (English)</th>
+
+                    <th>Roll Number</th>
+                    <th>Form To</th>
+                </tr>
+            </thead>
+            <tbody>-->
+            @*@foreach (var school in schools)
+                {
+                    <tr>
+                        <td>@school.SchCode</td>
+                        <td>@school.GenOpenNoc</td>
+                        <td>@school.SchoolCentre</td>
+                        <td>@school.SchoolNameEnglish</td>
+                        <td>@school.SchoolNamePunjabi</td>
+                        <td>@school.RollNumber</td>
+                        <td>@school.FormTo</td>
+                    </tr>
+                }*@
+            <!--</tbody>
+            </table>-->
+
+
+        </body>
+    </html>
+}
+
+
+
+
+
+    @{
+        if (ViewData["result"] != null)
+        {
+            if (ViewData["result"].ToString() == "1")
+            {
+                <script type="text/javascript" language="javascript">
+                    alert("Saved Successfully");
+                    window.location.href = '/Admin/AllowCCE';
+                </script>
+            }
+            else if (ViewData["result"].ToString() == "2")
+            {
+                <script type="text/javascript" language="javascript">
+                    alert("Updated Successfully");
+                    window.location.href = '/Admin/AllowCCE';
+                </script>
+            }
+            else if (ViewData["result"].ToString() == "0")
+            {
+                <script type="text/javascript" language="javascript">
+                    alert("Failure..plz try again");
+                </script>
+            }
+        }
+    }
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".date").datepicker({
+                dateFormat: "dd/mm/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "2020:2021"
+            });
+        });
+
+        function ValidateAlpha(evt) {
+            var keyCode = (evt.which) ? evt.which : evt.keyCode
+            if ((keyCode < 65 || keyCode > 90) && (keyCode < 97 || keyCode > 123) && keyCode != 32) {
+                alert("Only Characters Allowed!!");
+                return false;
+            }
+            else {
+                return true;
+            }
+
+        }
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if ((charCode >= 48 && charCode <= 57) || (charCode == 8) || (charCode == 46)) {
+                return true;
+            }
+            else {
+                alert("Invalid character...Enter Only Number!!");
+                return false;
+            }
+        }
+    </script>
+
+
+
+
+    <script type="text/javascript">
+
+        function valForm() {
+
+            var preboard = document.getElementById("preboard").checked;
+            var cce = document.getElementById("cce").checked;
+            var elective = document.getElementById("elective").checked;
+            var phychl = document.getElementById("phychl").checked;
+            var schoolBasedExams = document.getElementById("SchoolBasedExams").checked;
+            var SchoolBasedExamsOpen = document.getElementById("SchoolBasedExamsOpen").checked;
+            var reAppearCCE = document.getElementById("ReAppearCCE").checked;
+            if (preboard == false && cce == false && elective == false && phychl == false && reAppearCCE == false && schoolBasedExams == false && SchoolBasedExamsOpen == false) {
+                alert("Please Select Marks Panel");
+                return false;
+            }
+
+
+            var Primary = document.getElementById("Primary").checked;
+            var Middle = document.getElementById("Middle").checked;
+            var Senior = document.getElementById("Senior").checked;
+            var Matric = document.getElementById("Matric").checked;
+            var ElectiveTheory = document.getElementById("ElectiveTheory").checked;
+            if (Primary == false && Middle == false && Senior == false && Matric == false) {
+                alert("Please Select Class");
+                return false;
+            }
+
+            var Schl = document.getElementById("Schl");
+            if (Schl.value == "") {
+                alert("Please Enter School Code");
+                Schl.focus();
+                return false;
+            }
+
+            var ReceiptNo = document.getElementById("ReceiptNo");
+            if (ReceiptNo.value == "") {
+                alert("Please Enter ReceiptNo");
+                ReceiptNo.focus();
+                return false;
+            }
+            var DepositDate = document.getElementById("DepositDate");
+            if (DepositDate.value == "") {
+                alert("Please Enter Deposit Date");
+                DepositDate.focus();
+                return false;
+            }
+            var Amount = document.getElementById("Amount");
+            if (Amount.value == "") {
+                alert("Please Enter Amount");
+                Amount.focus();
+                return false;
+            }
+
+            var LastDate = document.getElementById("LastDate");
+            if (LastDate.value == "" || LastDate.value == "0") {
+                alert("Please Select Allow Upto Date");
+                UploadDate.focus();
+                return false;
+            }
+
+
+
+
+
+            return true;
+        }
+
+    </script>
+
+

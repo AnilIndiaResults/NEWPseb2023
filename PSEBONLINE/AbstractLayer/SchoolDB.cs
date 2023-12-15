@@ -3714,6 +3714,32 @@ namespace PSEBONLINE.AbstractLayer
                 return result = null;
             }
         }
+
+        public DataSet Pvtcutlist_All()
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                //using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["myConn"].ToString()))
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("PrivteCutList_05122023", con);
+                    //cmd.Parameters.AddWithValue("@SelDistSearch", SelDistSearch);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result = null;
+            }
+        }
+
+
+
         #endregion pvt cutlist
 
         public DataSet SupervisoryStaffList(string Dist)

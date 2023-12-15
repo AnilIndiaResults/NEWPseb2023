@@ -139,7 +139,7 @@ namespace PSEBONLINE.Controllers
         }
         [HttpPost]
         public ActionResult ImageCorrectionPerforma(RegistrationModels rm, FormCollection frm, string cmd)
-        {
+            {
             string sid = Convert.ToString(rm.Std_id);
             string formname = null;
             if (rm.SelList == "1")

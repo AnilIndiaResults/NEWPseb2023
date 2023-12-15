@@ -26,9 +26,9 @@ namespace PSEBONLINE.AbstractLayer
 
         private string CommonCon = "myDBConnection";
         public AdminDB()
-        {   
-                CommonCon = "myDBConnection";
-            
+        {
+            CommonCon = "myDBConnection";
+
         }
         #endregion  Check ConString
 
@@ -48,7 +48,7 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
-        public AdminEmployeeMasters UpdateAdminEmployeeMastersByUserIdAPI(string userid, string pwd, AdminEmployeeAPIModel adminEmployeeAPIModel ,out int updStatus)
+        public AdminEmployeeMasters UpdateAdminEmployeeMastersByUserIdAPI(string userid, string pwd, AdminEmployeeAPIModel adminEmployeeAPIModel, out int updStatus)
         {
             int status = 0;
             try
@@ -61,9 +61,9 @@ namespace PSEBONLINE.AbstractLayer
                     {
                         Userid = userid,
                         pwd = pwd,
-                        id = adminEmployeeAPIModel.id,                        
+                        id = adminEmployeeAPIModel.id,
                         Name = adminEmployeeAPIModel.Name,
-                        FName = adminEmployeeAPIModel.FName,                      
+                        FName = adminEmployeeAPIModel.FName,
                         Post = adminEmployeeAPIModel.Post,
                         Type = adminEmployeeAPIModel.Type,
                         employeeImg = adminEmployeeAPIModel.employeeImg,
@@ -136,11 +136,11 @@ namespace PSEBONLINE.AbstractLayer
                     updStatus = status;
                     return adminEmployeeMasters;
                 }
-                
+
             }
             catch (Exception ex)
             {
-                status = - 1;
+                status = -1;
             }
             updStatus = status;
             return null;
@@ -150,7 +150,7 @@ namespace PSEBONLINE.AbstractLayer
         public static AdminEmployeeAPIModel CheckAdminEmployeeLogin(LoginModel LM, out int empLoginStatus)  // Type 1=Regular, 2=Open
         {
             AdminEmployeeAPIModel adminEmployeeAPIModel = new AdminEmployeeAPIModel();
-            int emploginStatus1= 0;
+            int emploginStatus1 = 0;
             try
             {
 
@@ -184,12 +184,12 @@ namespace PSEBONLINE.AbstractLayer
                     emploginStatus1 = -5;
                     adminEmployeeAPIModel = null;
 
-                }             
+                }
 
             }
             catch (Exception ex)
-            {         
-                
+            {
+
             }
             empLoginStatus = emploginStatus1;
             return adminEmployeeAPIModel;
@@ -206,8 +206,8 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "AdminLoginSP";// LoginSP(old)
                 cmd.Parameters.AddWithValue("@UserName", LM.username);
-               cmd.Parameters.AddWithValue("@Password", LM.Password);
-               cmd.Parameters.Add("@OutStatus", SqlDbType.Int).Direction = ParameterDirection.Output;
+                cmd.Parameters.AddWithValue("@Password", LM.Password);
+                cmd.Parameters.Add("@OutStatus", SqlDbType.Int).Direction = ParameterDirection.Output;
                 using (IDataReader reader = db.ExecuteReader(cmd))
                 {
                     if (reader.Read())
@@ -268,7 +268,7 @@ namespace PSEBONLINE.AbstractLayer
         //}
 
 
-   
+
 
         public DataSet ExecuteSqlQuery(string Sqlquery)
         {
@@ -288,23 +288,23 @@ namespace PSEBONLINE.AbstractLayer
         public List<AffObjectionListMasters> GetAffObjectionListMasters()
         {
             List<AffObjectionListMasters> itemList = new List<AffObjectionListMasters>();
-           // itemList = _context.AffObjectionListMasters.AsNoTracking().Where(s => s.IsActive == 1).ToList();
+            // itemList = _context.AffObjectionListMasters.AsNoTracking().Where(s => s.IsActive == 1).ToList();
             foreach (AffObjectionListMasters dr in _context.AffObjectionListMasters.AsNoTracking().Where(s => s.IsActive == 1).ToList())
             {
-                itemList.Add(new AffObjectionListMasters { objection = dr.objcode.ToString() + " - "+dr.objection.ToString(), objcode = dr.objcode.ToString() });
+                itemList.Add(new AffObjectionListMasters { objection = dr.objcode.ToString() + " - " + dr.objection.ToString(), objcode = dr.objcode.ToString() });
             }
             return itemList;
 
         }
 
-       
 
-        public static List<SelectListItem> getAdminDistAllowList(string usertype,string adminid)
+
+        public static List<SelectListItem> getAdminDistAllowList(string usertype, string adminid)
         {
             List<SelectListItem> itemDist = new List<SelectListItem>();
             if (usertype.ToLower() == "admin")
             {
-                DataSet ds = new AbstractLayer.AdminDB().GetAllAdminUser(Convert.ToInt32(adminid), "");                
+                DataSet ds = new AbstractLayer.AdminDB().GetAllAdminUser(Convert.ToInt32(adminid), "");
                 foreach (System.Data.DataRow dr in ds.Tables[1].Rows)
                 {
                     itemDist.Add(new SelectListItem { Text = @dr["DISTNM"].ToString(), Value = @dr["DIST"].ToString() });
@@ -1086,7 +1086,7 @@ namespace PSEBONLINE.AbstractLayer
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
                 {
                     SqlCommand cmd = new SqlCommand("ConductPrintList_SP", con);
-                    cmd.CommandType = CommandType.StoredProcedure;                 
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Class", ccls);
                     cmd.Parameters.AddWithValue("@lot", clot);
                     cmd.Parameters.AddWithValue("@ser", ser);
@@ -1110,7 +1110,7 @@ namespace PSEBONLINE.AbstractLayer
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
                 {
                     SqlCommand cmd = new SqlCommand("ConductPrintList_New_SP", con);
-                    cmd.CommandType = CommandType.StoredProcedure;                  
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Class", ccls);
                     cmd.Parameters.AddWithValue("@lot", clot);
                     cmd.Parameters.AddWithValue("@ser", ser);
@@ -1345,7 +1345,7 @@ namespace PSEBONLINE.AbstractLayer
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
                 {
                     SqlCommand cmd = new SqlCommand("SecrecyPrintList_SP", con);//SecrecyPrintList_SPTEMP
-                    cmd.CommandType = CommandType.StoredProcedure;                   
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Class", ccls);
                     cmd.Parameters.AddWithValue("@lot", clot);
                     cmd.Parameters.AddWithValue("@ser", ser);
@@ -1841,7 +1841,7 @@ namespace PSEBONLINE.AbstractLayer
                                     Result += "Duplicate roll No " + roll + " in row " + RowNo + ",  ";
                                     dt.Rows[i]["Status"] += "Duplicate Roll No " + roll + " in row " + RowNo + ",  ";
                                 }
-                            }                           
+                            }
                             if (ds1.Tables[0].Rows[0]["Examchallanverify"].ToString().ToLower() != "true")
                             {
                                 int RowNo = i + 2;
@@ -2172,7 +2172,7 @@ namespace PSEBONLINE.AbstractLayer
                         {
                             // string ColName = ds.Tables[0].Columns[1].ColumnName.ToString();
 
-                         
+
                             if (ds.Tables[0].Rows[i][2].ToString().Length != 10 || ds.Tables[0].Rows[i][2].ToString() == "")
                             {
                                 int RowNo = i + 2;
@@ -2852,7 +2852,7 @@ namespace PSEBONLINE.AbstractLayer
         }
 
 
-     
+
 
 
         #region Fee Master
@@ -3885,7 +3885,7 @@ namespace PSEBONLINE.AbstractLayer
                 return result = -1;
             }
         }
-        public DataSet SetCorrectionDataFirmFeeDetails(AdminModels am, string userNM,string EmpUserId)
+        public DataSet SetCorrectionDataFirmFeeDetails(AdminModels am, string userNM, string EmpUserId)
         {
             DataSet result = new DataSet();
             SqlDataAdapter ad = new SqlDataAdapter();
@@ -4924,7 +4924,7 @@ namespace PSEBONLINE.AbstractLayer
 
 
         #region Final Submitted Records form All Forms For Admin
-        public DataSet CancelStdRegNo(string remarks, string stdid,string EmpUserId)
+        public DataSet CancelStdRegNo(string remarks, string stdid, string EmpUserId)
         {
             DataSet result = new DataSet();
             SqlDataAdapter ad = new SqlDataAdapter();
@@ -5024,7 +5024,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@rejectid", rejectid);
                 cmd.Parameters.AddWithValue("@removeid", removeid);
                 cmd.Parameters.AddWithValue("@adminid", adminid);
-                cmd.Parameters.AddWithValue("@EmpUserId",EmpUserId);
+                cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
                 cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                 con.Open();
                 result = cmd.ExecuteNonQuery().ToString();
@@ -5084,10 +5084,10 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.CommandTimeout = 300;
                     cmd.Parameters.AddWithValue("@CorrectionLot", CorrectionLot);
-					cmd.Parameters.AddWithValue("@FirmUser", userNM);
-                    cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId); 
+                    cmd.Parameters.AddWithValue("@FirmUser", userNM);
+                    cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
 
-					cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
@@ -5120,8 +5120,8 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.CommandTimeout = 300;
                     cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
                     cmd.Parameters.AddWithValue("@FirmUser", userNM);
-					cmd.Parameters.AddWithValue("@CorrectionLot", "");
-					cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.AddWithValue("@CorrectionLot", "");
+                    cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
@@ -5139,39 +5139,39 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
-		public DataSet CorrectionDataFirmFinalSubmitSPRNBySchool(string EmpUserId, string userNM,string CorrectionLot, out string FirmCorrectionLot, out string OutError)
-		{
-			DataSet result = new DataSet();
-			SqlDataAdapter ad = new SqlDataAdapter();
-			try
-			{
-				using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
-				{
-					SqlCommand cmd = new SqlCommand("CorrectionDataFirmFinalSubmitSPRN", con);
-					cmd.CommandType = CommandType.StoredProcedure;
-					cmd.CommandTimeout = 300;
-					cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
-					cmd.Parameters.AddWithValue("@FirmUser", userNM);
-					cmd.Parameters.AddWithValue("@CorrectionLot", CorrectionLot);
-					cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
-					cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
-					ad.SelectCommand = cmd;
-					ad.Fill(result);
-					con.Open();
-					FirmCorrectionLot = (string)cmd.Parameters["@FirmCorrectionLot"].Value;
-					OutError = (string)cmd.Parameters["@OutError"].Value;
-					return result;
-				}
-			}
-			catch (Exception ex)
-			{
-				FirmCorrectionLot = "-1";
-				OutError = "-1";
-				return result = null;
-			}
-		}
+        public DataSet CorrectionDataFirmFinalSubmitSPRNBySchool(string EmpUserId, string userNM, string CorrectionLot, out string FirmCorrectionLot, out string OutError)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("CorrectionDataFirmFinalSubmitSPRN", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = 300;
+                    cmd.Parameters.AddWithValue("@EmpUserId", EmpUserId);
+                    cmd.Parameters.AddWithValue("@FirmUser", userNM);
+                    cmd.Parameters.AddWithValue("@CorrectionLot", CorrectionLot);
+                    cmd.Parameters.Add("@FirmCorrectionLot", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    FirmCorrectionLot = (string)cmd.Parameters["@FirmCorrectionLot"].Value;
+                    OutError = (string)cmd.Parameters["@OutError"].Value;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                FirmCorrectionLot = "-1";
+                OutError = "-1";
+                return result = null;
+            }
+        }
 
-		public string CorrLotRejectRemarksSP(string corid, string remarks, string adminid)
+        public string CorrLotRejectRemarksSP(string corid, string remarks, string adminid)
         {
             SqlConnection con = null;
             string result = "";
@@ -5217,6 +5217,32 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.Parameters.AddWithValue("@RegOpen", RegOpen);
                     cmd.Parameters.AddWithValue("@FirmUser", FirmUser);
                     cmd.Parameters.AddWithValue("@Search", Search);
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+                    ErrStatus = "1";
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrStatus = ex.Message;
+                return result = null;
+            }
+        }
+
+
+        public DataSet GetExamResultData(out string ErrStatus)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("SchoolStatusMaster", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandTimeout = 300;
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
                     con.Open();
@@ -5294,7 +5320,7 @@ namespace PSEBONLINE.AbstractLayer
             string result = "0";
             try
             {
-               
+
                 using (ZipFile zip = new ZipFile())
                 {
                     zip.AlternateEncodingUsage = ZipOption.AsNecessary;
@@ -5312,7 +5338,7 @@ namespace PSEBONLINE.AbstractLayer
                                 filelocation = Path.Combine(DwonSp + "/Upload2023/", str);
                             }
                             else if (str.ToString().ToUpper().Contains("PVT")
-                                || str.ToString().ToUpper().Contains("OPEN") 
+                                || str.ToString().ToUpper().Contains("OPEN")
                                 || str.ToString().ToUpper().Contains("OPEN2019") || str.ToString().ToUpper().Contains("OPEN2018"))
                             {
                                 filelocation = Path.Combine(DwonSp + "/", str);
@@ -5344,7 +5370,7 @@ namespace PSEBONLINE.AbstractLayer
 
                 throw;
             }
-           
+
             return result;
         }
 
@@ -5359,15 +5385,15 @@ namespace PSEBONLINE.AbstractLayer
                     //loopcounter
                     for (int loopcounter = 0; loopcounter < dt.Rows.Count; loopcounter++)
                     {
-						//assign dataset values to array
-						arrvalues[0, loopcounter] = dt.Rows[loopcounter]["Photo"].ToString();
-						arrvalues[1, loopcounter] = dt.Rows[loopcounter]["Sign"].ToString();
-						
+                        //assign dataset values to array
+                        arrvalues[0, loopcounter] = dt.Rows[loopcounter]["Photo"].ToString();
+                        arrvalues[1, loopcounter] = dt.Rows[loopcounter]["Sign"].ToString();
 
-						//                  arrvalues[0, loopcounter] = dt.Rows[loopcounter]["SignPath"].ToString();
-						//arrvalues[1, loopcounter] = dt.Rows[loopcounter]["PhotoPath"].ToString();
-					}
-				}
+
+                        //                  arrvalues[0, loopcounter] = dt.Rows[loopcounter]["SignPath"].ToString();
+                        //arrvalues[1, loopcounter] = dt.Rows[loopcounter]["PhotoPath"].ToString();
+                    }
+                }
                 return arrvalues;
             }
             catch (Exception ex)
@@ -5469,7 +5495,7 @@ namespace PSEBONLINE.AbstractLayer
                 dt.Columns.Add(new DataColumn("Status", typeof(string)));
 
                 if (ds.Tables[0].Rows.Count == 0)
-                {                    
+                {
                     string ROLL = ds.Tables[0].Rows[0][0].ToString();
                     Result += "Data Not Found";
                     dt.Rows[0]["Status"] = "Data Not Found in file, please change in Text Format ";
@@ -5521,7 +5547,7 @@ namespace PSEBONLINE.AbstractLayer
                             {
                                 Result += "Please check REFNO and SUB are not Matched in row " + RowNo + ",  ";
                                 dt.Rows[i]["Status"] = "Please check REFNO and SUB are not Matched in row" + RowNo + ",  ";
-                            }                          
+                            }
                         }
 
                     }
@@ -5549,21 +5575,21 @@ namespace PSEBONLINE.AbstractLayer
                     SqlCommand cmd = new SqlCommand("GetPrivateSubjectByRefnoSub", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@REFNO", refno);
-                    cmd.Parameters.AddWithValue("@SUB", sub);                    
+                    cmd.Parameters.AddWithValue("@SUB", sub);
                     con.Open();
                     dataAdapter.SelectCommand = cmd;
-                    dataAdapter.Fill(dataTable);                    
+                    dataAdapter.Fill(dataTable);
                     return dataTable;
 
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 return null;
             }
         }
 
-        public string CheckRegOpenPracticalCentUpdateMaster(DataSet ds,string cls, out DataTable dt)
+        public string CheckRegOpenPracticalCentUpdateMaster(DataSet ds, string cls, out DataTable dt)
         {
             string Result = "";
             try
@@ -5585,7 +5611,7 @@ namespace PSEBONLINE.AbstractLayer
                         int RowNo = i + 2;
                         DataSet dtp = CheckPracticalCenter(ds.Tables[0].Rows[i][6].ToString(), cls);
                         if (dtp.Tables.Count > 0)
-                        {                           
+                        {
                             if (dtp.Tables[0].Rows.Count == 0)
                             {
                                 Result += "Please check Practical Centre is not allowed for this class in row " + RowNo + ",  ";
@@ -5708,7 +5734,7 @@ namespace PSEBONLINE.AbstractLayer
         }
 
         #endregion Practical Cent Update Master
-               
+
         #region Practical Submission Unlocked
 
         public DataSet CheckPracFinalSubmission(string cls, string rp, string pcent, string sub, string fplot)
@@ -5758,7 +5784,7 @@ namespace PSEBONLINE.AbstractLayer
                         dt.Rows[i]["Status"] = "Please check Empty Value in Mandatory Columns in row " + RowNo + ",  ";
 
                     }
-                    
+
                     if (dt.Rows[i][5].ToString() != "")
                     {
                         DateTime todDate = DateTime.Today;
@@ -5773,7 +5799,7 @@ namespace PSEBONLINE.AbstractLayer
                                 string challanid = ds.Tables[0].Rows[i][0].ToString();
                                 Result += " Last Date must be greater or equal to today date  in row " + RowNo + ",  ";
                                 dt.Rows[i]["Status"] += " , " + "Last Date must be greater or equal to today date in row " + RowNo + ",  ";
-                            } 
+                            }
                         }
                     }
 
@@ -5796,7 +5822,7 @@ namespace PSEBONLINE.AbstractLayer
             return Result;
         }
 
-        public DataTable PracticalSubmissionUnlocked(string LastDate,string cls, string rp, string cent, string sub, string fplot, int adminid, out string OutError)  // ExamErrorListMISSP
+        public DataTable PracticalSubmissionUnlocked(string LastDate, string cls, string rp, string cent, string sub, string fplot, int adminid, out string OutError)  // ExamErrorListMISSP
         {
 
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
@@ -5833,7 +5859,7 @@ namespace PSEBONLINE.AbstractLayer
         }
 
         #endregion  Practical Submission Unlocked
-        
+
         #region  Cce Prac Marks Download
 
         public string CheckCcePracMarksDownloadMis(DataSet ds, out DataTable dt, string RP)
@@ -6105,7 +6131,7 @@ namespace PSEBONLINE.AbstractLayer
                     cmd.Parameters.Add("@OutError", SqlDbType.VarChar, 1000).Direction = ParameterDirection.Output;
                     ad.SelectCommand = cmd;
                     ad.Fill(result);
-                    con.Open();                    
+                    con.Open();
                     OutError = (string)cmd.Parameters["@OutError"].Value;
                     return result;
                 }
@@ -6134,7 +6160,7 @@ namespace PSEBONLINE.AbstractLayer
                         Result += "Please check Roll " + Roll + " in row " + RowNo + ",  ";
                         dt.Rows[i]["Status"] += "Please check Roll " + Roll + " in row " + RowNo + ",  ";
 
-                    }                   
+                    }
                 }
             }
             catch (Exception ex)
@@ -6178,7 +6204,7 @@ namespace PSEBONLINE.AbstractLayer
 
 
         #endregion
-        
+
         //------------------------------------------DB Class Region------------------
 
         #region Circular
@@ -6424,7 +6450,7 @@ namespace PSEBONLINE.AbstractLayer
                 using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
                 {
                     SqlCommand cmd = new SqlCommand("GetLateAdmissionSchl_Sp", con);
-                    cmd.CommandType = CommandType.StoredProcedure;                    
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@search", search);
 
                     ad.SelectCommand = cmd;
@@ -6442,7 +6468,7 @@ namespace PSEBONLINE.AbstractLayer
             }
         }
 
-        public string SetLateAdmissionSchl(string schl, string RID, string cls, string formNM, string regno, string name, string fname, string mname, string dob, string mobileno, string file, string usertype,string OBoard)
+        public string SetLateAdmissionSchl(string schl, string RID, string cls, string formNM, string regno, string name, string fname, string mname, string dob, string mobileno, string file, string usertype, string OBoard)
         {
             SqlConnection con = null;
             string result = null;
@@ -6606,7 +6632,7 @@ namespace PSEBONLINE.AbstractLayer
                 cmd.Parameters.AddWithValue("@status", status);
                 cmd.Parameters.AddWithValue("@ApprDate", ApprDate);
                 cmd.Parameters.AddWithValue("@remarks", remarks);
-         
+
                 cmd.Parameters.Add("@Outstatus", SqlDbType.Int).Direction = ParameterDirection.Output;
                 con.Open();
                 result = cmd.ExecuteNonQuery().ToString();
@@ -6746,7 +6772,7 @@ namespace PSEBONLINE.AbstractLayer
 
 
 
-        public static DataSet OtherBoardDocumentsBySchoolSP(int type,string search)
+        public static DataSet OtherBoardDocumentsBySchoolSP(int type, string search)
         {
             // SqlConnection con = null;
             DataSet result = new DataSet();
@@ -7012,7 +7038,33 @@ namespace PSEBONLINE.AbstractLayer
                 return result = null;
             }
         }
+        public DataSet GetEXFileData(string schl)
+        {
+            DataSet result = new DataSet();
+            SqlDataAdapter ad = new SqlDataAdapter();
+            try
+            {
 
+                using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+                {
+                    SqlCommand cmd = new SqlCommand("updt_ex_file_sp", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@schl", schl);
+
+                    ad.SelectCommand = cmd;
+                    ad.Fill(result);
+                    con.Open();
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return result = null;
+            }
+        }
 
         #endregion
 

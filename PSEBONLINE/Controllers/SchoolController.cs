@@ -32,6 +32,7 @@ namespace PSEBONLINE.Controllers
     {
         private const string BUCKET_NAME = "psebdata";
         private readonly DBContext _context = new DBContext();
+        AbstractLayer.AdminDB adobjDB = new AbstractLayer.AdminDB();
         string sp = System.Configuration.ConfigurationManager.AppSettings["upload"];
         AbstractLayer.DBClass objCommon = new AbstractLayer.DBClass();
         AbstractLayer.SchoolDB objDB = new AbstractLayer.SchoolDB();
@@ -11964,7 +11965,8 @@ namespace PSEBONLINE.Controllers
                     ViewBag.MyDist = new SelectList(ViewBag.MyDISTRESULT, "Value", "Text");
 
 
-                    MS.StoreAllData = null; //objDB.GetCutList_Schl(SCHL, class1, Type1, ViewBag.Status);
+                    //MS.StoreAllData = null; //objDB.GetCutList_Schl(SCHL, class1, Type1, ViewBag.Status);
+                    MS.StoreAllData = objDB.Pvtcutlist_All();
                     if (MS.StoreAllData == null || MS.StoreAllData.Tables[0].Rows.Count == 0)
                     {
                         ViewBag.Message = "Record Not Found";
@@ -12105,7 +12107,8 @@ namespace PSEBONLINE.Controllers
                     //--------------
                     MS.dist = SelDistSearch;
 
-                    MS.StoreAllData = objDB.Pvtcutlist(Search, SCHL, class1, Type1, ViewBag.Status, Myset, SelDistSearch);
+                    //MS.StoreAllData = objDB.Pvtcutlist(Search, SCHL, class1, Type1, ViewBag.Status, Myset, SelDistSearch);
+                    MS.StoreAllData = objDB.Pvtcutlist_All();
                     if (MS.StoreAllData == null || MS.StoreAllData.Tables[0].Rows.Count == 0)
                     {
                         ViewBag.Message = "Record Not Found";
@@ -22755,5 +22758,40 @@ namespace PSEBONLINE.Controllers
             return Json(newDs.Tables[0].Rows[0]["Status"]);
         }
         #endregion
+
+        public ActionResult AllotedExamCenter(string id)
+        {
+            AdminModels admModel = new AdminModels();
+            try
+            {
+
+                string schl = Session["schl"].ToString();
+                if (schl == "")
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+
+                DataSet dss = adobjDB.GetEXFileData(schl); // objDB.GetExFileData(schl);
+                admModel.StoreAllData = dss;
+                if (admModel.StoreAllData == null || admModel.StoreAllData.Tables[0].Rows.Count == 0)
+                {
+                    ViewBag.Message = "Record Not Found";
+                    ViewBag.TotalCount = 0;
+                    return View(admModel);
+                }
+                else
+                {
+                    ViewBag.TotalCount = admModel.StoreAllData.Tables[0].Rows.Count;
+                    return View(admModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
+                return View(admModel);
+            }
+
+        }
+
     }
 }

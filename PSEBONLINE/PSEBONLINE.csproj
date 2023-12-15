@@ -402,6 +402,7 @@
     <Compile Include="Filters\SelfDeclarationLoginCheckFilter.cs" />
     <Compile Include="Filters\SessionCheckFilterAttribute.cs" />
     <Compile Include="Filters\SkipImportantTaskAttribute.cs" />
+    <Compile Include="Models\ExamResultViewModel.cs" />
     <Compile Include="Models\tblSchUsersModel.cs" />
     <Compile Include="Models\AdditionalSectionModel.cs" />
     <Compile Include="Models\AffiliationModel.cs" />
@@ -1501,6 +1502,9 @@
     <Content Include="Views\School\ExamCentreDetailsPerforma.cshtml" />
     <Content Include="Views\Report\AccountReportDetails.cshtml" />
     <Content Include="Views\School\InfrasturePerformaModifyForAdmin.cshtml" />
+    <Content Include="Views\School\Pvtcutlist.cshtml" />
+    <Content Include="Views\Admin\.cshtml" />
+    <Content Include="Views\Admin\SchoolStatus.cshtml" />
     <None Include="Views\School\Welcome.cshtml_SITEMENU" />
     <Content Include="Views\RegistrationPortal\M1Formgrid.cshtml" />
     <Content Include="Views\RegistrationPortal\M1FormModify.cshtml" />

@@ -7535,7 +7535,7 @@ namespace PSEBONLINE.Controllers
                                 var uploadRequest = new TransferUtilityUploadRequest
                                 {
                                     InputStream = Photo.InputStream,
-                                    Key = string.Format("allfiles/Upload2023/Open2022/Photo/{0}",Orgfile),
+                                    Key = string.Format("allfiles/Upload2023/Open2022/Photo/{0}", Orgfile),
 
                                     BucketName = BUCKET_NAME,
                                     CannedACL = S3CannedACL.PublicRead
@@ -16264,6 +16264,21 @@ namespace PSEBONLINE.Controllers
             //return View(asm);
             return View(rm);
         }
+        [HttpGet]
+        public ActionResult SchoolStatus()
+        {
+
+            AdminModels admModel = new AdminModels();
+
+
+            admModel.StoreAllData = objDB.GetExamResultData(out string ErrStatus);
+
+
+            return View(admModel);
+        }
+
+
+
 
         [HttpPost]
         public JsonResult CancelStdRegNo(string Remarks, string stdid)
@@ -22738,9 +22753,9 @@ namespace PSEBONLINE.Controllers
 
 
 
-               //Search By
-               //Status
-               var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
+                //Search By
+                //Status
+                var itemSearchBy = new SelectList(new[] { new { ID = "1", Name = "Application No" }, new { ID = "6", Name = "School Code" }, new { ID = "2", Name = "UDISE Code" },
                 new { ID = "3", Name = "School Name" },new { ID = "4", Name = "Station Name" },new { ID = "5", Name = "Mobile No" },new { ID = "7", Name = "EAffiliation Type" },}, "ID", "Name", 1);
                 ViewBag.MySch = itemSearchBy.ToList();
                 ViewBag.SelectedSearchBy = "0";
@@ -22936,7 +22951,7 @@ namespace PSEBONLINE.Controllers
                         ViewBag.SelectedStatus = frm["searchstatus"];
                         if (ViewBag.SelectedStatus != "0")
                         {
-                        Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                            Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
 
                         }
                         //TempData["searchstatus"] = frm["searchstatus"];
@@ -23026,19 +23041,19 @@ namespace PSEBONLINE.Controllers
 
                 else if (AppType == "AC")
                 {
-					if (frm["searchstatus"] != "")
-					{
-						ViewBag.SelectedStatus = frm["searchstatus"];
-						if (ViewBag.SelectedStatus != "0")
-						{
-							Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        if (ViewBag.SelectedStatus != "0")
+                        {
+                            Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
 
-						}
-						//TempData["searchstatus"] = frm["searchstatus"];
-					}
+                        }
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                    }
 
 
-					if (frm["Dist1"] != "")
+                    if (frm["Dist1"] != "")
                     {
                         ViewBag.SelectedDist = frm["Dist1"];
                         TempData["SelectedDist"] = frm["Dist1"];
@@ -23101,18 +23116,18 @@ namespace PSEBONLINE.Controllers
                 }
                 else if (AppType == "AS")
                 {
-					if (frm["searchstatus"] != "")
-					{
-						ViewBag.SelectedStatus = frm["searchstatus"];
-						if (ViewBag.SelectedStatus != "0")
-						{
-							Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
+                    if (frm["searchstatus"] != "")
+                    {
+                        ViewBag.SelectedStatus = frm["searchstatus"];
+                        if (ViewBag.SelectedStatus != "0")
+                        {
+                            Search += " and isnull(ApprovalStatus,'0')='" + ViewBag.SelectedStatus + "'";
 
-						}
-						//TempData["searchstatus"] = frm["searchstatus"];
-					}
+                        }
+                        //TempData["searchstatus"] = frm["searchstatus"];
+                    }
 
-					if (frm["AppCls"] != "")
+                    if (frm["AppCls"] != "")
                     {
                         ViewBag.SelectedCls = frm["AppCls"];
                         TempData["SelectedCls"] = frm["AppCls"];
@@ -24105,7 +24120,7 @@ namespace PSEBONLINE.Controllers
                                                 var uploadRequest = new TransferUtilityUploadRequest
                                                 {
                                                     InputStream = ObjectionFile.InputStream,
-                                                    Key = string.Format("allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/{0}" ,Orgfile),
+                                                    Key = string.Format("allfiles/Upload2023/AFFObjecttonLetter/" + spi.AffObjectionLetters.AppType + "/{0}", Orgfile),
 
                                                     BucketName = BUCKET_NAME,
                                                     CannedACL = S3CannedACL.PublicRead
@@ -24118,7 +24133,7 @@ namespace PSEBONLINE.Controllers
 
 
 
-                                       //ObjectionFile.SaveAs(path);
+                                        //ObjectionFile.SaveAs(path);
                                     }
                                 }
                                 else
@@ -26938,7 +26953,7 @@ namespace PSEBONLINE.Controllers
         #endregion  UnlockStudentPreviousYearMarks
 
 
-    
+
 
         //// Dispose
         ///
@@ -26962,7 +26977,7 @@ namespace PSEBONLINE.Controllers
                 ChallanMasterModel CM = new ChallanMasterModel();
                 ViewBag.Message = "Record Not Found";
                 return View();
-               
+
             }
             catch (Exception ex)
             {
@@ -27001,8 +27016,204 @@ namespace PSEBONLINE.Controllers
                 return View();
             }
         }
+
+        #region Download School Master for Firms
+        public ActionResult DownloadSchoolSchoolMasterForFirm()
+        {
+            string district = null;
+            try
+            {
+                if (Session["UserName"] == null)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                if (Session["UserName"] != null)
+                {
+                    DataSet ds1 = new AbstractLayer.DEODB().DownloadSchoolMasterForFirm();
+                    if (ds1.Tables.Count > 0)
+                    {
+                        if (ds1.Tables[0].Rows.Count > 0)
+                        {
+                            if (ds1.Tables[0] != null)
+                            {
+                                ExportSchoolDataFromDataTable(ds1.Tables[0], Session["UserName"].ToString().ToUpper() + "_SchoolMasterList".ToUpper());
+                            }
+                            ViewData["Result"] = "1";
+                            return RedirectToAction("Welcome", "Admin");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Data Not Found";
+                        ViewData["Result"] = "0";
+                        return RedirectToAction("Index", "Admin");
+                    }
+                }
+
+                else
+                { return RedirectToAction("Welcome", "Admin"); }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewData["Result"] = "-3";
+                ViewBag.Message = ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult ExportSchoolDataFromDataTable(DataTable dt, string filename)
+        {
+            try
+            {
+                if (dt.Rows.Count == 0)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        //string fileName1 = "ERRORPVT_" + firm + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+                        string fileName1 = filename + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            wb.Worksheets.Add(dt);
+                            wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            wb.Style.Font.Bold = true;
+                            Response.Clear();
+                            Response.Buffer = true;
+                            Response.Charset = "";
+                            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                            Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + "");
+                            using (MemoryStream MyMemoryStream = new MemoryStream())
+                            {
+                                wb.SaveAs(MyMemoryStream);
+                                MyMemoryStream.WriteTo(Response.OutputStream);
+                                Response.Flush();
+                                Response.End();
+                            }
+                        }
+
+                    }
+                }
+
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+        }
+
+        #endregion Download School Master for Firms
+
+        #region Download School Master for Admin
+        public ActionResult DownloadSchoolSchoolMasterForAdmin()
+        {
+            string district = null;
+            try
+            {
+                if (Session["UserName"] == null)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+
+                if (Session["UserName"] != null)
+                {
+                    DataSet ds1 = new AbstractLayer.DEODB().DownloadSchoolMasterForAdmin();
+                    if (ds1.Tables.Count > 0)
+                    {
+                        if (ds1.Tables[0].Rows.Count > 0)
+                        {
+                            if (ds1.Tables[0] != null)
+                            {
+                                ExportAdminSchoolDataFromDataTable(ds1.Tables[0], Session["UserName"].ToString().ToUpper() + "_SchoolMasterList".ToUpper());
+                            }
+                            ViewData["Result"] = "1";
+                            return RedirectToAction("Welcome", "Admin");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Data Not Found";
+                        ViewData["Result"] = "0";
+                        return RedirectToAction("Index", "Admin");
+                    }
+                }
+
+                else
+                { return RedirectToAction("Welcome", "Admin"); }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ViewData["Result"] = "-3";
+                ViewBag.Message = ex.Message;
+                return View();
+            }
+        }
+
+        public ActionResult ExportAdminSchoolDataFromDataTable(DataTable dt, string filename)
+        {
+            try
+            {
+                if (dt.Rows.Count == 0)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        //string fileName1 = "ERRORPVT_" + firm + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+                        string fileName1 = filename + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            wb.Worksheets.Add(dt);
+                            wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            wb.Style.Font.Bold = true;
+                            Response.Clear();
+                            Response.Buffer = true;
+                            Response.Charset = "";
+                            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                            Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + "");
+                            using (MemoryStream MyMemoryStream = new MemoryStream())
+                            {
+                                wb.SaveAs(MyMemoryStream);
+                                MyMemoryStream.WriteTo(Response.OutputStream);
+                                Response.Flush();
+                                Response.End();
+                            }
+                        }
+
+                    }
+                }
+
+                return RedirectToAction("Index", "Admin");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+        }
+
+        #endregion Download School Master for Firms
+
+
     }
-}   
+}
 
 
 
