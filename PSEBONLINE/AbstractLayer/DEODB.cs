@@ -4220,5 +4220,53 @@ namespace PSEBONLINE.AbstractLayer
                 return result = null;
             }
         }
-    }
+
+		public DataSet DownloadSchoolMasterForFirm()
+		{
+			SqlDataAdapter dataAdapter = new SqlDataAdapter();
+			DataSet dataTable = new DataSet();
+			SqlCommand cmd;
+			try
+			{
+				using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+				{
+					cmd = new SqlCommand("DownloadSchoolMasterForFirm", con);
+					cmd.CommandType = CommandType.StoredProcedure;
+					con.Open();
+					dataAdapter.SelectCommand = cmd;
+					dataAdapter.Fill(dataTable);
+					return dataTable;
+
+				}
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+
+		public DataSet DownloadSchoolMasterForAdmin()
+		{
+			SqlDataAdapter dataAdapter = new SqlDataAdapter();
+			DataSet dataTable = new DataSet();
+			SqlCommand cmd;
+			try
+			{
+				using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings[CommonCon].ToString()))
+				{
+					cmd = new SqlCommand("DownloadSchoolMasterForAdmin", con);
+					cmd.CommandType = CommandType.StoredProcedure;
+					con.Open();
+					dataAdapter.SelectCommand = cmd;
+					dataAdapter.Fill(dataTable);
+					return dataTable;
+
+				}
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+	}
 }

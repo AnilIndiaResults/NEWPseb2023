@@ -27179,7 +27179,199 @@ namespace PSEBONLINE.Controllers
 			return View(admModel);
 		}
 
+		#region Download School Master for Firms
+		public ActionResult DownloadSchoolSchoolMasterForFirm()
+		{
+			string district = null;
+			try
+			{
+				if (Session["UserName"] == null)
+				{
+					return RedirectToAction("Index", "Admin");
+				}
 
+				if (Session["UserName"] != null)
+				{
+					DataSet ds1 = new AbstractLayer.DEODB().DownloadSchoolMasterForFirm();
+					if (ds1.Tables.Count > 0)
+					{
+						if (ds1.Tables[0].Rows.Count > 0)
+						{
+							if (ds1.Tables[0] != null)
+							{
+								ExportSchoolDataFromDataTable(ds1.Tables[0], Session["UserName"].ToString().ToUpper() + "_SchoolMasterList".ToUpper());
+							}
+							ViewData["Result"] = "1";
+							return RedirectToAction("Welcome", "Admin");
+						}
+						else
+						{
+							return RedirectToAction("Index", "Admin");
+						}
+					}
+					else
+					{
+						ViewBag.Message = "Data Not Found";
+						ViewData["Result"] = "0";
+						return RedirectToAction("Index", "Admin");
+					}
+				}
+
+				else
+				{ return RedirectToAction("Welcome", "Admin"); }
+				return View();
+			}
+			catch (Exception ex)
+			{
+				ViewData["Result"] = "-3";
+				ViewBag.Message = ex.Message;
+				return View();
+			}
+		}
+
+		public ActionResult ExportSchoolDataFromDataTable(DataTable dt, string filename)
+		{
+			try
+			{
+				if (dt.Rows.Count == 0)
+				{
+					return RedirectToAction("Index", "Admin");
+				}
+				else
+				{
+					if (dt.Rows.Count > 0)
+					{
+						//string fileName1 = "ERRORPVT_" + firm + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+						string fileName1 = filename + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+						using (XLWorkbook wb = new XLWorkbook())
+						{
+							wb.Worksheets.Add(dt);
+							wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+							wb.Style.Font.Bold = true;
+							Response.Clear();
+							Response.Buffer = true;
+							Response.Charset = "";
+							Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+							Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + "");
+							using (MemoryStream MyMemoryStream = new MemoryStream())
+							{
+								wb.SaveAs(MyMemoryStream);
+								MyMemoryStream.WriteTo(Response.OutputStream);
+								Response.Flush();
+								Response.End();
+							}
+						}
+
+					}
+				}
+
+				return RedirectToAction("Index", "Admin");
+			}
+			catch (Exception ex)
+			{
+				return RedirectToAction("Index", "Admin");
+			}
+
+		}
+
+		#endregion Download School Master for Firms
+
+		#region Download School Master for Admin
+		public ActionResult DownloadSchoolSchoolMasterForAdmin()
+		{
+			string district = null;
+			try
+			{
+				if (Session["UserName"] == null)
+				{
+					return RedirectToAction("Index", "Admin");
+				}
+
+				if (Session["UserName"] != null)
+				{
+					DataSet ds1 = new AbstractLayer.DEODB().DownloadSchoolMasterForAdmin();
+					if (ds1.Tables.Count > 0)
+					{
+						if (ds1.Tables[0].Rows.Count > 0)
+						{
+							if (ds1.Tables[0] != null)
+							{
+								ExportAdminSchoolDataFromDataTable(ds1.Tables[0], Session["UserName"].ToString().ToUpper() + "_SchoolMasterList".ToUpper());
+							}
+							ViewData["Result"] = "1";
+							return RedirectToAction("Welcome", "Admin");
+						}
+						else
+						{
+							return RedirectToAction("Index", "Admin");
+						}
+					}
+					else
+					{
+						ViewBag.Message = "Data Not Found";
+						ViewData["Result"] = "0";
+						return RedirectToAction("Index", "Admin");
+					}
+				}
+
+				else
+				{ return RedirectToAction("Welcome", "Admin"); }
+				return View();
+			}
+			catch (Exception ex)
+			{
+				ViewData["Result"] = "-3";
+				ViewBag.Message = ex.Message;
+				return View();
+			}
+		}
+
+		public ActionResult ExportAdminSchoolDataFromDataTable(DataTable dt, string filename)
+		{
+			try
+			{
+				if (dt.Rows.Count == 0)
+				{
+					return RedirectToAction("Index", "Admin");
+				}
+				else
+				{
+					if (dt.Rows.Count > 0)
+					{
+						//string fileName1 = "ERRORPVT_" + firm + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+						string fileName1 = filename + "_" + DateTime.Now.ToString("ddMMyyyyHHmm") + ".xls";  //103_230820162209_347
+						using (XLWorkbook wb = new XLWorkbook())
+						{
+							wb.Worksheets.Add(dt);
+							wb.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+							wb.Style.Font.Bold = true;
+							Response.Clear();
+							Response.Buffer = true;
+							Response.Charset = "";
+							Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+							Response.AddHeader("content-disposition", "attachment;filename=" + fileName1 + "");
+							using (MemoryStream MyMemoryStream = new MemoryStream())
+							{
+								wb.SaveAs(MyMemoryStream);
+								MyMemoryStream.WriteTo(Response.OutputStream);
+								Response.Flush();
+								Response.End();
+							}
+						}
+
+					}
+				}
+
+				return RedirectToAction("Index", "Admin");
+			}
+			catch (Exception ex)
+			{
+				return RedirectToAction("Index", "Admin");
+			}
+
+		}
+
+		#endregion Download School Master for Firms
 	}
 }   
 
