@@ -464,8 +464,8 @@ namespace PSEBONLINE.Controllers
 
                         if (IsApporved == "1" && SchlStatus.ToUpper() == "DONE")
                         {
-
-                            string SchoolNameWithCode = ds.Tables[0].Rows[0]["SCHLE"].ToString() + "(" + sid + ")";
+							lm.Mobile = ds.Tables[0].Rows[0]["Mobile"].ToString();
+							string SchoolNameWithCode = ds.Tables[0].Rows[0]["SCHLE"].ToString() + "(" + sid + ")";
                             string password = ds.Tables[0].Rows[0]["PASSWORD"].ToString();
                             string to = ds.Tables[0].Rows[0]["EMAILID"].ToString();
                             string MOBILENO = ds.Tables[0].Rows[0]["Mobile"].ToString();
@@ -474,7 +474,7 @@ namespace PSEBONLINE.Controllers
 
 
 
-							if (!string.IsNullOrEmpty(MOBILENO) && MOBILENO.Length == 10)
+							if (!string.IsNullOrEmpty(mob) && MOBILENO.Length == 10)
                             {
                                 string Sms = "Your Login details are School Code: " + sid + " and Password: " + password + ". Click to Login Here registration2023.pseb.ac.in. Regards PSEB";
                                 //string Sms = "Your Login details are School Code: " + sid + " and Password: " + password + ". Click to Login Here https://registration2021.pseb.ac.in/Login. Regards PSEB";
@@ -485,33 +485,33 @@ namespace PSEBONLINE.Controllers
                                 {
                                     ViewBag.SubmitValue = "Resend";
                                     ViewData["result"] = "11";
-                                    ViewBag.Message = "SMS Has Been Successfully Send to your Registered Mobile Number : " + MOBILENO + "";
-                                    ModelState.Clear();
+                                    ViewBag.Message = "SMS Has Been Successfully Send to your Registered Mobile Number : " + mob + "";
+                                    //ModelState.Clear();
                                 }
                             }
 
 
-                            if (!string.IsNullOrEmpty(to))
-                            {
+        //                    if (!string.IsNullOrEmpty(to))
+        //                    {
 
-                                string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + SchoolNameWithCode + "</b>,</td></tr><tr><td height=" + 30 + ">As per your request Dated <b>" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</b> Regarding Forget Password</td></tr><tr><td><b>Your Login Details are given Below:-</b><br /><b>School Login Id (School Code) :</b> " + sid + "<br /><b>Password :</b> " + password + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://https://registration2023.pseb.ac.in target = _blank>https://registration2023.pseb.ac.in</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
-                                string subject = "PSEB-Forgot Password Notification";
-                                bool result = dbclass.mail(subject, body, to);
-                                bool sendmail = new AbstractLayer.DBClass().sendEmail("psebonline@gmail.com",to, subject, body);
-								if (sendmail == true)
-                                {
-                                    ViewBag.SubmitValue = "Resend";
-                                    ViewData["result"] = "1";
-                                    //ViewBag.Message = "Thank You, Your Password Send To Your "+ to + " EmailId Successfully....";
-                                    ViewBag.Message = "Password Has Been Successfully Send to your Registered Email Id  " + to + "";
-                                    ModelState.Clear();
-                                }
-                                else
-                                {
-                                    ViewData["result"] = "0";
-                                    ViewBag.Message = "Password Not Sent....";
-                                }
-                            }
+        //                        string body = "<table width=" + 600 + " cellpadding=" + 4 + " cellspacing=" + 4 + " border=" + 0 + "><tr><td><b>Dear " + SchoolNameWithCode + "</b>,</td></tr><tr><td height=" + 30 + ">As per your request Dated <b>" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + "</b> Regarding Forget Password</td></tr><tr><td><b>Your Login Details are given Below:-</b><br /><b>School Login Id (School Code) :</b> " + sid + "<br /><b>Password :</b> " + password + "<br /></td></tr><tr><td height=" + 30 + "><b>Click Here To Login</b> <a href=https://https://registration2023.pseb.ac.in target = _blank>https://registration2023.pseb.ac.in</a></td></tr><tr><td><b>Note:</b> Please Read Instruction Carefully Before filling the Online Form .</td></tr><tr><td>This is a system generated e-mail and please do not reply. Add <a target=_blank href=mailto:noreply@psebonline.in>noreply@psebonline.in</a> to your white list / safe sender list. Else, your mailbox filter or ISP (Internet Service Provider) may stop you from receiving e-mails.</td></tr><tr><td><b><i>Regards</b><i>,<br /> Tech Team, <br />Punjab School Education Board<br /><tr><td><b>Contact Us</b><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- BARNALA, FATEHGARH SAHIB, GURDASPUR, HOSHIARPUR, JALANDHAR, KAPURTHALA, SHRI MUKTSAR SAHIB, S.B.S. NAGAR, PATHANKOT, PATIALA, SANGRUR, CHANDIGARH &amp; OTHER STATES<br><br><b>Email Id:</b> <a href=mailto:psebhelpdesk@gmail.com target=_blank>psebhelpdesk@gmail.com</a><br><b>Toll Free Help Line No. :</b> 8058911911<br>DISTRICTS:- AMRITSAR, BATHINDA, FARIDKOT, FAZILKA, FEROZEPUR, LUDHIANA, MANSA, MOGA, ROOP NAGAR, S.A.S NAGAR,TARN TARAN<br></td></tr>";
+        //                        string subject = "PSEB-Forgot Password Notification";
+        //                        bool result = dbclass.mail(subject, body, to);
+        //                        bool sendmail = new AbstractLayer.DBClass().sendEmail("psebonline@gmail.com",to, subject, body);
+								//if (sendmail == true)
+        //                        {
+        //                            ViewBag.SubmitValue = "Resend";
+        //                            ViewData["result"] = "1";
+        //                            //ViewBag.Message = "Thank You, Your Password Send To Your "+ to + " EmailId Successfully....";
+        //                            ViewBag.Message = "Password Has Been Successfully Send to your Registered Email Id  " + to + "";
+        //                            ModelState.Clear();
+        //                        }
+        //                        else
+        //                        {
+        //                            ViewData["result"] = "0";
+        //                            ViewBag.Message = "Password Not Sent....";
+        //                        }
+        //                    }
 
                         }
                         else
@@ -537,7 +537,7 @@ namespace PSEBONLINE.Controllers
             {
                 oErrorLog.WriteErrorLog(ex.ToString(), Path.GetFileName(Request.Path));
             }
-            return View();
+            return View(lm);
         }
 
         public string getlastSessions(string input)
